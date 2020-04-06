@@ -1,0 +1,25 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "techmod:ores/lead_ore"
+	},
+	"variants": {
+		"stonetype": {
+			"stone": {
+				"textures": {
+					"base": "blocks/stone",
+					"overlay": "techmod:blocks/ores/lead",
+					"particle": "blocks/stone"
+				}
+			}
+		},
+		"inventory": [{
+			"model": "techmod:ores/lead_ore",
+			"textures": {
+				"base": "blocks/stone",
+				"overlay": "techmod:blocks/ores/lead",
+				"particle": "blocks/stone"
+			}
+		}]
+	}
+}

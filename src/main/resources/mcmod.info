@@ -1,0 +1,16 @@
+[
+{
+  "modid": "untitledfornow",
+  "name": "Untitled Mod",
+  "description": "Tech mod.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Awsome"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
