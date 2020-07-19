@@ -1,3 +1,8 @@
 {
-    "parent": "techmod:block/ores/nickel_ore"
+    "parent": "techmod:block/ores/nickel_ore",
+	"textures": {
+		"base": "blocks/stone",
+        "overlay": "techmod:blocks/ores/nickel",
+		"particle": "blocks/stone"
+    }
 }

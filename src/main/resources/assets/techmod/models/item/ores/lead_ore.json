@@ -1,3 +1,8 @@
 {
-    "parent": "techmod:block/ores/lead_ore"
+    "parent": "techmod:block/ores/lead_ore",
+	"textures": {
+		"base": "blocks/stone",
+        "overlay": "techmod:blocks/ores/lead",
+		"particle": "blocks/stone"
+    }
 }
