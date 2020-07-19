@@ -3,7 +3,9 @@ package com.awsome.techmod.proxy;
 import com.awsome.techmod.Reference;
 import com.awsome.techmod.Techmod;
 import com.awsome.techmod.blocks.BlockModOre;
+import com.awsome.techmod.blocks.BlockOreSample;
 import com.awsome.techmod.items.ItemIngot;
+import com.awsome.techmod.items.ItemOreCluster;
 import com.awsome.techmod.setup.BlockSetup;
 import com.awsome.techmod.setup.ItemSetup;
 
@@ -27,7 +29,10 @@ public class CommonProxy {
 		Techmod.logger.info("Registering Blocks...");
 		for (BlockModOre block : BlockSetup.ORES) {
 			registry.register(block);
-			Techmod.logger.info("Registered " + block.getUnlocalizedName());
+			Techmod.logger.info("Registered " + block.getRegistryName());
+		}
+		for (BlockOreSample block : BlockSetup.SAMPLES) {
+			registry.register(block);
 		}
 	}
 	
@@ -37,11 +42,17 @@ public class CommonProxy {
 		Techmod.logger.info("[Tech Mod] Registering Items...");
 		for (ItemIngot item : ItemSetup.INGOTITEMS) {
 			registry.register(item);
-			Techmod.logger.info("Registered " + item.getUnlocalizedName());
+			Techmod.logger.info("Registered " + item.getRegistryName());
 		}
 		for (BlockModOre itemblock : BlockSetup.ORES) {
 			registry.register(new ItemBlock(itemblock).setRegistryName(itemblock.getRegistryName()));
-			Techmod.logger.info("Registered " + itemblock.getUnlocalizedName());
+			Techmod.logger.info("Registered " + itemblock.getRegistryName());
+		}
+		for (ItemOreCluster item : ItemSetup.ORECLUSTERS) {
+			registry.register(item);
+		}
+		for (BlockOreSample itemblock : BlockSetup.SAMPLES) {
+			registry.register(new ItemBlock(itemblock).setRegistryName(itemblock.getRegistryName()));
 		}
 	}
 	

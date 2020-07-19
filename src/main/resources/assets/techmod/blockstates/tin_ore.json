@@ -7,19 +7,19 @@
 		"stonetype": {
 			"stone": {
 				"textures": {
-					"base": "blocks/stone",
+					"base": "minecraft:blocks/stone",
 					"overlay": "techmod:blocks/ores/tin",
 					"particle": "blocks/stone"
 				}
 			}
 		},
-		"inventory": [{
+		"inventory": {
 			"model": "techmod:ores/tin_ore",
 			"textures": {
 				"base": "blocks/stone",
 				"overlay": "techmod:blocks/ores/tin",
 				"particle": "blocks/stone"
 			}
-		}]
+		}
 	}
 }

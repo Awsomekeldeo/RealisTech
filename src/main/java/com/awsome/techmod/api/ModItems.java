@@ -10,4 +10,11 @@ public class ModItems {
 	public static Item cobaltIngot;
 	public static Item silverIngot;
 	public static Item zincIngot;
+	public static Item copperCluster;
+	public static Item tinCluster;
+	public static Item leadCluster;
+	public static Item nickelCluster;
+	public static Item zincCluster;
+	public static Item cobaltCluster;
+	public static Item silverCluster;
 }

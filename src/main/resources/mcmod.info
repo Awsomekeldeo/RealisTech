@@ -1,7 +1,7 @@
 [
 {
-  "modid": "untitledfornow",
-  "name": "Untitled Mod",
+  "modid": "techmod",
+  "name": "Untitled Tech Mod",
   "description": "Tech mod.",
   "version": "${version}",
   "mcversion": "${mcversion}",

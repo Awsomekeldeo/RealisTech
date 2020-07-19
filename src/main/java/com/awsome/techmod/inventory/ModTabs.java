@@ -8,7 +8,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ModTabs extends CreativeTabs {
 	
-	public static final CreativeTabs MATERIALS = new ModTabs("Tech Mod Materials");
+	public static final CreativeTabs MATERIALS = new ModTabs("tmmaterials");
 	public static final CreativeTabs ORES = new ModTabs("tmores");
 	
 	private ItemStack is;
