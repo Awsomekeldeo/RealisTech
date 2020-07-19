@@ -10,4 +10,11 @@ public class ModBlocks {
 	public static Block nickelOre;
 	public static Block cobaltOre;
 	public static Block zincOre;
+	public static Block copperSample;
+	public static Block tinSample;
+	public static Block silverSample;
+	public static Block leadSample;
+	public static Block nickelSample;
+	public static Block cobaltSample;
+	public static Block zincSample;
 }
