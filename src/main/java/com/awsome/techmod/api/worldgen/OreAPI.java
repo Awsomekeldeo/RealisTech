@@ -8,7 +8,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.awsome.testmod.util.worldgen.OreGenerator;
+import com.awsome.techmod.util.worldgen.OreGenerator;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;

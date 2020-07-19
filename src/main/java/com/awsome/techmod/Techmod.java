@@ -7,9 +7,9 @@ import com.awsome.techmod.inventory.TabSetup;
 import com.awsome.techmod.proxy.CommonProxy;
 import com.awsome.techmod.setup.BlockSetup;
 import com.awsome.techmod.setup.ItemSetup;
+import com.awsome.techmod.util.worldgen.OreGenerator;
+import com.awsome.techmod.util.worldgen.VanillaGenOverride;
 import com.awsome.techmod.world.ChunkData;
-import com.awsome.testmod.util.worldgen.OreGenerator;
-import com.awsome.testmod.util.worldgen.VanillaGenOverride;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;

@@ -1,4 +1,4 @@
-package com.awsome.testmod.util;
+package com.awsome.techmod.util;
 
 import java.util.Map;
 

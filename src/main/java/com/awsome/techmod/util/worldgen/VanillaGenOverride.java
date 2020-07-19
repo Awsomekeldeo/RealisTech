@@ -1,4 +1,4 @@
-package com.awsome.testmod.util.worldgen;
+package com.awsome.techmod.util.worldgen;
 
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;

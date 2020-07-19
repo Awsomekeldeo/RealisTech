@@ -1,10 +1,10 @@
-package com.awsome.testmod.util.worldgen;
+package com.awsome.techmod.util.worldgen;
 
 import java.util.Random;
 
 import com.awsome.techmod.api.worldgen.IOre;
 import com.awsome.techmod.api.worldgen.OreAPI;
-import com.awsome.testmod.util.Utils;
+import com.awsome.techmod.util.Utils;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
