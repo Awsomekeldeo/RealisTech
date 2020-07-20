@@ -2,7 +2,7 @@
     "parent": "block/block",
     "textures": {
 		"base": "missingno",
-        "overlay": "techmod:blocks/ores/coal",
+        "overlay": "techmod:blocks/ores/gold",
 		"particle": "missingno"
     },
 	"elements": [

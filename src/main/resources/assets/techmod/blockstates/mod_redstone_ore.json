@@ -1,0 +1,25 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "techmod:ores/redstone_ore"
+	},
+	"variants": {
+		"stonetype": {
+			"stone": {
+				"textures": {
+					"base": "blocks/stone",
+					"overlay": "techmod:blocks/ores/redstone",
+					"particle": "blocks/stone"
+				}
+			}
+		},
+		"inventory": [{
+			"model": "techmod:ores/redstone_ore",
+			"textures": {
+				"base": "blocks/stone",
+				"overlay": "techmod:blocks/ores/redstone",
+				"particle": "blocks/stone"
+			}
+		}]
+	}
+}

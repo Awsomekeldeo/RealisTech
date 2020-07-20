@@ -1,0 +1,7 @@
+{
+	"parent": "techmod:block/ores/samples/cluster_base",
+	"textures": {
+		"2": "techmod:items/clusters/iron",
+		"particle": "techmod:items/clusters/iron"
+	}
+}

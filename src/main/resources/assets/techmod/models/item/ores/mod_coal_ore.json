@@ -1,0 +1,8 @@
+{
+    "parent": "techmod:block/ores/coal_ore",
+	"textures": {
+		"base": "blocks/stone",
+        "overlay": "techmod:blocks/ores/coal",
+		"particle": "blocks/stone"
+    }
+}

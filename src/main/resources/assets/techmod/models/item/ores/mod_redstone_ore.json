@@ -1,0 +1,8 @@
+{
+    "parent": "techmod:block/ores/redstone_ore",
+	"textures": {
+		"base": "blocks/stone",
+        "overlay": "techmod:blocks/ores/redstone",
+		"particle": "blocks/stone"
+    }
+}
