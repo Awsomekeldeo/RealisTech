@@ -1,19 +1,15 @@
 package com.awsome.techmod.setup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.awsome.techmod.api.ModBlocks;
-import com.awsome.techmod.api.ModItems;
 import com.awsome.techmod.blocks.BlockModOre;
 import com.awsome.techmod.blocks.BlockOreSample;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import scala.actors.threadpool.Arrays;
 
 public class BlockSetup extends ModBlocks {
 	
@@ -35,25 +31,25 @@ public class BlockSetup extends ModBlocks {
 		silverSample = new BlockOreSample("silver_sample", "silver_sample");
 		zincSample = new BlockOreSample("zinc_sample", "zinc_sample");
 		cobaltSample = new BlockOreSample("cobalt_sample", "cobalt_sample");
+		coalSample = new BlockOreSample("coal_sample", "coal_sample");
+		ironSample = new BlockOreSample("iron_sample", "iron_sample");
+		diamondSample = new BlockOreSample("diamond_sample", "diamond_sample");
+		goldSample = new BlockOreSample("gold_sample", "gold_sample");
+		redstoneSample = new BlockOreSample("redstone_sample", "redstone_sample");
+		lapisSample = new BlockOreSample("lapis_sample", "lapis_sample");
+		emeraldSample = new BlockOreSample("emerald_sample", "emerald_sample");
+		modCoalOre = new BlockModOre("mod_coal_ore", "mod_coal_ore", 0);
+		modIronOre = new BlockModOre("mod_iron_ore", "mod_iron_ore", 1);
+		modGoldOre = new BlockModOre("mod_gold_ore", "mod_gold_ore", 2);
+		modLapisOre = new BlockModOre("mod_lapis_ore", "mod_lapis_ore", 1);
+		modDiamondOre = new BlockModOre("mod_diamond_ore", "mod_diamond_ore", 2);
+		modEmeraldOre = new BlockModOre("mod_emerald_ore", "mod_emerald_ore", 2);
+		modRedstoneOre = new BlockModOre("mod_redstone_ore", "mod_redstone_ore", 2);
 		loadBlocks();
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static void loadBlocks() {
-		((BlockModOre)copperOre).setDrops(new ArrayList<ItemStack>(Arrays.asList(new ItemStack[] {new ItemStack(ModItems.copperCluster)})));
-		((BlockModOre)tinOre).setDrops(new ArrayList<ItemStack>(Arrays.asList(new ItemStack[] {new ItemStack(ModItems.tinCluster)})));
-		((BlockModOre)leadOre).setDrops(new ArrayList<ItemStack>(Arrays.asList(new ItemStack[] {new ItemStack(ModItems.leadCluster)})));
-		((BlockModOre)nickelOre).setDrops(new ArrayList<ItemStack>(Arrays.asList(new ItemStack[] {new ItemStack(ModItems.nickelCluster)})));
-		((BlockModOre)silverOre).setDrops(new ArrayList<ItemStack>(Arrays.asList(new ItemStack[] {new ItemStack(ModItems.silverCluster)})));
-		((BlockModOre)cobaltOre).setDrops(new ArrayList<ItemStack>(Arrays.asList(new ItemStack[] {new ItemStack(ModItems.cobaltCluster)})));
-		((BlockModOre)zincOre).setDrops(new ArrayList<ItemStack>(Arrays.asList(new ItemStack[] {new ItemStack(ModItems.zincCluster)})));
-		((BlockOreSample)copperSample).setDrops(new ArrayList<ItemStack>(Arrays.asList(new ItemStack[] {new ItemStack(ModItems.copperCluster)})));
-		((BlockOreSample)tinSample).setDrops(new ArrayList<ItemStack>(Arrays.asList(new ItemStack[] {new ItemStack(ModItems.tinCluster)})));
-		((BlockOreSample)leadSample).setDrops(new ArrayList<ItemStack>(Arrays.asList(new ItemStack[] {new ItemStack(ModItems.leadCluster)})));
-		((BlockOreSample)nickelSample).setDrops(new ArrayList<ItemStack>(Arrays.asList(new ItemStack[] {new ItemStack(ModItems.nickelCluster)})));
-		((BlockOreSample)silverSample).setDrops(new ArrayList<ItemStack>(Arrays.asList(new ItemStack[] {new ItemStack(ModItems.silverCluster)})));
-		((BlockOreSample)zincSample).setDrops(new ArrayList<ItemStack>(Arrays.asList(new ItemStack[] {new ItemStack(ModItems.zincCluster)})));
-		((BlockOreSample)cobaltSample).setDrops(new ArrayList<ItemStack>(Arrays.asList(new ItemStack[] {new ItemStack(ModItems.cobaltCluster)})));
+		
 	}
 	
 	@SideOnly(Side.CLIENT)

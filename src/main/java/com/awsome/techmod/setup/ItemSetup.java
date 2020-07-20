@@ -31,6 +31,8 @@ public class ItemSetup extends ModItems {
 		cobaltCluster = new ItemOreCluster("cobalt_cluster", "cobalt_cluster");
 		silverCluster = new ItemOreCluster("silver_cluster", "silver_cluster");
 		nickelCluster = new ItemOreCluster("nickel_cluster", "nickel_cluster");
+		ironCluster = new ItemOreCluster("iron_cluster", "iron_cluster");
+		goldCluster = new ItemOreCluster("gold_cluster", "gold_cluster");
 	}
 	
 	@SideOnly(Side.CLIENT)

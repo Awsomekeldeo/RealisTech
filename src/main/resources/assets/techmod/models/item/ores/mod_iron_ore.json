@@ -1,0 +1,8 @@
+{
+    "parent": "techmod:block/ores/iron_ore",
+	"textures": {
+		"base": "blocks/stone",
+        "overlay": "techmod:blocks/ores/iron",
+		"particle": "blocks/stone"
+    }
+}

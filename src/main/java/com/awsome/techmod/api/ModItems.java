@@ -17,4 +17,6 @@ public class ModItems {
 	public static Item zincCluster;
 	public static Item cobaltCluster;
 	public static Item silverCluster;
+	public static Item ironCluster;
+	public static Item goldCluster;
 }

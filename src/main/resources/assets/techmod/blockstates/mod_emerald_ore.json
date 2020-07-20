@@ -1,0 +1,25 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "techmod:ores/emerald_ore"
+	},
+	"variants": {
+		"stonetype": {
+			"stone": {
+				"textures": {
+					"base": "blocks/stone",
+					"overlay": "techmod:blocks/ores/emerald",
+					"particle": "blocks/stone"
+				}
+			}
+		},
+		"inventory": [{
+			"model": "techmod:ores/emerald_ore",
+			"textures": {
+				"base": "blocks/stone",
+				"overlay": "techmod:blocks/ores/emerald",
+				"particle": "blocks/stone"
+			}
+		}]
+	}
+}

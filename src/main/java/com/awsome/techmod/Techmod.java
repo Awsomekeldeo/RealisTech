@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import com.awsome.techmod.api.worldgen.registry.OreDepositRegistration;
 import com.awsome.techmod.inventory.TabSetup;
 import com.awsome.techmod.proxy.CommonProxy;
+import com.awsome.techmod.recipes.ModRecipes;
 import com.awsome.techmod.setup.BlockSetup;
 import com.awsome.techmod.setup.ItemSetup;
 import com.awsome.techmod.util.worldgen.OreGenerator;
@@ -48,6 +49,7 @@ public class Techmod {
 	public void init(FMLInitializationEvent e) {
 		MinecraftForge.ORE_GEN_BUS.register(new VanillaGenOverride());
 		OreDepositRegistration.init();
+		ModRecipes.init();
 		TabSetup.setup();
 		proxy.init(e);
 	}

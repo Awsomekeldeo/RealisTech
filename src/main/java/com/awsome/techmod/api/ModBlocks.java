@@ -17,4 +17,18 @@ public class ModBlocks {
 	public static Block nickelSample;
 	public static Block cobaltSample;
 	public static Block zincSample;
+	public static Block ironSample;
+	public static Block redstoneSample;
+	public static Block coalSample;
+	public static Block lapisSample;
+	public static Block goldSample;
+	public static Block emeraldSample;
+	public static Block diamondSample;
+	public static Block modIronOre;
+	public static Block modRedstoneOre;
+	public static Block modDiamondOre;
+	public static Block modEmeraldOre;
+	public static Block modCoalOre;
+	public static Block modLapisOre;
+	public static Block modGoldOre;
 }
