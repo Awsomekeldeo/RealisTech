@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "techmod:block/firebox"
+    },
+    "facing=south": {
+      "model": "techmod:block/firebox",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "techmod:block/firebox",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "techmod:block/firebox",
+      "y": 90
+    }
+  }
+}

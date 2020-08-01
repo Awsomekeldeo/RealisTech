@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "techmod:blocks/ores/mod_emerald",
+    "particle": "techmod:blocks/ores/mod_emerald"
+  }
+}

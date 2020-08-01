@@ -1,9 +1,0 @@
-{
-	"forge_marker": 1,
-	"defaults": {
-		"model": "techmod:ores/samples/copper_sample"
-	},
-	"variants": {
-		"normal": [{}]
-	}
-}

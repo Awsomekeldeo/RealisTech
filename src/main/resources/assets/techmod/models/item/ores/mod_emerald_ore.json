@@ -1,8 +1,0 @@
-{
-    "parent": "techmod:block/ores/emerald_ore",
-	"textures": {
-		"base": "blocks/stone",
-        "overlay": "techmod:blocks/ores/emerald",
-		"particle": "blocks/stone"
-    }
-}

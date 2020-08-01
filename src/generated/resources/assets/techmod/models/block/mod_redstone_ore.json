@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "techmod:blocks/ores/mod_redstone",
+    "particle": "techmod:blocks/ores/mod_redstone"
+  }
+}

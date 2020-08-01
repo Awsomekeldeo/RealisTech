@@ -1,8 +1,0 @@
-{
-    "parent": "techmod:block/ores/lapis_ore",
-	"textures": {
-		"base": "blocks/stone",
-        "overlay": "techmod:blocks/ores/lapis",
-		"particle": "blocks/stone"
-    }
-}

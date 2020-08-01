@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[31,)"
+
+issueTrackerUrl="https://github.com/Awsomekeldeo/TechMod/issues"
+showAsResourcePack=false
+
+[[mods]]
+	modId="techmod"
+	version="0.0.1"
+	displayName="Untitled Tech Mod"
+	logoFile="logo.png"
+	authors="Awsomekeldeo"
+	description='''
+	A work-in-progress Tech Mod
+	'''
+	
+	[[dependencies.techmod]]
+		modId="forge"
+		mandatory=true
+		versionRange="[31,)"
+		ordering="NONE"
+		side="BOTH"
+		
+	[[dependencies.techmod]]
+        modId="minecraft"
+        mandatory=true
+        versionRange="[1.15.1,)"
+        ordering="NONE"
+        side="BOTH"

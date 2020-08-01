@@ -1,8 +1,0 @@
-{
-    "parent": "techmod:block/ores/silver_ore",
-	"textures": {
-		"base": "blocks/stone",
-        "overlay": "techmod:blocks/ores/silver",
-		"particle": "blocks/stone"
-    }
-}
