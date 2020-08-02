@@ -1,25 +1,7 @@
 {
-	"forge_marker": 1,
-	"defaults": {
-		"model": "techmod:ores/gold_ore"
-	},
-	"variants": {
-		"stonetype": {
-			"stone": {
-				"textures": {
-					"base": "blocks/stone",
-					"overlay": "techmod:blocks/ores/gold",
-					"particle": "blocks/stone"
-				}
-			}
-		},
-		"inventory": [{
-			"model": "techmod:ores/gold_ore",
-			"textures": {
-				"base": "blocks/stone",
-				"overlay": "techmod:blocks/ores/gold",
-				"particle": "blocks/stone"
-			}
-		}]
-	}
+  "variants": {
+    "": {
+      "model": "techmod:block/ores/mod_gold_ore"
+    }
+  }
 }

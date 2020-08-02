@@ -1,34 +1,7 @@
 {
-    "parent": "block/cube_all",
-    "textures": {
-		"base": "missingno",
-        "overlay": "techmod:blocks/ores/zinc",
-		"particle": "missingno"
-    },
-	"elements": [
-		{
-			"from": [0, 0, 0],
-			"to": [16, 16, 16],
-			"faces": {
-				"up": { "texture": "#base", "cullface": "up" },
-				"down": { "texture": "#base", "cullface": "down" },
-				"north": { "texture": "#base", "cullface": "north" },
-				"east": { "texture": "#base", "cullface": "east" },
-				"south": { "texture": "#base", "cullface": "south" },
-				"west": { "texture": "#base", "cullface": "west" }
-			}
-		},
-		{
-			"from": [0, 0, 0],
-			"to": [16, 16, 16],
-			"faces": {
-				"up": { "texture": "#overlay", "cullface": "up" },
-				"down": { "texture": "#overlay", "cullface": "down" },
-				"north": { "texture": "#overlay", "cullface": "north" },
-				"east": { "texture": "#overlay", "cullface": "east" },
-				"south": { "texture": "#overlay", "cullface": "south" },
-				"west": { "texture": "#overlay", "cullface": "west" }
-			}
-		}
-	]
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "techmod:blocks/ores/zinc",
+    "particle": "techmod:blocks/ores/zinc"
+  }
 }

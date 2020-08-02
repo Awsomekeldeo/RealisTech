@@ -1,6 +1,6 @@
 {
-	"parent": "item/generated",
-	"textures": {
-		"layer0": "techmod:items/clusters/silver"
-	}
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "techmod:items/clusters/silver"
+  }
 }

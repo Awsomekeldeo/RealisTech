@@ -1,25 +1,7 @@
 {
-	"forge_marker": 1,
-	"defaults": {
-		"model": "techmod:ores/diamond_ore"
-	},
-	"variants": {
-		"stonetype": {
-			"stone": {
-				"textures": {
-					"base": "blocks/stone",
-					"overlay": "techmod:blocks/ores/diamond",
-					"particle": "blocks/stone"
-				}
-			}
-		},
-		"inventory": [{
-			"model": "techmod:ores/diamond_ore",
-			"textures": {
-				"base": "blocks/stone",
-				"overlay": "techmod:blocks/ores/diamond",
-				"particle": "blocks/stone"
-			}
-		}]
-	}
+  "variants": {
+    "": {
+      "model": "techmod:block/ores/mod_diamond_ore"
+    }
+  }
 }

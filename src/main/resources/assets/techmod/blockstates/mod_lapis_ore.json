@@ -1,25 +1,7 @@
 {
-	"forge_marker": 1,
-	"defaults": {
-		"model": "techmod:ores/lapis_ore"
-	},
-	"variants": {
-		"stonetype": {
-			"stone": {
-				"textures": {
-					"base": "blocks/stone",
-					"overlay": "techmod:blocks/ores/lapis",
-					"particle": "blocks/stone"
-				}
-			}
-		},
-		"inventory": [{
-			"model": "techmod:ores/lapis_ore",
-			"textures": {
-				"base": "blocks/stone",
-				"overlay": "techmod:blocks/ores/lapis",
-				"particle": "blocks/stone"
-			}
-		}]
-	}
+  "variants": {
+    "": {
+      "model": "techmod:block/ores/mod_lapis_ore"
+    }
+  }
 }
