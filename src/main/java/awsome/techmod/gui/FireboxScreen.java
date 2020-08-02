@@ -6,11 +6,8 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import awsome.techmod.Reference;
-import awsome.techmod.api.capability.energy.CapabilityHeat;
-import awsome.techmod.api.capability.energy.IHeat;
 import awsome.techmod.inventory.container.ContainerFirebox;
 import awsome.techmod.tileentity.TEFirebox;
-import awsome.techmod.util.MathUtil;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
@@ -20,10 +17,12 @@ import net.minecraft.util.text.ITextComponent;
 public class FireboxScreen extends ContainerScreen<ContainerFirebox> {
 	private ResourceLocation GUI = new ResourceLocation(Reference.MODID, "textures/gui/firebox.png");
 	private TEFirebox tileEntity;
+	public ITextComponent name;
 	
 	public FireboxScreen(ContainerFirebox screenContainer, PlayerInventory inv, ITextComponent titleIn) {
 		super(screenContainer, inv, titleIn);
 		this.tileEntity = (TEFirebox) screenContainer.tileEntity;
+		this.name = titleIn;
 	}
 	
 	@Override
@@ -33,13 +32,10 @@ public class FireboxScreen extends ContainerScreen<ContainerFirebox> {
 		this.renderHoveredToolTip(mouseX, mouseY);
 		int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
-        IHeat heatCap = tileEntity.getCapability(CapabilityHeat.HEAT_CAPABILITY, null).orElseThrow(() -> new IllegalArgumentException("Heat capability cannot be empty"));
-        float temp = heatCap.getTemperature();
-        float roundedTemp = MathUtil.roundFloat(temp, 2);
         if (mouseX >= i + 152 && mouseX <= i + 160 && mouseY >= j + 6 && mouseY <= j + 78)
         {
             List<String> lines = Lists.newArrayList();
-            lines.add(I18n.format("techmod.info.temperature", roundedTemp));
+            lines.add(I18n.format("techmod.info.temperature", ((ContainerFirebox)this.container).getTemperature()));
             this.renderTooltip(lines, mouseX, mouseY);
         }
 	}
@@ -57,12 +53,14 @@ public class FireboxScreen extends ContainerScreen<ContainerFirebox> {
 			int k = ((ContainerFirebox)this.container).getBurnLeftScaled();
 			this.blit(i + 80, j + 28 + 12 - k, 176, 12 - k, 14, k + 1);
 		}
+		int l = ((ContainerFirebox)this.container).getTemperatureScaled();
+		this.blit(i + 153, j + 10 + 62 - l, 176, 15 + 62 - l, 6, l);
 	}
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		String name = tileEntity.getDisplayName().getUnformattedComponentText();
 		font.drawString(name, 8, 6, 0x404040);
-		font.drawString(playerInventory.getDisplayName().getUnformattedComponentText(), 10, ySize - 96, 0x404040);
+		font.drawString(this.name.getUnformattedComponentText(), 10, ySize - 96, 0x404040);
 	}
 }

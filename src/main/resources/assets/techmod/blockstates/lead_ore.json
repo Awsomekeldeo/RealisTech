@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "techmod:block/lead_ore"
+      "model": "techmod:block/ores/lead_ore"
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "techmod:block/nickel_ore"
+      "model": "techmod:block/ores/nickel_ore"
     }
   }
 }

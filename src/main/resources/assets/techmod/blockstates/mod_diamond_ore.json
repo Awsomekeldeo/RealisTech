@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "techmod:block/mod_diamond_ore"
+      "model": "techmod:block/ores/mod_diamond_ore"
     }
   }
 }

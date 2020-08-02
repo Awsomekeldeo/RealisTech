@@ -17,6 +17,7 @@ import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.ModelFile.ExistingModelFile;
 
 public class BlockStates extends BlockStateProvider {
 	
@@ -30,12 +31,13 @@ public class BlockStates extends BlockStateProvider {
 	protected void registerStatesAndModels() {
 		registerFirebox();
 		registerOreBlocks();
+		registerCrucible();
 	}
 	
 	private void registerOreBlocks() {
 		for (BlockModOre ore : ORE_LIST) {
 			ResourceLocation texture = new ResourceLocation(Reference.MODID, "blocks/ores/" + ore.getRegistryName().getPath().substring(0, ore.getRegistryName().getPath().length() - 4));
-			BlockModelBuilder modelOre = models().cubeAll(ore.getRegistryName().getPath(), texture).texture("particle", texture);
+			BlockModelBuilder modelOre = models().cubeAll("block/ores/" + ore.getRegistryName().getPath(), texture).texture("particle", texture);
 			simpleBlock(ore, modelOre);
 		}
 	}
@@ -45,10 +47,15 @@ public class BlockStates extends BlockStateProvider {
 		ResourceLocation tex1 = new ResourceLocation(Reference.MODID, "blocks/machines/firebox_top");
 		ResourceLocation tex2 = new ResourceLocation(Reference.MODID, "blocks/machines/firebox_bottom");
 		ResourceLocation tex3 = new ResourceLocation(Reference.MODID, "blocks/machines/firebox_front");
-		BlockModelBuilder modelFirebox = models().cube("firebox", tex2, tex1, tex3, tex, tex, tex).texture("particle", tex3);
+		BlockModelBuilder modelFirebox = models().cube("block/machines/firebox", tex2, tex1, tex3, tex, tex, tex).texture("particle", tex3);
 		orientedBlock(Registration.FIREBOX.get(), state -> {
 			return modelFirebox;
 		});
+	}
+	
+	private void registerCrucible() {
+		ExistingModelFile modelCrucible = models().getExistingFile(new ResourceLocation(Reference.MODID, "block/machines/crucible"));
+		simpleBlock(Registration.CRUCIBLE.get(), modelCrucible);
 	}
 	
 	private void orientedBlock(Block block, Function<BlockState, ModelFile> modelFunc) {

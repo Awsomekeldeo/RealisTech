@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "techmod:block/zinc_ore"
+      "model": "techmod:block/ores/zinc_ore"
     }
   }
 }

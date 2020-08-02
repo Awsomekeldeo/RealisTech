@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "techmod:block/mod_coal_ore"
+      "model": "techmod:block/ores/mod_coal_ore"
     }
   }
 }

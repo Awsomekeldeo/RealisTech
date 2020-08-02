@@ -2,6 +2,7 @@ package awsome.techmod.api.capability.impl;
 
 import awsome.techmod.api.capability.energy.CapabilityHeat;
 import awsome.techmod.api.capability.energy.IHeat;
+import awsome.techmod.util.MathUtil;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -24,7 +25,7 @@ public class HeatHandler implements IHeat, INBTSerializable<CompoundNBT> {
 		this.te = te;
 		this.maxTemperature = maxTemp;
 		this.transmitsHeat = canTransmitHeat;
-		getBaseTempBasedOnBiome(this.te.getPos());
+		this.temperature = getBaseTempBasedOnBiome(this.te.getPos());
 	}
 	
 	public HeatHandler heatProducer(TileEntity te, float maxTemp) {
@@ -39,7 +40,7 @@ public class HeatHandler implements IHeat, INBTSerializable<CompoundNBT> {
 		if (temp < getBaseTempBasedOnBiome(this.te.getPos()) && !canCool ) {
 			this.temperature = getBaseTempBasedOnBiome(te.getPos());
 		}else{
-			this.temperature = temp;
+			this.temperature = MathUtil.roundFloat(temp, 2);
 		}
 	}
 	
@@ -48,7 +49,7 @@ public class HeatHandler implements IHeat, INBTSerializable<CompoundNBT> {
 		if (this.temperature < getBaseTempBasedOnBiome(this.te.getPos()) && !canCool) {
 			return getBaseTempBasedOnBiome(te.getPos());
 		}else{
-			return this.temperature;	
+			return MathUtil.roundFloat(this.temperature, 2);	
 		}
 	}
 
@@ -61,8 +62,6 @@ public class HeatHandler implements IHeat, INBTSerializable<CompoundNBT> {
 	public float changeTemp(float amount) {
 		float oldTemp = this.getTemperature();
 		float newTemp = (maxTemperature - oldTemp < amount) ? maxTemperature : (oldTemp + amount);
-		if (newTemp < 0)
-			newTemp = 0;
 		setTemp(newTemp);
 		return newTemp - oldTemp;
 	}
@@ -85,6 +84,7 @@ public class HeatHandler implements IHeat, INBTSerializable<CompoundNBT> {
 				if (heatHandler != null) {
 					if (heatHandler.canTransmitHeat() == true) {
 						float lossyTemp = (float) (heatHandler.getTemperature() * (7/8f));
+						lossyTemp = MathUtil.roundFloat(lossyTemp, 2);
 						return lossyTemp;
 					}else{
 						return this.getTemperature();
@@ -119,17 +119,14 @@ public class HeatHandler implements IHeat, INBTSerializable<CompoundNBT> {
 	@Override
 	public float getBaseTempBasedOnBiome(BlockPos pos) {
 		World world = this.te.getWorld();
-		if (!pos.equals(BlockPos.ZERO)) {
-			PooledMutable blockPos = PooledMutable.retain();
-			blockPos.setPos(pos);
-			Biome biome = world.getBiome(blockPos);
-			float biomeTemp = biome.getTemperature(blockPos);
-			float tempF = (float) (95.9451242/(1+(3.012462778*(Math.pow(Math.E, (-3.330913488*biomeTemp))))));
-			float temp = (tempF - 32) * (5.0f/9.0f);
-			blockPos.close();
-			return temp;
-		}
-		return 0;
+		PooledMutable blockPos = PooledMutable.retain();
+		blockPos.setPos(pos);
+		Biome biome = world.getBiome(blockPos);
+		float biomeTemp = biome.getTemperature(blockPos);
+		float tempF = (float) (95.9451242/(1+(3.012462778*(Math.pow(Math.E, (-3.330913488*biomeTemp))))));
+		float temp = (tempF - 32.0f) * (5.0f/9.0f);
+		blockPos.close();
+		return temp;
 	}
 
 	@Override

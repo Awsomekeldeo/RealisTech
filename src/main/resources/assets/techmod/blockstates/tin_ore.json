@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "techmod:block/tin_ore"
+      "model": "techmod:block/ores/tin_ore"
     }
   }
 }

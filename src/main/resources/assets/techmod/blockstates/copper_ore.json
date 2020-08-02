@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "techmod:block/copper_ore"
+      "model": "techmod:block/ores/copper_ore"
     }
   }
 }
