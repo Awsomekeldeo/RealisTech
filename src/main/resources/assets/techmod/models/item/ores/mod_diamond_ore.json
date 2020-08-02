@@ -1,8 +1,3 @@
 {
-    "parent": "techmod:block/ores/diamond_ore",
-	"textures": {
-		"base": "blocks/stone",
-        "overlay": "techmod:blocks/ores/diamond",
-		"particle": "blocks/stone"
-    }
+  "parent": "techmod:block/ores/mod_diamond_ore"
 }

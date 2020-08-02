@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "techmod:block/machines/crucible"
+    }
+  }
+}

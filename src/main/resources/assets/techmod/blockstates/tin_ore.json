@@ -1,25 +1,7 @@
 {
-	"forge_marker": 1,
-	"defaults": {
-		"model": "techmod:ores/tin_ore"
-	},
-	"variants": {
-		"stonetype": {
-			"stone": {
-				"textures": {
-					"base": "minecraft:blocks/stone",
-					"overlay": "techmod:blocks/ores/tin",
-					"particle": "blocks/stone"
-				}
-			}
-		},
-		"inventory": {
-			"model": "techmod:ores/tin_ore",
-			"textures": {
-				"base": "blocks/stone",
-				"overlay": "techmod:blocks/ores/tin",
-				"particle": "blocks/stone"
-			}
-		}
-	}
+  "variants": {
+    "": {
+      "model": "techmod:block/ores/tin_ore"
+    }
+  }
 }
