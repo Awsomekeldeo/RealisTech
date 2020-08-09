@@ -22,6 +22,7 @@ public class CapabilityHeat {
 				return tag;
 			}
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public void readNBT(Capability<IHeat> capability, IHeat instance, Direction side, INBT nbt) {
 				CompoundNBT tag = (CompoundNBT) nbt;

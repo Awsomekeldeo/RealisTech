@@ -11,6 +11,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.IntReferenceHolder;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -20,7 +21,19 @@ import net.minecraftforge.items.ItemStackHandler;
 public class TECrucible extends TileEntity implements ITickableTileEntity {
 	
 	private ItemStackHandler itemHandler = createItemHandler();
-	private HeatHandler heatHandler = new HeatHandler(this, 1773.0f, true);
+	private HeatHandler heatHandler = new HeatHandler(1.05f, this, 1773.0f, false, 0.5f);
+	public IntReferenceHolder crucibleData = new IntReferenceHolder() {
+		
+		@Override
+		public void set(int value) {
+			TECrucible.this.heatHandler.setTemp(value / 100.0f);
+		}
+		
+		@Override
+		public int get() {
+			return (int) (TECrucible.this.heatHandler.getTemperature() * 100.0f);
+		}
+	};
 	
 	public TECrucible() {
 		super(Registration.CRUCIBLE_TILEENTITY.get());
@@ -30,12 +43,12 @@ public class TECrucible extends TileEntity implements ITickableTileEntity {
 	private LazyOptional<IHeat> heatCap = LazyOptional.of(() -> heatHandler);
 	
 	public ItemStackHandler createItemHandler() {
-		return new ItemStackHandler(1) {
+		return new ItemStackHandler(2) {
 			
-            @Override
-            protected void onContentsChanged(int slot) {
-                markDirty();
-            }
+			@Override
+			protected void onContentsChanged(int slot) {
+				markDirty();
+			}
 
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
@@ -81,6 +94,19 @@ public class TECrucible extends TileEntity implements ITickableTileEntity {
 
 	@Override
 	public void tick() {
-		this.heatHandler.setTemp(this.heatHandler.drawHeatFromSide(getPos(), Direction.DOWN));
+		float lastKnownTemp = this.heatHandler.getTemperature();
+		if (!this.world.isRemote) {
+			if (this.heatHandler.getTemperature() < this.heatHandler.getMaxTemperature() && this.heatHandler.getTemperature() >= this.heatHandler.getBaseTempBasedOnBiome(this.getPos())) {
+				if(this.heatHandler.drawHeatFromSide(getPos(), Direction.DOWN)) {
+					this.heatHandler.heat();
+				}else{
+					this.heatHandler.cool();
+				}
+			}
+		}
+		
+		if (this.heatHandler.getTemperature() != lastKnownTemp) {
+			markDirty();
+		}
 	}
 }

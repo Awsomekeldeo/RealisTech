@@ -18,4 +18,5 @@ public class ItemIngot extends Item {
 	public static List<ItemIngot> getIngotList() {
 		return Collections.unmodifiableList(INGOT_LIST);
 	}
+	
 }
