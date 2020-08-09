@@ -2,8 +2,8 @@ package awsome.techmod.worldgen.api;
 
 import java.util.ArrayList;
 
-import awsome.worldgen.PlutonRegistry;
-import awsome.worldgen.capability.IWorldgenCapability;
+import awsome.techmod.worldgen.PlutonRegistry;
+import awsome.techmod.worldgen.capability.IWorldgenCapability;
 import net.minecraft.block.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;

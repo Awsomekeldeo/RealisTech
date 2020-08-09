@@ -1,4 +1,4 @@
-package awsome.worldgen;
+package awsome.techmod.worldgen;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -7,8 +7,8 @@ import awsome.techmod.worldgen.api.deposit.DepositBiomeRestricted;
 import awsome.techmod.worldgen.api.deposit.DepositMultiOreBiomeRestricted;
 import awsome.techmod.worldgen.api.deposit.DepositStone;
 import awsome.techmod.worldgen.api.deposit.IDeposit;
-import awsome.worldgen.feature.PlutonOreFeature;
-import awsome.worldgen.feature.PlutonStoneFeature;
+import awsome.techmod.worldgen.feature.PlutonOreFeature;
+import awsome.techmod.worldgen.feature.PlutonStoneFeature;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;

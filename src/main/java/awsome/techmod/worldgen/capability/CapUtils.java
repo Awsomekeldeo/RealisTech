@@ -1,4 +1,4 @@
-package awsome.worldgen.capability;
+package awsome.techmod.worldgen.capability;
 
 import net.minecraft.util.math.BlockPos;
 

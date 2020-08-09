@@ -3,7 +3,7 @@ package awsome.techmod.worldgen.api.deposit;
 import java.util.List;
 
 import awsome.techmod.worldgen.api.PlutonType;
-import awsome.worldgen.utils.Utils;
+import awsome.techmod.worldgen.utils.Utils;
 import net.minecraft.block.BlockState;
 
 /*

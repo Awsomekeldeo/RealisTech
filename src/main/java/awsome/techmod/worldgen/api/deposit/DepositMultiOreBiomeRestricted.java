@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import awsome.techmod.worldgen.api.PlutonType;
-import awsome.worldgen.utils.Utils;
+import awsome.techmod.worldgen.utils.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;

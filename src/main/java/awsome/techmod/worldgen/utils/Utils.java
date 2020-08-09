@@ -1,4 +1,4 @@
-package awsome.worldgen.utils;
+package awsome.techmod.worldgen.utils;
 
 import java.util.ArrayList;
 import java.util.Objects;

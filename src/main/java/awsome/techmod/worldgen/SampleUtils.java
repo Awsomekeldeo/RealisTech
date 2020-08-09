@@ -1,4 +1,4 @@
-package awsome.worldgen;
+package awsome.techmod.worldgen;
 
 import java.util.ArrayList;
 import java.util.Random;

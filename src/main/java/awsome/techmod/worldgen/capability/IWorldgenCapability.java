@@ -1,4 +1,4 @@
-package awsome.worldgen.capability;
+package awsome.techmod.worldgen.capability;
 
 import java.util.Map;
 import java.util.UUID;

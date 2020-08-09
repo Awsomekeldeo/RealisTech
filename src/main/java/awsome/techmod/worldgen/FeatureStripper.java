@@ -1,6 +1,6 @@
-package awsome.worldgen;
+package awsome.techmod.worldgen;
 
-import awsome.worldgen.utils.Utils;
+import awsome.techmod.worldgen.utils.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.world.biome.Biome;

@@ -1,4 +1,4 @@
-package awsome.worldgen.feature;
+package awsome.techmod.worldgen.feature;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,8 +16,8 @@ import awsome.techmod.worldgen.api.BlockPosDim;
 import awsome.techmod.worldgen.api.ChunkPosDim;
 import awsome.techmod.worldgen.api.OreAPI;
 import awsome.techmod.worldgen.api.deposit.IDeposit;
-import awsome.worldgen.capability.IWorldgenCapability;
-import awsome.worldgen.utils.Utils;
+import awsome.techmod.worldgen.capability.IWorldgenCapability;
+import awsome.techmod.worldgen.utils.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
