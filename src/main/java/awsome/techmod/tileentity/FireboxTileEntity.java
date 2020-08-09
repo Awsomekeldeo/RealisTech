@@ -3,7 +3,7 @@ package awsome.techmod.tileentity;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import awsome.techmod.api.capability.energy.CapabilityHeat;
+import awsome.techmod.api.capability.energy.HeatCapability;
 import awsome.techmod.api.capability.energy.IHeat;
 import awsome.techmod.api.capability.impl.HeatHandler;
 import awsome.techmod.registry.Registration;
@@ -22,7 +22,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class TEFirebox extends TileEntity implements ITickableTileEntity {
+public class FireboxTileEntity extends TileEntity implements ITickableTileEntity {
 	
 	private ItemStackHandler itemHandler = createHandler();
 	private HeatHandler heatHandler = new HeatHandler(this, 1773.0f, true, 0.25f, 0.5f);
@@ -40,13 +40,13 @@ public class TEFirebox extends TileEntity implements ITickableTileEntity {
 		public void set(int index, int value) {
 			switch(index) {
 				case 0:
-					TEFirebox.this.burnTime = value;
+					FireboxTileEntity.this.burnTime = value;
 					break;
 				case 1:
-					TEFirebox.this.currentItemBurnTime = value;
+					FireboxTileEntity.this.currentItemBurnTime = value;
 					break;
 				case 2:
-					TEFirebox.this.heatHandler.setTemp(value / 100.0f);
+					FireboxTileEntity.this.heatHandler.setTemp(value / 100.0f);
 			}
 		}
 		
@@ -54,11 +54,11 @@ public class TEFirebox extends TileEntity implements ITickableTileEntity {
 		public int get(int index) {
 			switch(index) {
 	         	case 0:
-	         		return TEFirebox.this.burnTime;
+	         		return FireboxTileEntity.this.burnTime;
 	         	case 1:
-	         		return TEFirebox.this.currentItemBurnTime;
+	         		return FireboxTileEntity.this.currentItemBurnTime;
 	         	case 2:
-	         		return (int) (TEFirebox.this.heatHandler.getTemperature() * 100);
+	         		return (int) (FireboxTileEntity.this.heatHandler.getTemperature() * 100);
 			}
 			return index;
 		}
@@ -67,7 +67,7 @@ public class TEFirebox extends TileEntity implements ITickableTileEntity {
 	private LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
 	private LazyOptional<IHeat> heatCap = LazyOptional.of(() -> heatHandler);
 	
-	public TEFirebox() {
+	public FireboxTileEntity() {
 		super(Registration.FIREBOX_TILEENTITY.get());
 		this.heatHandler.setTemp(this.heatHandler.getBaseTempBasedOnBiome(this.getPos()));
 	}
@@ -178,7 +178,7 @@ public class TEFirebox extends TileEntity implements ITickableTileEntity {
         if (cap.equals(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)) {
             return handler.cast();
         }
-        if (cap.equals(CapabilityHeat.HEAT_CAPABILITY)) {
+        if (cap.equals(HeatCapability.HEAT_CAPABILITY)) {
         	return heatCap.cast();
         }
         return super.getCapability(cap, side);

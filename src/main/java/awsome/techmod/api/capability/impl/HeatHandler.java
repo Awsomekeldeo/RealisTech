@@ -1,6 +1,6 @@
 package awsome.techmod.api.capability.impl;
 
-import awsome.techmod.api.capability.energy.CapabilityHeat;
+import awsome.techmod.api.capability.energy.HeatCapability;
 import awsome.techmod.api.capability.energy.IHeat;
 import awsome.techmod.util.MathUtil;
 import net.minecraft.nbt.CompoundNBT;
@@ -123,7 +123,7 @@ public class HeatHandler implements IHeat, INBTSerializable<CompoundNBT> {
 		if (world != null) {
 			TileEntity tile = world.getTileEntity(blockPos);
 			if (tile != null) {
-				LazyOptional<IHeat> heatCap = tile.getCapability(CapabilityHeat.HEAT_CAPABILITY, null);
+				LazyOptional<IHeat> heatCap = tile.getCapability(HeatCapability.HEAT_CAPABILITY, null);
 				IHeat heatHandler = heatCap.orElse(null);
 				if (heatHandler != null) {
 					if (heatHandler.canTransmitHeat() == true) {

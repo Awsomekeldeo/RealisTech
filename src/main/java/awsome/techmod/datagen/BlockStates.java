@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.function.Function;
 
 import awsome.techmod.Reference;
-import awsome.techmod.blocks.BlockModOre;
-import awsome.techmod.blocks.BlockOreSample;
+import awsome.techmod.blocks.ModOreBlock;
+import awsome.techmod.blocks.OreSampleBlock;
 import awsome.techmod.registry.Registration;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -22,8 +22,8 @@ import net.minecraftforge.client.model.generators.ModelFile.ExistingModelFile;
 
 public class BlockStates extends BlockStateProvider {
 	
-	private static List<BlockModOre> ORE_LIST = BlockModOre.getOreList();
-	private static List<BlockOreSample> SAMPLE_LIST = BlockOreSample.getSampleList();
+	private static List<ModOreBlock> ORE_LIST = ModOreBlock.getOreList();
+	private static List<OreSampleBlock> SAMPLE_LIST = OreSampleBlock.getSampleList();
 
 	protected BlockStates(DataGenerator gen, ExistingFileHelper helper) {
 		super(gen, Reference.MODID, helper);
@@ -38,7 +38,7 @@ public class BlockStates extends BlockStateProvider {
 	}
 	
 	private void registerOreBlocks() {
-		for (BlockModOre ore : ORE_LIST) {
+		for (ModOreBlock ore : ORE_LIST) {
 			ResourceLocation texture = new ResourceLocation(Reference.MODID, "blocks/ores/" + ore.getRegistryName().getPath().substring(0, ore.getRegistryName().getPath().length() - 4));
 			BlockModelBuilder modelOre = models().cubeAll("block/ores/" + ore.getRegistryName().getPath(), texture).texture("particle", texture);
 			simpleBlock(ore, modelOre);
@@ -62,7 +62,7 @@ public class BlockStates extends BlockStateProvider {
 	}
 	
 	private void registerOreSamples() {
-		for (BlockOreSample sample : SAMPLE_LIST) {
+		for (OreSampleBlock sample : SAMPLE_LIST) {
 			ResourceLocation texture = new ResourceLocation(Reference.MODID, "items/clusters/" + sample.getRegistryName().getPath().substring(0, sample.getRegistryName().getPath().length() - 7));
 			BlockModelBuilder modelSample = models().withExistingParent("block/ores/samples/" + sample.getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/cluster_base")).texture("2", texture).texture("particle", texture);
 			simpleBlock(sample, modelSample);

@@ -11,7 +11,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import com.mojang.datafixers.Dynamic;
 
 import awsome.techmod.Techmod;
-import awsome.techmod.blocks.BlockOreSample;
+import awsome.techmod.blocks.OreSampleBlock;
 import awsome.techmod.worldgen.SampleUtils;
 import awsome.techmod.worldgen.api.BlockPosDim;
 import awsome.techmod.worldgen.api.ChunkPosDim;
@@ -82,9 +82,9 @@ public class PlutonOreFeature extends Feature<NoFeatureConfig>
                 if (world.getBlockState(samplePos) != ore.getSample())
                 {
                     boolean isInWater = SampleUtils.isInWater(world, samplePos);
-                    if (ore.getSample().getBlock() instanceof BlockOreSample)
+                    if (ore.getSample().getBlock() instanceof OreSampleBlock)
                     {
-                        BlockState sampleState = isInWater ? ore.getSample().with(BlockOreSample.WATERLOGGED, Boolean.TRUE)
+                        BlockState sampleState = isInWater ? ore.getSample().with(OreSampleBlock.WATERLOGGED, Boolean.TRUE)
                                 : ore.getSample();
                         world.setBlockState(samplePos, sampleState, 2 | 16);
                     }

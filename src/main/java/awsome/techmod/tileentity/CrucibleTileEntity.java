@@ -2,7 +2,7 @@ package awsome.techmod.tileentity;
 
 import javax.annotation.Nonnull;
 
-import awsome.techmod.api.capability.energy.CapabilityHeat;
+import awsome.techmod.api.capability.energy.HeatCapability;
 import awsome.techmod.api.capability.energy.IHeat;
 import awsome.techmod.api.capability.impl.HeatHandler;
 import awsome.techmod.registry.Registration;
@@ -18,7 +18,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class TECrucible extends TileEntity implements ITickableTileEntity {
+public class CrucibleTileEntity extends TileEntity implements ITickableTileEntity {
 	
 	private ItemStackHandler itemHandler = createItemHandler();
 	private HeatHandler heatHandler = new HeatHandler(1.05f, this, 1773.0f, false, 0.5f);
@@ -26,16 +26,16 @@ public class TECrucible extends TileEntity implements ITickableTileEntity {
 		
 		@Override
 		public void set(int value) {
-			TECrucible.this.heatHandler.setTemp(value / 100.0f);
+			CrucibleTileEntity.this.heatHandler.setTemp(value / 100.0f);
 		}
 		
 		@Override
 		public int get() {
-			return (int) (TECrucible.this.heatHandler.getTemperature() * 100.0f);
+			return (int) (CrucibleTileEntity.this.heatHandler.getTemperature() * 100.0f);
 		}
 	};
 	
-	public TECrucible() {
+	public CrucibleTileEntity() {
 		super(Registration.CRUCIBLE_TILEENTITY.get());
 	}
 	
@@ -86,7 +86,7 @@ public class TECrucible extends TileEntity implements ITickableTileEntity {
 		if (cap.equals(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)) {
             return handler.cast();
         }
-        if (cap.equals(CapabilityHeat.HEAT_CAPABILITY)) {
+        if (cap.equals(HeatCapability.HEAT_CAPABILITY)) {
         	return heatCap.cast();
         }
 		return super.getCapability(cap, side);

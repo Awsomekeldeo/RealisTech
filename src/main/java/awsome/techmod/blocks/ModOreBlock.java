@@ -9,11 +9,11 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.common.ToolType;
 
-public class BlockModOre extends Block {
+public class ModOreBlock extends Block {
 	
-	public static final List<BlockModOre> ORES = new ArrayList<>();
+	public static final List<ModOreBlock> ORES = new ArrayList<>();
 	
-	public BlockModOre(int harvestLevel) {
+	public ModOreBlock(int harvestLevel) {
 		super(Properties.create(Material.ROCK)
 			.sound(SoundType.STONE)
 			.harvestLevel(harvestLevel)
@@ -23,7 +23,7 @@ public class BlockModOre extends Block {
 		ORES.add(this);
 	}
 	
-	public static List<BlockModOre> getOreList() {
+	public static List<ModOreBlock> getOreList() {
 		return Collections.unmodifiableList(ORES);
 	}
 }

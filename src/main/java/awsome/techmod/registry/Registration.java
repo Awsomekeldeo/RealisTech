@@ -1,17 +1,17 @@
 package awsome.techmod.registry;
 
 import awsome.techmod.Reference;
-import awsome.techmod.blocks.BlockCrucible;
-import awsome.techmod.blocks.BlockFirebox;
-import awsome.techmod.blocks.BlockModOre;
-import awsome.techmod.blocks.BlockOreSample;
-import awsome.techmod.inventory.container.ContainerCrucible;
-import awsome.techmod.inventory.container.ContainerFirebox;
-import awsome.techmod.items.ItemIngot;
-import awsome.techmod.items.ItemOreCluster;
+import awsome.techmod.blocks.CrucibleBlock;
+import awsome.techmod.blocks.FireboxBlock;
+import awsome.techmod.blocks.ModOreBlock;
+import awsome.techmod.blocks.OreSampleBlock;
+import awsome.techmod.inventory.container.CrucibleContainer;
+import awsome.techmod.inventory.container.FireboxContainer;
+import awsome.techmod.items.IngotItem;
+import awsome.techmod.items.OreClusterItem;
 import awsome.techmod.setup.ModSetup;
-import awsome.techmod.tileentity.TECrucible;
-import awsome.techmod.tileentity.TEFirebox;
+import awsome.techmod.tileentity.CrucibleTileEntity;
+import awsome.techmod.tileentity.FireboxTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
@@ -43,61 +43,61 @@ public class Registration {
 	//Blocks
 		
 		//Ores
-		public static final RegistryObject<BlockModOre> COPPER_ORE = BLOCKS.register("copper_ore", () -> new BlockModOre(1));
-		public static final RegistryObject<BlockModOre> TIN_ORE = BLOCKS.register("tin_ore", () -> new BlockModOre(1));
-		public static final RegistryObject<BlockModOre> LEAD_ORE = BLOCKS.register("lead_ore", () -> new BlockModOre(2));
-		public static final RegistryObject<BlockModOre> NICKEL_ORE = BLOCKS.register("nickel_ore", () -> new BlockModOre(2));
-		public static final RegistryObject<BlockModOre> SILVER_ORE = BLOCKS.register("silver_ore", () -> new BlockModOre(2));
-		public static final RegistryObject<BlockModOre> COBALT_ORE = BLOCKS.register("cobalt_ore", () -> new BlockModOre(1));
-		public static final RegistryObject<BlockModOre> ZINC_ORE = BLOCKS.register("zinc_ore", () -> new BlockModOre(2));
-		public static final RegistryObject<BlockModOre> MOD_IRON_ORE = BLOCKS.register("mod_iron_ore", () -> new BlockModOre(1));
-		public static final RegistryObject<BlockModOre> MOD_GOLD_ORE = BLOCKS.register("mod_gold_ore", () -> new BlockModOre(1));
-		public static final RegistryObject<BlockModOre> MOD_COAL_ORE = BLOCKS.register("mod_coal_ore", () -> new BlockModOre(1));
-		public static final RegistryObject<BlockModOre> MOD_REDSTONE_ORE = BLOCKS.register("mod_redstone_ore", () -> new BlockModOre(1));
-		public static final RegistryObject<BlockModOre> MOD_EMERALD_ORE = BLOCKS.register("mod_emerald_ore", () -> new BlockModOre(1));
-		public static final RegistryObject<BlockModOre> MOD_DIAMOND_ORE = BLOCKS.register("mod_diamond_ore", () -> new BlockModOre(1));
-		public static final RegistryObject<BlockModOre> MOD_LAPIS_ORE = BLOCKS.register("mod_lapis_ore", () -> new BlockModOre(1));
+		public static final RegistryObject<ModOreBlock> COPPER_ORE = BLOCKS.register("copper_ore", () -> new ModOreBlock(1));
+		public static final RegistryObject<ModOreBlock> TIN_ORE = BLOCKS.register("tin_ore", () -> new ModOreBlock(1));
+		public static final RegistryObject<ModOreBlock> LEAD_ORE = BLOCKS.register("lead_ore", () -> new ModOreBlock(2));
+		public static final RegistryObject<ModOreBlock> NICKEL_ORE = BLOCKS.register("nickel_ore", () -> new ModOreBlock(2));
+		public static final RegistryObject<ModOreBlock> SILVER_ORE = BLOCKS.register("silver_ore", () -> new ModOreBlock(2));
+		public static final RegistryObject<ModOreBlock> COBALT_ORE = BLOCKS.register("cobalt_ore", () -> new ModOreBlock(1));
+		public static final RegistryObject<ModOreBlock> ZINC_ORE = BLOCKS.register("zinc_ore", () -> new ModOreBlock(2));
+		public static final RegistryObject<ModOreBlock> MOD_IRON_ORE = BLOCKS.register("mod_iron_ore", () -> new ModOreBlock(1));
+		public static final RegistryObject<ModOreBlock> MOD_GOLD_ORE = BLOCKS.register("mod_gold_ore", () -> new ModOreBlock(1));
+		public static final RegistryObject<ModOreBlock> MOD_COAL_ORE = BLOCKS.register("mod_coal_ore", () -> new ModOreBlock(1));
+		public static final RegistryObject<ModOreBlock> MOD_REDSTONE_ORE = BLOCKS.register("mod_redstone_ore", () -> new ModOreBlock(1));
+		public static final RegistryObject<ModOreBlock> MOD_EMERALD_ORE = BLOCKS.register("mod_emerald_ore", () -> new ModOreBlock(1));
+		public static final RegistryObject<ModOreBlock> MOD_DIAMOND_ORE = BLOCKS.register("mod_diamond_ore", () -> new ModOreBlock(1));
+		public static final RegistryObject<ModOreBlock> MOD_LAPIS_ORE = BLOCKS.register("mod_lapis_ore", () -> new ModOreBlock(1));
 		
 		//Ore Samples
-		public static final RegistryObject<BlockOreSample> COPPER_SAMPLE = BLOCKS.register("copper_sample", () -> new BlockOreSample(1));
-		public static final RegistryObject<BlockOreSample> TIN_SAMPLE = BLOCKS.register("tin_sample", () -> new BlockOreSample(1));
-		public static final RegistryObject<BlockOreSample> NICKEL_SAMPLE = BLOCKS.register("nickel_sample", () -> new BlockOreSample(1));
-		public static final RegistryObject<BlockOreSample> LEAD_SAMPLE = BLOCKS.register("lead_sample", () -> new BlockOreSample(1));
-		public static final RegistryObject<BlockOreSample> SILVER_SAMPLE = BLOCKS.register("silver_sample", () -> new BlockOreSample(1));
-		public static final RegistryObject<BlockOreSample> COBALT_SAMPLE = BLOCKS.register("cobalt_sample", () -> new BlockOreSample(1));
-		public static final RegistryObject<BlockOreSample> ZINC_SAMPLE = BLOCKS.register("zinc_sample", () -> new BlockOreSample(1));
-		public static final RegistryObject<BlockOreSample> COAL_SAMPLE = BLOCKS.register("coal_sample", () -> new BlockOreSample(1));
-		public static final RegistryObject<BlockOreSample> IRON_SAMPLE = BLOCKS.register("iron_sample", () -> new BlockOreSample(1));
-		public static final RegistryObject<BlockOreSample> GOLD_SAMPLE = BLOCKS.register("gold_sample", () -> new BlockOreSample(1));
-		public static final RegistryObject<BlockOreSample> DIAMOND_SAMPLE = BLOCKS.register("diamond_sample", () -> new BlockOreSample(1));
-		public static final RegistryObject<BlockOreSample> EMERALD_SAMPLE = BLOCKS.register("emerald_sample", () -> new BlockOreSample(1));
-		public static final RegistryObject<BlockOreSample> LAPIS_SAMPLE = BLOCKS.register("lapis_sample", () -> new BlockOreSample(1));
-		public static final RegistryObject<BlockOreSample> REDSTONE_SAMPLE = BLOCKS.register("redstone_sample", () -> new BlockOreSample(1));
+		public static final RegistryObject<OreSampleBlock> COPPER_SAMPLE = BLOCKS.register("copper_sample", () -> new OreSampleBlock(1));
+		public static final RegistryObject<OreSampleBlock> TIN_SAMPLE = BLOCKS.register("tin_sample", () -> new OreSampleBlock(1));
+		public static final RegistryObject<OreSampleBlock> NICKEL_SAMPLE = BLOCKS.register("nickel_sample", () -> new OreSampleBlock(1));
+		public static final RegistryObject<OreSampleBlock> LEAD_SAMPLE = BLOCKS.register("lead_sample", () -> new OreSampleBlock(1));
+		public static final RegistryObject<OreSampleBlock> SILVER_SAMPLE = BLOCKS.register("silver_sample", () -> new OreSampleBlock(1));
+		public static final RegistryObject<OreSampleBlock> COBALT_SAMPLE = BLOCKS.register("cobalt_sample", () -> new OreSampleBlock(1));
+		public static final RegistryObject<OreSampleBlock> ZINC_SAMPLE = BLOCKS.register("zinc_sample", () -> new OreSampleBlock(1));
+		public static final RegistryObject<OreSampleBlock> COAL_SAMPLE = BLOCKS.register("coal_sample", () -> new OreSampleBlock(1));
+		public static final RegistryObject<OreSampleBlock> IRON_SAMPLE = BLOCKS.register("iron_sample", () -> new OreSampleBlock(1));
+		public static final RegistryObject<OreSampleBlock> GOLD_SAMPLE = BLOCKS.register("gold_sample", () -> new OreSampleBlock(1));
+		public static final RegistryObject<OreSampleBlock> DIAMOND_SAMPLE = BLOCKS.register("diamond_sample", () -> new OreSampleBlock(1));
+		public static final RegistryObject<OreSampleBlock> EMERALD_SAMPLE = BLOCKS.register("emerald_sample", () -> new OreSampleBlock(1));
+		public static final RegistryObject<OreSampleBlock> LAPIS_SAMPLE = BLOCKS.register("lapis_sample", () -> new OreSampleBlock(1));
+		public static final RegistryObject<OreSampleBlock> REDSTONE_SAMPLE = BLOCKS.register("redstone_sample", () -> new OreSampleBlock(1));
 		
 		
 		//Machines
-		public static final RegistryObject<BlockFirebox> FIREBOX = BLOCKS.register("firebox", BlockFirebox::new);
-		public static final RegistryObject<BlockCrucible> CRUCIBLE = BLOCKS.register("crucible", BlockCrucible::new);
+		public static final RegistryObject<FireboxBlock> FIREBOX = BLOCKS.register("firebox", FireboxBlock::new);
+		public static final RegistryObject<CrucibleBlock> CRUCIBLE = BLOCKS.register("crucible", CrucibleBlock::new);
 	
 	//Tile Entities
 		
 		//Machines
-		public static final RegistryObject<TileEntityType<TEFirebox>> FIREBOX_TILEENTITY = TILE_ENTITIES.register("firebox", () -> TileEntityType.Builder.create(TEFirebox::new, FIREBOX.get()).build(null));
-		public static final RegistryObject<TileEntityType<TECrucible>> CRUCIBLE_TILEENTITY = TILE_ENTITIES.register("crucible", () -> TileEntityType.Builder.create(TECrucible::new, CRUCIBLE.get()).build(null));
+		public static final RegistryObject<TileEntityType<FireboxTileEntity>> FIREBOX_TILEENTITY = TILE_ENTITIES.register("firebox", () -> TileEntityType.Builder.create(FireboxTileEntity::new, FIREBOX.get()).build(null));
+		public static final RegistryObject<TileEntityType<CrucibleTileEntity>> CRUCIBLE_TILEENTITY = TILE_ENTITIES.register("crucible", () -> TileEntityType.Builder.create(CrucibleTileEntity::new, CRUCIBLE.get()).build(null));
 	
 	//Containers
 		
 		//Machines
-		public static final RegistryObject<ContainerType<ContainerFirebox>> FIREBOX_CONTAINER = CONTAINERS.register("firebox", () -> IForgeContainerType.create((windowId, inv, data) -> {
+		public static final RegistryObject<ContainerType<FireboxContainer>> FIREBOX_CONTAINER = CONTAINERS.register("firebox", () -> IForgeContainerType.create((windowId, inv, data) -> {
 			BlockPos pos = data.readBlockPos();
 			World world = inv.player.getEntityWorld();
-			return new ContainerFirebox(windowId, world, pos, inv, inv.player);
+			return new FireboxContainer(windowId, world, pos, inv, inv.player);
 		}));
 		
-		public static final RegistryObject<ContainerType<ContainerCrucible>> CRUCIBLE_CONTAINER = CONTAINERS.register("crucible", () -> IForgeContainerType.create((windowId, inv, data) -> {
+		public static final RegistryObject<ContainerType<CrucibleContainer>> CRUCIBLE_CONTAINER = CONTAINERS.register("crucible", () -> IForgeContainerType.create((windowId, inv, data) -> {
 			BlockPos pos = data.readBlockPos();
 			World world = inv.player.getEntityWorld();
-			return new ContainerCrucible(windowId, world, pos, inv, inv.player);
+			return new CrucibleContainer(windowId, world, pos, inv, inv.player);
 		}));
 		
 	
@@ -142,22 +142,22 @@ public class Registration {
 	//Items
 		
 		//Ingots
-		public static final RegistryObject<ItemIngot> COPPER_INGOT = ITEMS.register("ingots/copper_ingot", ItemIngot::new);
-		public static final RegistryObject<ItemIngot> TIN_INGOT = ITEMS.register("ingots/tin_ingot", ItemIngot::new);
-		public static final RegistryObject<ItemIngot> NICKEL_INGOT = ITEMS.register("ingots/nickel_ingot", ItemIngot::new);
-		public static final RegistryObject<ItemIngot> LEAD_INGOT = ITEMS.register("ingots/lead_ingot", ItemIngot::new);
-		public static final RegistryObject<ItemIngot> SILVER_INGOT = ITEMS.register("ingots/silver_ingot", ItemIngot::new);
-		public static final RegistryObject<ItemIngot> ZINC_INGOT = ITEMS.register("ingots/zinc_ingot", ItemIngot::new);
-		public static final RegistryObject<ItemIngot> COBALT_INGOT = ITEMS.register("ingots/cobalt_ingot", ItemIngot::new);
+		public static final RegistryObject<IngotItem> COPPER_INGOT = ITEMS.register("ingots/copper_ingot", IngotItem::new);
+		public static final RegistryObject<IngotItem> TIN_INGOT = ITEMS.register("ingots/tin_ingot", IngotItem::new);
+		public static final RegistryObject<IngotItem> NICKEL_INGOT = ITEMS.register("ingots/nickel_ingot", IngotItem::new);
+		public static final RegistryObject<IngotItem> LEAD_INGOT = ITEMS.register("ingots/lead_ingot", IngotItem::new);
+		public static final RegistryObject<IngotItem> SILVER_INGOT = ITEMS.register("ingots/silver_ingot", IngotItem::new);
+		public static final RegistryObject<IngotItem> ZINC_INGOT = ITEMS.register("ingots/zinc_ingot", IngotItem::new);
+		public static final RegistryObject<IngotItem> COBALT_INGOT = ITEMS.register("ingots/cobalt_ingot", IngotItem::new);
 		
 		//Clusters
-		public static final RegistryObject<ItemOreCluster> COPPER_CLUSTER = ITEMS.register("ore_clusters/copper_cluster", ItemOreCluster::new);
-		public static final RegistryObject<ItemOreCluster> TIN_CLUSTER = ITEMS.register("ore_clusters/tin_cluster", ItemOreCluster::new);
-		public static final RegistryObject<ItemOreCluster> NICKEL_CLUSTER = ITEMS.register("ore_clusters/nickel_cluster", ItemOreCluster::new);
-		public static final RegistryObject<ItemOreCluster> SILVER_CLUSTER = ITEMS.register("ore_clusters/silver_cluster", ItemOreCluster::new);
-		public static final RegistryObject<ItemOreCluster> LEAD_CLUSTER = ITEMS.register("ore_clusters/lead_cluster", ItemOreCluster::new);
-		public static final RegistryObject<ItemOreCluster> ZINC_CLUSTER = ITEMS.register("ore_clusters/zinc_cluster", ItemOreCluster::new);
-		public static final RegistryObject<ItemOreCluster> COBALT_CLUSTER = ITEMS.register("ore_clusters/cobalt_cluster", ItemOreCluster::new);
-		public static final RegistryObject<ItemOreCluster> IRON_CLUSTER = ITEMS.register("ore_clusters/iron_cluster", ItemOreCluster::new);
-		public static final RegistryObject<ItemOreCluster> GOLD_CLUSTER = ITEMS.register("ore_clusters/gold_cluster", ItemOreCluster::new);
+		public static final RegistryObject<OreClusterItem> COPPER_CLUSTER = ITEMS.register("ore_clusters/copper_cluster", OreClusterItem::new);
+		public static final RegistryObject<OreClusterItem> TIN_CLUSTER = ITEMS.register("ore_clusters/tin_cluster", OreClusterItem::new);
+		public static final RegistryObject<OreClusterItem> NICKEL_CLUSTER = ITEMS.register("ore_clusters/nickel_cluster", OreClusterItem::new);
+		public static final RegistryObject<OreClusterItem> SILVER_CLUSTER = ITEMS.register("ore_clusters/silver_cluster", OreClusterItem::new);
+		public static final RegistryObject<OreClusterItem> LEAD_CLUSTER = ITEMS.register("ore_clusters/lead_cluster", OreClusterItem::new);
+		public static final RegistryObject<OreClusterItem> ZINC_CLUSTER = ITEMS.register("ore_clusters/zinc_cluster", OreClusterItem::new);
+		public static final RegistryObject<OreClusterItem> COBALT_CLUSTER = ITEMS.register("ore_clusters/cobalt_cluster", OreClusterItem::new);
+		public static final RegistryObject<OreClusterItem> IRON_CLUSTER = ITEMS.register("ore_clusters/iron_cluster", OreClusterItem::new);
+		public static final RegistryObject<OreClusterItem> GOLD_CLUSTER = ITEMS.register("ore_clusters/gold_cluster", OreClusterItem::new);
 }

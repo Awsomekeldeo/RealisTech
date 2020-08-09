@@ -6,19 +6,19 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import awsome.techmod.Reference;
-import awsome.techmod.inventory.container.ContainerCrucible;
+import awsome.techmod.inventory.container.CrucibleContainer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
-public class CrucibleScreen extends ContainerScreen<ContainerCrucible> {
+public class CrucibleScreen extends ContainerScreen<CrucibleContainer> {
 	private ResourceLocation GUI = new ResourceLocation(Reference.MODID, "textures/gui/crucible.png");
 	public ITextComponent name;
 	
 
-	public CrucibleScreen(ContainerCrucible screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+	public CrucibleScreen(CrucibleContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
 		super(screenContainer, inv, titleIn);
 		this.name = titleIn;
 		this.xSize = 180;
@@ -35,7 +35,7 @@ public class CrucibleScreen extends ContainerScreen<ContainerCrucible> {
         if (mouseX >= i + 147 && mouseX <= i + 154 && mouseY >= j + 29 && mouseY <= j + 102)
         {
             List<String> lines = Lists.newArrayList();
-            lines.add(I18n.format("techmod.info.temperature", ((ContainerCrucible)this.container).getTemperature()));
+            lines.add(I18n.format("techmod.info.temperature", ((CrucibleContainer)this.container).getTemperature()));
             this.renderTooltip(lines, mouseX, mouseY);
         }
 	}
@@ -49,7 +49,7 @@ public class CrucibleScreen extends ContainerScreen<ContainerCrucible> {
 		this.blit(relativeX, relativeY, 0, 0, this.xSize, this.ySize);
 		int i = this.guiLeft;
 		int j = this.guiTop;
-		int l = ((ContainerCrucible)this.container).getTemperatureScaled();
+		int l = ((CrucibleContainer)this.container).getTemperatureScaled();
 		this.blit(i + 148, j + 33 + 62 - l, 180, 1 + 62 - l, 6, l);
 	}
 	

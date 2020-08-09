@@ -7,7 +7,7 @@ import java.util.List;
 import com.google.common.collect.Ordering;
 
 import awsome.techmod.Reference;
-import awsome.techmod.api.capability.energy.CapabilityHeat;
+import awsome.techmod.api.capability.energy.HeatCapability;
 import awsome.techmod.registry.OreDepositRegistration;
 import awsome.techmod.registry.Registration;
 import awsome.techmod.worldgen.FeatureStripper;
@@ -139,7 +139,7 @@ public class ModSetup {
 	}
 	
 	public static void init(final FMLCommonSetupEvent event) {
-		CapabilityHeat.init();
+		HeatCapability.init();
 		oreSorter = Ordering.explicit(getItemList(TECHMOD_ORES)).onResultOf(ItemStack::getItem);
 		machineSorter = Ordering.explicit(getItemList(TECHMOD_MACHINES)).onResultOf(ItemStack::getItem);
 		materialSorter = Ordering.explicit(getItemList(TECHMOD_MATERIALS)).onResultOf(ItemStack::getItem);

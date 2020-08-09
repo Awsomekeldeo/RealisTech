@@ -27,9 +27,9 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 
-public class BlockOreSample extends Block {
+public class OreSampleBlock extends Block {
 	
-	public static final List<BlockOreSample> SAMPLE_LIST = new ArrayList<>();
+	public static final List<OreSampleBlock> SAMPLE_LIST = new ArrayList<>();
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final VoxelShape SHAPE = 
 			VoxelShapes.or(
@@ -43,7 +43,7 @@ public class BlockOreSample extends Block {
 				makeCuboidShape(6, 1, 10, 10, 2, 12)
 			);
 	
-	public BlockOreSample(int harvestLevel) {
+	public OreSampleBlock(int harvestLevel) {
 		super(Properties.create(Material.ROCK)
 				.sound(SoundType.GROUND)
 				.doesNotBlockMovement()
@@ -79,7 +79,7 @@ public class BlockOreSample extends Block {
         builder.add(WATERLOGGED);
     }
     
-    public static List<BlockOreSample> getSampleList() {
+    public static List<OreSampleBlock> getSampleList() {
 		return Collections.unmodifiableList(SAMPLE_LIST);
 	}
 	
