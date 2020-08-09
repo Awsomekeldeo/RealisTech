@@ -15,6 +15,9 @@ public class Generators {
 	            generator.addProvider(new BlockStates(generator, event.getExistingFileHelper()));
 	            generator.addProvider(new Items(generator, event.getExistingFileHelper()));
 	        }
+	        if (event.includeServer()) {
+	        	generator.addProvider(new LootTables(generator));
+	        }
 		}
 	}
 }
