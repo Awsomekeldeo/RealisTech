@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "techmod:block/ores/samples/cobalt_sample"
+    }
+  }
+}

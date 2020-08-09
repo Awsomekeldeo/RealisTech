@@ -1,7 +1,5 @@
 package awsome.techmod.inventory.container;
 
-import awsome.techmod.api.capability.energy.CapabilityHeat;
-import awsome.techmod.api.capability.impl.HeatHandler;
 import awsome.techmod.registry.Registration;
 import awsome.techmod.tileentity.TECrucible;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,6 +12,8 @@ import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.IntReferenceHolder;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -24,6 +24,7 @@ public class ContainerCrucible extends Container {
 	public TileEntity tileEntity;
 	private PlayerEntity playerEntity;
 	private IItemHandler playerInventory;
+	private IntReferenceHolder crucibleData;
 	
 	public ContainerCrucible(int windowId, World world, BlockPos pos, PlayerInventory inventory, PlayerEntity player) {
 		super(Registration.CRUCIBLE_CONTAINER.get(), windowId);
@@ -33,9 +34,10 @@ public class ContainerCrucible extends Container {
 		
 		if (tileEntity != null) {
 			tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-				addSlot(new SlotItemHandler(h, 0, 80, 49));
+				addSlot(new SlotItemHandler(h, 0, 82, 5));
 				addSlot(new SlotItemHandler(h, 1, 34, 100));
 			});
+			this.crucibleData = ((TECrucible)tileEntity).crucibleData;
 		}
 		
 		layoutPlayerInventorySlots(10,132);
@@ -47,25 +49,8 @@ public class ContainerCrucible extends Container {
 		return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()), playerEntity, Registration.CRUCIBLE.get());
 	}
 	
-	public int getTemperature() {
-		return ((TECrucible)tileEntity).getTemperature();
-	}
-	
 	private void trackTemperature() {
-		trackInt(new IntReferenceHolder() {
-			
-			@Override
-			public void set(int value) {
-				tileEntity.getCapability(CapabilityHeat.HEAT_CAPABILITY).ifPresent(h -> {
-					((HeatHandler)h).setTemp(value / 100.0f);
-				});
-			}
-			
-			@Override
-			public int get() {
-				return getTemperature();
-			}
-		});
+		trackInt(crucibleData);
 	}
 	
 	@Override
@@ -136,5 +121,15 @@ public class ContainerCrucible extends Container {
 	
 	public TileEntity getTileEntity() {
 		return this.tileEntity;
+	}
+	
+	@OnlyIn(Dist.CLIENT)
+	public float getTemperature() {
+		return (crucibleData.get() / 100.0f);
+	}
+	
+	@OnlyIn(Dist.CLIENT) 
+	public int getTemperatureScaled() {
+		return (int) (getTemperature() + 3) * 63 / 1773;
 	}
 }

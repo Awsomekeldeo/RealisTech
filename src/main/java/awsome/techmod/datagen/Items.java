@@ -35,6 +35,22 @@ public class Items extends ItemModelProvider {
 		withExistingParent("item/ores/" + Registration.MOD_REDSTONE_ORE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/mod_redstone_ore"));
 		withExistingParent("item/ores/" + Registration.MOD_LAPIS_ORE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/mod_lapis_ore"));
 		
+		//Ore Samples
+		withExistingParent("item/ores/samples/" + Registration.COPPER_SAMPLE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/copper_sample"));
+		withExistingParent("item/ores/samples/" + Registration.TIN_SAMPLE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/tin_sample"));
+		withExistingParent("item/ores/samples/" + Registration.NICKEL_SAMPLE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/nickel_sample"));
+		withExistingParent("item/ores/samples/" + Registration.SILVER_SAMPLE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/silver_sample"));
+		withExistingParent("item/ores/samples/" + Registration.COBALT_SAMPLE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/cobalt_sample"));
+		withExistingParent("item/ores/samples/" + Registration.LEAD_SAMPLE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/lead_sample"));
+		withExistingParent("item/ores/samples/" + Registration.ZINC_SAMPLE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/zinc_sample"));
+		withExistingParent("item/ores/samples/" + Registration.COAL_SAMPLE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/coal_sample"));
+		withExistingParent("item/ores/samples/" + Registration.IRON_SAMPLE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/iron_sample"));
+		withExistingParent("item/ores/samples/" + Registration.GOLD_SAMPLE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/gold_sample"));
+		withExistingParent("item/ores/samples/" + Registration.DIAMOND_SAMPLE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/diamond_sample"));
+		withExistingParent("item/ores/samples/" + Registration.EMERALD_SAMPLE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/emerald_sample"));
+		withExistingParent("item/ores/samples/" + Registration.LAPIS_SAMPLE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/lapis_sample"));
+		withExistingParent("item/ores/samples/" + Registration.REDSTONE_SAMPLE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/redstone_sample"));
+		
 		//Clusters
 		singleTexture("item/ore_clusters/" + Registration.COPPER_CLUSTER.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/clusters/copper"));
 		singleTexture("item/ore_clusters/" + Registration.TIN_CLUSTER.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/clusters/tin"));

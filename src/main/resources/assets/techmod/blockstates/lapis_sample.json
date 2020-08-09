@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "techmod:block/ores/samples/lapis_sample"
+    }
+  }
+}

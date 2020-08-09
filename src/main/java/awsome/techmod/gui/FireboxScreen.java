@@ -7,7 +7,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 
 import awsome.techmod.Reference;
 import awsome.techmod.inventory.container.ContainerFirebox;
-import awsome.techmod.tileentity.TEFirebox;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
@@ -16,12 +15,10 @@ import net.minecraft.util.text.ITextComponent;
 
 public class FireboxScreen extends ContainerScreen<ContainerFirebox> {
 	private ResourceLocation GUI = new ResourceLocation(Reference.MODID, "textures/gui/firebox.png");
-	private TEFirebox tileEntity;
 	public ITextComponent name;
 	
 	public FireboxScreen(ContainerFirebox screenContainer, PlayerInventory inv, ITextComponent titleIn) {
 		super(screenContainer, inv, titleIn);
-		this.tileEntity = (TEFirebox) screenContainer.tileEntity;
 		this.name = titleIn;
 	}
 	
@@ -59,8 +56,7 @@ public class FireboxScreen extends ContainerScreen<ContainerFirebox> {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		String name = tileEntity.getDisplayName().getUnformattedComponentText();
-		font.drawString(name, 8, 6, 0x404040);
-		font.drawString(this.name.getUnformattedComponentText(), 10, ySize - 96, 0x404040);
+		font.drawString(this.name.getUnformattedComponentText(), 8, 6, 0x404040);
+		font.drawString(this.playerInventory.getDisplayName().getUnformattedComponentText(), 10, ySize - 96, 0x404040);
 	}
 }

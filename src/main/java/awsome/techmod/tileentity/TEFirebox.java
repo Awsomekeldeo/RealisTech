@@ -14,9 +14,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IIntArray;
-import net.minecraft.util.INameable;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -24,10 +22,10 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class TEFirebox extends TileEntity implements ITickableTileEntity, INameable {
+public class TEFirebox extends TileEntity implements ITickableTileEntity {
 	
 	private ItemStackHandler itemHandler = createHandler();
-	private HeatHandler heatHandler = new HeatHandler(this, 1773.0f, true);
+	private HeatHandler heatHandler = new HeatHandler(this, 1773.0f, true, 0.25f, 0.5f);
 	private ITextComponent customName;
 	private int burnTime;
 	protected int currentItemBurnTime;
@@ -48,7 +46,7 @@ public class TEFirebox extends TileEntity implements ITickableTileEntity, INamea
 					TEFirebox.this.currentItemBurnTime = value;
 					break;
 				case 2:
-					TEFirebox.this.heatHandler.setTemp(value / 100.0f);;
+					TEFirebox.this.heatHandler.setTemp(value / 100.0f);
 			}
 		}
 		
@@ -71,6 +69,7 @@ public class TEFirebox extends TileEntity implements ITickableTileEntity, INamea
 	
 	public TEFirebox() {
 		super(Registration.FIREBOX_TILEENTITY.get());
+		this.heatHandler.setTemp(this.heatHandler.getBaseTempBasedOnBiome(this.getPos()));
 	}
 
 	@Override
@@ -105,13 +104,12 @@ public class TEFirebox extends TileEntity implements ITickableTileEntity, INamea
 						}
 					}
 				}
-				this.heatHandler.increaseTemp(0.25f);
-				if(this.heatHandler.getTemperature() == this.heatHandler.getMaxTemperature()) {
-					this.heatHandler.setTemp(this.heatHandler.maxTemperature);
+				if(this.heatHandler.getTemperature() < this.heatHandler.getMaxTemperature()) {
+					this.heatHandler.heat();
 				}
 			}else{
-				if(this.heatHandler.getTemperature() != this.heatHandler.getBaseTempBasedOnBiome(getPos())) {
-					this.heatHandler.decreaseTemp(0.25f);
+				if(this.heatHandler.getTemperature() > this.heatHandler.getBaseTempBasedOnBiome(getPos())) {
+					this.heatHandler.cool();
 				}
 			}
 			if (burning != this.isBurning())
@@ -184,20 +182,6 @@ public class TEFirebox extends TileEntity implements ITickableTileEntity, INamea
         	return heatCap.cast();
         }
         return super.getCapability(cap, side);
-	}
-
-	@Override
-	public ITextComponent getName() {
-		return this.customName != null ? this.customName : this.getDefaultName();
-	}
-
-	public ITextComponent getDefaultName() {
-		return new TranslationTextComponent("container.techmod.firebox");
-	}
-
-	@Override
-	public ITextComponent getDisplayName() {
-		return this.getName();
 	}
 	
 	public int getItemBurnTime() {

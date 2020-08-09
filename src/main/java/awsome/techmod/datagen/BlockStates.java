@@ -5,6 +5,7 @@ import java.util.function.Function;
 
 import awsome.techmod.Reference;
 import awsome.techmod.blocks.BlockModOre;
+import awsome.techmod.blocks.BlockOreSample;
 import awsome.techmod.registry.Registration;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -22,6 +23,7 @@ import net.minecraftforge.client.model.generators.ModelFile.ExistingModelFile;
 public class BlockStates extends BlockStateProvider {
 	
 	private static List<BlockModOre> ORE_LIST = BlockModOre.getOreList();
+	private static List<BlockOreSample> SAMPLE_LIST = BlockOreSample.getSampleList();
 
 	protected BlockStates(DataGenerator gen, ExistingFileHelper helper) {
 		super(gen, Reference.MODID, helper);
@@ -32,6 +34,7 @@ public class BlockStates extends BlockStateProvider {
 		registerFirebox();
 		registerOreBlocks();
 		registerCrucible();
+		registerOreSamples();
 	}
 	
 	private void registerOreBlocks() {
@@ -56,6 +59,14 @@ public class BlockStates extends BlockStateProvider {
 	private void registerCrucible() {
 		ExistingModelFile modelCrucible = models().getExistingFile(new ResourceLocation(Reference.MODID, "block/machines/crucible"));
 		simpleBlock(Registration.CRUCIBLE.get(), modelCrucible);
+	}
+	
+	private void registerOreSamples() {
+		for (BlockOreSample sample : SAMPLE_LIST) {
+			ResourceLocation texture = new ResourceLocation(Reference.MODID, "items/clusters/" + sample.getRegistryName().getPath().substring(0, sample.getRegistryName().getPath().length() - 7));
+			BlockModelBuilder modelSample = models().withExistingParent("block/ores/samples/" + sample.getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/cluster_base")).texture("2", texture).texture("particle", texture);
+			simpleBlock(sample, modelSample);
+		}
 	}
 	
 	private void orientedBlock(Block block, Function<BlockState, ModelFile> modelFunc) {
