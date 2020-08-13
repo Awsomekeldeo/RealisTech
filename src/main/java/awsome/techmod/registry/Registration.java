@@ -1,21 +1,28 @@
 package awsome.techmod.registry;
 
 import awsome.techmod.Reference;
+import awsome.techmod.api.recipe.MeltingRecipe;
+import awsome.techmod.api.recipe.MeltingRecipeSerializer;
 import awsome.techmod.blocks.CrucibleBlock;
 import awsome.techmod.blocks.FireboxBlock;
+import awsome.techmod.blocks.KilnBlock;
 import awsome.techmod.blocks.ModOreBlock;
 import awsome.techmod.blocks.OreSampleBlock;
 import awsome.techmod.inventory.container.CrucibleContainer;
 import awsome.techmod.inventory.container.FireboxContainer;
+import awsome.techmod.items.CeramicMoldItem;
 import awsome.techmod.items.IngotItem;
 import awsome.techmod.items.OreClusterItem;
+import awsome.techmod.items.UnfiredCeramicMoldItem;
 import awsome.techmod.setup.ModSetup;
 import awsome.techmod.tileentity.CrucibleTileEntity;
 import awsome.techmod.tileentity.FireboxTileEntity;
+import awsome.techmod.tileentity.KilnTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -31,6 +38,7 @@ public class Registration {
 	private static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, Reference.MODID);
 	private static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Reference.MODID);
 	private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MODID);
+	private static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Reference.MODID);
 	
 	
 	public static void init() {
@@ -38,7 +46,12 @@ public class Registration {
 		ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+		RECIPE_SERIALIZERS.register(FMLJavaModLoadingContext.get().getModEventBus());
 	}
+	
+	//Recipe Serializers
+		public static final RegistryObject<MeltingRecipeSerializer<MeltingRecipe>> MELTING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("melting", () -> new MeltingRecipeSerializer<>(MeltingRecipe::new));
+	
 	
 	//Blocks
 		
@@ -78,12 +91,14 @@ public class Registration {
 		//Machines
 		public static final RegistryObject<FireboxBlock> FIREBOX = BLOCKS.register("firebox", FireboxBlock::new);
 		public static final RegistryObject<CrucibleBlock> CRUCIBLE = BLOCKS.register("crucible", CrucibleBlock::new);
+		public static final RegistryObject<KilnBlock> KILN = BLOCKS.register("kiln", KilnBlock::new);
 	
 	//Tile Entities
 		
 		//Machines
 		public static final RegistryObject<TileEntityType<FireboxTileEntity>> FIREBOX_TILEENTITY = TILE_ENTITIES.register("firebox", () -> TileEntityType.Builder.create(FireboxTileEntity::new, FIREBOX.get()).build(null));
 		public static final RegistryObject<TileEntityType<CrucibleTileEntity>> CRUCIBLE_TILEENTITY = TILE_ENTITIES.register("crucible", () -> TileEntityType.Builder.create(CrucibleTileEntity::new, CRUCIBLE.get()).build(null));
+		public static final RegistryObject<TileEntityType<KilnTileEntity>> KILN_TILEENTITY = TILE_ENTITIES.register("kiln", () -> TileEntityType.Builder.create(KilnTileEntity::new, KILN.get()).build(null));
 	
 	//Containers
 		
@@ -138,6 +153,7 @@ public class Registration {
 		//Machines
 		public static final RegistryObject<Item> FIREBOX_ITEM = ITEMS.register("machines/firebox", () -> new BlockItem(FIREBOX.get(), new Item.Properties().group(ModSetup.TECHMOD_MACHINES)));
 		public static final RegistryObject<Item> CRUCIBLE_ITEM = ITEMS.register("machines/crucible", () -> new BlockItem(CRUCIBLE.get(), new Item.Properties().group(ModSetup.TECHMOD_MACHINES)));
+		public static final RegistryObject<Item> KILN_ITEM = ITEMS.register("machines/kiln", () -> new BlockItem(KILN.get(), new Item.Properties().group(ModSetup.TECHMOD_MACHINES)));
 		
 	//Items
 		
@@ -160,4 +176,16 @@ public class Registration {
 		public static final RegistryObject<OreClusterItem> COBALT_CLUSTER = ITEMS.register("ore_clusters/cobalt_cluster", OreClusterItem::new);
 		public static final RegistryObject<OreClusterItem> IRON_CLUSTER = ITEMS.register("ore_clusters/iron_cluster", OreClusterItem::new);
 		public static final RegistryObject<OreClusterItem> GOLD_CLUSTER = ITEMS.register("ore_clusters/gold_cluster", OreClusterItem::new);
+		public static final RegistryObject<CeramicMoldItem> FIRED_CERAMIC_INGOT_MOLD = ITEMS.register("ceramic_molds/fired/ingot", () -> new CeramicMoldItem(144));
+		public static final RegistryObject<CeramicMoldItem> FIRED_CERAMIC_PICKAXE_MOLD = ITEMS.register("ceramic_molds/fired/pickaxe", () -> new CeramicMoldItem(432));
+		public static final RegistryObject<CeramicMoldItem> FIRED_CERAMIC_AXE_MOLD = ITEMS.register("ceramic_molds/fired/axe", () -> new CeramicMoldItem(144));
+		public static final RegistryObject<CeramicMoldItem> FIRED_CERAMIC_SHOVEL_MOLD = ITEMS.register("ceramic_molds/fired/shovel", () -> new CeramicMoldItem(144));
+		public static final RegistryObject<CeramicMoldItem> FIRED_CERAMIC_SWORD_MOLD = ITEMS.register("ceramic_molds/fired/sword", () -> new CeramicMoldItem(144));
+		public static final RegistryObject<CeramicMoldItem> FIRED_CERAMIC_PROPICK_MOLD = ITEMS.register("ceramic_molds/fired/prospectors_pickaxe", () -> new CeramicMoldItem(144));
+		public static final RegistryObject<UnfiredCeramicMoldItem> UNFIRED_CERAMIC_INGOT_MOLD = ITEMS.register("ceramic_molds/unfired/ingot", UnfiredCeramicMoldItem::new);
+		public static final RegistryObject<UnfiredCeramicMoldItem> UNFIRED_CERAMIC_PICKAXE_MOLD = ITEMS.register("ceramic_molds/unfired/pickaxe", UnfiredCeramicMoldItem::new);
+		public static final RegistryObject<UnfiredCeramicMoldItem> UNFIRED_CERAMIC_AXE_MOLD = ITEMS.register("ceramic_molds/unfired/axe", UnfiredCeramicMoldItem::new);
+		public static final RegistryObject<UnfiredCeramicMoldItem> UNFIRED_CERAMIC_SHOVEL_MOLD = ITEMS.register("ceramic_molds/unfired/shovel", UnfiredCeramicMoldItem::new);
+		public static final RegistryObject<UnfiredCeramicMoldItem> UNFIRED_CERAMIC_SWORD_MOLD = ITEMS.register("ceramic_molds/unfired/sword", UnfiredCeramicMoldItem::new);
+		public static final RegistryObject<UnfiredCeramicMoldItem> UNFIRED_CERAMIC_PROPICK_MOLD = ITEMS.register("ceramic_molds/unfired/prospectors_pickaxe", UnfiredCeramicMoldItem::new);
 }

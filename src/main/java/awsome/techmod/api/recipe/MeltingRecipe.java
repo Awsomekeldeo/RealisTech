@@ -1,79 +1,77 @@
 package awsome.techmod.api.recipe;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
-import awsome.techmod.Reference;
+import awsome.techmod.registry.Registration;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class MeltingRecipe implements IRecipe<IInventory> {
+public class MeltingRecipe implements IRecipe<RecipeWrapper> {
 	
-	public static final Serializer SERIALIZER = new Serializer();
+	public static final IRecipeType<MeltingRecipe> melting_recipe = IRecipeType.register("techmod:melting");
 	
-	private final Ingredient input;
-	private final FluidStack output;
-	private final int meltTemp;
-	private final ResourceLocation id;
+	private final IRecipeType<?> type;
+	protected final Ingredient input;
+	protected final FluidStack output;
+	protected final int meltTemp;
+	protected final ResourceLocation id;
 	
 	public MeltingRecipe(ResourceLocation id, Ingredient input, FluidStack output, int meltTemp) {
 		this.id = id;
 		this.input = input;
 		this.output = output;
 		this.meltTemp = meltTemp;
+		type = melting_recipe;
 	}
 	
 	@Override
-	public boolean matches(IInventory inv, World worldIn) {
-		return false;
+	public boolean matches(RecipeWrapper inv, World worldIn) {
+		return this.input.test(inv.getStackInSlot(0));
 	}
 
 	@Override
-	public ItemStack getCraftingResult(IInventory inv) {
+	public ItemStack getCraftingResult(RecipeWrapper inv) {
 		return null;
+	}
+	
+	public FluidStack getResult() {
+		return this.output;
 	}
 
 	@Override
 	public boolean canFit(int width, int height) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public ItemStack getRecipeOutput() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ResourceLocation getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.id;
 	}
 
 	@Override
 	public IRecipeSerializer<?> getSerializer() {
-		// TODO Auto-generated method stub
-		return null;
+		return Registration.MELTING_RECIPE_SERIALIZER.get();
 	}
 
 	@Override
 	public IRecipeType<?> getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return type;
 	}
 	
 	public static FluidStack deserializeFluid(JsonObject object) {
@@ -84,43 +82,5 @@ public class MeltingRecipe implements IRecipe<IInventory> {
 		}
 		int i = JSONUtils.getInt(object, "amount");
 		return new FluidStack(fluid, i);
-	}
-	
-	private static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<MeltingRecipe> {
-		
-		Serializer() {
-			this.setRegistryName(new ResourceLocation(Reference.MODID, "melting_recipe"));
-		}
-		
-		@Override
-		public MeltingRecipe read(ResourceLocation recipeId, JsonObject json) {
-			//
-			final JsonElement inputElement = JSONUtils.isJsonArray(json, "input") ? JSONUtils.getJsonArray(json, "input") : JSONUtils.getJsonObject(json, "input");
-			final Ingredient input = Ingredient.deserialize(inputElement);
-			
-			final FluidStack output = MeltingRecipe.deserializeFluid(json);
-			final int temp = JSONUtils.getInt(json, "temperature");
-			
-			return new MeltingRecipe(recipeId, input, output, temp);
-		}
-
-		@Override
-		public MeltingRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-			final Ingredient input = Ingredient.read(buffer);
-			final FluidStack output = buffer.readFluidStack();
-			final ResourceLocation id = buffer.readResourceLocation();
-			final int temperature = buffer.readInt();
-			
-			return new MeltingRecipe(id, input, output, temperature);
-		}
-
-		@Override
-		public void write(PacketBuffer buffer, MeltingRecipe recipe) {
-			recipe.input.write(buffer);
-			buffer.writeFluidStack(recipe.output);
-			buffer.writeResourceLocation(recipe.id);
-			buffer.writeInt(recipe.meltTemp);
-		}
-		
 	}
 }

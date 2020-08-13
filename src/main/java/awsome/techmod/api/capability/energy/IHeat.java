@@ -173,7 +173,7 @@ public interface IHeat {
 	
 	/**
 	 * Sets the machine to the specified mode
-	 * @param mode 1 for cooling mode, 0 for heating mode
+	 * @param mode The machine's thermal mode
 	 * @throws IllegalArgumentException when mode is not 0 or 1
 	 */
 	void setThermalMode(EnumThermalMode mode);
@@ -190,16 +190,15 @@ public interface IHeat {
 	
 	/**
 	 * Gets the machine's cooling or heating rate
-	 * @param heatOrCool which rate to get: heat (1) or cool (0)
-	 * @throws IllegalArgumentException if heatOrCool is not equal to 0 or 1
+	 * @param mode Which rate to get 
+	 * @throws IllegalArgumentException If heatOrCool is not equal to 0 or 1
 	 */
-	float getRate(EnumThermalMode heatOrCool);
+	float getRate(EnumThermalMode mode);
 	
 	/**
 	 * Sets the machine's cooling or heating rate
-	 * @param heatOrCool which rate to set: heat (1) or cool (0)
-	 * @param rate the cooling rate
-	 * @throws IllegalArgumentException if heatOrCool is not equal to 0 or 1
+	 * @param mode Which rate to set
+	 * @param rate The cooling rate
 	 */
 	void setRate(EnumThermalMode mode, float rate);
 	

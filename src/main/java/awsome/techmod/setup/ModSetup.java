@@ -18,6 +18,7 @@ import awsome.techmod.worldgen.capability.WorldgenCapability;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.DeferredWorkQueue;
@@ -31,7 +32,9 @@ public class ModSetup {
 	static Comparator<ItemStack> oreSorter;
 	static Comparator<ItemStack> materialSorter;
 	static Comparator<ItemStack> machineSorter;
-	
+	static Comparator<ItemStack> toolSorter;
+	static Comparator<ItemStack> miscSorter;
+ 	
 	public static final ItemGroup TECHMOD_MACHINES = new ItemGroup("techmod.machines") {
 		
 		@Override
@@ -76,6 +79,27 @@ public class ModSetup {
 		
 	};
 	
+	public static final ItemGroup TECHMOD_TOOLS = new ItemGroup("techmod.tools") {
+		
+		@Override
+		public ItemStack createIcon() {
+			return new ItemStack(Items.AIR);
+		}
+	};
+	
+	public static final ItemGroup TECHMOD_MISC = new ItemGroup("techmod.misc") {
+		
+		@Override
+		public ItemStack createIcon() {
+			return new ItemStack(Registration.FIRED_CERAMIC_INGOT_MOLD.get());
+		}
+		
+		public void fill(net.minecraft.util.NonNullList<ItemStack> items) {
+			super.fill(items);
+			items.sort(miscSorter);
+		}
+	};
+	
 	public static List<Item> getItemList(ItemGroup group) {
 		if (group == TECHMOD_MATERIALS) {
 			return Arrays.asList(new Item[] {
@@ -100,7 +124,8 @@ public class ModSetup {
 		if (group == TECHMOD_MACHINES) {
 			return Arrays.asList(new Item[] {
 				Registration.FIREBOX_ITEM.get(),
-				Registration.CRUCIBLE_ITEM.get()
+				Registration.CRUCIBLE_ITEM.get(),
+				Registration.KILN_ITEM.get()
 			});
 		}
 		if (group == TECHMOD_ORES) {
@@ -135,6 +160,27 @@ public class ModSetup {
 				Registration.LAPIS_SAMPLE_ITEM.get()
 			});
 		}
+		if (group == TECHMOD_TOOLS) {
+			return Arrays.asList(new Item[] {
+					
+			});
+		}
+		if (group == TECHMOD_MISC) {
+			return Arrays.asList(new Item[] {
+				Registration.UNFIRED_CERAMIC_INGOT_MOLD.get(),
+				Registration.UNFIRED_CERAMIC_SHOVEL_MOLD.get(),
+				Registration.UNFIRED_CERAMIC_AXE_MOLD.get(),
+				Registration.UNFIRED_CERAMIC_PICKAXE_MOLD.get(),
+				Registration.UNFIRED_CERAMIC_PROPICK_MOLD.get(),
+				Registration.UNFIRED_CERAMIC_SWORD_MOLD.get(),
+				Registration.FIRED_CERAMIC_INGOT_MOLD.get(),
+				Registration.FIRED_CERAMIC_SHOVEL_MOLD.get(),
+				Registration.FIRED_CERAMIC_AXE_MOLD.get(),
+				Registration.FIRED_CERAMIC_PICKAXE_MOLD.get(),
+				Registration.FIRED_CERAMIC_PROPICK_MOLD.get(),
+				Registration.FIRED_CERAMIC_SWORD_MOLD.get(),
+			});
+		}
 		return null;
 	}
 	
@@ -143,6 +189,8 @@ public class ModSetup {
 		oreSorter = Ordering.explicit(getItemList(TECHMOD_ORES)).onResultOf(ItemStack::getItem);
 		machineSorter = Ordering.explicit(getItemList(TECHMOD_MACHINES)).onResultOf(ItemStack::getItem);
 		materialSorter = Ordering.explicit(getItemList(TECHMOD_MATERIALS)).onResultOf(ItemStack::getItem);
+		toolSorter = Ordering.explicit(getItemList(TECHMOD_TOOLS)).onResultOf(ItemStack::getItem);
+		miscSorter = Ordering.explicit(getItemList(TECHMOD_MISC)).onResultOf(ItemStack::getItem);
 		CapabilityManager.INSTANCE.register(IWorldgenCapability.class, new WorldgenCapStorage(), WorldgenCapability::new);
 		DeferredWorkQueue.runLater(FeatureStripper::strip);
 		OreDepositRegistration.getInstance().init();

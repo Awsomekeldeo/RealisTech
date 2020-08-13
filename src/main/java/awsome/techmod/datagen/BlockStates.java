@@ -35,6 +35,7 @@ public class BlockStates extends BlockStateProvider {
 		registerOreBlocks();
 		registerCrucible();
 		registerOreSamples();
+		registerKiln();
 	}
 	
 	private void registerOreBlocks() {
@@ -53,6 +54,13 @@ public class BlockStates extends BlockStateProvider {
 		BlockModelBuilder modelFirebox = models().cube("block/machines/firebox", tex2, tex1, tex3, tex, tex, tex).texture("particle", tex3);
 		orientedBlock(Registration.FIREBOX.get(), state -> {
 			return modelFirebox;
+		});
+	}
+	
+	private void registerKiln() {
+		ExistingModelFile modelKiln = models().getExistingFile(new ResourceLocation(Reference.MODID, "block/machines/kiln"));
+		orientedBlock(Registration.KILN.get(), state -> {
+			return modelKiln;
 		});
 	}
 	

@@ -30,7 +30,7 @@ public class FireboxBlock extends Block {
 
 	public FireboxBlock() {
 		super(Properties.create(Material.ROCK)
-				.sound(SoundType.STONE)
+				.sound(SoundType.METAL)
 				.hardnessAndResistance(1.25f)
 		);
 	}
