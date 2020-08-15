@@ -76,8 +76,6 @@ public class FireboxBlock extends Block {
 		return ActionResultType.SUCCESS;
 	}
 	
-	
-	
 	@Override
 	protected void fillStateContainer(Builder<Block, BlockState> builder) {
 		builder.add(BlockStateProperties.HORIZONTAL_FACING);

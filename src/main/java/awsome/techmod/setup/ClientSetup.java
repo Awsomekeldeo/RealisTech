@@ -3,6 +3,7 @@ package awsome.techmod.setup;
 import awsome.techmod.Reference;
 import awsome.techmod.gui.CrucibleScreen;
 import awsome.techmod.gui.FireboxScreen;
+import awsome.techmod.gui.KilnScreen;
 import awsome.techmod.registry.Registration;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
@@ -18,6 +19,7 @@ public class ClientSetup {
 	public static void init(final FMLClientSetupEvent event) {
 		ScreenManager.registerFactory(Registration.FIREBOX_CONTAINER.get(), FireboxScreen::new);
 		ScreenManager.registerFactory(Registration.CRUCIBLE_CONTAINER.get(), CrucibleScreen::new);
+		ScreenManager.registerFactory(Registration.KILN_CONTAINER.get(), KilnScreen::new);
 		RenderType cutoutMipped = RenderType.getCutoutMipped();
 		RenderType cutout = RenderType.getCutout();
 		

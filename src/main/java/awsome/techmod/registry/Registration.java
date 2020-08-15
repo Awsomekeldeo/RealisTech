@@ -1,6 +1,8 @@
 package awsome.techmod.registry;
 
 import awsome.techmod.Reference;
+import awsome.techmod.api.recipe.KilnRecipe;
+import awsome.techmod.api.recipe.KilnRecipeSerializer;
 import awsome.techmod.api.recipe.MeltingRecipe;
 import awsome.techmod.api.recipe.MeltingRecipeSerializer;
 import awsome.techmod.blocks.CrucibleBlock;
@@ -10,6 +12,7 @@ import awsome.techmod.blocks.ModOreBlock;
 import awsome.techmod.blocks.OreSampleBlock;
 import awsome.techmod.inventory.container.CrucibleContainer;
 import awsome.techmod.inventory.container.FireboxContainer;
+import awsome.techmod.inventory.container.KilnContainer;
 import awsome.techmod.items.CeramicMoldItem;
 import awsome.techmod.items.IngotItem;
 import awsome.techmod.items.OreClusterItem;
@@ -51,6 +54,7 @@ public class Registration {
 	
 	//Recipe Serializers
 		public static final RegistryObject<MeltingRecipeSerializer<MeltingRecipe>> MELTING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("melting", () -> new MeltingRecipeSerializer<>(MeltingRecipe::new));
+		public static final RegistryObject<KilnRecipeSerializer<KilnRecipe>> KILN_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("kiln", () -> new KilnRecipeSerializer<>(KilnRecipe::new));
 	
 	
 	//Blocks
@@ -113,6 +117,12 @@ public class Registration {
 			BlockPos pos = data.readBlockPos();
 			World world = inv.player.getEntityWorld();
 			return new CrucibleContainer(windowId, world, pos, inv, inv.player);
+		}));
+		
+		public static final RegistryObject<ContainerType<KilnContainer>> KILN_CONTAINER = CONTAINERS.register("kiln", () -> IForgeContainerType.create((windowId, inv, data) -> {
+			BlockPos pos = data.readBlockPos();
+			World world = inv.player.getEntityWorld();
+			return new KilnContainer(windowId, world, pos, inv, inv.player);
 		}));
 		
 	

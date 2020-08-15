@@ -14,14 +14,11 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 
 public class MoldCapabilityWrapper implements ICapabilitySerializable<CompoundNBT> {
 	
-	private ItemStack stack;
-	private int capacity;
-	private FluidHandlerItemStack fluidHandler = new FluidHandlerItemStack(this.stack, capacity);
+	private FluidHandlerItemStack fluidHandler;
 	private LazyOptional<IFluidHandlerItem> handler = LazyOptional.of(() -> fluidHandler);
 	
 	public MoldCapabilityWrapper(int capacity, ItemStack stack) {
-		this.capacity = capacity;
-		this.stack = stack;
+		this.fluidHandler = new FluidHandlerItemStack(stack, capacity);
 	}
 	
 	@Override
@@ -29,17 +26,15 @@ public class MoldCapabilityWrapper implements ICapabilitySerializable<CompoundNB
 		if (cap.equals(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)) {
 			return handler.cast();
 		}
-		return null;
+		return LazyOptional.empty();
 	}
 
 	@Override
 	public CompoundNBT serializeNBT() {
 		CompoundNBT compound = new CompoundNBT();
-			if (this.fluidHandler != null) {
-			FluidStack stack = this.fluidHandler.getFluid();
-			if (stack != null) {
-				stack.writeToNBT(compound);
-			}
+		FluidStack stack = this.fluidHandler.getFluid();
+		if (stack != null) {
+			stack.writeToNBT(compound);
 		}
 		return compound;
 	}

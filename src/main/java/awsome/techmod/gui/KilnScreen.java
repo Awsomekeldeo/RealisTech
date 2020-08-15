@@ -6,20 +6,22 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import awsome.techmod.Reference;
-import awsome.techmod.inventory.container.FireboxContainer;
+import awsome.techmod.inventory.container.KilnContainer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
-public class FireboxScreen extends ContainerScreen<FireboxContainer> {
-	private ResourceLocation GUI = new ResourceLocation(Reference.MODID, "textures/gui/firebox.png");
+public class KilnScreen extends ContainerScreen<KilnContainer> {
+	private ResourceLocation GUI = new ResourceLocation(Reference.MODID, "textures/gui/kiln.png");
 	public ITextComponent name;
 	
-	public FireboxScreen(FireboxContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+	public KilnScreen(KilnContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
 		super(screenContainer, inv, titleIn);
 		this.name = titleIn;
+		this.xSize = 176;
+		this.ySize = 185;
 	}
 	
 	@Override
@@ -29,10 +31,10 @@ public class FireboxScreen extends ContainerScreen<FireboxContainer> {
 		this.renderHoveredToolTip(mouseX, mouseY);
 		int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
-        if (mouseX >= i + 152 && mouseX <= i + 160 && mouseY >= j + 6 && mouseY <= j + 78)
+        if (mouseX >= i + 151 && mouseX <= i + 158 && mouseY >= j + 15 && mouseY <= j + 88)
         {
             List<String> lines = Lists.newArrayList();
-            lines.add(I18n.format("techmod.info.temperature", ((FireboxContainer)this.container).getTemperature()));
+            lines.add(I18n.format("techmod.info.temperature", ((KilnContainer)this.container).getTemperature()));
             this.renderTooltip(lines, mouseX, mouseY);
         }
 	}
@@ -46,17 +48,17 @@ public class FireboxScreen extends ContainerScreen<FireboxContainer> {
 		int i = this.guiLeft;
 		int j = this.guiTop;
 		this.blit(relativeX, relativeY, 0, 0, this.xSize, this.ySize);
-		if (((FireboxContainer)this.container).isBurning()) {
-			int k = ((FireboxContainer)this.container).getBurnLeftScaled();
-			this.blit(i + 80, j + 28 + 12 - k, 176, 12 - k, 14, k + 1);
+		if (((KilnContainer)this.container).isBurning()) {
+			int k = ((KilnContainer)this.container).getBurnLeftScaled();
+			this.blit(i + 38, j + 56 + 12 - k, 176, 12 - k, 14, k + 1);
 		}
-		int l = ((FireboxContainer)this.container).getTemperatureScaled();
-		this.blit(i + 153, j + 10 + 62 - l, 176, 15 + 62 - l, 6, l);
+		int l = ((KilnContainer)this.container).getTemperatureScaled();
+		this.blit(i + 152, j + 19 + 62 - l, 176, 32 + 62 - l, 6, l);
 	}
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		font.drawString(this.name.getUnformattedComponentText(), 8, 6, 0x404040);
-		font.drawString(this.playerInventory.getDisplayName().getUnformattedComponentText(), 8, ySize - 96 + 2, 0x404040);
+		font.drawString(this.playerInventory.getDisplayName().getUnformattedComponentText(), 8, ySize - 92 + 2, 0x404040);
 	}
 }

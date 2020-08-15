@@ -6,6 +6,7 @@ import awsome.techmod.api.capability.energy.HeatCapability;
 import awsome.techmod.api.capability.energy.IHeat;
 import awsome.techmod.api.capability.impl.HeatHandler;
 import awsome.techmod.registry.Registration;
+import awsome.techmod.util.MathUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -96,7 +97,7 @@ public class CrucibleTileEntity extends TileEntity implements ITickableTileEntit
 	public void tick() {
 		float lastKnownTemp = this.heatHandler.getTemperature();
 		if (!this.world.isRemote) {
-			if (this.heatHandler.getTemperature() < this.heatHandler.getMaxTemperature() && this.heatHandler.getTemperature() >= this.heatHandler.getBaseTempBasedOnBiome(this.getPos())) {
+			if (this.heatHandler.getTemperature() < this.heatHandler.getMaxTemperature() && this.heatHandler.getTemperature() >= MathUtil.roundFloat(this.heatHandler.getBaseTempBasedOnBiome(this.getPos()), 2)) {
 				if(this.heatHandler.drawHeatFromSide(getPos(), Direction.DOWN)) {
 					this.heatHandler.heat();
 				}else{
