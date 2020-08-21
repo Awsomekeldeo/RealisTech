@@ -12,7 +12,7 @@ import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 public class KilnRecipe implements IRecipe<RecipeWrapper> {
 	
-	private static final IRecipeType<KilnRecipe> KILN_RECIPE = IRecipeType.register("techmod:kiln");
+	public static final IRecipeType<KilnRecipe> KILN_RECIPE = IRecipeType.register("techmod:kiln");
 	
 	private final IRecipeType<?> type;
 	protected final Ingredient input;
@@ -68,5 +68,9 @@ public class KilnRecipe implements IRecipe<RecipeWrapper> {
 	
 	public boolean isValid(ItemStack input) {
 		return this.input.test(input);
+	}
+	
+	public int getFiringTemp() {
+		return this.fireTemp;
 	}
 }

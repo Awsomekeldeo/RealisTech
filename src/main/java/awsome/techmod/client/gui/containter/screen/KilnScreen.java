@@ -1,4 +1,4 @@
-package awsome.techmod.gui;
+package awsome.techmod.client.gui.containter.screen;
 
 import java.util.List;
 
@@ -54,11 +54,14 @@ public class KilnScreen extends ContainerScreen<KilnContainer> {
 		}
 		int l = ((KilnContainer)this.container).getTemperatureScaled();
 		this.blit(i + 152, j + 19 + 62 - l, 176, 32 + 62 - l, 6, l);
+		
+		int m = ((KilnContainer)this.container).getFireProgressScaled();
+		this.blit(i + 70, j + 51, 176, 14, m + 1, 16);
 	}
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		font.drawString(this.name.getUnformattedComponentText(), 8, 6, 0x404040);
-		font.drawString(this.playerInventory.getDisplayName().getUnformattedComponentText(), 8, ySize - 92 + 2, 0x404040);
+		font.drawString(this.playerInventory.getDisplayName().getUnformattedComponentText(), 8, ySize - 92, 0x404040);
 	}
 }

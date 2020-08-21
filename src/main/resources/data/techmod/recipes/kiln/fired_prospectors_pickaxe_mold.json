@@ -1,0 +1,10 @@
+{
+	"type": "techmod:kiln",
+	"input": {
+		"item": "techmod:ceramic_molds/unfired/prospectors_pickaxe"
+	},
+	"output": {
+		"item": "techmod:ceramic_molds/fired/prospectors_pickaxe"
+	},
+	"firing_temperature": 1000
+}

@@ -3,33 +3,40 @@ package awsome.techmod.tileentity;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import awsome.techmod.Techmod;
 import awsome.techmod.api.capability.energy.HeatCapability;
 import awsome.techmod.api.capability.energy.IHeat;
 import awsome.techmod.api.capability.impl.HeatHandler;
+import awsome.techmod.api.recipe.KilnRecipe;
 import awsome.techmod.registry.Registration;
-import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IIntArray;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
 
-public class KilnTileEntity extends TileEntity implements ITickable {
+public class KilnTileEntity extends TileEntity implements ITickableTileEntity {
 	
 	private ItemStackHandler itemHandler = createHandler();
-	private HeatHandler heatHandler = new HeatHandler(this, 1773.0f, true, 0.25f, 0.5f);
+	private HeatHandler heatHandler = new HeatHandler(this, 1773.0f, false, 0.25f, 0.5f);
 	private int burnTime;
 	private int fireProgress;
 	private int totalFireProgress = 200;
 	protected int currentItemBurnTime;
+	protected final IRecipeType<KilnRecipe> recipeType;
+	
 	public final IIntArray kilnData = new IIntArray() {
 		
 		@Override
@@ -81,10 +88,80 @@ public class KilnTileEntity extends TileEntity implements ITickable {
 	public KilnTileEntity() {
 		super(Registration.KILN_TILEENTITY.get());
 		this.heatHandler.setTemp(this.heatHandler.getBaseTempBasedOnBiome(this.getPos()));
+		this.recipeType = KilnRecipe.KILN_RECIPE;
+	}
+	
+	@Override
+	public void tick() {
+		boolean needsUpdating = false;
+		boolean burning = this.isBurning();
+		if (this.isBurning()) {
+			this.burnTime--;
+		}
+		if (!this.world.isRemote) {
+			ItemStack is = this.itemHandler.getStackInSlot(4);
+			if (this.isBurning() || !is.isEmpty()) {
+				if (!this.isBurning()) {
+					
+					this.burnTime = ForgeHooks.getBurnTime(is);
+					this.currentItemBurnTime = this.burnTime;
+					
+					if (this.isBurning()) {
+						needsUpdating = true;
+						if (is.hasContainerItem()) {
+							this.itemHandler.setStackInSlot(4, is.getContainerItem());
+						}else if (!is.isEmpty()){
+							Item item = is.getItem();
+							is.shrink(1);
+							if (is.isEmpty()) {
+								ItemStack stack1 = item.getContainerItem(is);
+								this.itemHandler.setStackInSlot(4, stack1);
+							}
+						}
+					}
+				}
+				if(this.heatHandler.getTemperature() < this.heatHandler.getMaxTemperature()) {
+					this.heatHandler.heat();
+				}
+			}else{
+				if(this.heatHandler.getTemperature() > this.heatHandler.getBaseTempBasedOnBiome(getPos())) {
+					this.heatHandler.cool();
+				}
+			}
+			if (burning != this.isBurning())
+            {
+                needsUpdating = true;
+            }
+			for (int i = 0; i < 4; i++) {
+				NonNullList<ItemStack> stacks = NonNullList.from(this.itemHandler.getStackInSlot(i), this.itemHandler.getStackInSlot(i));
+				RecipeWrapper wrapper = new RecipeWrapper(new ItemStackHandler(stacks));
+				IRecipe<?> recipe = this.world.getRecipeManager().getRecipe(this.recipeType, wrapper, this.world).orElse(null);
+				if (this.canFire(recipe, i)) {
+					if (i == 0) {
+						this.fireProgress++;
+					}
+					if (this.fireProgress == totalFireProgress) {
+						this.fireProgress = 0;
+						this.totalFireProgress = 200;
+						if (this.canFire(recipe, i)) {
+							this.fire(recipe, i);
+						}
+						needsUpdating = true;
+					}
+				}else{
+					this.fireProgress = 0;
+					needsUpdating = true;
+				}
+			}
+		}
+		if (needsUpdating)
+        {
+            this.markDirty();
+        }
 	}
 	
 	private boolean isBurning() {
-		return burnTime > 0;
+		return this.burnTime > 0;
 	}
 
 	private ItemStackHandler createHandler() {
@@ -120,6 +197,7 @@ public class KilnTileEntity extends TileEntity implements ITickable {
 		heatHandler.deserializeNBT(compound.getCompound("techmod:heatData"));
 		this.burnTime = compound.getInt("burnTime");
 		this.currentItemBurnTime = compound.getInt("currentItemBurnTime");
+		this.fireProgress = compound.getInt("fireProgress");
 		super.read(compound);
 	}
 
@@ -129,6 +207,7 @@ public class KilnTileEntity extends TileEntity implements ITickable {
 		compound.put("techmod:heatData", heatHandler.serializeNBT());
 		compound.putInt("burnTime", this.burnTime);
 		compound.putInt("currentItemBurnTime", this.currentItemBurnTime);
+		compound.putInt("fireProgress", this.fireProgress);
 		return super.write(compound);
 	}
 	
@@ -145,10 +224,10 @@ public class KilnTileEntity extends TileEntity implements ITickable {
 	}
 	
 	public int getItemBurnTime() {
-		if (itemHandler.getStackInSlot(0).isEmpty()) {
+		if (itemHandler.getStackInSlot(4).isEmpty()) {
 			return 0;
 		}else{
-			return ForgeHooks.getBurnTime(itemHandler.getStackInSlot(0));
+			return ForgeHooks.getBurnTime(itemHandler.getStackInSlot(4));
 		}
 	}
 	
@@ -158,77 +237,61 @@ public class KilnTileEntity extends TileEntity implements ITickable {
 	
 	protected boolean canFire(@Nullable IRecipe<?> recipe, int slot) {
 		if (!this.itemHandler.getStackInSlot(slot).isEmpty() && recipe != null) {
-			ItemStack output = recipe.getRecipeOutput().copy();
-			if (output.isEmpty()) {
-				return false;
-			}else{
-				ItemStack stackInOutputSlot = ItemStack.EMPTY;
-				for (int i = 5; i < itemHandler.getSlots() + 1; i++) {
-					if (!this.itemHandler.getStackInSlot(i).isEmpty()) {
-						stackInOutputSlot = this.itemHandler.getStackInSlot(i);
-					}
-				}
-				if (stackInOutputSlot.isEmpty()) {
-					return true;
-				}else if(!stackInOutputSlot.isItemEqual(output)) {
+			if (this.heatHandler.getTemperature() >= 1000.0f) {
+				ItemStack output = recipe.getRecipeOutput().copy();
+				if (output.isEmpty()) {
 					return false;
 				}else{
-					return stackInOutputSlot.getCount() + output.getCount() <= stackInOutputSlot.getMaxStackSize();
+					ItemStack stackInOutputSlot = ItemStack.EMPTY;
+					for (int i = 5; i < this.itemHandler.getSlots(); i++) {
+						if (this.itemHandler.getStackInSlot(i).isEmpty()) {
+							break;
+						}
+						if (!this.itemHandler.getStackInSlot(i).isEmpty()) {
+							stackInOutputSlot = this.itemHandler.getStackInSlot(i);
+						}
+					}
+					if (stackInOutputSlot.isEmpty()) {
+						return true;
+					}else if(!stackInOutputSlot.isItemEqual(output)) {
+						return false;
+					}else{
+						return stackInOutputSlot.getCount() + output.getCount() <= stackInOutputSlot.getMaxStackSize();
+					}
 				}
+			}else{
+				return false;
 			}
 		}else{
 			return false;
 		}
 	}
-
-	@Override
-	public void tick() {
-		boolean needsUpdating = false;
-		boolean burning = this.isBurning();
-		if (this.isBurning()) {
-			this.burnTime--;
-		}
-		if (!this.world.isRemote) {
-			ItemStack is = this.itemHandler.getStackInSlot(0);
-			if (this.isBurning() || !is.isEmpty()) {
-				if (!this.isBurning()) {
-					
-					this.burnTime = ForgeHooks.getBurnTime(is);
-					this.currentItemBurnTime = this.burnTime;
-					
-					if (this.isBurning() || !is.isEmpty()) {
-						if(!is.isEmpty()) {
-							needsUpdating = true;
-	                        if (!is.isEmpty())
-	                        {
-	                            Item item = is.getItem();
-	                            is.shrink(1);
 	
-	                            if (is.isEmpty())
-	                            {
-	                                ItemStack item1 = item.getContainerItem(is);
-	                                this.itemHandler.setStackInSlot(0, item1);
-	                            }
-	                        }
-						}
-					}
+	private void fire(@Nullable IRecipe<?> recipe, int slot) {
+		if (recipe != null && canFire(recipe, slot)) {
+			ItemStack inputStack = this.itemHandler.getStackInSlot(slot);
+			ItemStack outputStack = recipe.getRecipeOutput().copy();
+			Techmod.LOGGER.info("Recipe output for kiln is:" + outputStack.toString());
+			ItemStack itemInOutputSlot = ItemStack.EMPTY;
+			int outputSlotIndex = 5;
+			for (int i = 5; i < this.itemHandler.getSlots(); i++) {
+				itemInOutputSlot = this.itemHandler.getStackInSlot(i);
+				if (inputStack.getItem() == itemInOutputSlot.getItem()) {
+					outputSlotIndex = i;
+					break;
 				}
-				if(this.heatHandler.getTemperature() < this.heatHandler.getMaxTemperature()) {
-					this.heatHandler.heat();
-				}
-			}else{
-				if(this.heatHandler.getTemperature() > this.heatHandler.getBaseTempBasedOnBiome(getPos())) {
-					this.heatHandler.cool();
+				if (itemInOutputSlot.isEmpty()) {
+					outputSlotIndex = i;
+					break;
 				}
 			}
-			if (burning != this.isBurning())
-            {
-                needsUpdating = true;
-            }
+			Techmod.LOGGER.info("Item in kiln's output slot is:" + itemInOutputSlot.toString());
+			if (itemInOutputSlot.isEmpty()) {
+				this.itemHandler.setStackInSlot(outputSlotIndex, outputStack.copy());
+			}else if (itemInOutputSlot.getItem() == inputStack.getItem()) {
+				itemInOutputSlot.grow(outputStack.getCount());
+			}
+			inputStack.shrink(1);
 		}
-		if (needsUpdating)
-        {
-            this.markDirty();
-        }
 	}
 }

@@ -115,6 +115,8 @@ public class CrucibleBlock extends Block {
 					spawnAsEntity(worldIn, pos, h.getStackInSlot(i));
 				}
 			});
+			
+			worldIn.removeTileEntity(pos);
 		}
 	}
 }

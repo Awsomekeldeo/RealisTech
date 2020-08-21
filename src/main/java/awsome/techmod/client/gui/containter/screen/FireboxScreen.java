@@ -1,4 +1,4 @@
-package awsome.techmod.gui;
+package awsome.techmod.client.gui.containter.screen;
 
 import java.util.List;
 

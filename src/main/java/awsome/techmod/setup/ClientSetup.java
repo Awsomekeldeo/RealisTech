@@ -1,9 +1,9 @@
 package awsome.techmod.setup;
 
 import awsome.techmod.Reference;
-import awsome.techmod.gui.CrucibleScreen;
-import awsome.techmod.gui.FireboxScreen;
-import awsome.techmod.gui.KilnScreen;
+import awsome.techmod.client.gui.containter.screen.CrucibleScreen;
+import awsome.techmod.client.gui.containter.screen.FireboxScreen;
+import awsome.techmod.client.gui.containter.screen.KilnScreen;
 import awsome.techmod.registry.Registration;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;

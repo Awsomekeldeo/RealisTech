@@ -1,7 +1,6 @@
 package awsome.techmod.inventory.container;
 
 import awsome.techmod.registry.Registration;
-import awsome.techmod.tileentity.FireboxTileEntity;
 import awsome.techmod.tileentity.KilnTileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -64,7 +63,7 @@ public class KilnContainer extends Container {
 	}
 	
 	public int getBurnTime() {
-		return ((FireboxTileEntity)tileEntity).getBurnTime();
+		return ((KilnTileEntity)tileEntity).getBurnTime();
 	}
 	
 	
@@ -75,14 +74,14 @@ public class KilnContainer extends Container {
         if (slot != null && slot.getHasStack()) {
             ItemStack stack = slot.getStack();
             itemstack = stack.copy();
-            if (index == 0) {
+            if (index == 4) {
                 if (!this.mergeItemStack(stack, 1, 37, true)) {
                     return ItemStack.EMPTY;
                 }
                 slot.onSlotChange(stack, itemstack);
             } else {
                 if (ForgeHooks.getBurnTime(stack) > 0) {
-                    if (!this.mergeItemStack(stack, 0, 1, false)) {
+                    if (!this.mergeItemStack(stack, 4, 5, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else if (index < 28) {
@@ -162,5 +161,12 @@ public class KilnContainer extends Container {
 	@OnlyIn(Dist.CLIENT) 
 	public int getTemperatureScaled() {
 		return (int) ((this.kilnData.get(2) / 100.0f) + 3) * 63 / 1773;
+	}
+	
+	@OnlyIn(Dist.CLIENT)
+	public int getFireProgressScaled() {
+		int i = this.kilnData.get(3);
+		int j = this.kilnData.get(4);
+		return j != 0 && i != 0 ? i * 24 / j : 0;
 	}
 }

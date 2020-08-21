@@ -10,9 +10,7 @@ showAsResourcePack=false
 	displayName="Untitled Tech Mod"
 	logoFile="logo.png"
 	authors="Awsomekeldeo"
-	description='''
-	A work-in-progress Tech Mod
-	'''
+	description='''A work-in-progress Tech Mod'''
 	
 	[[dependencies.techmod]]
 		modId="forge"

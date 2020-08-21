@@ -87,20 +87,17 @@ public class FireboxTileEntity extends TileEntity implements ITickableTileEntity
 					this.burnTime = ForgeHooks.getBurnTime(is);
 					this.currentItemBurnTime = this.burnTime;
 					
-					if (this.isBurning() || !is.isEmpty()) {
-						if(!is.isEmpty()) {
-							needsUpdating = true;
-	                        if (!is.isEmpty())
-	                        {
-	                            Item item = is.getItem();
-	                            is.shrink(1);
-	
-	                            if (is.isEmpty())
-	                            {
-	                                ItemStack item1 = item.getContainerItem(is);
-	                                this.itemHandler.setStackInSlot(0, item1);
-	                            }
-	                        }
+					if (this.isBurning()) {
+						needsUpdating = true;
+						if (is.hasContainerItem()) {
+							this.itemHandler.setStackInSlot(0, is.getContainerItem());
+						}else if (!is.isEmpty()){
+							Item item = is.getItem();
+							is.shrink(1);
+							if (is.isEmpty()) {
+								ItemStack stack1 = item.getContainerItem(is);
+								this.itemHandler.setStackInSlot(0, stack1);
+							}
 						}
 					}
 				}
@@ -124,7 +121,7 @@ public class FireboxTileEntity extends TileEntity implements ITickableTileEntity
 	}
 	
 	private boolean isBurning() {
-		return burnTime > 0;
+		return this.burnTime > 0;
 	}
 
 	private ItemStackHandler createHandler() {

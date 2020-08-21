@@ -25,7 +25,7 @@ public class KilnRecipeSerializer<T extends KilnRecipe> extends ForgeRegistryEnt
 		final JsonElement inputElement = JSONUtils.isJsonArray(json, "input") ? JSONUtils.getJsonArray(json, "input") : JSONUtils.getJsonObject(json, "input");
 		final Ingredient input = Ingredient.deserialize(inputElement);
 		
-		final ItemStack output = CraftingHelper.getItemStack(json, false);
+		final ItemStack output = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "output"), false);
 		final int temp = JSONUtils.getInt(json, "firing_temperature");
 		
 		return this.factory.create(recipeId, input, output, temp);
