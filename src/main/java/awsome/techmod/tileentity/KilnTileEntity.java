@@ -18,7 +18,6 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IIntArray;
-import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -36,6 +35,7 @@ public class KilnTileEntity extends TileEntity implements ITickableTileEntity {
 	private int totalFireProgress = 200;
 	protected int currentItemBurnTime;
 	protected final IRecipeType<KilnRecipe> recipeType;
+	protected RecipeWrapper wrapper = new RecipeWrapper(this.itemHandler);
 	
 	public final IIntArray kilnData = new IIntArray() {
 		
@@ -132,26 +132,20 @@ public class KilnTileEntity extends TileEntity implements ITickableTileEntity {
             {
                 needsUpdating = true;
             }
-			for (int i = 0; i < 4; i++) {
-				NonNullList<ItemStack> stacks = NonNullList.from(this.itemHandler.getStackInSlot(i), this.itemHandler.getStackInSlot(i));
-				RecipeWrapper wrapper = new RecipeWrapper(new ItemStackHandler(stacks));
-				IRecipe<?> recipe = this.world.getRecipeManager().getRecipe(this.recipeType, wrapper, this.world).orElse(null);
-				if (this.canFire(recipe, i)) {
-					if (i == 0) {
-						this.fireProgress++;
-					}
-					if (this.fireProgress == totalFireProgress) {
-						this.fireProgress = 0;
-						this.totalFireProgress = 200;
-						if (this.canFire(recipe, i)) {
-							this.fire(recipe, i);
-						}
-						needsUpdating = true;
-					}
-				}else{
+			IRecipe<?> recipe = this.world.getRecipeManager().getRecipe(this.recipeType, this.wrapper, this.world).orElse(null);
+			if (this.canFire(recipe)) {
+				this.fireProgress++;
+				if (this.fireProgress == totalFireProgress) {
 					this.fireProgress = 0;
+					this.totalFireProgress = 200;
+					if (this.canFire(recipe)) {
+						this.fire(recipe);
+					}
 					needsUpdating = true;
 				}
+			}else{
+				this.fireProgress = 0;
+				needsUpdating = true;
 			}
 		}
 		if (needsUpdating)
@@ -235,63 +229,66 @@ public class KilnTileEntity extends TileEntity implements ITickableTileEntity {
 		return this.burnTime;
 	}
 	
-	protected boolean canFire(@Nullable IRecipe<?> recipe, int slot) {
-		if (!this.itemHandler.getStackInSlot(slot).isEmpty() && recipe != null) {
-			if (this.heatHandler.getTemperature() >= 1000.0f) {
-				ItemStack output = recipe.getRecipeOutput().copy();
-				if (output.isEmpty()) {
-					return false;
-				}else{
-					ItemStack stackInOutputSlot = ItemStack.EMPTY;
-					for (int i = 5; i < this.itemHandler.getSlots(); i++) {
-						if (this.itemHandler.getStackInSlot(i).isEmpty()) {
-							break;
-						}
-						if (!this.itemHandler.getStackInSlot(i).isEmpty()) {
-							stackInOutputSlot = this.itemHandler.getStackInSlot(i);
-						}
-					}
-					if (stackInOutputSlot.isEmpty()) {
-						return true;
-					}else if(!stackInOutputSlot.isItemEqual(output)) {
+	protected boolean canFire(@Nullable IRecipe<?> recipe) {
+		for (int i = 0; i < 4; i++) {
+			if (!this.itemHandler.getStackInSlot(i).isEmpty() && recipe != null) {
+				if (this.heatHandler.getTemperature() >= 1000.0f) {
+					ItemStack output = recipe.getRecipeOutput().copy();
+					if (output.isEmpty()) {
 						return false;
 					}else{
-						return stackInOutputSlot.getCount() + output.getCount() <= stackInOutputSlot.getMaxStackSize();
+						ItemStack stackInOutputSlot = ItemStack.EMPTY;
+						for (int j = 5; j < this.itemHandler.getSlots(); j++) {
+							if (this.itemHandler.getStackInSlot(j).isEmpty()) {
+								break;
+							}
+							if (!this.itemHandler.getStackInSlot(j).isEmpty()) {
+								stackInOutputSlot = this.itemHandler.getStackInSlot(j);
+							}
+						}
+						if (stackInOutputSlot.isEmpty()) {
+							return true;
+						}else if(!stackInOutputSlot.isItemEqual(output)) {
+							return false;
+						}else{
+							return stackInOutputSlot.getCount() + output.getCount() <= stackInOutputSlot.getMaxStackSize();
+						}
 					}
+				}else{
+					return false;
 				}
-			}else{
-				return false;
 			}
-		}else{
-			return false;
 		}
+		return false;
 	}
 	
-	private void fire(@Nullable IRecipe<?> recipe, int slot) {
-		if (recipe != null && canFire(recipe, slot)) {
-			ItemStack inputStack = this.itemHandler.getStackInSlot(slot);
-			ItemStack outputStack = recipe.getRecipeOutput().copy();
-			Techmod.LOGGER.info("Recipe output for kiln is:" + outputStack.toString());
-			ItemStack itemInOutputSlot = ItemStack.EMPTY;
-			int outputSlotIndex = 5;
-			for (int i = 5; i < this.itemHandler.getSlots(); i++) {
-				itemInOutputSlot = this.itemHandler.getStackInSlot(i);
-				if (inputStack.getItem() == itemInOutputSlot.getItem()) {
-					outputSlotIndex = i;
-					break;
+	private void fire(@Nullable IRecipe<?> recipe) {
+		for (int i = 0; i < 4; i++) {
+			if (recipe != null && canFire(recipe)) {
+				ItemStack inputStack = this.itemHandler.getStackInSlot(i);
+				ItemStack outputStack = recipe.getRecipeOutput().copy();
+				Techmod.LOGGER.info("Recipe output for kiln is:" + outputStack.toString());
+				ItemStack itemInOutputSlot = ItemStack.EMPTY;
+				int outputSlotIndex = 5;
+				for (int j = 5; j < this.itemHandler.getSlots(); j++) {
+					itemInOutputSlot = this.itemHandler.getStackInSlot(j);
+					if (inputStack.getItem() == itemInOutputSlot.getItem()) {
+						outputSlotIndex = j;
+						break;
+					}
+					if (itemInOutputSlot.isEmpty()) {
+						outputSlotIndex = j;
+						break;
+					}
 				}
+				Techmod.LOGGER.info("Item in kiln's output slot is:" + itemInOutputSlot.toString());
 				if (itemInOutputSlot.isEmpty()) {
-					outputSlotIndex = i;
-					break;
+					this.itemHandler.setStackInSlot(outputSlotIndex, outputStack.copy());
+				}else if (itemInOutputSlot.getItem() == inputStack.getItem()) {
+					itemInOutputSlot.grow(outputStack.getCount());
 				}
+				inputStack.shrink(1);
 			}
-			Techmod.LOGGER.info("Item in kiln's output slot is:" + itemInOutputSlot.toString());
-			if (itemInOutputSlot.isEmpty()) {
-				this.itemHandler.setStackInSlot(outputSlotIndex, outputStack.copy());
-			}else if (itemInOutputSlot.getItem() == inputStack.getItem()) {
-				itemInOutputSlot.grow(outputStack.getCount());
-			}
-			inputStack.shrink(1);
 		}
 	}
 }
