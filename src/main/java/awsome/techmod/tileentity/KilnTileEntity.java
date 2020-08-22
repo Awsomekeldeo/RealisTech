@@ -23,6 +23,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
@@ -132,15 +133,12 @@ public class KilnTileEntity extends TileEntity implements ITickableTileEntity {
             {
                 needsUpdating = true;
             }
-			IRecipe<?> recipe = this.world.getRecipeManager().getRecipe(this.recipeType, this.wrapper, this.world).orElse(null);
-			if (this.canFire(recipe)) {
+			if (this.canFire()) {
 				this.fireProgress++;
 				if (this.fireProgress == totalFireProgress) {
 					this.fireProgress = 0;
 					this.totalFireProgress = 200;
-					if (this.canFire(recipe)) {
-						this.fire(recipe);
-					}
+					this.fire();
 					needsUpdating = true;
 				}
 			}else{
@@ -229,17 +227,23 @@ public class KilnTileEntity extends TileEntity implements ITickableTileEntity {
 		return this.burnTime;
 	}
 	
-	protected boolean canFire(@Nullable IRecipe<?> recipe) {
+	protected boolean canFire() {
 		for (int i = 0; i < 4; i++) {
-			if (!this.itemHandler.getStackInSlot(i).isEmpty() && recipe != null) {
+			ItemStack stack = this.itemHandler.getStackInSlot(i);
+			IItemHandlerModifiable recipeItemHandler = new ItemStackHandler();
+			recipeItemHandler.setStackInSlot(0, stack);
+			RecipeWrapper recipeWrapper = new RecipeWrapper(recipeItemHandler);
+			IRecipe<?> recipe2 = this.world.getRecipeManager().getRecipe(this.recipeType, recipeWrapper, this.world).orElse(null);
+			if (!this.itemHandler.getStackInSlot(i).isEmpty() && recipe2 != null) {
 				if (this.heatHandler.getTemperature() >= 1000.0f) {
-					ItemStack output = recipe.getRecipeOutput().copy();
+					ItemStack output = recipe2.getRecipeOutput().copy();
 					if (output.isEmpty()) {
 						return false;
 					}else{
 						ItemStack stackInOutputSlot = ItemStack.EMPTY;
 						for (int j = 5; j < this.itemHandler.getSlots(); j++) {
 							if (this.itemHandler.getStackInSlot(j).isEmpty()) {
+								stackInOutputSlot = ItemStack.EMPTY;
 								break;
 							}
 							if (!this.itemHandler.getStackInSlot(j).isEmpty()) {
@@ -257,16 +261,23 @@ public class KilnTileEntity extends TileEntity implements ITickableTileEntity {
 				}else{
 					return false;
 				}
+			}else{
+				continue;
 			}
 		}
 		return false;
 	}
 	
-	private void fire(@Nullable IRecipe<?> recipe) {
+	private void fire() {
 		for (int i = 0; i < 4; i++) {
-			if (recipe != null && canFire(recipe)) {
+			ItemStack stack = this.itemHandler.getStackInSlot(i);
+			IItemHandlerModifiable recipeItemHandler = new ItemStackHandler();
+			recipeItemHandler.setStackInSlot(0, stack);
+			RecipeWrapper recipeWrapper = new RecipeWrapper(recipeItemHandler);
+			IRecipe<?> recipe2 = this.world.getRecipeManager().getRecipe(this.recipeType, recipeWrapper, this.world).orElse(null);
+			if (recipe2 != null && canFire()) {
 				ItemStack inputStack = this.itemHandler.getStackInSlot(i);
-				ItemStack outputStack = recipe.getRecipeOutput().copy();
+				ItemStack outputStack = recipe2.getRecipeOutput().copy();
 				Techmod.LOGGER.info("Recipe output for kiln is:" + outputStack.toString());
 				ItemStack itemInOutputSlot = ItemStack.EMPTY;
 				int outputSlotIndex = 5;
@@ -275,10 +286,11 @@ public class KilnTileEntity extends TileEntity implements ITickableTileEntity {
 					if (inputStack.getItem() == itemInOutputSlot.getItem()) {
 						outputSlotIndex = j;
 						break;
-					}
-					if (itemInOutputSlot.isEmpty()) {
+					}else if (itemInOutputSlot.isEmpty()) {
 						outputSlotIndex = j;
 						break;
+					}else{
+						continue;
 					}
 				}
 				Techmod.LOGGER.info("Item in kiln's output slot is:" + itemInOutputSlot.toString());
@@ -288,6 +300,8 @@ public class KilnTileEntity extends TileEntity implements ITickableTileEntity {
 					itemInOutputSlot.grow(outputStack.getCount());
 				}
 				inputStack.shrink(1);
+			}else{
+				continue;
 			}
 		}
 	}
