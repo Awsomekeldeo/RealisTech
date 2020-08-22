@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "realistech:block/ores/mod_coal_ore"
+    }
+  }
+}

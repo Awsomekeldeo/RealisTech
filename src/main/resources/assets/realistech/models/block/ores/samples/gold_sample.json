@@ -1,0 +1,7 @@
+{
+  "parent": "realistech:block/ores/samples/cluster_base",
+  "textures": {
+    "2": "realistech:items/clusters/gold",
+    "particle": "realistech:items/clusters/gold"
+  }
+}

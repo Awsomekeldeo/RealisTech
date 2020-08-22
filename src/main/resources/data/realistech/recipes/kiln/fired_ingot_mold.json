@@ -1,0 +1,10 @@
+{
+	"type": "realistech:kiln",
+	"input": {
+		"item": "realistech:ceramic_molds/unfired/ingot"
+	},
+	"output": {
+		"item": "realistech:ceramic_molds/fired/ingot"
+	},
+	"firing_temperature": 1000
+}

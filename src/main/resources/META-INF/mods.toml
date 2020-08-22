@@ -5,21 +5,21 @@ issueTrackerUrl="https://github.com/Awsomekeldeo/TechMod/issues"
 showAsResourcePack=false
 
 [[mods]]
-	modId="techmod"
+	modId="realistech"
 	version="0.0.1"
-	displayName="Untitled Tech Mod"
+	displayName="RealisTech"
 	logoFile="logo.png"
 	authors="Awsomekeldeo"
-	description='''A work-in-progress Tech Mod'''
+	description='''A Tech Mod focused on TerraFirmaCraft-style realism'''
 	
-	[[dependencies.techmod]]
+	[[dependencies.realistech]]
 		modId="forge"
 		mandatory=true
 		versionRange="[31,)"
 		ordering="NONE"
 		side="BOTH"
 		
-	[[dependencies.techmod]]
+	[[dependencies.realistech]]
         modId="minecraft"
         mandatory=true
         versionRange="[1.15.1,1.15.2]"

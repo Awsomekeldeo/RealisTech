@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "realistech:blocks/ores/lead",
+    "particle": "realistech:blocks/ores/lead"
+  }
+}
