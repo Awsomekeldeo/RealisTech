@@ -27,6 +27,11 @@
 	"item.realistech.ceramic_molds.unfired.shovel": "Unfired Shovel Mold",
 	"item.realistech.ceramic_molds.unfired.sword": "Unfired Sword Mold",
 	"item.realistech.ceramic_molds.unfired.prospectors_pickaxe": "Unfired Prospector's Pickaxe Mold",
+	"item.realistech.kiln_brick": "Kiln Brick",
+	"item.realistech.unfired_kiln_brick": "Unfired Kiln Brick",
+	"item.realistech.unfired_clay_brick": "Unfired Clay Brick",
+	"item.realistech.primitive_brick_mold": "Primitive Brick Mold",
+	"item.realistech.kiln_clay_ball": "Kiln Clay",
 	"block.realistech.kiln": "Kiln",
 	"block.realistech.copper_ore": "Malachite",
 	"block.realistech.tin_ore": "Cassiterite",
@@ -61,9 +66,11 @@
 	"container.realistech.firebox": "Firebox",
 	"container.realistech.crucible": "Crucible",
 	"container.realistech.kiln": "Kiln",
-	"itemGroup.realistech.machines": "Tech Mod Machines",
-	"itemGroup.realistech.materials": "Tech Mod Materials",
-	"itemGroup.realistech.ores": "Tech Mod Ores",
-	"itemGroup.realistech.tools": "Tech Mod Tools",
-	"realistech.info.temperature": "%s°C"
+	"itemGroup.realistech.machines": "RealisTech Machines",
+	"itemGroup.realistech.materials": "RealisTech Materials",
+	"itemGroup.realistech.ores": "RealisTech Ores",
+	"itemGroup.realistech.tools": "RealisTech Tools",
+	"itemGroup.realistech.misc": "RealisTech Misc. Items",
+	"realistech.info.temperature": "%s°C",
+	"tooltip.realistech.brick": "\"I'm a brick!\""
 }

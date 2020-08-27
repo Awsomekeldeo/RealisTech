@@ -27,6 +27,7 @@ public class OreDepositRegistration {
 	private HashMap<String, Integer> emeraldDepositBlocks = new HashMap<>();
 	private HashMap<String, Integer> redstoneDepositBlocks = new HashMap<>();
 	private HashMap<String, Integer> lapisDepositBlocks = new HashMap<>();
+	private HashMap<String, Integer> clayDepositBlocks = new HashMap<>();
 	
 	private HashMap<String, Integer> copperDepositSamples = new HashMap<>();
 	private HashMap<String, Integer> tinDepositSamples = new HashMap<>();
@@ -42,6 +43,7 @@ public class OreDepositRegistration {
 	private HashMap<String, Integer> emeraldDepositSamples = new HashMap<>();
 	private HashMap<String, Integer> redstoneDepositSamples = new HashMap<>();
 	private HashMap<String, Integer> lapisDepositSamples = new HashMap<>();
+	private HashMap<String, Integer> clayDepositSamples = new HashMap<>();
 
 	public void init() {
 		copperDepositBlocks.put("techmod:copper_ore", 100);
@@ -58,6 +60,7 @@ public class OreDepositRegistration {
 		emeraldDepositBlocks.put("techmod:mod_emerald_ore", 100);
 		redstoneDepositBlocks.put("techmod:mod_redstone_ore", 100);
 		lapisDepositBlocks.put("techmod:mod_lapis_ore", 100);
+		clayDepositBlocks.put("minecraft:clay", 100);
 		
 		copperDepositSamples.put("techmod:copper_sample", 100);
 		tinDepositSamples.put("techmod:tin_sample", 100);
@@ -73,6 +76,7 @@ public class OreDepositRegistration {
 		emeraldDepositSamples.put("techmod:emerald_sample", 100);
 		redstoneDepositSamples.put("techmod:redstone_sample", 100);
 		lapisDepositSamples.put("techmod:lapis_sample", 100);
+		clayDepositSamples.put("minecraft:dandelion", 100);
 		
 		this.OreDepositRegistry.register(copperDepositBlocks, copperDepositSamples, 25, 52, 50, 36, new String[] { "minecraft:the_end" }, new ArrayList<String>(Arrays.asList(new String[] {"minecraft:stone"})), new ArrayList<Biome>(Arrays.asList(new Biome[] {})), Arrays.asList(new BiomeDictionary.Type[] {}), false, false, PlutonType.DENSE, 1.0f);
 		this.OreDepositRegistry.register(tinDepositBlocks, tinDepositSamples, 44, 60, 45, 37, new String[] { "minecraft:the_end" }, new ArrayList<String>(Arrays.asList(new String[] {"minecraft:stone"})), new ArrayList<Biome>(Arrays.asList(new Biome[] {})), Arrays.asList(new BiomeDictionary.Type[] {}), false, false, PlutonType.DENSE, 1.0f);
@@ -88,6 +92,7 @@ public class OreDepositRegistration {
 		this.OreDepositRegistry.register(redstoneDepositBlocks, redstoneDepositSamples, 5, 12, 35, 17, new String[] { "minecraft:the_end" }, new ArrayList<String>(Arrays.asList(new String[] {"minecraft:stone"})), new ArrayList<Biome>(Arrays.asList(new Biome[] {})), Arrays.asList(new BiomeDictionary.Type[] {}), false, false, PlutonType.DENSE, 1.0f);
 		this.OreDepositRegistry.register(emeraldDepositBlocks, emeraldDepositSamples, 4, 32, 20, 15, new String[] { "minecraft:the_end" }, new ArrayList<String>(Arrays.asList(new String[] {"minecraft:stone"})), new ArrayList<Biome>(Arrays.asList(new Biome[] {})), Arrays.asList(new BiomeDictionary.Type[] {}), false, false, PlutonType.DENSE, 1.0f);
 		this.OreDepositRegistry.register(lapisDepositBlocks, lapisDepositSamples, 10, 38, 35, 31, new String[] { "minecraft:the_end" }, new ArrayList<String>(Arrays.asList(new String[] {"minecraft:stone"})), new ArrayList<Biome>(Arrays.asList(new Biome[] {})), Arrays.asList(new BiomeDictionary.Type[] {}), false, false, PlutonType.DENSE, 1.0f);
+		this.OreDepositRegistry.register(clayDepositBlocks, clayDepositSamples, 64, 128, 100, 36, new String[] { "minecraft:the_end" }, new ArrayList<String>(Arrays.asList(new String[] {"minecraft:dirt"})), new ArrayList<Biome>(Arrays.asList(new Biome[] {})), Arrays.asList(new BiomeDictionary.Type[] {}), false, false, PlutonType.LAYER, 1.0f);
 	}
 
 	public static OreDepositRegistration getInstance() {

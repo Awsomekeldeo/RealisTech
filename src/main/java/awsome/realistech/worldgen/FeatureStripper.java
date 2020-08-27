@@ -8,10 +8,11 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.DecoratedFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.ReplaceBlockConfig;
+import net.minecraft.world.gen.feature.SphereReplaceConfig;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /*
- * Using Geolosys worldgen code
+ * Modified version of Geolosys feature stripper
  * https://github.com/oitsjustjose/Geolosys/blob/1.15/src/main/java/com/oitsjustjose/geolosys/common/world/FeatureStripper.java
  * Original source and credit goes to ohitsjustjose
  */
@@ -22,7 +23,9 @@ public class FeatureStripper {
             Blocks.EMERALD_ORE.getDefaultState(), Blocks.GOLD_ORE.getDefaultState(), Blocks.IRON_ORE.getDefaultState(),
             Blocks.LAPIS_ORE.getDefaultState(), Blocks.NETHER_QUARTZ_ORE.getDefaultState(),
             Blocks.REDSTONE_ORE.getDefaultState() };
-
+	
+	public static final BlockState[] match_other = new BlockState[]{ Blocks.CLAY.getDefaultState() };
+			
     public static void strip()
     {
         for (Biome biome : ForgeRegistries.BIOMES.getValues())
@@ -56,6 +59,14 @@ public class FeatureStripper {
                                 return true;
                             }
                         }
+                    }else if (decConf.feature.config instanceof SphereReplaceConfig) {
+                    	SphereReplaceConfig featureConf = (SphereReplaceConfig) decConf.feature.config;
+                    	
+                    	for (BlockState state2 : match_other) {
+                    		if (Utils.doStatesMatch(featureConf.state, state2)) {
+                    			return true;
+                    		}
+                    	}
                     }
                 }
                 return false;

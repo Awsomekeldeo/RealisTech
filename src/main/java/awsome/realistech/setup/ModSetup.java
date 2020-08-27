@@ -35,7 +35,7 @@ public class ModSetup {
 	static Comparator<ItemStack> toolSorter;
 	static Comparator<ItemStack> miscSorter;
  	
-	public static final ItemGroup TECHMOD_MACHINES = new ItemGroup("techmod.machines") {
+	public static final ItemGroup TECHMOD_MACHINES = new ItemGroup("realistech.machines") {
 		
 		@Override
 		public ItemStack createIcon() {
@@ -50,7 +50,7 @@ public class ModSetup {
 		
 	};
 	
-	public static final ItemGroup TECHMOD_ORES =  new ItemGroup("techmod.ores") {
+	public static final ItemGroup TECHMOD_ORES =  new ItemGroup("realistech.ores") {
 		
 		@Override
 		public ItemStack createIcon() {
@@ -64,7 +64,7 @@ public class ModSetup {
 		}
 	};
 	
-	public static final ItemGroup TECHMOD_MATERIALS =  new ItemGroup("techmod.materials") {
+	public static final ItemGroup TECHMOD_MATERIALS =  new ItemGroup("realistech.materials") {
 		
 		@Override
 		public ItemStack createIcon() {
@@ -79,7 +79,7 @@ public class ModSetup {
 		
 	};
 	
-	public static final ItemGroup TECHMOD_TOOLS = new ItemGroup("techmod.tools") {
+	public static final ItemGroup TECHMOD_TOOLS = new ItemGroup("realistech.tools") {
 		
 		@Override
 		public ItemStack createIcon() {
@@ -87,7 +87,7 @@ public class ModSetup {
 		}
 	};
 	
-	public static final ItemGroup TECHMOD_MISC = new ItemGroup("techmod.misc") {
+	public static final ItemGroup TECHMOD_MISC = new ItemGroup("realistech.misc") {
 		
 		@Override
 		public ItemStack createIcon() {
@@ -118,7 +118,11 @@ public class ModSetup {
 				Registration.COBALT_CLUSTER.get(),
 				Registration.ZINC_CLUSTER.get(),
 				Registration.IRON_CLUSTER.get(),
-				Registration.GOLD_CLUSTER.get()
+				Registration.GOLD_CLUSTER.get(),
+				Registration.KILN_BRICK.get(),
+				Registration.UNFIRED_CLAY_BRICK.get(),
+				Registration.UNFIRED_KILN_BRICK.get(),
+				Registration.KILN_CLAY_BALL.get()
 			}); 
 		}
 		if (group == TECHMOD_MACHINES) {
@@ -179,6 +183,7 @@ public class ModSetup {
 				Registration.FIRED_CERAMIC_PICKAXE_MOLD.get(),
 				Registration.FIRED_CERAMIC_PROPICK_MOLD.get(),
 				Registration.FIRED_CERAMIC_SWORD_MOLD.get(),
+				Registration.PRIMITIVE_BRICK_MOLD.get()
 			});
 		}
 		return null;
@@ -195,5 +200,6 @@ public class ModSetup {
 		DeferredWorkQueue.runLater(FeatureStripper::strip);
 		OreDepositRegistration.getInstance().init();
 		OreAPI.plutonRegistry.registerAsOreGenerator();
+		
 	}
 }

@@ -79,11 +79,20 @@ public class Items extends ItemModelProvider {
 		singleTexture("item/" + Registration.UNFIRED_CERAMIC_SWORD_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/unfired/sword_mold"));
 		singleTexture("item/" + Registration.UNFIRED_CERAMIC_PROPICK_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/unfired/propick_mold"));
 		singleTexture("item/" + Registration.UNFIRED_CERAMIC_INGOT_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/unfired/ingot_mold"));
+		
+		//Fired Molds
 		singleTexture("item/" + Registration.FIRED_CERAMIC_AXE_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/axe_mold"));
 		singleTexture("item/" + Registration.FIRED_CERAMIC_PICKAXE_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/pickaxe_mold"));
 		singleTexture("item/" + Registration.FIRED_CERAMIC_SHOVEL_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/shovel_mold"));
 		singleTexture("item/" + Registration.FIRED_CERAMIC_SWORD_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/sword_mold"));
 		singleTexture("item/" + Registration.FIRED_CERAMIC_PROPICK_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/propick_mold"));
 		singleTexture("item/" + Registration.FIRED_CERAMIC_INGOT_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/ingot_mold"));
+		
+		//Misc Items
+		singleTexture("item/" + Registration.UNFIRED_CLAY_BRICK.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/unfired_clay_brick"));
+		singleTexture("item/" + Registration.UNFIRED_KILN_BRICK.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/unfired_kiln_brick"));
+		singleTexture("item/" + Registration.PRIMITIVE_BRICK_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/primitive_brick_mold"));
+		singleTexture("item/" + Registration.KILN_BRICK.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/kiln_brick"));
+		singleTexture("item/" + Registration.KILN_CLAY_BALL.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/kiln_clay_ball"));
 	}
 }
