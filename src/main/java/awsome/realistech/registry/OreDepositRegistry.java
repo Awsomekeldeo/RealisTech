@@ -13,7 +13,9 @@ import awsome.realistech.worldgen.api.deposit.DepositBiomeRestricted;
 import awsome.realistech.worldgen.api.deposit.DepositMultiOre;
 import awsome.realistech.worldgen.api.deposit.DepositMultiOreBiomeRestricted;
 import awsome.realistech.worldgen.api.deposit.DepositStone;
+import awsome.realistech.worldgen.api.deposit.DepositSurface;
 import awsome.realistech.worldgen.api.deposit.IDeposit;
+import awsome.realistech.worldgen.api.deposit.ISurfaceDeposit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.ResourceLocation;
@@ -54,7 +56,53 @@ public class OreDepositRegistry {
     }
     
     /**
-     * Registers an ore with the GeolosysAPI using the passed params
+     * Registers a surface deposit with the OreAPI using the passed params
+     * @param subsoil				A BlockState representing the subsoil block
+     * @param topsoil				A BlockState representing the subsoil block
+     * @param indicator				A BlockState representing the indicator block
+     * @param maxYSize				The maximum depth the deposit can have
+     * @param size					The size of the deposit
+     * @param chance				The chance the deposit can generate
+     * @param dimBlacklist			A list of dimensions in which the deposit cannot generate
+     * @param subsoilStateMatchers	A list of String forms of IBlockStates that the deposit can replace with the subsoil when genning
+     * @param topsoilStateMatchers	A list of String forms of IBlockStates that the deposit replace with the topsoil when genning
+     * @param density				A float representing the density of the deposit
+     * @param type					The type of deposit this is
+     * @return
+     */
+    public boolean register(BlockState subsoil, BlockState topsoil, BlockState indicator, int maxYSize, int size, int chance, String[] dimBlacklist,
+    		ArrayList<String> subsoilStateMatchers, ArrayList<String> topsoilStateMatchers, float density, PlutonType type) {
+    	
+    	ISurfaceDeposit toRegister = null;
+    	ArrayList<BlockState> topsoilStateMatchersParsed = new ArrayList<>();
+    	ArrayList<BlockState> subsoilStateMatchersParsed = new ArrayList<>();
+    	
+    	for (String s : subsoilStateMatchers)
+        {
+            BlockState state = fromString(s);
+            if (state == null)
+            {
+                return false;
+            }
+            subsoilStateMatchersParsed.add(state);
+        }
+    	
+    	for (String s : topsoilStateMatchers)
+        {
+            BlockState state = fromString(s);
+            if (state == null)
+            {
+                return false;
+            }
+            topsoilStateMatchersParsed.add(state);
+        }
+    	
+    	toRegister = new DepositSurface(subsoil, topsoil, indicator, size, chance, maxYSize, dimBlacklist, subsoilStateMatchersParsed, topsoilStateMatchersParsed, type, density);
+    	return toRegister != null && OreAPI.plutonRegistry.addSurfaceDeposit(toRegister);
+    }
+    
+    /**
+     * Registers an ore with the OreAPI using the passed params
      *
      * @param oreBlocks          A pair of String forms of an IBlockState of ores, paried with their chance
      * @param sampleBlocks       A pair of String forms of an IBlockState of samples, paired with their chance

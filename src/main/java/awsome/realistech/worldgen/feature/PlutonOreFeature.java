@@ -59,7 +59,7 @@ public class PlutonOreFeature extends Feature<NoFeatureConfig>
     private void postPlacement(IWorld world, BlockPos plutonStartPos, IDeposit ore)
     {
 
-        IWorldgenCapability plutonCapability = world.getWorld().getCapability(OreAPI.TECHMOD_WORLDGEN_CAPABILITY)
+        IWorldgenCapability plutonCapability = world.getWorld().getCapability(OreAPI.REALISTECH_WORLDGEN_CAPABILITY)
                 .orElse(null);
         if (plutonCapability != null)
         {
@@ -127,7 +127,7 @@ public class PlutonOreFeature extends Feature<NoFeatureConfig>
     public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
             BlockPos pos, NoFeatureConfig config)
     {
-        IWorldgenCapability plutonCapability = worldIn.getWorld().getCapability(OreAPI.TECHMOD_WORLDGEN_CAPABILITY)
+        IWorldgenCapability plutonCapability = worldIn.getWorld().getCapability(OreAPI.REALISTECH_WORLDGEN_CAPABILITY)
                 .orElse(null);
         // Fill in pending Blocks when possible:
         plutonCapability.getPendingBlocks().forEach((pPos, pState) -> {

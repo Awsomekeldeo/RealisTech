@@ -54,7 +54,7 @@ public class PlutonStoneFeature extends Feature<NoFeatureConfig>{
     public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
             BlockPos pos, NoFeatureConfig config)
     {
-        IWorldgenCapability plutonCapability = worldIn.getWorld().getCapability(OreAPI.TECHMOD_WORLDGEN_CAPABILITY)
+        IWorldgenCapability plutonCapability = worldIn.getWorld().getCapability(OreAPI.REALISTECH_WORLDGEN_CAPABILITY)
                 .orElse(null);
 
         ChunkPosDim chunkPosDim = new ChunkPosDim(pos,
@@ -171,7 +171,7 @@ public class PlutonStoneFeature extends Feature<NoFeatureConfig>{
         }
         if (placed)
         {
-            worldIn.getWorld().getCapability(OreAPI.TECHMOD_WORLDGEN_CAPABILITY).orElse(null)
+            worldIn.getWorld().getCapability(OreAPI.REALISTECH_WORLDGEN_CAPABILITY).orElse(null)
                     .setStonePlutonGenerated(new ChunkPosDim(pos,
                             Objects.requireNonNull(worldIn.getDimension().getType().getRegistryName()).toString()));
         }

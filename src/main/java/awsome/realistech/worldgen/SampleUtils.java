@@ -20,7 +20,6 @@ import net.minecraft.world.IWorld;
  * https://github.com/oitsjustjose/Geolosys/blob/1.15/src/main/java/com/oitsjustjose/geolosys/common/world/SampleUtils.java
  * Original source and credit goes to ohitsjustjose
  */
-//Modified version of https://github.com/oitsjustjose/Geolosys/blob/1.15/src/main/java/com/oitsjustjose/geolosys/common/world/SampleUtils.java
 public class SampleUtils {
 	private static ArrayList<BlockState> samplePlacementBlacklist = new ArrayList<>();
     private static Random random = new Random();

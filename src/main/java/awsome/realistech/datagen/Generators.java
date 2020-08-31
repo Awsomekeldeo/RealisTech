@@ -18,6 +18,7 @@ public class Generators {
 	        if (event.includeServer()) {
 	        	generator.addProvider(new LootTables(generator));
 	        	generator.addProvider(new Recipes(generator));
+	        	generator.addProvider(new ModBlockTags(generator));
 	        }
 		}
 	}

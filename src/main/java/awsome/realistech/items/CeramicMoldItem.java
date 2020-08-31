@@ -12,7 +12,7 @@ public class CeramicMoldItem extends Item {
 	private int capacity;
 	
 	public CeramicMoldItem(int capacity) {
-		super(new Item.Properties().group(ModSetup.TECHMOD_MISC));
+		super(new Item.Properties().group(ModSetup.REALISTECH_MISC));
 		this.capacity = capacity;
 	}
 	

@@ -35,7 +35,7 @@ public class CrucibleScreen extends ContainerScreen<CrucibleContainer> {
         if (mouseX >= i + 147 && mouseX <= i + 154 && mouseY >= j + 29 && mouseY <= j + 102)
         {
             List<String> lines = Lists.newArrayList();
-            lines.add(I18n.format("techmod.info.temperature", ((CrucibleContainer)this.container).getTemperature()));
+            lines.add(I18n.format("realistech.info.temperature", ((CrucibleContainer)this.container).getTemperature()));
             this.renderTooltip(lines, mouseX, mouseY);
         }
 	}

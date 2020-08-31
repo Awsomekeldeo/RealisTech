@@ -10,7 +10,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 
 /*
- * Using Geolosys worldgen code
+ * Using a modified version of Geolosys worldgen code
  * https://github.com/oitsjustjose/Geolosys/blob/1.15/src/main/java/com/oitsjustjose/geolosys/common/world/capability/IWorldgenCapability.java
  * Original source and credit goes to ohitsjustjose
  */
@@ -38,4 +38,8 @@ public interface IWorldgenCapability extends INBTSerializable<CompoundNBT> {
     void setPlayerReceivedManual(UUID uuid);
 
     Map<UUID, Boolean> getGivenMap();
+
+	boolean hasSurfaceDepositGenerated(ChunkPosDim pos);
+
+	void setSurfaceDepositGenerated(ChunkPosDim dim);
 }

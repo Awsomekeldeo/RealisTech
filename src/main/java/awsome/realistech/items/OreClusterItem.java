@@ -12,7 +12,7 @@ public class OreClusterItem extends Item {
 	public static final List<OreClusterItem> CLUSTER_LIST = new ArrayList<>();
 	
 	public OreClusterItem() {
-		super(new Item.Properties().maxStackSize(32).group(ModSetup.TECHMOD_MATERIALS));
+		super(new Item.Properties().maxStackSize(32).group(ModSetup.REALISTECH_MATERIALS));
 		CLUSTER_LIST.add(this);
 	}
 	

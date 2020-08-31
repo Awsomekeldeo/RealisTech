@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "realistech:blocks/flowers/goldenrod",
+    "particle": "realistech:blocks/flowers/goldenrod"
+  }
+}

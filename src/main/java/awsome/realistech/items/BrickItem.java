@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 public class BrickItem extends Item {
 	
 	public BrickItem() {
-		super(new Item.Properties().group(ModSetup.TECHMOD_MATERIALS));
+		super(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS));
 	}
 	
 	@Override

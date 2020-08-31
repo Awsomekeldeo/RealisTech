@@ -32,7 +32,7 @@ public class FireboxScreen extends ContainerScreen<FireboxContainer> {
         if (mouseX >= i + 152 && mouseX <= i + 160 && mouseY >= j + 6 && mouseY <= j + 78)
         {
             List<String> lines = Lists.newArrayList();
-            lines.add(I18n.format("techmod.info.temperature", ((FireboxContainer)this.container).getTemperature()));
+            lines.add(I18n.format("realistech.info.temperature", ((FireboxContainer)this.container).getTemperature()));
             this.renderTooltip(lines, mouseX, mouseY);
         }
 	}

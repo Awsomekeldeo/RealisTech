@@ -186,7 +186,7 @@ public class KilnTileEntity extends TileEntity implements ITickableTileEntity {
 	@Override
 	public void read(CompoundNBT compound) {
 		itemHandler.deserializeNBT(compound.getCompound("inventory"));
-		heatHandler.deserializeNBT(compound.getCompound("techmod:heatData"));
+		heatHandler.deserializeNBT(compound.getCompound("realistech:heatData"));
 		this.burnTime = compound.getInt("burnTime");
 		this.currentItemBurnTime = compound.getInt("currentItemBurnTime");
 		this.fireProgress = compound.getInt("fireProgress");
@@ -196,7 +196,7 @@ public class KilnTileEntity extends TileEntity implements ITickableTileEntity {
 	@Override
 	public CompoundNBT write(CompoundNBT compound) {
 		compound.put("inventory", itemHandler.serializeNBT());
-		compound.put("techmod:heatData", heatHandler.serializeNBT());
+		compound.put("realistech:heatData", heatHandler.serializeNBT());
 		compound.putInt("burnTime", this.burnTime);
 		compound.putInt("currentItemBurnTime", this.currentItemBurnTime);
 		compound.putInt("fireProgress", this.fireProgress);

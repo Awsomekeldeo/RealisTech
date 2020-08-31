@@ -111,7 +111,7 @@ public class KilnBlock extends Block {
 					
 					@Override
 					public ITextComponent getDisplayName() {
-						return new TranslationTextComponent("container.techmod.kiln");
+						return new TranslationTextComponent("container.realistech.kiln");
 					}
 				};
 				NetworkHooks.openGui((ServerPlayerEntity) player, containerProvider, te.getPos());

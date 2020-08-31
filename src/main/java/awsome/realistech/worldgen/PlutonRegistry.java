@@ -7,8 +7,10 @@ import awsome.realistech.worldgen.api.deposit.DepositBiomeRestricted;
 import awsome.realistech.worldgen.api.deposit.DepositMultiOreBiomeRestricted;
 import awsome.realistech.worldgen.api.deposit.DepositStone;
 import awsome.realistech.worldgen.api.deposit.IDeposit;
+import awsome.realistech.worldgen.api.deposit.ISurfaceDeposit;
 import awsome.realistech.worldgen.feature.PlutonOreFeature;
 import awsome.realistech.worldgen.feature.PlutonStoneFeature;
+import awsome.realistech.worldgen.feature.SurfaceDepositFeature;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
@@ -28,6 +30,8 @@ public class PlutonRegistry
     private ArrayList<IDeposit> oreWeightList;
     private ArrayList<DepositStone> stones;
     private ArrayList<DepositStone> stoneWeightList;
+    private ArrayList<ISurfaceDeposit> surfaceDeposits;
+    private ArrayList<ISurfaceDeposit> surfaceDepositWeightList;
 
     public PlutonRegistry()
     {
@@ -35,6 +39,8 @@ public class PlutonRegistry
         this.oreWeightList = new ArrayList<>();
         this.stones = new ArrayList<>();
         this.stoneWeightList = new ArrayList<>();
+        this.surfaceDeposits = new ArrayList<>();
+        this.surfaceDepositWeightList = new ArrayList<>();
     }
 
     @SuppressWarnings("unchecked")
@@ -47,6 +53,11 @@ public class PlutonRegistry
     public ArrayList<IDeposit> getStones()
     {
         return (ArrayList<IDeposit>) this.stones.clone();
+    }
+    
+    @SuppressWarnings("unchecked")
+    public ArrayList<ISurfaceDeposit> getSurfaceDeposits() {
+    	return (ArrayList<ISurfaceDeposit>) this.surfaceDeposits.clone();
     }
 
     public boolean addOrePluton(IDeposit ore)
@@ -71,6 +82,15 @@ public class PlutonRegistry
             stoneWeightList.add(stone);
         }
         return this.stones.add(stone);
+    }
+    
+    public boolean addSurfaceDeposit(ISurfaceDeposit deposit)
+    {
+        for (int i = 0; i < deposit.getChance(); i++)
+        {
+            surfaceDepositWeightList.add(deposit);
+        }
+        return this.surfaceDeposits.add(deposit);
     }
 
     public IDeposit pickPluton(IWorld world, BlockPos pos, Random rand)
@@ -122,6 +142,16 @@ public class PlutonRegistry
         }
         return null;
     }
+    
+    public ISurfaceDeposit pickSurfaceDeposit() {
+    	
+    	if (this.surfaceDepositWeightList.size() > 0) {
+    		Random random = new Random();
+    		int pick = random.nextInt(this.surfaceDepositWeightList.size());
+    		return this.surfaceDepositWeightList.get(pick);
+    	}
+    	return null;
+    }
 
     public void registerAsOreGenerator()
     {
@@ -135,5 +165,9 @@ public class PlutonRegistry
             biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, new ConfiguredFeature<>(
                     new PlutonStoneFeature(NoFeatureConfig::deserialize), new NoFeatureConfig()));
         }
+        for (Biome biome : ForgeRegistries.BIOMES.getValues()) {
+			biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, new ConfiguredFeature<>(
+					new SurfaceDepositFeature(NoFeatureConfig::deserialize), new NoFeatureConfig()));
+		}
     }
 }

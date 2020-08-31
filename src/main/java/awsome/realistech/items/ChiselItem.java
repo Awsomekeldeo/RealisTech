@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 public class ChiselItem extends Item {
 
 	protected ChiselItem() {
-		super(new Item.Properties().group(ModSetup.TECHMOD_TOOLS));
+		super(new Item.Properties().group(ModSetup.REALISTECH_TOOLS));
 	}
 	
 }

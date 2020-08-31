@@ -11,7 +11,7 @@ public class IngotItem extends Item {
 	public static final List<IngotItem> INGOT_LIST = new ArrayList<>();
 	
 	public IngotItem() {
-		super(new Item.Properties().maxStackSize(64).group(ModSetup.TECHMOD_MATERIALS));
+		super(new Item.Properties().maxStackSize(64).group(ModSetup.REALISTECH_MATERIALS));
 		INGOT_LIST.add(this);
 	}
 	

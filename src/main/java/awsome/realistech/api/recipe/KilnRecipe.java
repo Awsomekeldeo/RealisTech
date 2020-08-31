@@ -1,5 +1,6 @@
 package awsome.realistech.api.recipe;
 
+import awsome.realistech.Reference;
 import awsome.realistech.registry.Registration;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -12,7 +13,7 @@ import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 public class KilnRecipe implements IRecipe<RecipeWrapper> {
 	
-	public static final IRecipeType<KilnRecipe> KILN_RECIPE = IRecipeType.register("techmod:kiln");
+	public static final IRecipeType<KilnRecipe> KILN_RECIPE = IRecipeType.register(new ResourceLocation(Reference.MODID, "kiln").toString());
 	
 	private final IRecipeType<?> type;
 	protected final Ingredient input;

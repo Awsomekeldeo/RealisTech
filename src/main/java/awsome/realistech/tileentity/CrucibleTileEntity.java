@@ -71,14 +71,14 @@ public class CrucibleTileEntity extends TileEntity implements ITickableTileEntit
 	@Override
 	public void read(CompoundNBT compound) {
 		itemHandler.deserializeNBT(compound.getCompound("inventory"));
-		heatHandler.deserializeNBT(compound.getCompound("techmod:heatData"));
+		heatHandler.deserializeNBT(compound.getCompound("realistech:heatData"));
 		super.read(compound);
 	}
 
 	@Override
 	public CompoundNBT write(CompoundNBT compound) {
 		compound.put("inventory", itemHandler.serializeNBT());
-		compound.put("techmod:heatData", heatHandler.serializeNBT());
+		compound.put("realistech:heatData", heatHandler.serializeNBT());
 		return super.write(compound);
 	}
 

@@ -34,7 +34,7 @@ public class KilnScreen extends ContainerScreen<KilnContainer> {
         if (mouseX >= i + 151 && mouseX <= i + 158 && mouseY >= j + 15 && mouseY <= j + 88)
         {
             List<String> lines = Lists.newArrayList();
-            lines.add(I18n.format("techmod.info.temperature", ((KilnContainer)this.container).getTemperature()));
+            lines.add(I18n.format("realistech.info.temperature", ((KilnContainer)this.container).getTemperature()));
             this.renderTooltip(lines, mouseX, mouseY);
         }
 	}

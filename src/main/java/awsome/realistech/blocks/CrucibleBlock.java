@@ -85,7 +85,7 @@ public class CrucibleBlock extends Block {
 					
 					@Override
 					public ITextComponent getDisplayName() {
-						return new TranslationTextComponent("container.techmod.crucible");
+						return new TranslationTextComponent("container.realistech.crucible");
 					}
 				};
 				NetworkHooks.openGui((ServerPlayerEntity) player, containerProvider, te.getPos());

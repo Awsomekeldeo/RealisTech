@@ -17,7 +17,7 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 public class OreAPI
 {
     @CapabilityInject(IWorldgenCapability.class)
-    public static final Capability<IWorldgenCapability> TECHMOD_WORLDGEN_CAPABILITY = null;
+    public static final Capability<IWorldgenCapability> REALISTECH_WORLDGEN_CAPABILITY = null;
     // A collection of BlockStates that can trigger the prospector's pick
     public static ArrayList<BlockState> proPickExtras = new ArrayList<>();
     // A collection of blocks to ignore in the OreConverter feature

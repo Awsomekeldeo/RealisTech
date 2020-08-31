@@ -23,8 +23,6 @@ import awsome.realistech.setup.ModSetup;
 import awsome.realistech.tileentity.CrucibleTileEntity;
 import awsome.realistech.tileentity.FireboxTileEntity;
 import awsome.realistech.tileentity.KilnTileEntity;
-import awsome.realistech.worldgen.feature.ClayDepositConfig;
-import awsome.realistech.worldgen.feature.ClayDepositFeature;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.Properties;
 import net.minecraft.block.FlowerBlock;
@@ -38,8 +36,6 @@ import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -53,8 +49,6 @@ public class Registration {
 	private static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Reference.MODID);
 	private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MODID);
 	private static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Reference.MODID);
-	private static final DeferredRegister<Placement<?>> DECORATORS = DeferredRegister.create(ForgeRegistries.DECORATORS, Reference.MODID);
-	private static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, Reference.MODID);
 	
 	
 	public static void init() {
@@ -63,13 +57,7 @@ public class Registration {
 		CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
 		RECIPE_SERIALIZERS.register(FMLJavaModLoadingContext.get().getModEventBus());
-		DECORATORS.register(FMLJavaModLoadingContext.get().getModEventBus());
-		FEATURES.register(FMLJavaModLoadingContext.get().getModEventBus());
 	}
-	
-	//Worldgen Features
-		//Clay Deposit
-		public static final RegistryObject<ClayDepositFeature> CLAY_DEPOSIT_FEATURE = FEATURES.register("clay_deposit", () -> new ClayDepositFeature(ClayDepositConfig::deserialize));
 	
 	//Recipe Serializers
 		public static final RegistryObject<MeltingRecipeSerializer<MeltingRecipe>> MELTING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("melting", () -> new MeltingRecipeSerializer<>(MeltingRecipe::new));
@@ -153,41 +141,47 @@ public class Registration {
 	//Item Blocks
 		
 		//Ores
-		public static final RegistryObject<Item> COPPER_ORE_ITEM = ITEMS.register("ores/copper_ore", () -> new BlockItem(COPPER_ORE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> TIN_ORE_ITEM = ITEMS.register("ores/tin_ore", () -> new BlockItem(TIN_ORE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> NICKEL_ORE_ITEM = ITEMS.register("ores/nickel_ore", () -> new BlockItem(NICKEL_ORE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> SILVER_ORE_ITEM = ITEMS.register("ores/silver_ore", () -> new BlockItem(SILVER_ORE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("ores/lead_ore", () -> new BlockItem(LEAD_ORE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> ZINC_ORE_ITEM = ITEMS.register("ores/zinc_ore", () -> new BlockItem(ZINC_ORE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> COBALT_ORE_ITEM = ITEMS.register("ores/cobalt_ore", () -> new BlockItem(COBALT_ORE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> MOD_IRON_ORE_ITEM = ITEMS.register("ores/mod_iron_ore", () -> new BlockItem(MOD_IRON_ORE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> MOD_GOLD_ORE_ITEM = ITEMS.register("ores/mod_gold_ore", () -> new BlockItem(MOD_GOLD_ORE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> MOD_COAL_ORE_ITEM = ITEMS.register("ores/mod_coal_ore", () -> new BlockItem(MOD_COAL_ORE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> MOD_DIAMOND_ORE_ITEM = ITEMS.register("ores/mod_diamond_ore", () -> new BlockItem(MOD_DIAMOND_ORE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> MOD_EMERALD_ORE_ITEM = ITEMS.register("ores/mod_emerald_ore", () -> new BlockItem(MOD_EMERALD_ORE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> MOD_LAPIS_ORE_ITEM = ITEMS.register("ores/mod_lapis_ore", () -> new BlockItem(MOD_LAPIS_ORE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> MOD_REDSTONE_ORE_ITEM = ITEMS.register("ores/mod_redstone_ore", () -> new BlockItem(MOD_REDSTONE_ORE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
+		public static final RegistryObject<Item> COPPER_ORE_ITEM = ITEMS.register("ores/copper_ore", () -> new BlockItem(COPPER_ORE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> TIN_ORE_ITEM = ITEMS.register("ores/tin_ore", () -> new BlockItem(TIN_ORE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> NICKEL_ORE_ITEM = ITEMS.register("ores/nickel_ore", () -> new BlockItem(NICKEL_ORE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> SILVER_ORE_ITEM = ITEMS.register("ores/silver_ore", () -> new BlockItem(SILVER_ORE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> LEAD_ORE_ITEM = ITEMS.register("ores/lead_ore", () -> new BlockItem(LEAD_ORE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> ZINC_ORE_ITEM = ITEMS.register("ores/zinc_ore", () -> new BlockItem(ZINC_ORE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> COBALT_ORE_ITEM = ITEMS.register("ores/cobalt_ore", () -> new BlockItem(COBALT_ORE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> MOD_IRON_ORE_ITEM = ITEMS.register("ores/mod_iron_ore", () -> new BlockItem(MOD_IRON_ORE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> MOD_GOLD_ORE_ITEM = ITEMS.register("ores/mod_gold_ore", () -> new BlockItem(MOD_GOLD_ORE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> MOD_COAL_ORE_ITEM = ITEMS.register("ores/mod_coal_ore", () -> new BlockItem(MOD_COAL_ORE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> MOD_DIAMOND_ORE_ITEM = ITEMS.register("ores/mod_diamond_ore", () -> new BlockItem(MOD_DIAMOND_ORE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> MOD_EMERALD_ORE_ITEM = ITEMS.register("ores/mod_emerald_ore", () -> new BlockItem(MOD_EMERALD_ORE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> MOD_LAPIS_ORE_ITEM = ITEMS.register("ores/mod_lapis_ore", () -> new BlockItem(MOD_LAPIS_ORE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> MOD_REDSTONE_ORE_ITEM = ITEMS.register("ores/mod_redstone_ore", () -> new BlockItem(MOD_REDSTONE_ORE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
 		
 		//Samples
-		public static final RegistryObject<Item> COPPER_SAMPLE_ITEM = ITEMS.register("ores/samples/copper_sample", () -> new BlockItem(COPPER_SAMPLE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> TIN_SAMPLE_ITEM = ITEMS.register("ores/samples/tin_sample", () -> new BlockItem(TIN_SAMPLE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> NICKEL_SAMPLE_ITEM = ITEMS.register("ores/samples/nickel_sample", () -> new BlockItem(NICKEL_SAMPLE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> SILVER_SAMPLE_ITEM = ITEMS.register("ores/samples/silver_sample", () -> new BlockItem(SILVER_SAMPLE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> LEAD_SAMPLE_ITEM = ITEMS.register("ores/samples/lead_sample", () -> new BlockItem(LEAD_SAMPLE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> COBALT_SAMPLE_ITEM = ITEMS.register("ores/samples/cobalt_sample", () -> new BlockItem(COBALT_SAMPLE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> ZINC_SAMPLE_ITEM = ITEMS.register("ores/samples/zinc_sample", () -> new BlockItem(ZINC_SAMPLE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> COAL_SAMPLE_ITEM = ITEMS.register("ores/samples/coal_sample", () -> new BlockItem(COAL_SAMPLE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> IRON_SAMPLE_ITEM = ITEMS.register("ores/samples/iron_sample", () -> new BlockItem(IRON_SAMPLE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> GOLD_SAMPLE_ITEM = ITEMS.register("ores/samples/gold_sample", () -> new BlockItem(GOLD_SAMPLE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> DIAMOND_SAMPLE_ITEM = ITEMS.register("ores/samples/diamond_sample", () -> new BlockItem(DIAMOND_SAMPLE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> EMERALD_SAMPLE_ITEM = ITEMS.register("ores/samples/emerald_sample", () -> new BlockItem(EMERALD_SAMPLE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> REDSTONE_SAMPLE_ITEM = ITEMS.register("ores/samples/redstone_sample", () -> new BlockItem(REDSTONE_SAMPLE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
-		public static final RegistryObject<Item> LAPIS_SAMPLE_ITEM = ITEMS.register("ores/samples/lapis_sample", () -> new BlockItem(LAPIS_SAMPLE.get(), new Item.Properties().group(ModSetup.TECHMOD_ORES)));
+		public static final RegistryObject<Item> COPPER_SAMPLE_ITEM = ITEMS.register("ores/samples/copper_sample", () -> new BlockItem(COPPER_SAMPLE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> TIN_SAMPLE_ITEM = ITEMS.register("ores/samples/tin_sample", () -> new BlockItem(TIN_SAMPLE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> NICKEL_SAMPLE_ITEM = ITEMS.register("ores/samples/nickel_sample", () -> new BlockItem(NICKEL_SAMPLE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> SILVER_SAMPLE_ITEM = ITEMS.register("ores/samples/silver_sample", () -> new BlockItem(SILVER_SAMPLE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> LEAD_SAMPLE_ITEM = ITEMS.register("ores/samples/lead_sample", () -> new BlockItem(LEAD_SAMPLE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> COBALT_SAMPLE_ITEM = ITEMS.register("ores/samples/cobalt_sample", () -> new BlockItem(COBALT_SAMPLE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> ZINC_SAMPLE_ITEM = ITEMS.register("ores/samples/zinc_sample", () -> new BlockItem(ZINC_SAMPLE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> COAL_SAMPLE_ITEM = ITEMS.register("ores/samples/coal_sample", () -> new BlockItem(COAL_SAMPLE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> IRON_SAMPLE_ITEM = ITEMS.register("ores/samples/iron_sample", () -> new BlockItem(IRON_SAMPLE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> GOLD_SAMPLE_ITEM = ITEMS.register("ores/samples/gold_sample", () -> new BlockItem(GOLD_SAMPLE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> DIAMOND_SAMPLE_ITEM = ITEMS.register("ores/samples/diamond_sample", () -> new BlockItem(DIAMOND_SAMPLE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> EMERALD_SAMPLE_ITEM = ITEMS.register("ores/samples/emerald_sample", () -> new BlockItem(EMERALD_SAMPLE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> REDSTONE_SAMPLE_ITEM = ITEMS.register("ores/samples/redstone_sample", () -> new BlockItem(REDSTONE_SAMPLE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> LAPIS_SAMPLE_ITEM = ITEMS.register("ores/samples/lapis_sample", () -> new BlockItem(LAPIS_SAMPLE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
 		
 		//Machines
-		public static final RegistryObject<Item> FIREBOX_ITEM = ITEMS.register("machines/firebox", () -> new BlockItem(FIREBOX.get(), new Item.Properties().group(ModSetup.TECHMOD_MACHINES)));
-		public static final RegistryObject<Item> CRUCIBLE_ITEM = ITEMS.register("machines/crucible", () -> new BlockItem(CRUCIBLE.get(), new Item.Properties().group(ModSetup.TECHMOD_MACHINES)));
-		public static final RegistryObject<Item> KILN_ITEM = ITEMS.register("machines/kiln", () -> new BlockItem(KILN.get(), new Item.Properties().group(ModSetup.TECHMOD_MACHINES)));
+		public static final RegistryObject<Item> FIREBOX_ITEM = ITEMS.register("machines/firebox", () -> new BlockItem(FIREBOX.get(), new Item.Properties().group(ModSetup.REALISTECH_MACHINES)));
+		public static final RegistryObject<Item> CRUCIBLE_ITEM = ITEMS.register("machines/crucible", () -> new BlockItem(CRUCIBLE.get(), new Item.Properties().group(ModSetup.REALISTECH_MACHINES)));
+		public static final RegistryObject<Item> KILN_ITEM = ITEMS.register("machines/kiln", () -> new BlockItem(KILN.get(), new Item.Properties().group(ModSetup.REALISTECH_MACHINES)));
+		
+		//Flowers
+		public static final RegistryObject<Item> GOLDENROD_ITEM = ITEMS.register("goldenrod", () -> new BlockItem(GOLDENROD.get(), new Item.Properties().group(ModSetup.REALISTECH_MISC)));
+		
+		//Other
+		public static final RegistryObject<Item> CLAY_GRASS_ITEM = ITEMS.register("clay_grass", () -> new BlockItem(CLAY_GRASS.get(), new Item.Properties().group(ModSetup.REALISTECH_MISC)));
 		
 	//Items
 		
@@ -230,10 +224,10 @@ public class Registration {
 			public static final RegistryObject<UnfiredCeramicMoldItem> UNFIRED_CERAMIC_PROPICK_MOLD = ITEMS.register("ceramic_molds/unfired/prospectors_pickaxe", UnfiredCeramicMoldItem::new);
 			
 		//Misc Items
-		public static final RegistryObject<Item> UNFIRED_CLAY_BRICK = ITEMS.register("unfired_clay_brick", () -> new Item(new Item.Properties().group(ModSetup.TECHMOD_MATERIALS)));
-		public static final RegistryObject<Item> PRIMITIVE_BRICK_MOLD = ITEMS.register("primitive_brick_mold", () -> new Item(new Item.Properties().group(ModSetup.TECHMOD_MISC)));
-		public static final RegistryObject<Item> UNFIRED_KILN_BRICK = ITEMS.register("unfired_kiln_brick", () -> new Item(new Item.Properties().group(ModSetup.TECHMOD_MATERIALS)));
+		public static final RegistryObject<Item> UNFIRED_CLAY_BRICK = ITEMS.register("unfired_clay_brick", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
+		public static final RegistryObject<Item> PRIMITIVE_BRICK_MOLD = ITEMS.register("primitive_brick_mold", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MISC)));
+		public static final RegistryObject<Item> UNFIRED_KILN_BRICK = ITEMS.register("unfired_kiln_brick", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
 		public static final RegistryObject<BrickItem> KILN_BRICK = ITEMS.register("kiln_brick", BrickItem::new);
-		public static final RegistryObject<Item> KILN_CLAY_BALL = ITEMS.register("kiln_clay_ball", () -> new Item(new Item.Properties().group(ModSetup.TECHMOD_MATERIALS)));
+		public static final RegistryObject<Item> KILN_CLAY_BALL = ITEMS.register("kiln_clay_ball", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
 		
 }

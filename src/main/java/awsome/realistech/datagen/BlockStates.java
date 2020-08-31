@@ -36,8 +36,34 @@ public class BlockStates extends BlockStateProvider {
 		registerCrucible();
 		registerOreSamples();
 		registerKiln();
+		registerClayGrass();
+		registerFlower(Registration.GOLDENROD.get());
 	}
 	
+	private void registerFlower(Block block) {
+		ResourceLocation texture = new ResourceLocation(Reference.MODID, "blocks/flowers/" + block.getRegistryName().getPath());
+		BlockModelBuilder modelFlower = models().cross("block/flowers/" + block.getRegistryName().getPath(), texture).texture("particle", texture);
+		simpleBlock(block, modelFlower);
+	}
+
+	@SuppressWarnings("unused")
+	private void registerSimpleBlock(Block block) {
+		ResourceLocation texture = new ResourceLocation(Reference.MODID, "blocks/" + block.getRegistryName().getPath());
+		BlockModelBuilder modelSimpleBlock = models().cubeAll("block/" + block.getRegistryName().getPath(), texture).texture("particle", texture);
+	}
+	
+	private void registerClayGrass() {
+		ExistingModelFile modelClayGrass = models().getExistingFile(new ResourceLocation(Reference.MODID, "block/clay_grass"));
+		ExistingModelFile modelSnowyClayGrass = models().getExistingFile(new ResourceLocation(Reference.MODID, "block/snowy_clay_grass"));
+		getVariantBuilder(Registration.CLAY_GRASS.get()).forAllStates(state -> {
+			if (!state.get(BlockStateProperties.SNOWY)) {
+				return ConfiguredModel.allYRotations(modelClayGrass, 0, false);
+			}else {
+				return ConfiguredModel.builder().modelFile(modelSnowyClayGrass).build();
+			}
+		});
+	}
+
 	private void registerOreBlocks() {
 		for (ModOreBlock ore : ORE_LIST) {
 			ResourceLocation texture = new ResourceLocation(Reference.MODID, "blocks/ores/" + ore.getRegistryName().getPath().substring(0, ore.getRegistryName().getPath().length() - 4));

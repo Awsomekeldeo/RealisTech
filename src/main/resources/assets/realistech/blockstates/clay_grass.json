@@ -1,0 +1,24 @@
+{
+  "variants": {
+	"snowy=false": [
+      {
+        "model": "realistech:block/clay_grass"
+      },
+      {
+        "model": "realistech:block/clay_grass",
+        "y": 90
+      },
+      {
+        "model": "realistech:block/clay_grass",
+        "y": 180
+      },
+      {
+        "model": "realistech:block/clay_grass",
+        "y": 270
+      }
+    ],
+    "snowy=true": {
+      "model": "realistech:block/snowy_clay_grass"
+    }
+  }
+}

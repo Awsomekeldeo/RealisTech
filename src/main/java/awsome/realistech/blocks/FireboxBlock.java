@@ -65,7 +65,7 @@ public class FireboxBlock extends Block {
 					
 					@Override
 					public ITextComponent getDisplayName() {
-						return new TranslationTextComponent("container.techmod.firebox");
+						return new TranslationTextComponent("container.realistech.firebox");
 					}
 				};
 				NetworkHooks.openGui((ServerPlayerEntity) player, containerProvider, te.getPos());

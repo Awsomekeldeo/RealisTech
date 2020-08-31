@@ -3,6 +3,7 @@ package awsome.realistech.api.recipe;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
+import awsome.realistech.Reference;
 import awsome.realistech.registry.Registration;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
@@ -19,7 +20,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class MeltingRecipe implements IRecipe<RecipeWrapper> {
 	
-	public static final IRecipeType<MeltingRecipe> melting_recipe = IRecipeType.register("techmod:melting");
+	public static final IRecipeType<MeltingRecipe> melting_recipe = IRecipeType.register(new ResourceLocation(Reference.MODID, "melting").toString());
 	
 	private final IRecipeType<?> type;
 	protected final Ingredient input;

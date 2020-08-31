@@ -35,7 +35,7 @@ public class ModSetup {
 	static Comparator<ItemStack> toolSorter;
 	static Comparator<ItemStack> miscSorter;
  	
-	public static final ItemGroup TECHMOD_MACHINES = new ItemGroup("realistech.machines") {
+	public static final ItemGroup REALISTECH_MACHINES = new ItemGroup("realistech.machines") {
 		
 		@Override
 		public ItemStack createIcon() {
@@ -50,7 +50,7 @@ public class ModSetup {
 		
 	};
 	
-	public static final ItemGroup TECHMOD_ORES =  new ItemGroup("realistech.ores") {
+	public static final ItemGroup REALISTECH_ORES =  new ItemGroup("realistech.ores") {
 		
 		@Override
 		public ItemStack createIcon() {
@@ -64,7 +64,7 @@ public class ModSetup {
 		}
 	};
 	
-	public static final ItemGroup TECHMOD_MATERIALS =  new ItemGroup("realistech.materials") {
+	public static final ItemGroup REALISTECH_MATERIALS =  new ItemGroup("realistech.materials") {
 		
 		@Override
 		public ItemStack createIcon() {
@@ -79,7 +79,7 @@ public class ModSetup {
 		
 	};
 	
-	public static final ItemGroup TECHMOD_TOOLS = new ItemGroup("realistech.tools") {
+	public static final ItemGroup REALISTECH_TOOLS = new ItemGroup("realistech.tools") {
 		
 		@Override
 		public ItemStack createIcon() {
@@ -87,7 +87,7 @@ public class ModSetup {
 		}
 	};
 	
-	public static final ItemGroup TECHMOD_MISC = new ItemGroup("realistech.misc") {
+	public static final ItemGroup REALISTECH_MISC = new ItemGroup("realistech.misc") {
 		
 		@Override
 		public ItemStack createIcon() {
@@ -101,7 +101,7 @@ public class ModSetup {
 	};
 	
 	public static List<Item> getItemList(ItemGroup group) {
-		if (group == TECHMOD_MATERIALS) {
+		if (group == REALISTECH_MATERIALS) {
 			return Arrays.asList(new Item[] {
 				Registration.COPPER_INGOT.get(),
 				Registration.TIN_INGOT.get(),
@@ -125,14 +125,14 @@ public class ModSetup {
 				Registration.KILN_CLAY_BALL.get()
 			}); 
 		}
-		if (group == TECHMOD_MACHINES) {
+		if (group == REALISTECH_MACHINES) {
 			return Arrays.asList(new Item[] {
 				Registration.FIREBOX_ITEM.get(),
 				Registration.CRUCIBLE_ITEM.get(),
 				Registration.KILN_ITEM.get()
 			});
 		}
-		if (group == TECHMOD_ORES) {
+		if (group == REALISTECH_ORES) {
 			return Arrays.asList(new Item[] {
 				Registration.COPPER_ORE_ITEM.get(),
 				Registration.TIN_ORE_ITEM.get(),
@@ -164,12 +164,12 @@ public class ModSetup {
 				Registration.LAPIS_SAMPLE_ITEM.get()
 			});
 		}
-		if (group == TECHMOD_TOOLS) {
+		if (group == REALISTECH_TOOLS) {
 			return Arrays.asList(new Item[] {
 					
 			});
 		}
-		if (group == TECHMOD_MISC) {
+		if (group == REALISTECH_MISC) {
 			return Arrays.asList(new Item[] {
 				Registration.UNFIRED_CERAMIC_INGOT_MOLD.get(),
 				Registration.UNFIRED_CERAMIC_SHOVEL_MOLD.get(),
@@ -183,7 +183,9 @@ public class ModSetup {
 				Registration.FIRED_CERAMIC_PICKAXE_MOLD.get(),
 				Registration.FIRED_CERAMIC_PROPICK_MOLD.get(),
 				Registration.FIRED_CERAMIC_SWORD_MOLD.get(),
-				Registration.PRIMITIVE_BRICK_MOLD.get()
+				Registration.PRIMITIVE_BRICK_MOLD.get(),
+				Registration.CLAY_GRASS_ITEM.get(),
+				Registration.GOLDENROD_ITEM.get()
 			});
 		}
 		return null;
@@ -191,15 +193,14 @@ public class ModSetup {
 	
 	public static void init(final FMLCommonSetupEvent event) {
 		HeatCapability.init();
-		oreSorter = Ordering.explicit(getItemList(TECHMOD_ORES)).onResultOf(ItemStack::getItem);
-		machineSorter = Ordering.explicit(getItemList(TECHMOD_MACHINES)).onResultOf(ItemStack::getItem);
-		materialSorter = Ordering.explicit(getItemList(TECHMOD_MATERIALS)).onResultOf(ItemStack::getItem);
-		toolSorter = Ordering.explicit(getItemList(TECHMOD_TOOLS)).onResultOf(ItemStack::getItem);
-		miscSorter = Ordering.explicit(getItemList(TECHMOD_MISC)).onResultOf(ItemStack::getItem);
+		oreSorter = Ordering.explicit(getItemList(REALISTECH_ORES)).onResultOf(ItemStack::getItem);
+		machineSorter = Ordering.explicit(getItemList(REALISTECH_MACHINES)).onResultOf(ItemStack::getItem);
+		materialSorter = Ordering.explicit(getItemList(REALISTECH_MATERIALS)).onResultOf(ItemStack::getItem);
+		toolSorter = Ordering.explicit(getItemList(REALISTECH_TOOLS)).onResultOf(ItemStack::getItem);
+		miscSorter = Ordering.explicit(getItemList(REALISTECH_MISC)).onResultOf(ItemStack::getItem);
 		CapabilityManager.INSTANCE.register(IWorldgenCapability.class, new WorldgenCapStorage(), WorldgenCapability::new);
 		DeferredWorkQueue.runLater(FeatureStripper::strip);
 		OreDepositRegistration.getInstance().init();
 		OreAPI.plutonRegistry.registerAsOreGenerator();
-		
 	}
 }

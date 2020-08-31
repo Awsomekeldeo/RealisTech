@@ -63,6 +63,12 @@ public class Items extends ItemModelProvider {
 		singleTexture("item/" + Registration.IRON_CLUSTER.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/clusters/iron"));
 		singleTexture("item/" + Registration.GOLD_CLUSTER.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/clusters/gold"));
 		
+		//Other Blocks
+		withExistingParent("item/" + Registration.CLAY_GRASS_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/clay_grass"));
+		
+		//Flowers
+		singleTexture("item/" + Registration.GOLDENROD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/goldenrod"));
+		
 		//Ingots
 		singleTexture("item/" + Registration.COPPER_INGOT.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ingots/copper"));
 		singleTexture("item/" + Registration.TIN_INGOT.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ingots/tin"));
