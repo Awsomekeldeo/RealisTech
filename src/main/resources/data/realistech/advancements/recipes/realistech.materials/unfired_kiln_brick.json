@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "realistech:unfired_kiln_brick"
+    ]
+  },
+  "criteria": {
+    "kiln_clay_ball": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "realistech:kiln_clay_ball"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "realistech:unfired_kiln_brick"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "kiln_clay_ball",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -15,6 +15,7 @@ public class LootTables extends BaseLootTableProvider {
 		//Machines
 		lootTables.put(Registration.CRUCIBLE.get(), createStandardTable("crucible", Registration.CRUCIBLE.get()));
 		lootTables.put(Registration.FIREBOX.get(), createStandardTable("firebox", Registration.FIREBOX.get()));
+		lootTables.put(Registration.KILN.get(), createStandardTable("kiln", Registration.KILN.get()));
 		
 		//Ores
 		lootTables.put(Registration.COPPER_ORE.get(), createItemDropLootTable("copper_ore", Registration.COPPER_CLUSTER.get()));
@@ -31,6 +32,15 @@ public class LootTables extends BaseLootTableProvider {
 		lootTables.put(Registration.MOD_EMERALD_ORE.get(), createItemDropWithFortuneLootTabe("mod_emerald_ore", Items.EMERALD));
 		lootTables.put(Registration.MOD_REDSTONE_ORE.get(), createMultiItemDropWithFortune("mod_redstone_ore", Items.REDSTONE, 4, 5, true, 1));
 		lootTables.put(Registration.MOD_LAPIS_ORE.get(), createMultiItemDropWithFortune("mod_lapis_ore", Items.LAPIS_LAZULI, 4, 9, false, 0));
+		
+		//Flowers
+		lootTables.put(Registration.GOLDENROD.get(), createStandardTable("goldenrod", Registration.GOLDENROD.get()));
+		lootTables.put(Registration.KAOLINITE_LILY.get(), createStandardTable("kaolinite_lily", Registration.KAOLINITE_LILY.get()));
+		
+		//Other
+		lootTables.put(Registration.VANILLA_CLAY_GRASS.get(), createMultiItemDropWithSilktouch("clay_grass", Items.CLAY_BALL, Registration.VANILLA_CLAY_GRASS_ITEM.get(), 4, 4));
+		lootTables.put(Registration.KAOLINITE_CLAY_GRASS.get(), createMultiItemDropWithSilktouch("kaolinite_clay_grass", Registration.KAOLINITE_CLAY_BALL.get(), Registration.KAOLINITE_CLAY_GRASS_ITEM.get(), 4, 4));
+		lootTables.put(Registration.KAOLINITE_CLAY.get(), createMultiItemDropWithSilktouch("kaolinite_clay", Registration.KAOLINITE_CLAY_BALL.get(), Registration.KAOLINITE_CLAY_ITEM.get(), 4, 4));
 		
 		//Samples
 		lootTables.put(Registration.COPPER_SAMPLE.get(), createItemDropLootTable("copper_sample", Registration.COPPER_CLUSTER.get()));

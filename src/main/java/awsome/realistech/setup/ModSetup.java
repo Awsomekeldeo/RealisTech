@@ -119,10 +119,14 @@ public class ModSetup {
 				Registration.ZINC_CLUSTER.get(),
 				Registration.IRON_CLUSTER.get(),
 				Registration.GOLD_CLUSTER.get(),
+				Registration.ROCK.get(),
 				Registration.KILN_BRICK.get(),
+				Registration.FIREBRICK.get(),
 				Registration.UNFIRED_CLAY_BRICK.get(),
 				Registration.UNFIRED_KILN_BRICK.get(),
-				Registration.KILN_CLAY_BALL.get()
+				Registration.UNFIRED_KAOLINITE_BRICK.get(),
+				Registration.KILN_CLAY_BALL.get(),
+				Registration.KAOLINITE_CLAY_BALL.get(),
 			}); 
 		}
 		if (group == REALISTECH_MACHINES) {
@@ -184,8 +188,11 @@ public class ModSetup {
 				Registration.FIRED_CERAMIC_PROPICK_MOLD.get(),
 				Registration.FIRED_CERAMIC_SWORD_MOLD.get(),
 				Registration.PRIMITIVE_BRICK_MOLD.get(),
-				Registration.CLAY_GRASS_ITEM.get(),
-				Registration.GOLDENROD_ITEM.get()
+				Registration.VANILLA_CLAY_GRASS_ITEM.get(),
+				Registration.KAOLINITE_CLAY_GRASS_ITEM.get(),
+				Registration.KAOLINITE_CLAY_ITEM.get(),
+				Registration.GOLDENROD_ITEM.get(),
+				Registration.KAOLINITE_LILY_ITEM.get()
 			});
 		}
 		return null;

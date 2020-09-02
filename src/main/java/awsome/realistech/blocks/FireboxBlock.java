@@ -23,6 +23,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 
@@ -31,7 +32,9 @@ public class FireboxBlock extends Block {
 	public FireboxBlock() {
 		super(Properties.create(Material.ROCK)
 				.sound(SoundType.METAL)
-				.hardnessAndResistance(1.25f)
+				.hardnessAndResistance(1.25f, 3.5f)
+				.harvestTool(ToolType.PICKAXE)
+				.harvestLevel(0)
 		);
 	}
 

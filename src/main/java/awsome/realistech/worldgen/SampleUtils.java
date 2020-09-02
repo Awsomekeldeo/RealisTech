@@ -14,6 +14,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 
 /*
  * Using a modified version of Geolosys worldgen code
@@ -136,5 +137,29 @@ public class SampleUtils {
     public static void addSamplePlacementBlacklist(Block block)
     {
         samplePlacementBlacklist.add(block.getDefaultState());
+    }
+    
+    public boolean canSamplePlaceOn(BlockPos pos, World world) {
+    	if (Block.hasEnoughSolidSide(world, pos.down(), Direction.UP))
+        {
+            // If the current block is air
+            if (canReplace(world, pos))
+            {
+                // If the block above this state is air,
+                if (canReplace(world, pos.up()))
+                {
+                    // If the block we're going to place on top of is blacklisted
+                    if (canPlaceOn(world, pos))
+                    {
+                        // If it's above sea level it's fine
+                        if (pos.getY() > world.getSeaLevel())
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+    	return false;
     }
 }

@@ -48,7 +48,7 @@ public class OreSampleBlock extends Block {
 				.sound(SoundType.GROUND)
 				.doesNotBlockMovement()
 				.notSolid()
-				.hardnessAndResistance(1.0f)
+				.hardnessAndResistance(1.0f, 3.0f)
 				.harvestLevel(harvestLevel)
 				.harvestTool(ToolType.PICKAXE)
 			);

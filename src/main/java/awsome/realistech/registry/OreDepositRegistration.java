@@ -47,7 +47,8 @@ public class OreDepositRegistration {
 	public void init() {
 		/*
 		 * Using Block::getRegistryName.toString here b/c I'm a fucking idiot and forgot
-		 * to change the mod id in these strings before. Now It shouldn't happen ever again.
+		 * to change the mod id in these strings before. Now It shouldn't happen ever
+		 * again.
 		 */
 		copperDepositBlocks.put(Registration.COPPER_ORE.get().getRegistryName().toString(), 100);
 		tinDepositBlocks.put(Registration.TIN_ORE.get().getRegistryName().toString(), 100);
@@ -149,8 +150,14 @@ public class OreDepositRegistration {
 				new ArrayList<String>(Arrays.asList(new String[] { "minecraft:stone" })),
 				new ArrayList<Biome>(Arrays.asList(new Biome[] {})), Arrays.asList(new BiomeDictionary.Type[] {}),
 				false, false, PlutonType.DENSE, 1.0f);
-		this.oreDepositRegistry.register(Blocks.CLAY.getDefaultState(), Registration.CLAY_GRASS.get().getDefaultState(),
-				Registration.GOLDENROD.get().getDefaultState(), 4, 36, 35, new String[] { "minecraft:the_end" },
+		this.oreDepositRegistry.register(Blocks.CLAY.getDefaultState(),
+				Registration.VANILLA_CLAY_GRASS.get().getDefaultState(), Registration.GOLDENROD.get().getDefaultState(),
+				4, 15, 35, new String[] { "minecraft:the_end" },
+				new ArrayList<String>(Arrays.asList(new String[] { "minecraft:dirt" })),
+				new ArrayList<String>(Arrays.asList(new String[] { "minecraft:grass_block" })), 1.0f, PlutonType.LAYER);
+		this.oreDepositRegistry.register(Registration.KAOLINITE_CLAY.get().getDefaultState(),
+				Registration.KAOLINITE_CLAY_GRASS.get().getDefaultState(),
+				Registration.KAOLINITE_LILY.get().getDefaultState(), 4, 15, 15, new String[] { "minecraft:the_end" },
 				new ArrayList<String>(Arrays.asList(new String[] { "minecraft:dirt" })),
 				new ArrayList<String>(Arrays.asList(new String[] { "minecraft:grass_block" })), 1.0f, PlutonType.LAYER);
 	}

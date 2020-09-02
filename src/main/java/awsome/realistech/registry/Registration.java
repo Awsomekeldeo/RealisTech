@@ -16,6 +16,7 @@ import awsome.realistech.inventory.container.FireboxContainer;
 import awsome.realistech.inventory.container.KilnContainer;
 import awsome.realistech.items.BrickItem;
 import awsome.realistech.items.CeramicMoldItem;
+import awsome.realistech.items.FireclayItem;
 import awsome.realistech.items.IngotItem;
 import awsome.realistech.items.OreClusterItem;
 import awsome.realistech.items.UnfiredCeramicMoldItem;
@@ -36,6 +37,7 @@ import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -75,11 +77,11 @@ public class Registration {
 		public static final RegistryObject<ModOreBlock> COBALT_ORE = BLOCKS.register("cobalt_ore", () -> new ModOreBlock(1));
 		public static final RegistryObject<ModOreBlock> ZINC_ORE = BLOCKS.register("zinc_ore", () -> new ModOreBlock(2));
 		public static final RegistryObject<ModOreBlock> MOD_IRON_ORE = BLOCKS.register("mod_iron_ore", () -> new ModOreBlock(1));
-		public static final RegistryObject<ModOreBlock> MOD_GOLD_ORE = BLOCKS.register("mod_gold_ore", () -> new ModOreBlock(1));
-		public static final RegistryObject<ModOreBlock> MOD_COAL_ORE = BLOCKS.register("mod_coal_ore", () -> new ModOreBlock(1));
+		public static final RegistryObject<ModOreBlock> MOD_GOLD_ORE = BLOCKS.register("mod_gold_ore", () -> new ModOreBlock(2));
+		public static final RegistryObject<ModOreBlock> MOD_COAL_ORE = BLOCKS.register("mod_coal_ore", () -> new ModOreBlock(0));
 		public static final RegistryObject<ModOreBlock> MOD_REDSTONE_ORE = BLOCKS.register("mod_redstone_ore", () -> new ModOreBlock(1));
-		public static final RegistryObject<ModOreBlock> MOD_EMERALD_ORE = BLOCKS.register("mod_emerald_ore", () -> new ModOreBlock(1));
-		public static final RegistryObject<ModOreBlock> MOD_DIAMOND_ORE = BLOCKS.register("mod_diamond_ore", () -> new ModOreBlock(1));
+		public static final RegistryObject<ModOreBlock> MOD_EMERALD_ORE = BLOCKS.register("mod_emerald_ore", () -> new ModOreBlock(2));
+		public static final RegistryObject<ModOreBlock> MOD_DIAMOND_ORE = BLOCKS.register("mod_diamond_ore", () -> new ModOreBlock(2));
 		public static final RegistryObject<ModOreBlock> MOD_LAPIS_ORE = BLOCKS.register("mod_lapis_ore", () -> new ModOreBlock(1));
 		
 		//Ore Samples
@@ -100,14 +102,19 @@ public class Registration {
 		
 		//Flowers
 		public static final RegistryObject<FlowerBlock> GOLDENROD = BLOCKS.register("goldenrod", () -> new FlowerBlock(Effects.GLOWING, 8, Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.PLANT)));
+		public static final RegistryObject<FlowerBlock> KAOLINITE_LILY = BLOCKS.register("kaolinite_lily", () -> new FlowerBlock(Effects.BAD_OMEN, 8, Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.PLANT)));
 		
 		//Machines
 		public static final RegistryObject<FireboxBlock> FIREBOX = BLOCKS.register("firebox", FireboxBlock::new);
 		public static final RegistryObject<CrucibleBlock> CRUCIBLE = BLOCKS.register("crucible", CrucibleBlock::new);
 		public static final RegistryObject<KilnBlock> KILN = BLOCKS.register("kiln", KilnBlock::new);
 		
-		//Other
-		public static final RegistryObject<ClayGrassBlock> CLAY_GRASS = BLOCKS.register("clay_grass", ClayGrassBlock::new);
+		//Clay Grasses
+		public static final RegistryObject<ClayGrassBlock> VANILLA_CLAY_GRASS = BLOCKS.register("clay_grass", ClayGrassBlock::new);
+		public static final RegistryObject<ClayGrassBlock> KAOLINITE_CLAY_GRASS = BLOCKS.register("kaolinite_clay_grass", ClayGrassBlock::new);
+		
+		//Clays
+		public static final RegistryObject<Block> KAOLINITE_CLAY = BLOCKS.register("kaolinite_clay", () -> new Block(Properties.create(Material.CLAY).hardnessAndResistance(0.6f).sound(SoundType.GROUND).harvestTool(ToolType.SHOVEL).harvestLevel(-1)));
 	
 	//Tile Entities
 		
@@ -179,9 +186,14 @@ public class Registration {
 		
 		//Flowers
 		public static final RegistryObject<Item> GOLDENROD_ITEM = ITEMS.register("goldenrod", () -> new BlockItem(GOLDENROD.get(), new Item.Properties().group(ModSetup.REALISTECH_MISC)));
+		public static final RegistryObject<Item> KAOLINITE_LILY_ITEM = ITEMS.register("kaolinite_lily", () -> new BlockItem(KAOLINITE_LILY.get(), new Item.Properties().group(ModSetup.REALISTECH_MISC)));
 		
-		//Other
-		public static final RegistryObject<Item> CLAY_GRASS_ITEM = ITEMS.register("clay_grass", () -> new BlockItem(CLAY_GRASS.get(), new Item.Properties().group(ModSetup.REALISTECH_MISC)));
+		//Clay Grasses
+		public static final RegistryObject<Item> VANILLA_CLAY_GRASS_ITEM = ITEMS.register("clay_grass", () -> new BlockItem(VANILLA_CLAY_GRASS.get(), new Item.Properties().group(ModSetup.REALISTECH_MISC)));
+		public static final RegistryObject<Item> KAOLINITE_CLAY_GRASS_ITEM = ITEMS.register("kaolinite_clay_grass", () -> new BlockItem(KAOLINITE_CLAY_GRASS.get(), new Item.Properties().group(ModSetup.REALISTECH_MISC)));
+		
+		//Clays
+		public static final RegistryObject<Item> KAOLINITE_CLAY_ITEM = ITEMS.register("kaolinite_clay", () -> new BlockItem(KAOLINITE_CLAY.get(), new Item.Properties().group(ModSetup.REALISTECH_MISC)));
 		
 	//Items
 		
@@ -223,11 +235,16 @@ public class Registration {
 			public static final RegistryObject<UnfiredCeramicMoldItem> UNFIRED_CERAMIC_SWORD_MOLD = ITEMS.register("ceramic_molds/unfired/sword", UnfiredCeramicMoldItem::new);
 			public static final RegistryObject<UnfiredCeramicMoldItem> UNFIRED_CERAMIC_PROPICK_MOLD = ITEMS.register("ceramic_molds/unfired/prospectors_pickaxe", UnfiredCeramicMoldItem::new);
 			
-		//Misc Items
+		//Ceramics
 		public static final RegistryObject<Item> UNFIRED_CLAY_BRICK = ITEMS.register("unfired_clay_brick", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
 		public static final RegistryObject<Item> PRIMITIVE_BRICK_MOLD = ITEMS.register("primitive_brick_mold", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MISC)));
 		public static final RegistryObject<Item> UNFIRED_KILN_BRICK = ITEMS.register("unfired_kiln_brick", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
 		public static final RegistryObject<BrickItem> KILN_BRICK = ITEMS.register("kiln_brick", BrickItem::new);
 		public static final RegistryObject<Item> KILN_CLAY_BALL = ITEMS.register("kiln_clay_ball", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
+		public static final RegistryObject<FireclayItem> KAOLINITE_CLAY_BALL = ITEMS.register("kaolinite_clay_ball", FireclayItem::new);
+		public static final RegistryObject<FireclayItem> UNFIRED_KAOLINITE_BRICK = ITEMS.register("unfired_kaolinite_brick", FireclayItem::new);
+		public static final RegistryObject<BrickItem> FIREBRICK = ITEMS.register("firebrick", BrickItem::new);
 		
+		//Misc Items
+		public static final RegistryObject<Item> ROCK = ITEMS.register("rock", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
 }

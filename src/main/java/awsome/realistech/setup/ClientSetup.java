@@ -34,15 +34,17 @@ public class ClientSetup {
 		RenderType cutout = RenderType.getCutout();
 		
 		RenderTypeLookup.setRenderLayer(Registration.CRUCIBLE.get(), cutout);
-		RenderTypeLookup.setRenderLayer(Registration.CLAY_GRASS.get(), cutoutMipped);
+		RenderTypeLookup.setRenderLayer(Registration.VANILLA_CLAY_GRASS.get(), cutoutMipped);
+		RenderTypeLookup.setRenderLayer(Registration.KAOLINITE_CLAY_GRASS.get(), cutoutMipped);
 		RenderTypeLookup.setRenderLayer(Registration.GOLDENROD.get(), cutout);
+		RenderTypeLookup.setRenderLayer(Registration.KAOLINITE_LILY.get(), cutout);
 	}
 
 	private static void registerBlockColors() {
 		BlockColors blockColors = Minecraft.getInstance().getBlockColors();
 		blockColors.register((state, world, pos, tintIndex) -> {
 			return world != null && pos != null ? BiomeColors.getGrassColor(world, pos) : GrassColors.get(0.5d, 1.0d);
-		}, Registration.CLAY_GRASS.get());
+		}, Registration.VANILLA_CLAY_GRASS.get(), Registration.KAOLINITE_CLAY_GRASS.get());
 	}
 	
 	private static void registerItemColors(BlockColors colors) {
@@ -50,6 +52,6 @@ public class ClientSetup {
 		itemColors.register((stack, tintIndex) -> {
 			BlockState state = ((BlockItem)stack.getItem()).getBlock().getDefaultState();
 			return colors.getColor(state, (ILightReader)null, (BlockPos)null, tintIndex);
-		}, Registration.CLAY_GRASS_ITEM.get());
+		}, Registration.VANILLA_CLAY_GRASS_ITEM.get(), Registration.KAOLINITE_CLAY_GRASS_ITEM.get());
 	}
 }

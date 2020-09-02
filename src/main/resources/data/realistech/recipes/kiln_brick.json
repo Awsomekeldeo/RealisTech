@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "realistech:unfired_kiln_brick"
+  },
+  "result": "realistech:kiln_brick",
+  "experience": 0.3,
+  "cookingtime": 200
+}

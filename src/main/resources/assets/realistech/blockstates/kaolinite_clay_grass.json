@@ -1,0 +1,24 @@
+{
+  "variants": {
+    "snowy=false": [
+      {
+        "model": "realistech:block/kaolinite_clay_grass"
+      },
+      {
+        "model": "realistech:block/kaolinite_clay_grass",
+        "y": 90
+      },
+      {
+        "model": "realistech:block/kaolinite_clay_grass",
+        "y": 180
+      },
+      {
+        "model": "realistech:block/kaolinite_clay_grass",
+        "y": 270
+      }
+    ],
+    "snowy=true": {
+      "model": "realistech:block/snowy_kaolinite_clay_grass"
+    }
+  }
+}

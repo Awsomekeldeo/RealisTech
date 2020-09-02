@@ -11,7 +11,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.mojang.datafixers.Dynamic;
 
-import awsome.realistech.blocks.OreSampleBlock;
 import awsome.realistech.worldgen.SampleUtils;
 import awsome.realistech.worldgen.api.BlockPosDim;
 import awsome.realistech.worldgen.api.ChunkPosDim;
@@ -21,14 +20,11 @@ import awsome.realistech.worldgen.capability.IWorldgenCapability;
 import awsome.realistech.worldgen.utils.Utils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.IWaterLoggable;
-import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.PooledMutable;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.ChunkGenerator;
@@ -62,41 +58,6 @@ public class SurfaceDepositFeature extends Feature<NoFeatureConfig> {
 
         }
 		
-		if (world.getWorld().getWorldType() != WorldType.FLAT)
-        {
-            int sampleLimit = 10;
-            for (int i = 0; i < sampleLimit; i++)
-            {
-                BlockPos samplePos = SampleUtils.getSamplePosition(world, new ChunkPos(startPos), 255);
-                if (samplePos == null || SampleUtils.inNonWaterFluid(world, samplePos))
-                {
-                    continue;
-                }
-                if (world.getBlockState(samplePos) != dep.getIndicator())
-                {
-                    boolean isInWater = SampleUtils.isInWater(world, samplePos);
-                    if (dep.getIndicator().getBlock() instanceof OreSampleBlock)
-                    {
-                        BlockState sampleState = isInWater ? dep.getIndicator().with(OreSampleBlock.WATERLOGGED, Boolean.TRUE)
-                                : dep.getIndicator();
-                        world.setBlockState(samplePos, sampleState, 2 | 16);
-                    }
-                    else
-                    {
-                        // Place a waterlogged variant of whatever block it ends up being
-                        if (isInWater && dep.getIndicator().getBlock() instanceof IWaterLoggable)
-                        {
-                            world.setBlockState(samplePos,
-                                    dep.getIndicator().with(BlockStateProperties.WATERLOGGED, Boolean.TRUE), 2 | 16);
-                        }
-                        else
-                        {
-                            world.setBlockState(samplePos, dep.getIndicator(), 2 | 16);
-                        }
-                    }
-                }
-            }
-        }
     }
 	
 	private boolean isInChunk(ChunkPos chunkPos, BlockPos pos)
@@ -178,21 +139,20 @@ public class SurfaceDepositFeature extends Feature<NoFeatureConfig> {
 		
 		int depth = (rand.nextInt(deposit.getMaxYSize() - 2) + 2);
 		int x = ((chunkPos.getXStart() + chunkPos.getXEnd()) / 2) - rand.nextInt(8) + rand.nextInt(16);
-		int y = 63;
+		int y = pos.getY();
         int z = ((chunkPos.getZStart() + chunkPos.getZEnd()) / 2) - rand.nextInt(8) + rand.nextInt(16);
-        
-        BlockPos blockPos = new BlockPos(x, y, z);
         
         //Check for surface block
         PooledMutable highestNonAirBlock = PooledMutable.retain();
         highestNonAirBlock.setPos(x, y, z);
         for (int i = y; i < 255; i++) {
-        	if (worldIn.getBlockState(blockPos) != Blocks.AIR.getDefaultState()) {
+        	if (worldIn.getBlockState(highestNonAirBlock) != Blocks.AIR.getDefaultState()) {
         		highestNonAirBlock.setPos(x, i, z);
         	}
         }
         
         int size = deposit.getSize();
+        int indicatorsPlaced = 0;
         
         for (int dX = -size; dX <= size; dX++)
         {
@@ -200,6 +160,8 @@ public class SurfaceDepositFeature extends Feature<NoFeatureConfig> {
             {
                 for (int dY = 0; dY < depth; dY++)
                 {
+            
+                	
                     float dist = (dX * dX) + (dZ * dZ);
                     if (dist > size)
                     {
@@ -237,6 +199,24 @@ public class SurfaceDepositFeature extends Feature<NoFeatureConfig> {
                             if (Utils.doStatesMatch(matcherState, state))
                             {
                                 worldIn.setBlockState(currentBlock, deposit.getTopsoil(), 2 | 16);
+                                //Randomly place samples above the deposit
+                                if (indicatorsPlaced > 0 && indicatorsPlaced < 10) {
+                                	if (rand.nextInt(100) <= 5) {
+                                    	BlockPos sampleBlock = currentBlock.up();
+                                    	if (SampleUtils.canPlaceOn(worldIn, sampleBlock)) {
+                                    		worldIn.setBlockState(sampleBlock, deposit.getIndicator(), 2 | 16);
+                                    	}
+                                    	currentBlock.down();
+                                    	indicatorsPlaced++;
+                                    }
+                                }else if (indicatorsPlaced == 0) {
+                                	BlockPos sampleBlock = currentBlock.up();
+                                	if (SampleUtils.canPlaceOn(worldIn, sampleBlock)) {
+                                		worldIn.setBlockState(sampleBlock, deposit.getIndicator(), 2 | 16);
+                                	}
+                                	indicatorsPlaced++;
+                                	currentBlock.down();
+                                }
                                 placed = true;
 
                                 break;

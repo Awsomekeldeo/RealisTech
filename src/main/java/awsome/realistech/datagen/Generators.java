@@ -19,6 +19,7 @@ public class Generators {
 	        	generator.addProvider(new LootTables(generator));
 	        	generator.addProvider(new Recipes(generator));
 	        	generator.addProvider(new ModBlockTags(generator));
+	        	generator.addProvider(new ModItemTags(generator));
 	        }
 		}
 	}

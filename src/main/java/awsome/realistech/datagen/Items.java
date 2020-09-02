@@ -63,11 +63,29 @@ public class Items extends ItemModelProvider {
 		singleTexture("item/" + Registration.IRON_CLUSTER.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/clusters/iron"));
 		singleTexture("item/" + Registration.GOLD_CLUSTER.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/clusters/gold"));
 		
-		//Other Blocks
-		withExistingParent("item/" + Registration.CLAY_GRASS_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/clay_grass"));
+		//Clay Grasses
+		withExistingParent("item/" + Registration.VANILLA_CLAY_GRASS_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/clay_grass"));
+		withExistingParent("item/" + Registration.KAOLINITE_CLAY_GRASS_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/kaolinite_clay_grass"));
+		
+		//Clay Blocks
+		withExistingParent("item/" + Registration.KAOLINITE_CLAY_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/kaolinite_clay"));
+		
+		//Ceramics
+		singleTexture("item/" + Registration.UNFIRED_CLAY_BRICK.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/unfired_clay_brick"));
+		singleTexture("item/" + Registration.UNFIRED_KILN_BRICK.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/unfired_kiln_brick"));
+		singleTexture("item/" + Registration.PRIMITIVE_BRICK_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/primitive_brick_mold"));
+		singleTexture("item/" + Registration.KILN_BRICK.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/kiln_brick"));
+		singleTexture("item/" + Registration.KILN_CLAY_BALL.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/kiln_clay_ball"));
+		singleTexture("item/" + Registration.KAOLINITE_CLAY_BALL.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/kaolinite_clay_ball"));
+		singleTexture("item/" + Registration.UNFIRED_KAOLINITE_BRICK.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/unfired_kaolinite_brick"));
+		singleTexture("item/" + Registration.FIREBRICK.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/firebrick"));
 		
 		//Flowers
 		singleTexture("item/" + Registration.GOLDENROD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/goldenrod"));
+		singleTexture("item/" + Registration.KAOLINITE_LILY_ITEM.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/kaolinite_lily"));
+		
+		//Misc
+		singleTexture("item/" + Registration.ROCK.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/rock"));
 		
 		//Ingots
 		singleTexture("item/" + Registration.COPPER_INGOT.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ingots/copper"));
@@ -93,12 +111,5 @@ public class Items extends ItemModelProvider {
 		singleTexture("item/" + Registration.FIRED_CERAMIC_SWORD_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/sword_mold"));
 		singleTexture("item/" + Registration.FIRED_CERAMIC_PROPICK_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/propick_mold"));
 		singleTexture("item/" + Registration.FIRED_CERAMIC_INGOT_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/ingot_mold"));
-		
-		//Misc Items
-		singleTexture("item/" + Registration.UNFIRED_CLAY_BRICK.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/unfired_clay_brick"));
-		singleTexture("item/" + Registration.UNFIRED_KILN_BRICK.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/unfired_kiln_brick"));
-		singleTexture("item/" + Registration.PRIMITIVE_BRICK_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/primitive_brick_mold"));
-		singleTexture("item/" + Registration.KILN_BRICK.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/kiln_brick"));
-		singleTexture("item/" + Registration.KILN_CLAY_BALL.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/kiln_clay_ball"));
 	}
 }

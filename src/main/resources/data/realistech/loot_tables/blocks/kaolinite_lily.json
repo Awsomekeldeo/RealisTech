@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "name": "kaolinite_lily",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "realistech:kaolinite_lily"
+        }
+      ]
+    }
+  ]
+}

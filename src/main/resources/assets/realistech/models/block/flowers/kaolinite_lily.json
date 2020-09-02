@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "realistech:blocks/flowers/kaolinite_lily",
+    "particle": "realistech:blocks/flowers/kaolinite_lily"
+  }
+}

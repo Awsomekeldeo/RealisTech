@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "realistech:primitive_brick_mold"
+    },
+    {
+      "item": "realistech:kiln_clay_ball"
+    }
+  ],
+  "result": {
+    "item": "realistech:unfired_kiln_brick"
+  }
+}

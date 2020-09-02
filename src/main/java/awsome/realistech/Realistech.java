@@ -47,6 +47,8 @@ public class Realistech {
 		ItemStack stack = event.getItemStack();
 		if (stack.getItem() == Items.BRICK) {
 			event.getToolTip().add(1, new TranslationTextComponent("tooltip.realistech.brick").applyTextStyle(TextFormatting.GRAY).applyTextStyle(TextFormatting.ITALIC));
+		}else if(stack.getItem() == Items.NETHER_BRICK) {
+			event.getToolTip().add(1, new TranslationTextComponent("tooltip.realistech.brick").applyTextStyle(TextFormatting.GRAY).applyTextStyle(TextFormatting.OBFUSCATED).applyTextStyle(TextFormatting.ITALIC));
 		}
 	}
 }

@@ -36,8 +36,11 @@ public class BlockStates extends BlockStateProvider {
 		registerCrucible();
 		registerOreSamples();
 		registerKiln();
-		registerClayGrass();
+		registerVanillaClayGrass();
+		registerKaoliniteClayGrass();
 		registerFlower(Registration.GOLDENROD.get());
+		registerFlower(Registration.KAOLINITE_LILY.get());
+		registerSimpleBlock(Registration.KAOLINITE_CLAY.get());
 	}
 	
 	private void registerFlower(Block block) {
@@ -46,16 +49,28 @@ public class BlockStates extends BlockStateProvider {
 		simpleBlock(block, modelFlower);
 	}
 
-	@SuppressWarnings("unused")
 	private void registerSimpleBlock(Block block) {
 		ResourceLocation texture = new ResourceLocation(Reference.MODID, "blocks/" + block.getRegistryName().getPath());
 		BlockModelBuilder modelSimpleBlock = models().cubeAll("block/" + block.getRegistryName().getPath(), texture).texture("particle", texture);
+		simpleBlock(block, modelSimpleBlock);
 	}
 	
-	private void registerClayGrass() {
+	private void registerVanillaClayGrass() {
 		ExistingModelFile modelClayGrass = models().getExistingFile(new ResourceLocation(Reference.MODID, "block/clay_grass"));
 		ExistingModelFile modelSnowyClayGrass = models().getExistingFile(new ResourceLocation(Reference.MODID, "block/snowy_clay_grass"));
-		getVariantBuilder(Registration.CLAY_GRASS.get()).forAllStates(state -> {
+		getVariantBuilder(Registration.VANILLA_CLAY_GRASS.get()).forAllStates(state -> {
+			if (!state.get(BlockStateProperties.SNOWY)) {
+				return ConfiguredModel.allYRotations(modelClayGrass, 0, false);
+			}else {
+				return ConfiguredModel.builder().modelFile(modelSnowyClayGrass).build();
+			}
+		});
+	}
+	
+	private void registerKaoliniteClayGrass() {
+		ExistingModelFile modelClayGrass = models().getExistingFile(new ResourceLocation(Reference.MODID, "block/kaolinite_clay_grass"));
+		ExistingModelFile modelSnowyClayGrass = models().getExistingFile(new ResourceLocation(Reference.MODID, "block/snowy_kaolinite_clay_grass"));
+		getVariantBuilder(Registration.KAOLINITE_CLAY_GRASS.get()).forAllStates(state -> {
 			if (!state.get(BlockStateProperties.SNOWY)) {
 				return ConfiguredModel.allYRotations(modelClayGrass, 0, false);
 			}else {

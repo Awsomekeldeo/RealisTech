@@ -11,6 +11,9 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import net.minecraft.advancements.criterion.EnchantmentPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
@@ -19,6 +22,7 @@ import net.minecraft.data.LootTableProvider;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.storage.loot.AlternativesLootEntry;
 import net.minecraft.world.storage.loot.ConstantRange;
 import net.minecraft.world.storage.loot.ItemLootEntry;
 import net.minecraft.world.storage.loot.LootParameterSets;
@@ -26,6 +30,7 @@ import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraft.world.storage.loot.RandomValueRange;
+import net.minecraft.world.storage.loot.conditions.MatchTool;
 import net.minecraft.world.storage.loot.functions.ApplyBonus;
 import net.minecraft.world.storage.loot.functions.ExplosionDecay;
 import net.minecraft.world.storage.loot.functions.SetCount;
@@ -70,6 +75,44 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
 						.acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))
 						.acceptFunction(ExplosionDecay.builder()));
 		return LootTable.builder().addLootPool(builder);
+	}
+	
+	protected LootTable.Builder createMultiItemDropWithSilktouch(String name, Item item, Item silktouchItem, int minDrops, int maxDrops) {
+		LootPool.Builder builder = LootPool.builder()
+				.name(name)
+				.rolls(ConstantRange.of(1))
+				.addEntry(AlternativesLootEntry.builder(ItemLootEntry.builder(silktouchItem)
+								.acceptCondition(MatchTool.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1)))))
+						).alternatively(ItemLootEntry.builder(item)
+								.acceptFunction(SetCount.builder(RandomValueRange.of(minDrops, maxDrops)))
+								.acceptFunction(ExplosionDecay.builder())));
+		return LootTable.builder().addLootPool(builder);
+	}
+	
+	protected LootTable.Builder createMultiItemDropWithSilktouchAndFortune(String name, Item item, Item silktouchItem, int minDrops, int maxDrops, boolean applyUniformBonus, int uniformBonusCount) {
+		if (applyUniformBonus) {
+			LootPool.Builder builder = LootPool.builder()
+					.name(name)
+					.rolls(ConstantRange.of(1))
+					.addEntry(AlternativesLootEntry.builder(ItemLootEntry.builder(silktouchItem)
+									.acceptCondition(MatchTool.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1)))))
+							).alternatively(ItemLootEntry.builder(item)
+									.acceptFunction(SetCount.builder(RandomValueRange.of(minDrops, maxDrops)))
+									.acceptFunction(ApplyBonus.uniformBonusCount(Enchantments.FORTUNE, uniformBonusCount))
+									.acceptFunction(ExplosionDecay.builder())));
+			return LootTable.builder().addLootPool(builder);
+		}else {
+			LootPool.Builder builder = LootPool.builder()
+					.name(name)
+					.rolls(ConstantRange.of(1))
+					.addEntry(AlternativesLootEntry.builder(ItemLootEntry.builder(silktouchItem)
+									.acceptCondition(MatchTool.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1)))))
+							).alternatively(ItemLootEntry.builder(item)
+									.acceptFunction(SetCount.builder(RandomValueRange.of(minDrops, maxDrops)))
+									.acceptFunction(ApplyBonus.uniformBonusCount(Enchantments.FORTUNE))
+									.acceptFunction(ExplosionDecay.builder())));
+			return LootTable.builder().addLootPool(builder);
+		}
 	}
 	
 	protected LootTable.Builder createMultiItemDropWithFortune(String name, Item item, int minDrops, int maxDrops, boolean applyUniformBonus, int uniformBonusCount) {

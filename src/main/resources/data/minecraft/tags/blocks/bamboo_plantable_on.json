@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "realistech:clay_grass"
+    "realistech:clay_grass",
+    "realistech:kaolinite_clay_grass"
   ]
 }

@@ -14,9 +14,11 @@ public class ModBlockTags extends BlockTagsProvider {
 	
 	@Override
 	protected void registerTags() {
-		this.getBuilder(Tags.Blocks.DIRT).add(Registration.CLAY_GRASS.get());
-		this.getBuilder(BlockTags.BAMBOO_PLANTABLE_ON).add(Registration.CLAY_GRASS.get());
-		this.getBuilder(BlockTags.VALID_SPAWN).add(Registration.CLAY_GRASS.get());
+		this.getBuilder(Tags.Blocks.DIRT).add(Registration.VANILLA_CLAY_GRASS.get()).add(Registration.KAOLINITE_CLAY_GRASS.get());
+		this.getBuilder(BlockTags.BAMBOO_PLANTABLE_ON).add(Registration.VANILLA_CLAY_GRASS.get()).add(Registration.KAOLINITE_CLAY_GRASS.get());
+		this.getBuilder(BlockTags.VALID_SPAWN).add(Registration.VANILLA_CLAY_GRASS.get()).add(Registration.KAOLINITE_CLAY_GRASS.get());
+		this.getBuilder(BlockTags.FLOWERS).add(Registration.GOLDENROD.get()).add(Registration.KAOLINITE_LILY.get());
+		this.getBuilder(BlockTags.SMALL_FLOWERS).add(Registration.GOLDENROD.get()).add(Registration.KAOLINITE_LILY.get());
 	}
 	
 }

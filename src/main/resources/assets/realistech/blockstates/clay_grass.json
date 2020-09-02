@@ -1,6 +1,6 @@
 {
   "variants": {
-	"snowy=false": [
+    "snowy=false": [
       {
         "model": "realistech:block/clay_grass"
       },
