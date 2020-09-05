@@ -51,6 +51,7 @@ public class Items extends ItemModelProvider {
 		withExistingParent("item/" + Registration.EMERALD_SAMPLE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/emerald_sample"));
 		withExistingParent("item/" + Registration.LAPIS_SAMPLE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/lapis_sample"));
 		withExistingParent("item/" + Registration.REDSTONE_SAMPLE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/redstone_sample"));
+		withExistingParent("item/" + Registration.ROCK_ITEMBLOCK.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/rock"));
 		
 		//Clusters
 		singleTexture("item/" + Registration.COPPER_CLUSTER.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/clusters/copper"));

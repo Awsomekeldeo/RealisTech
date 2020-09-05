@@ -162,4 +162,40 @@ public class SampleUtils {
         }
     	return false;
     }
+    
+    @Nullable
+    public static BlockPos getRockPosition(IWorld world, ChunkPos chunkPos)
+    {
+        int blockPosX = (chunkPos.x << 4) + random.nextInt(16);
+        int blockPosZ = (chunkPos.z << 4) + random.nextInt(16);
+        BlockPos searchPos = new BlockPos(blockPosX, 0, blockPosZ);
+
+        while (searchPos.getY() < world.getHeight())
+        {
+            world.getBlockState(searchPos.down()).getBlock();
+            if (Block.hasEnoughSolidSide(world, searchPos.down(), Direction.UP))
+            {
+                // If the current block is air
+                if (canReplace(world, searchPos))
+                {
+                    // If the block above this state is air,
+                    if (canReplace(world, searchPos.up()))
+                    {
+                        // If the block we're going to place on top of is blacklisted
+                        if (canPlaceOn(world, searchPos))
+                        {
+                            // If it's above sea level it's fine
+                            if (searchPos.getY() > world.getSeaLevel())
+                            {
+                                return searchPos;
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            searchPos = searchPos.up();
+        }
+        return null;
+    }
 }

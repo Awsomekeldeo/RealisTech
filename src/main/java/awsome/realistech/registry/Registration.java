@@ -5,6 +5,8 @@ import awsome.realistech.api.recipe.KilnRecipe;
 import awsome.realistech.api.recipe.KilnRecipeSerializer;
 import awsome.realistech.api.recipe.MeltingRecipe;
 import awsome.realistech.api.recipe.MeltingRecipeSerializer;
+import awsome.realistech.api.recipe.NonConsumingShapelessRecipe;
+import awsome.realistech.api.recipe.NonConsumingShaplessRecipeSerializer;
 import awsome.realistech.blocks.ClayGrassBlock;
 import awsome.realistech.blocks.CrucibleBlock;
 import awsome.realistech.blocks.FireboxBlock;
@@ -64,6 +66,7 @@ public class Registration {
 	//Recipe Serializers
 		public static final RegistryObject<MeltingRecipeSerializer<MeltingRecipe>> MELTING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("melting", () -> new MeltingRecipeSerializer<>(MeltingRecipe::new));
 		public static final RegistryObject<KilnRecipeSerializer<KilnRecipe>> KILN_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("kiln", () -> new KilnRecipeSerializer<>(KilnRecipe::new));
+		public static final RegistryObject<NonConsumingShaplessRecipeSerializer<NonConsumingShapelessRecipe>> NON_CONSUMING_SHAPELESS_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("non_consuming_shapeless", () -> new NonConsumingShaplessRecipeSerializer<>(NonConsumingShapelessRecipe::new));
 	
 	
 	//Blocks
@@ -99,6 +102,7 @@ public class Registration {
 		public static final RegistryObject<OreSampleBlock> EMERALD_SAMPLE = BLOCKS.register("emerald_sample", () -> new OreSampleBlock(1));
 		public static final RegistryObject<OreSampleBlock> LAPIS_SAMPLE = BLOCKS.register("lapis_sample", () -> new OreSampleBlock(1));
 		public static final RegistryObject<OreSampleBlock> REDSTONE_SAMPLE = BLOCKS.register("redstone_sample", () -> new OreSampleBlock(1));
+		public static final RegistryObject<Block> ROCK = BLOCKS.register("rock", () -> new OreSampleBlock(-1, SoundType.STONE));
 		
 		//Flowers
 		public static final RegistryObject<FlowerBlock> GOLDENROD = BLOCKS.register("goldenrod", () -> new FlowerBlock(Effects.GLOWING, 8, Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.PLANT)));
@@ -178,6 +182,7 @@ public class Registration {
 		public static final RegistryObject<Item> EMERALD_SAMPLE_ITEM = ITEMS.register("ores/samples/emerald_sample", () -> new BlockItem(EMERALD_SAMPLE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
 		public static final RegistryObject<Item> REDSTONE_SAMPLE_ITEM = ITEMS.register("ores/samples/redstone_sample", () -> new BlockItem(REDSTONE_SAMPLE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
 		public static final RegistryObject<Item> LAPIS_SAMPLE_ITEM = ITEMS.register("ores/samples/lapis_sample", () -> new BlockItem(LAPIS_SAMPLE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> ROCK_ITEMBLOCK = ITEMS.register("rock_blockitem", () -> new BlockItem(ROCK.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
 		
 		//Machines
 		public static final RegistryObject<Item> FIREBOX_ITEM = ITEMS.register("machines/firebox", () -> new BlockItem(FIREBOX.get(), new Item.Properties().group(ModSetup.REALISTECH_MACHINES)));
@@ -237,7 +242,7 @@ public class Registration {
 			
 		//Ceramics
 		public static final RegistryObject<Item> UNFIRED_CLAY_BRICK = ITEMS.register("unfired_clay_brick", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
-		public static final RegistryObject<Item> PRIMITIVE_BRICK_MOLD = ITEMS.register("primitive_brick_mold", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MISC)));
+		public static final RegistryObject<Item> PRIMITIVE_BRICK_MOLD = ITEMS.register("primitive_brick_mold", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MISC).maxStackSize(1)));
 		public static final RegistryObject<Item> UNFIRED_KILN_BRICK = ITEMS.register("unfired_kiln_brick", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
 		public static final RegistryObject<BrickItem> KILN_BRICK = ITEMS.register("kiln_brick", BrickItem::new);
 		public static final RegistryObject<Item> KILN_CLAY_BALL = ITEMS.register("kiln_clay_ball", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
@@ -246,5 +251,5 @@ public class Registration {
 		public static final RegistryObject<BrickItem> FIREBRICK = ITEMS.register("firebrick", BrickItem::new);
 		
 		//Misc Items
-		public static final RegistryObject<Item> ROCK = ITEMS.register("rock", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
+		public static final RegistryObject<Item> ROCK_ITEM = ITEMS.register("rock", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
 }

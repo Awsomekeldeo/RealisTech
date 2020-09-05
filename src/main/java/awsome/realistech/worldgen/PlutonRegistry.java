@@ -11,6 +11,7 @@ import awsome.realistech.worldgen.api.deposit.ISurfaceDeposit;
 import awsome.realistech.worldgen.feature.PlutonOreFeature;
 import awsome.realistech.worldgen.feature.PlutonStoneFeature;
 import awsome.realistech.worldgen.feature.SurfaceDepositFeature;
+import awsome.realistech.worldgen.feature.SurfaceRockFeature;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
@@ -169,5 +170,9 @@ public class PlutonRegistry
 			biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, new ConfiguredFeature<>(
 					new SurfaceDepositFeature(NoFeatureConfig::deserialize), new NoFeatureConfig()));
 		}
+        for (Biome biome : ForgeRegistries.BIOMES.getValues()) {
+        	biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, new ConfiguredFeature<>(
+        			new SurfaceRockFeature(NoFeatureConfig::deserialize), new NoFeatureConfig()));
+        }
     }
 }

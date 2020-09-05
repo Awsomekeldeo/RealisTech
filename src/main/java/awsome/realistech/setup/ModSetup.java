@@ -8,6 +8,7 @@ import com.google.common.collect.Ordering;
 
 import awsome.realistech.Reference;
 import awsome.realistech.api.capability.energy.HeatCapability;
+import awsome.realistech.blocks.OreSampleBlock;
 import awsome.realistech.registry.OreDepositRegistration;
 import awsome.realistech.registry.Registration;
 import awsome.realistech.worldgen.FeatureStripper;
@@ -119,7 +120,7 @@ public class ModSetup {
 				Registration.ZINC_CLUSTER.get(),
 				Registration.IRON_CLUSTER.get(),
 				Registration.GOLD_CLUSTER.get(),
-				Registration.ROCK.get(),
+				Registration.ROCK_ITEM.get(),
 				Registration.KILN_BRICK.get(),
 				Registration.FIREBRICK.get(),
 				Registration.UNFIRED_CLAY_BRICK.get(),
@@ -165,7 +166,8 @@ public class ModSetup {
 				Registration.DIAMOND_SAMPLE_ITEM.get(),
 				Registration.EMERALD_SAMPLE_ITEM.get(),
 				Registration.REDSTONE_SAMPLE_ITEM.get(),
-				Registration.LAPIS_SAMPLE_ITEM.get()
+				Registration.LAPIS_SAMPLE_ITEM.get(),
+				Registration.ROCK_ITEMBLOCK.get()
 			});
 		}
 		if (group == REALISTECH_TOOLS) {
@@ -198,6 +200,10 @@ public class ModSetup {
 		return null;
 	}
 	
+	private static void setSampleClickItems() {
+		((OreSampleBlock) Registration.ROCK.get()).setClickResult(new ItemStack(Registration.ROCK_ITEM.get()));
+	}
+	
 	public static void init(final FMLCommonSetupEvent event) {
 		HeatCapability.init();
 		oreSorter = Ordering.explicit(getItemList(REALISTECH_ORES)).onResultOf(ItemStack::getItem);
@@ -205,6 +211,7 @@ public class ModSetup {
 		materialSorter = Ordering.explicit(getItemList(REALISTECH_MATERIALS)).onResultOf(ItemStack::getItem);
 		toolSorter = Ordering.explicit(getItemList(REALISTECH_TOOLS)).onResultOf(ItemStack::getItem);
 		miscSorter = Ordering.explicit(getItemList(REALISTECH_MISC)).onResultOf(ItemStack::getItem);
+		setSampleClickItems();
 		CapabilityManager.INSTANCE.register(IWorldgenCapability.class, new WorldgenCapStorage(), WorldgenCapability::new);
 		DeferredWorkQueue.runLater(FeatureStripper::strip);
 		OreDepositRegistration.getInstance().init();

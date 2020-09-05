@@ -21,7 +21,6 @@ public class MeltingRecipeSerializer<T extends MeltingRecipe> extends ForgeRegis
 	
 	@Override
 	public MeltingRecipe read(ResourceLocation recipeId, JsonObject json) {
-		//
 		final JsonElement inputElement = JSONUtils.isJsonArray(json, "input") ? JSONUtils.getJsonArray(json, "input") : JSONUtils.getJsonObject(json, "input");
 		final Ingredient input = Ingredient.deserialize(inputElement);
 		
