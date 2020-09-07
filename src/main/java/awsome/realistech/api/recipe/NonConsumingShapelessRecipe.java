@@ -21,14 +21,14 @@ public class NonConsumingShapelessRecipe implements ICraftingRecipe {
 	protected final ItemStack output;
 	protected final ResourceLocation id;
 	protected final boolean isSimple;
-
+	
 	public NonConsumingShapelessRecipe(ResourceLocation id, NonNullList<Ingredient> ingredients, NonNullList<Ingredient> nonConsumedIngredients, ItemStack output) {
 		this.inputs = ingredients;
 		this.id = id;
 		this.output = output;
 		this.nonConsumedInputs = nonConsumedIngredients;
-		this.isSimple = ingredients.stream().allMatch(Ingredient::isSimple);
 		this.type = IRecipeType.CRAFTING;
+		this.isSimple = ingredients.stream().allMatch(Ingredient::isSimple);
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class NonConsumingShapelessRecipe implements ICraftingRecipe {
 		RecipeItemHelper recipeitemhelper = new RecipeItemHelper();
 		java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
 		int i = 0;
-
+		
 		for(int j = 0; j < inv.getSizeInventory(); ++j) {
 			ItemStack itemstack = inv.getStackInSlot(j);
 			if (!itemstack.isEmpty()) {
@@ -47,7 +47,12 @@ public class NonConsumingShapelessRecipe implements ICraftingRecipe {
 			}
 		}
 
-		return i == this.inputs.size() && (isSimple ? recipeitemhelper.canCraft(this, (IntList)null) : net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs,  this.inputs) != null);
+	    return i == this.inputs.size() && (isSimple ? recipeitemhelper.canCraft(this, (IntList)null) : net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs,  this.inputs) != null);
+	}
+	
+	@Override
+	public NonNullList<Ingredient> getIngredients() {
+		return this.inputs;
 	}
 
 	@Override
@@ -87,12 +92,12 @@ public class NonConsumingShapelessRecipe implements ICraftingRecipe {
 		for(int i = 0; i < nonnulllist.size(); ++i) {
 			ItemStack item = inv.getStackInSlot(i);
 			for (Ingredient ingredient : this.nonConsumedInputs) {
-				if (ingredient.equals(Ingredient.fromStacks(item))) {
-					nonnulllist.set(i, ingredient.getMatchingStacks()[0]);
+				if (ingredient.test(item)) {
+					nonnulllist.set(i, item);
 				}
 			}
 		}
-
+		
 		return nonnulllist;
 	}
 }

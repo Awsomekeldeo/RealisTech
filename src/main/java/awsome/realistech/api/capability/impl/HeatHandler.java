@@ -181,7 +181,7 @@ public class HeatHandler implements IHeat, INBTSerializable<CompoundNBT> {
 			float tempF = (float) (95.9451242/(1+(3.012462778*(Math.pow(Math.E, (-3.330913488*biomeTemp))))));
 			float temp = (tempF - 32.0f) * (5.0f/9.0f);
 			blockPos.close();
-			return temp;
+			return MathUtil.roundFloat(temp, 2);
 		}
 		return 0;
 	}
