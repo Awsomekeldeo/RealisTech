@@ -85,19 +85,19 @@ public class NonConsumingShapelessRecipe implements ICraftingRecipe {
 		return this.type;
 	}
 
-	@Override
-	public NonNullList<ItemStack> getRemainingItems(CraftingInventory inv) {
-		NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
-
-		for(int i = 0; i < nonnulllist.size(); ++i) {
-			ItemStack item = inv.getStackInSlot(i);
-			for (Ingredient ingredient : this.nonConsumedInputs) {
-				if (ingredient.test(item)) {
-					nonnulllist.set(i, item);
-				}
-			}
-		}
-		
-		return nonnulllist;
-	}
+//	@Override
+//	public NonNullList<ItemStack> getRemainingItems(CraftingInventory inv) {
+//		NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+//		
+//		for(int i = 0; i < nonnulllist.size(); ++i) {
+//			for (Ingredient ingredient : this.nonConsumedInputs) {
+//				ItemStack item = inv.getStackInSlot(i);
+//				if (ingredient.test(item)) {
+//					nonnulllist.set(i, item);
+//				}
+//			}
+//		}
+//		
+//		return nonnulllist;
+//	}
 }
