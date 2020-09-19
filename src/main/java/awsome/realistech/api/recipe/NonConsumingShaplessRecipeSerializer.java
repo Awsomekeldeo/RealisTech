@@ -82,7 +82,6 @@ public class NonConsumingShaplessRecipeSerializer<T extends NonConsumingShapeles
             ingredient.write(buffer);
         }
 		buffer.writeItemStack(recipe.output);
-		buffer.writeResourceLocation(recipe.id);
 	}
 	
 	public interface IFactory<T extends NonConsumingShapelessRecipe> {

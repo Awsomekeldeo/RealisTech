@@ -3,6 +3,7 @@ package awsome.realistech.setup;
 import awsome.realistech.Reference;
 import awsome.realistech.client.gui.containter.screen.CrucibleScreen;
 import awsome.realistech.client.gui.containter.screen.FireboxScreen;
+import awsome.realistech.client.gui.containter.screen.HandworkScreen;
 import awsome.realistech.client.gui.containter.screen.KilnScreen;
 import awsome.realistech.registry.Registration;
 import net.minecraft.block.BlockState;
@@ -30,6 +31,7 @@ public class ClientSetup {
 		ScreenManager.registerFactory(Registration.FIREBOX_CONTAINER.get(), FireboxScreen::new);
 		ScreenManager.registerFactory(Registration.CRUCIBLE_CONTAINER.get(), CrucibleScreen::new);
 		ScreenManager.registerFactory(Registration.KILN_CONTAINER.get(), KilnScreen::new);
+		ScreenManager.registerFactory(Registration.HANDWORK_CRAFTING_CONTAINER.get(), HandworkScreen::new);
 		RenderType cutoutMipped = RenderType.getCutoutMipped();
 		RenderType cutout = RenderType.getCutout();
 		

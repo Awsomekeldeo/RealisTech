@@ -1,6 +1,6 @@
 {
-  "type": "realistech:non_consuming_shapeless",
-  "inputs": [
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
     {
       "item": "realistech:primitive_brick_mold"
     },
@@ -8,12 +8,7 @@
       "item": "minecraft:clay_ball"
     }
   ],
-  "non_consumed_inputs": [
-	{
-		"item": "realistech:primitive_brick_mold"
-	}
-  ],
-  "output": {
+  "result": {
     "item": "realistech:unfired_clay_brick"
   }
 }

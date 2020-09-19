@@ -1,0 +1,17 @@
+{
+  "type": "realistech:handwork",
+  "recipe_item": {
+    "item": "minecraft:clay_ball"
+  },
+  "inverted_pattern": true,
+  "pattern": [
+    " ##  ",
+    "#### ",
+    "#####",
+    "#### ",
+    " ##  "
+  ],
+  "result": {
+    "item": "realistech:ceramic_molds/unfired/axe"
+  }
+}

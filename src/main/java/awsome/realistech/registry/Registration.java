@@ -1,6 +1,8 @@
 package awsome.realistech.registry;
 
 import awsome.realistech.Reference;
+import awsome.realistech.api.recipe.HandworkRecipe;
+import awsome.realistech.api.recipe.HandworkRecipeSerializer;
 import awsome.realistech.api.recipe.KilnRecipe;
 import awsome.realistech.api.recipe.KilnRecipeSerializer;
 import awsome.realistech.api.recipe.MeltingRecipe;
@@ -15,12 +17,14 @@ import awsome.realistech.blocks.ModOreBlock;
 import awsome.realistech.blocks.OreSampleBlock;
 import awsome.realistech.inventory.container.CrucibleContainer;
 import awsome.realistech.inventory.container.FireboxContainer;
+import awsome.realistech.inventory.container.HandworkContainer;
 import awsome.realistech.inventory.container.KilnContainer;
 import awsome.realistech.items.BrickItem;
 import awsome.realistech.items.CeramicMoldItem;
 import awsome.realistech.items.FireclayItem;
 import awsome.realistech.items.IngotItem;
 import awsome.realistech.items.OreClusterItem;
+import awsome.realistech.items.ToolHeadItem;
 import awsome.realistech.items.UnfiredCeramicMoldItem;
 import awsome.realistech.setup.ModSetup;
 import awsome.realistech.tileentity.CrucibleTileEntity;
@@ -37,6 +41,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
@@ -67,6 +72,7 @@ public class Registration {
 		public static final RegistryObject<MeltingRecipeSerializer<MeltingRecipe>> MELTING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("melting", () -> new MeltingRecipeSerializer<>(MeltingRecipe::new));
 		public static final RegistryObject<KilnRecipeSerializer<KilnRecipe>> KILN_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("kiln", () -> new KilnRecipeSerializer<>(KilnRecipe::new));
 		public static final RegistryObject<NonConsumingShaplessRecipeSerializer<NonConsumingShapelessRecipe>> NON_CONSUMING_SHAPELESS_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("non_consuming_shapeless", () -> new NonConsumingShaplessRecipeSerializer<>(NonConsumingShapelessRecipe::new));
+		public static final RegistryObject<HandworkRecipeSerializer<HandworkRecipe>> HANDWORK_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("handwork", () -> new HandworkRecipeSerializer<>(HandworkRecipe::new));
 	
 	
 	//Blocks
@@ -146,6 +152,19 @@ public class Registration {
 			BlockPos pos = data.readBlockPos();
 			World world = inv.player.getEntityWorld();
 			return new KilnContainer(windowId, world, pos, inv, inv.player);
+		}));
+		
+		
+		//Crafting Inventories
+		
+		public static final RegistryObject<ContainerType<HandworkContainer>> HANDWORK_CRAFTING_CONTAINER = CONTAINERS.register("handwork", () -> IForgeContainerType.create((windowId, inv, data) -> {
+			int textureX = data.readInt();
+			int textureY = data.readInt();
+			int diffXTex = data.readInt();
+			int diffYTex = data.readInt();
+			ResourceLocation itemId = data.readResourceLocation();
+			int totalConsumed = data.readInt();
+			return new HandworkContainer(windowId, inv, textureX, textureY, diffXTex, diffYTex, ForgeRegistries.ITEMS.getValue(itemId), totalConsumed);
 		}));
 		
 	
@@ -249,6 +268,13 @@ public class Registration {
 		public static final RegistryObject<FireclayItem> KAOLINITE_CLAY_BALL = ITEMS.register("kaolinite_clay_ball", FireclayItem::new);
 		public static final RegistryObject<FireclayItem> UNFIRED_KAOLINITE_BRICK = ITEMS.register("unfired_kaolinite_brick", FireclayItem::new);
 		public static final RegistryObject<BrickItem> FIREBRICK = ITEMS.register("firebrick", BrickItem::new);
+		
+		//Tool Heads
+		
+			//Stone
+			public static final RegistryObject<ToolHeadItem> STONE_AXE_HEAD = ITEMS.register("tool_heads/stone_axe", ToolHeadItem::new);
+			public static final RegistryObject<ToolHeadItem> STONE_SHOVEL_HEAD = ITEMS.register("tool_heads/stone_shovel", ToolHeadItem::new);
+			public static final RegistryObject<ToolHeadItem> STONE_CHISEL_HEAD = ITEMS.register("tool_heads/stone_chisel", ToolHeadItem::new);
 		
 		//Misc Items
 		public static final RegistryObject<Item> ROCK_ITEM = ITEMS.register("rock", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));

@@ -9,6 +9,7 @@ import com.google.common.collect.Ordering;
 import awsome.realistech.Reference;
 import awsome.realistech.api.capability.energy.HeatCapability;
 import awsome.realistech.blocks.OreSampleBlock;
+import awsome.realistech.network.RealistechPacketHandler;
 import awsome.realistech.registry.OreDepositRegistration;
 import awsome.realistech.registry.Registration;
 import awsome.realistech.worldgen.FeatureStripper;
@@ -86,6 +87,13 @@ public class ModSetup {
 		public ItemStack createIcon() {
 			return new ItemStack(Items.AIR);
 		}
+		
+		@Override
+		public void fill(NonNullList<ItemStack> items) {
+			super.fill(items);
+			items.sort(toolSorter);
+		}
+		
 	};
 	
 	public static final ItemGroup REALISTECH_MISC = new ItemGroup("realistech.misc") {
@@ -99,6 +107,7 @@ public class ModSetup {
 			super.fill(items);
 			items.sort(miscSorter);
 		}
+		
 	};
 	
 	public static List<Item> getItemList(ItemGroup group) {
@@ -172,7 +181,9 @@ public class ModSetup {
 		}
 		if (group == REALISTECH_TOOLS) {
 			return Arrays.asList(new Item[] {
-					
+				Registration.STONE_AXE_HEAD.get(),
+				Registration.STONE_SHOVEL_HEAD.get(),
+				Registration.STONE_CHISEL_HEAD.get()
 			});
 		}
 		if (group == REALISTECH_MISC) {
@@ -215,6 +226,7 @@ public class ModSetup {
 		CapabilityManager.INSTANCE.register(IWorldgenCapability.class, new WorldgenCapStorage(), WorldgenCapability::new);
 		DeferredWorkQueue.runLater(FeatureStripper::strip);
 		OreDepositRegistration.getInstance().init();
+		RealistechPacketHandler.registerMessages();
 		OreAPI.plutonRegistry.registerAsOreGenerator();
 	}
 }

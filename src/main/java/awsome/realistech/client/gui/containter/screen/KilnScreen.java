@@ -62,6 +62,6 @@ public class KilnScreen extends ContainerScreen<KilnContainer> {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		font.drawString(this.name.getUnformattedComponentText(), 8, 6, 0x404040);
-		font.drawString(this.playerInventory.getDisplayName().getUnformattedComponentText(), 8, ySize - 92, 0x404040);
+		font.drawString(this.playerInventory.getDisplayName().getUnformattedComponentText(), 8, ySize - 94, 0x404040);
 	}
 }

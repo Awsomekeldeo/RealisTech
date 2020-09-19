@@ -57,7 +57,7 @@ public class NonConsumingShapelessRecipe implements ICraftingRecipe {
 
 	@Override
 	public ItemStack getCraftingResult(CraftingInventory inv) {
-		return this.output;
+		return this.output.copy();
 	}
 
 	@Override
@@ -85,19 +85,25 @@ public class NonConsumingShapelessRecipe implements ICraftingRecipe {
 		return this.type;
 	}
 
-//	@Override
-//	public NonNullList<ItemStack> getRemainingItems(CraftingInventory inv) {
-//		NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
-//		
-//		for(int i = 0; i < nonnulllist.size(); ++i) {
-//			for (Ingredient ingredient : this.nonConsumedInputs) {
-//				ItemStack item = inv.getStackInSlot(i);
-//				if (ingredient.test(item)) {
-//					nonnulllist.set(i, item);
-//				}
-//			}
-//		}
-//		
-//		return nonnulllist;
-//	}
+	@Override
+	public NonNullList<ItemStack> getRemainingItems(CraftingInventory inv) {
+		NonNullList<ItemStack> remainingItems = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+		
+		for(Ingredient ingredient : this.nonConsumedInputs) {
+			for(int i = 0; i < remainingItems.size(); ++i) {
+				ItemStack item = inv.getStackInSlot(i);
+				if (!item.isEmpty()) {
+		            if (item.hasContainerItem()) {
+		               remainingItems.set(i, item.getContainerItem());
+		            } else if (ingredient.test(item)) {
+		               ItemStack itemstack1 = item.copy();
+		               itemstack1.setCount(1);
+		               remainingItems.set(i, itemstack1);
+		            }
+		        }
+			}
+		}
+		
+		return remainingItems;
+	}
 }

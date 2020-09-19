@@ -36,7 +36,6 @@ public class KilnTileEntity extends TileEntity implements ITickableTileEntity {
 	private int totalFireProgress = 200;
 	protected int currentItemBurnTime;
 	protected final IRecipeType<KilnRecipe> recipeType;
-	protected RecipeWrapper wrapper = new RecipeWrapper(this.itemHandler);
 	
 	public final IIntArray kilnData = new IIntArray() {
 		
@@ -278,7 +277,7 @@ public class KilnTileEntity extends TileEntity implements ITickableTileEntity {
 			if (recipe2 != null && canFire()) {
 				ItemStack inputStack = this.itemHandler.getStackInSlot(i);
 				ItemStack outputStack = recipe2.getRecipeOutput().copy();
-				Realistech.LOGGER.info("Recipe output for kiln is:" + outputStack.toString());
+				Realistech.LOGGER.info("Recipe result for kiln is:" + outputStack.toString());
 				ItemStack itemInOutputSlot = ItemStack.EMPTY;
 				int outputSlotIndex = 5;
 				for (int j = 5; j < this.itemHandler.getSlots(); j++) {
@@ -293,7 +292,7 @@ public class KilnTileEntity extends TileEntity implements ITickableTileEntity {
 						continue;
 					}
 				}
-				Realistech.LOGGER.info("Item in kiln's output slot is:" + itemInOutputSlot.toString());
+				Realistech.LOGGER.info("Item in kiln's result slot is:" + itemInOutputSlot.toString());
 				if (itemInOutputSlot.isEmpty()) {
 					this.itemHandler.setStackInSlot(outputSlotIndex, outputStack.copy());
 				}else if (itemInOutputSlot.getItem() == inputStack.getItem()) {

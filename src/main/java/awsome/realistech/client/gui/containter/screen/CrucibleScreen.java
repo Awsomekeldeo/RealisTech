@@ -56,6 +56,6 @@ public class CrucibleScreen extends ContainerScreen<CrucibleContainer> {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		font.drawString(this.name.getUnformattedComponentText(), 8, 6, 0x404040);
-		font.drawString(this.playerInventory.getDisplayName().getUnformattedComponentText(), 10, ySize - 94, 0x404040);
+		font.drawString(this.playerInventory.getDisplayName().getUnformattedComponentText(), 10, ySize - 96, 0x404040);
 	}
 }

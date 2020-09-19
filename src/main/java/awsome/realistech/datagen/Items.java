@@ -112,5 +112,12 @@ public class Items extends ItemModelProvider {
 		singleTexture("item/" + Registration.FIRED_CERAMIC_SWORD_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/sword_mold"));
 		singleTexture("item/" + Registration.FIRED_CERAMIC_PROPICK_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/propick_mold"));
 		singleTexture("item/" + Registration.FIRED_CERAMIC_INGOT_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/ingot_mold"));
+		
+		//Tool Heads
+			
+			//Stone
+			singleTexture("item/" + Registration.STONE_AXE_HEAD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/tool_heads/stone_axe"));
+			singleTexture("item/" + Registration.STONE_SHOVEL_HEAD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/tool_heads/stone_shovel"));
+			singleTexture("item/" + Registration.STONE_CHISEL_HEAD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/tool_heads/stone_chisel"));
 	}
 }

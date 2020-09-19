@@ -2,6 +2,7 @@ package awsome.realistech.datagen;
 
 import java.util.function.Consumer;
 
+import awsome.realistech.data.generators.HandworkRecipeBuilder;
 import awsome.realistech.registry.Registration;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.data.CookingRecipeBuilder;
@@ -22,7 +23,18 @@ public class Recipes extends RecipeProvider {
 	protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
 		ShapelessRecipeBuilder.shapelessRecipe(Registration.UNFIRED_CLAY_BRICK.get()).addIngredient(Registration.PRIMITIVE_BRICK_MOLD.get()).addIngredient(Items.CLAY_BALL).addCriterion("clay_ball", InventoryChangeTrigger.Instance.forItems(Items.CLAY_BALL)).build(consumer);
 		ShapelessRecipeBuilder.shapelessRecipe(Registration.UNFIRED_KILN_BRICK.get()).addIngredient(Registration.PRIMITIVE_BRICK_MOLD.get()).addIngredient(Registration.KILN_CLAY_BALL.get()).addCriterion("kiln_clay_ball", InventoryChangeTrigger.Instance.forItems(Registration.KILN_CLAY_BALL.get())).build(consumer);
+		
 		CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(Registration.UNFIRED_KILN_BRICK.get()), Registration.KILN_BRICK.get(), 0.3f, 200).addCriterion("kiln_clay_ball", InventoryChangeTrigger.Instance.forItems(Registration.KILN_CLAY_BALL.get())).build(consumer);
+		
+		HandworkRecipeBuilder.handworkRecipe(Registration.STONE_AXE_HEAD.get()).recipeItem(Ingredient.fromItems(Registration.ROCK_ITEM.get())).patternLine(" ##  ").patternLine("#### ").patternLine("#####").patternLine("#### ").patternLine(" ##  ").build(consumer, "handworking/", true);
+		HandworkRecipeBuilder.handworkRecipe(Registration.STONE_SHOVEL_HEAD.get()).recipeItem(Ingredient.fromItems(Registration.ROCK_ITEM.get())).patternLine(" ### ").patternLine(" ### ").patternLine(" ### ").patternLine(" ### ").patternLine("  #  ").build(consumer, "handworking/", true);
+		HandworkRecipeBuilder.handworkRecipe(Registration.STONE_CHISEL_HEAD.get()).recipeItem(Ingredient.fromItems(Registration.ROCK_ITEM.get())).patternLine("   # ").patternLine("  ###").patternLine(" ### ").patternLine(" ##  ").patternLine("#    ").build(consumer, "handworking/", true);
+		
+		HandworkRecipeBuilder.handworkRecipe(Registration.UNFIRED_CERAMIC_AXE_MOLD.get(), true).recipeItem(Ingredient.fromItems(Items.CLAY_BALL)).patternLine(" ##  ").patternLine("#### ").patternLine("#####").patternLine("#### ").patternLine(" ##  ").build(consumer, "handworking/", true);
+		HandworkRecipeBuilder.handworkRecipe(Registration.UNFIRED_CERAMIC_PICKAXE_MOLD.get(), true).recipeItem(Ingredient.fromItems(Items.CLAY_BALL)).patternLine(" ### ").patternLine("#   #").build(consumer, "handworking/", true);
+		HandworkRecipeBuilder.handworkRecipe(Registration.UNFIRED_CERAMIC_SHOVEL_MOLD.get(), true).recipeItem(Ingredient.fromItems(Items.CLAY_BALL)).patternLine(" ### ").patternLine(" ### ").patternLine(" ### ").patternLine(" ### ").patternLine("  #  ").build(consumer, "handworking/", true);
+		HandworkRecipeBuilder.handworkRecipe(Registration.UNFIRED_CERAMIC_PROPICK_MOLD.get(), true).recipeItem(Ingredient.fromItems(Items.CLAY_BALL)).patternLine(" ####").patternLine("#   #").patternLine("    #").build(consumer, "handworking/", true);
+		HandworkRecipeBuilder.handworkRecipe(Registration.UNFIRED_CERAMIC_INGOT_MOLD.get(), true).recipeItem(Ingredient.fromItems(Items.CLAY_BALL)).patternLine("    ").patternLine(" ## ").patternLine(" ## ").patternLine(" ## ").patternLine("    ").build(consumer, "handworking/", true);
+		HandworkRecipeBuilder.handworkRecipe(Registration.UNFIRED_CERAMIC_SWORD_MOLD.get(), true).recipeItem(Ingredient.fromItems(Items.CLAY_BALL)).patternLine("   ##").patternLine("  ###").patternLine(" ### ").patternLine(" ##  ").patternLine("#    ").build(consumer, "handworking/", true);
 	}
-	
 }

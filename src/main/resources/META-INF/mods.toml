@@ -6,7 +6,7 @@ showAsResourcePack=false
 
 [[mods]]
 	modId="realistech"
-	version="0.0.1"
+	version="1.15.2-0.0.5.0"
 	displayName="RealisTech"
 	logoFile="logo.png"
 	authors="Awsomekeldeo"
