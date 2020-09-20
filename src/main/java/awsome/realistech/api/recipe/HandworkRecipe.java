@@ -25,13 +25,15 @@ public class HandworkRecipe implements IRecipe<RecipeWrapper> {
 	protected int recipeHeight;
 	protected int recipeWidth;
 	
-	public HandworkRecipe(ResourceLocation id, Ingredient input, ItemStack output, NonNullList<Ingredient> pattern, int recipeWidth, int recipeHeight) {
+	public HandworkRecipe(ResourceLocation id, Ingredient input, ItemStack output, NonNullList<Ingredient> pattern,
+			int recipeWidth, int recipeHeight, boolean isInvertedPattern) {
 		this.recipe_item = input;
 		this.result = output;
 		this.id = id;
 		this.pattern = pattern;
 		this.recipeWidth = recipeWidth;
 		this.recipeHeight = recipeHeight;
+		this.isInvertedPattern = isInvertedPattern;
 		type = HANDWORK_RECIPE;
 	}
 
@@ -100,13 +102,13 @@ public class HandworkRecipe implements IRecipe<RecipeWrapper> {
 							ingredient = this.pattern.get(k + l * this.recipeWidth);
 						}
 					}
-
+	
 					if (!ingredient.test(inv.getStackInSlot(i + j * 5))) {
 						return false;
 					}
 				}
 			}
-
+	
 			return true;
 		}else{
 			for(int i = 0; i < 5; ++i) {
@@ -121,14 +123,18 @@ public class HandworkRecipe implements IRecipe<RecipeWrapper> {
 							ingredient = this.pattern.get(k + l * this.recipeWidth);
 						}
 					}
-
+	
 					if (!ingredient.test(inv.getStackInSlot(i + j * 5))) {
-						return true;
+						if (inv.getStackInSlot(i + j * 5).isEmpty()) {
+							continue;
+						}else{
+							return false;
+						}
 					}
 				}
 			}
-
-			return false;
+	
+			return true;
 		}
 	}
 }

@@ -33,6 +33,7 @@ public class HandworkRecipeSerializer<T extends HandworkRecipe> extends ForgeReg
 	public HandworkRecipe read(ResourceLocation recipeId, JsonObject json) {
 		final JsonElement inputElement = JSONUtils.getJsonObject(json, "recipe_item");
 		final Ingredient input = Ingredient.deserialize(inputElement);
+		boolean inverted = JSONUtils.getBoolean(json, "inverted_pattern");
 		String[] pattern = shrink(patternFromJson(JSONUtils.getJsonArray(json, "pattern")));
 		int i = pattern[0].length();
         int j = pattern.length;
@@ -42,7 +43,7 @@ public class HandworkRecipeSerializer<T extends HandworkRecipe> extends ForgeReg
         NonNullList<Ingredient> ingredients = deserializeIngredients(pattern, keys, i, j);
 		final ItemStack output = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "result"), false);
 		
-		return this.factory.create(recipeId, input, output, ingredients, i, j);
+		return this.factory.create(recipeId, input, output, ingredients, i, j, inverted);
 	}
 
 	@Override
@@ -50,6 +51,7 @@ public class HandworkRecipeSerializer<T extends HandworkRecipe> extends ForgeReg
 		final int i = buffer.readVarInt();
 		final int j = buffer.readVarInt();
 		final Ingredient input = Ingredient.read(buffer);
+		boolean inverted = buffer.readBoolean();
 		final ItemStack output = buffer.readItemStack();
 		final ResourceLocation id = buffer.readResourceLocation();
 		
@@ -59,7 +61,7 @@ public class HandworkRecipeSerializer<T extends HandworkRecipe> extends ForgeReg
            ingredients.set(k, Ingredient.read(buffer));
         }
 		
-		return this.factory.create(id, input, output, ingredients, i, j);
+		return this.factory.create(id, input, output, ingredients, i, j, inverted);
 	}
 	
 	@VisibleForTesting
@@ -167,6 +169,7 @@ public class HandworkRecipeSerializer<T extends HandworkRecipe> extends ForgeReg
 		buffer.writeVarInt(recipe.recipeWidth);
 		buffer.writeVarInt(recipe.recipeHeight);
 		recipe.recipe_item.write(buffer);
+		buffer.writeBoolean(recipe.isInvertedPattern);
 		for(Ingredient ingredient : recipe.pattern) {
 			ingredient.write(buffer);
 		}
@@ -175,7 +178,7 @@ public class HandworkRecipeSerializer<T extends HandworkRecipe> extends ForgeReg
 	}
 	
 	public interface IFactory<T extends HandworkRecipe> {
-		T create(ResourceLocation resourceLocation, Ingredient ingredient, ItemStack output, NonNullList<Ingredient> ingredients, int recipeWidth, int recipeHeight);
+		T create(ResourceLocation resourceLocation, Ingredient ingredient, ItemStack output, NonNullList<Ingredient> ingredients, int recipeWidth, int recipeHeight, boolean isInvertedPattern);
 	}
 	
 	public HandworkRecipeSerializer.IFactory<T> getFactory() {
