@@ -34,6 +34,15 @@ public class HandworkRecipe implements IRecipe<RecipeWrapper> {
 		this.recipeWidth = recipeWidth;
 		this.recipeHeight = recipeHeight;
 		this.isInvertedPattern = isInvertedPattern;
+		if (isInvertedPattern) {
+			this.pattern.replaceAll((ingredient) -> {
+				if (ingredient.equals(Ingredient.EMPTY)) {
+					return recipe_item;
+				}else{
+					return Ingredient.EMPTY;
+				}
+			});
+		}
 		type = HANDWORK_RECIPE;
 	}
 
@@ -125,11 +134,7 @@ public class HandworkRecipe implements IRecipe<RecipeWrapper> {
 					}
 	
 					if (!ingredient.test(inv.getStackInSlot(i + j * 5))) {
-						if (inv.getStackInSlot(i + j * 5).isEmpty()) {
-							continue;
-						}else{
-							return false;
-						}
+						return false;
 					}
 				}
 			}

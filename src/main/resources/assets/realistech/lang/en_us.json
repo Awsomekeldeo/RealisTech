@@ -76,6 +76,8 @@
 	"container.realistech.firebox": "Firebox",
 	"container.realistech.crucible": "Crucible",
 	"container.realistech.kiln": "Kiln",
+	"container.realistech.handwork.stone": "Knapping",
+	"container.realistech.handwork.clay": "Molding",
 	"itemGroup.realistech.machines": "RealisTech Machines",
 	"itemGroup.realistech.materials": "RealisTech Materials",
 	"itemGroup.realistech.ores": "RealisTech Ores",

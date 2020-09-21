@@ -2,7 +2,7 @@
   "type": "realistech:non_consuming_shapeless",
   "inputs": [
     {
-      "item": "minecraft:clay_ball"
+      "item": "realistech:kaolinite_clay_ball"
     },
     {
       "item": "realistech:primitive_brick_mold"
@@ -14,6 +14,6 @@
     }
   ],
   "output": {
-    "item": "realistech:unfired_clay_brick"
+    "item": "realistech:unfired_kaolinite_brick"
   }
 }
