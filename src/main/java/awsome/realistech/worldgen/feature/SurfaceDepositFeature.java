@@ -25,7 +25,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.PooledMutable;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
@@ -110,7 +109,7 @@ public class SurfaceDepositFeature extends Feature<NoFeatureConfig> {
 			return false;
 		}
         
-        if (worldIn.getBiome(pos).getCategory() != Biome.Category.PLAINS) {
+        if (worldIn.getBiome(pos).getDownfall() < 0.4f) {
 			return false;
 		}
         

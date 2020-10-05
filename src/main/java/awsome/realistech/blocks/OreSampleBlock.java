@@ -49,6 +49,15 @@ public class OreSampleBlock extends Block {
 				makeCuboidShape(6, 1, 10, 10, 2, 12)
 			);
 	
+	public static final VoxelShape STICK_SHAPE = makeCuboidShape(3, 0, 3, 13, 2, 13);
+	
+	public enum SampleShape {
+		STICK,
+		ROCKLIKE;
+	}
+	
+	public SampleShape sampleShape;
+	
 	private ItemStack clickResultStack;
 	
 	public OreSampleBlock(int harvestLevel) {
@@ -64,7 +73,7 @@ public class OreSampleBlock extends Block {
 		SAMPLE_LIST.add(this);
 	}
 	
-	public OreSampleBlock(int harvestLevel, SoundType sound) {
+	public OreSampleBlock(int harvestLevel, SoundType sound, SampleShape shape) {
 		super(Properties.create(Material.ROCK)
 				.sound(sound)
 				.doesNotBlockMovement()
@@ -73,6 +82,7 @@ public class OreSampleBlock extends Block {
 				.harvestLevel(harvestLevel)
 				.harvestTool(ToolType.PICKAXE)
 			);
+		this.sampleShape = shape;
 		this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, false));
 		SAMPLE_LIST.add(this);
 	}
@@ -94,12 +104,20 @@ public class OreSampleBlock extends Block {
 	@Override
 	public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos,
 			ISelectionContext context) {
-		return SHAPE;
+		if (this.sampleShape == SampleShape.STICK) {
+			return STICK_SHAPE;
+		}else{
+			return SHAPE;
+		}
 	}
 	
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-		return SHAPE;
+		if (this.sampleShape == SampleShape.STICK) {
+			return STICK_SHAPE;
+		}else{
+			return SHAPE;
+		}
 	}
 	
 	@Override
@@ -176,7 +194,7 @@ public class OreSampleBlock extends Block {
     		if (worldIn.getBlockState(pos).getBlock() instanceof OreSampleBlock) {
     			if (handIn == Hand.MAIN_HAND) {
 	    			if (player.getHeldItem(handIn).isEmpty()) {
-	    				ItemHandlerHelper.giveItemToPlayer(player, this.getClickResult());
+	    				ItemHandlerHelper.giveItemToPlayer(player, this.getClickResult().copy());
 	    				if (!this.getClickResult().isEmpty()) {
 	    					worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 	    					return ActionResultType.SUCCESS;

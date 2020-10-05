@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "realistech:plant_fiber_cordage"
+    },
+    {
+      "item": "realistech:tool_heads/stone_hammer"
+    },
+    {
+      "item": "minecraft:stick"
+    }
+  ],
+  "result": {
+    "item": "realistech:tools/stone_hammer"
+  }
+}

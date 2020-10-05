@@ -116,6 +116,9 @@ public class BlockStates extends BlockStateProvider {
 				ResourceLocation texture2 = new ResourceLocation(Reference.MODID, "items/" + sample.getRegistryName().getPath());
 				BlockModelBuilder modelRock = models().withExistingParent("block/" + sample.getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/cluster_base")).texture("2", texture2).texture("particle", texture2);
 				simpleBlock(sample, modelRock);
+			}else if (sample.equals(Registration.STICK.get())){
+				ExistingModelFile modelStick = models().getExistingFile(new ResourceLocation(Reference.MODID, "block/stick_block"));
+				simpleBlock(Registration.STICK.get(), modelStick);
 			}else{
 				ResourceLocation texture = new ResourceLocation(Reference.MODID, "items/clusters/" + sample.getRegistryName().getPath().substring(0, sample.getRegistryName().getPath().length() - 7));
 				BlockModelBuilder modelSample = models().withExistingParent("block/ores/samples/" + sample.getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/cluster_base")).texture("2", texture).texture("particle", texture);

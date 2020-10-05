@@ -85,7 +85,7 @@ public class ModSetup {
 		
 		@Override
 		public ItemStack createIcon() {
-			return new ItemStack(Items.AIR);
+			return new ItemStack(Registration.STONE_PICKAXE.get());
 		}
 		
 		@Override
@@ -120,6 +120,14 @@ public class ModSetup {
 				Registration.LEAD_INGOT.get(),
 				Registration.COBALT_INGOT.get(),
 				Registration.ZINC_INGOT.get(),
+				Registration.COPPER_PLATE.get(),
+				Registration.TIN_PLATE.get(),
+				Registration.SILVER_PLATE.get(),
+				Registration.NICKEL_PLATE.get(),
+				Registration.LEAD_PLATE.get(),
+				Registration.COBALT_PLATE.get(),
+				Registration.ZINC_PLATE.get(),
+				Registration.COPPER_CHUNK.get(),
 				Registration.COPPER_CLUSTER.get(),
 				Registration.TIN_CLUSTER.get(),
 				Registration.SILVER_CLUSTER.get(),
@@ -136,7 +144,11 @@ public class ModSetup {
 				Registration.UNFIRED_KILN_BRICK.get(),
 				Registration.UNFIRED_KAOLINITE_BRICK.get(),
 				Registration.KILN_CLAY_BALL.get(),
+				Registration.KILN_CLAY_MIXTURE.get(),
 				Registration.KAOLINITE_CLAY_BALL.get(),
+				Registration.PLANT_FIBER.get(),
+				Registration.PLANT_FIBER_CORDAGE.get(),
+				Registration.CRUDE_COPPER_INGOT.get()
 			}); 
 		}
 		if (group == REALISTECH_MACHINES) {
@@ -183,7 +195,15 @@ public class ModSetup {
 			return Arrays.asList(new Item[] {
 				Registration.STONE_AXE_HEAD.get(),
 				Registration.STONE_SHOVEL_HEAD.get(),
-				Registration.STONE_CHISEL_HEAD.get()
+				Registration.STONE_CHISEL_HEAD.get(),
+				Registration.STONE_PICKAXE_HEAD.get(),
+				Registration.STONE_HAMMER_HEAD.get(),
+				Registration.STONE_AXE.get(),
+				Registration.STONE_SHOVEL.get(),
+				Registration.STONE_CHISEL.get(),
+				Registration.STONE_PICKAXE.get(),
+				Registration.STONE_HAMMER.get(),
+				Registration.STONE_MORTAR_AND_PESTLE.get()
 			});
 		}
 		if (group == REALISTECH_MISC) {
@@ -205,7 +225,8 @@ public class ModSetup {
 				Registration.KAOLINITE_CLAY_GRASS_ITEM.get(),
 				Registration.KAOLINITE_CLAY_ITEM.get(),
 				Registration.GOLDENROD_ITEM.get(),
-				Registration.KAOLINITE_LILY_ITEM.get()
+				Registration.KAOLINITE_LILY_ITEM.get(),
+				Registration.STICK_ITEMBLOCK.get()
 			});
 		}
 		return null;
@@ -213,6 +234,7 @@ public class ModSetup {
 	
 	private static void setSampleClickItems() {
 		((OreSampleBlock) Registration.ROCK.get()).setClickResult(new ItemStack(Registration.ROCK_ITEM.get()));
+		((OreSampleBlock) Registration.STICK.get()).setClickResult(new ItemStack(Items.STICK));
 	}
 	
 	public static void init(final FMLCommonSetupEvent event) {

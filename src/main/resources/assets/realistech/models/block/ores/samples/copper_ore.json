@@ -1,7 +1,0 @@
-{
-	"parent": "realistech:block/ores/samples/cluster_base",
-	"textures": {
-		"2": "realistech:items/clusters/copper",
-		"particle": "realistech:items/clusters/copper"
-	}
-}

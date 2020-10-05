@@ -12,6 +12,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import awsome.realistech.Reference;
+import awsome.realistech.api.recipe.AbstractHandworkRecipe;
+import awsome.realistech.api.recipe.HandworkRecipeSerializer;
 import awsome.realistech.registry.Registration;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
@@ -27,18 +29,28 @@ public class HandworkRecipeBuilder {
 	private final List<String> pattern = Lists.newArrayList();
 	private final Map<Character, Ingredient> key = Maps.newLinkedHashMap();
 	private final boolean invertedPattern;
+	private final HandworkRecipeSerializer<?> serializer;
 	
-	public HandworkRecipeBuilder(IItemProvider output, boolean isInvertedPattern) {
+	public HandworkRecipeBuilder(IItemProvider output, boolean isInvertedPattern, HandworkRecipeSerializer<?> serializer) {
 		this.output = output.asItem();
 		this.invertedPattern = isInvertedPattern;
+		this.serializer = serializer;
 	}
 	
-	public static HandworkRecipeBuilder handworkRecipe(IItemProvider output) {
-		return handworkRecipe(output, false);
+	public static HandworkRecipeBuilder knappingRecipe(IItemProvider output) {
+		return knappingRecipe(output, false);
 	}
 	
-	public static HandworkRecipeBuilder handworkRecipe(IItemProvider output, boolean isInvertedPattern) {
-		return new HandworkRecipeBuilder(output, isInvertedPattern);
+	public static HandworkRecipeBuilder knappingRecipe(IItemProvider output, boolean isInvertedPattern) {
+		return new HandworkRecipeBuilder(output, isInvertedPattern, Registration.KNAPPING_RECIPE_SERIALIZER.get());
+	}
+	
+	public static HandworkRecipeBuilder moldingRecipe(IItemProvider output) {
+		return moldingRecipe(output, false);
+	}
+	
+	public static HandworkRecipeBuilder moldingRecipe(IItemProvider output, boolean isInvertedPattern) {
+		return new HandworkRecipeBuilder(output, isInvertedPattern, Registration.MOLDING_RECIPE_SERIALIZER.get());
 	}
 	
 	public HandworkRecipeBuilder recipeItem(Ingredient ingredientIn) {
@@ -78,7 +90,7 @@ public class HandworkRecipeBuilder {
 	
 	public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
 		this.validate(id);
-		consumerIn.accept(new HandworkRecipeBuilder.HandworkResult(id, this.output, this.pattern, this.key.get('#'), this.invertedPattern));
+		consumerIn.accept(new HandworkRecipeBuilder.HandworkResult(this.serializer, id, this.output, this.pattern, this.key.get('#'), this.invertedPattern));
 	}
 	
 	private void validate(ResourceLocation id) {
@@ -108,13 +120,15 @@ public class HandworkRecipeBuilder {
 		private final Ingredient recipeItem;
 		private final List<String> pattern;
 		private final boolean invertedPattern;
+		private final IRecipeSerializer<? extends AbstractHandworkRecipe> serializer;
 		
-		public HandworkResult(ResourceLocation idIn, Item resultIn, List<String> patternIn, Ingredient recipeItemIn, boolean isInverted) {
+		public HandworkResult(IRecipeSerializer<? extends AbstractHandworkRecipe> serializer, ResourceLocation idIn, Item resultIn, List<String> patternIn, Ingredient recipeItemIn, boolean isInverted) {
 			this.id = idIn;
 			this.recipeItem = recipeItemIn;
 			this.output = resultIn;
 			this.pattern = patternIn;
 			this.invertedPattern = isInverted;
+			this.serializer = serializer;
 		}
 		
 		@Override
@@ -151,7 +165,7 @@ public class HandworkRecipeBuilder {
 
 		@Override
 		public IRecipeSerializer<?> getSerializer() {
-			return Registration.HANDWORK_RECIPE_SERIALIZER.get();
+			return this.serializer;
 		}
 	}
 }

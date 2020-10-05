@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "realistech:tools/stone_hammer"
+    },
+    {
+      "item": "realistech:tools/stone_chisel"
+    },
+    {
+      "tag": "minecraft:planks"
+    }
+  ],
+  "result": {
+    "item": "realistech:primitive_brick_mold"
+  }
+}

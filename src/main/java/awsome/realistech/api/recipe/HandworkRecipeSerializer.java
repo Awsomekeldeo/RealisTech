@@ -21,7 +21,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class HandworkRecipeSerializer<T extends HandworkRecipe> extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<HandworkRecipe> {
+public class HandworkRecipeSerializer<T extends AbstractHandworkRecipe> extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<AbstractHandworkRecipe> {
 	
 	private final HandworkRecipeSerializer.IFactory<T> factory;
 	
@@ -30,20 +30,24 @@ public class HandworkRecipeSerializer<T extends HandworkRecipe> extends ForgeReg
 	}
 	
 	@Override
-	public HandworkRecipe read(ResourceLocation recipeId, JsonObject json) {
+	public AbstractHandworkRecipe read(ResourceLocation recipeId, JsonObject json) {
 		final JsonElement inputElement = JSONUtils.getJsonObject(json, "recipe_item");
 		final Ingredient input = Ingredient.deserialize(inputElement);
 		boolean inverted = JSONUtils.getBoolean(json, "inverted_pattern");
 		String[] pattern = shrink(patternFromJson(JSONUtils.getJsonArray(json, "pattern")));
+		String[] jeiPattern = patternFromJson(JSONUtils.getJsonArray(json, "pattern"));
 		int i = pattern[0].length();
         int j = pattern.length;
+        int k = jeiPattern[0].length();
+        int l = jeiPattern.length;
         Map<String, Ingredient> keys = Maps.newHashMap();
         keys.put("#", input);
         keys.put(" ", Ingredient.EMPTY);
         NonNullList<Ingredient> ingredients = deserializeIngredients(pattern, keys, i, j);
+        NonNullList<Ingredient> jeiIngred = deserializeIngredients(jeiPattern, keys, k, l);
 		final ItemStack output = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "result"), false);
 		
-		return this.factory.create(recipeId, input, output, ingredients, i, j, inverted);
+		return this.factory.create(recipeId, input, output, ingredients, i, j, inverted, jeiIngred);
 	}
 
 	@Override
@@ -52,16 +56,22 @@ public class HandworkRecipeSerializer<T extends HandworkRecipe> extends ForgeReg
 		final int j = buffer.readVarInt();
 		final Ingredient input = Ingredient.read(buffer);
 		boolean inverted = buffer.readBoolean();
-		final ItemStack output = buffer.readItemStack();
-		final ResourceLocation id = buffer.readResourceLocation();
 		
 		NonNullList<Ingredient> ingredients = NonNullList.withSize(i * j, Ingredient.EMPTY);
+		NonNullList<Ingredient> jeiIngredients = NonNullList.withSize(25, Ingredient.EMPTY);
 
         for(int k = 0; k < ingredients.size(); ++k) {
            ingredients.set(k, Ingredient.read(buffer));
         }
+        
+        final ItemStack output = buffer.readItemStack();
+        final ResourceLocation id = buffer.readResourceLocation();
+        
+        for(int l = 0; l < jeiIngredients.size(); ++l) {
+            jeiIngredients.set(l, Ingredient.read(buffer));
+         }
 		
-		return this.factory.create(id, input, output, ingredients, i, j, inverted);
+		return this.factory.create(id, input, output, ingredients, i, j, inverted, jeiIngredients);
 	}
 	
 	@VisibleForTesting
@@ -165,7 +175,7 @@ public class HandworkRecipeSerializer<T extends HandworkRecipe> extends ForgeReg
 	}
 	
 	@Override
-	public void write(PacketBuffer buffer, HandworkRecipe recipe) {
+	public void write(PacketBuffer buffer, AbstractHandworkRecipe recipe) {
 		buffer.writeVarInt(recipe.recipeWidth);
 		buffer.writeVarInt(recipe.recipeHeight);
 		recipe.recipe_item.write(buffer);
@@ -175,10 +185,13 @@ public class HandworkRecipeSerializer<T extends HandworkRecipe> extends ForgeReg
 		}
 		buffer.writeItemStack(recipe.result);
 		buffer.writeResourceLocation(recipe.id);
+		for(Ingredient ingredient : recipe.jeiPattern) {
+			ingredient.write(buffer);
+		}
 	}
 	
-	public interface IFactory<T extends HandworkRecipe> {
-		T create(ResourceLocation resourceLocation, Ingredient ingredient, ItemStack output, NonNullList<Ingredient> ingredients, int recipeWidth, int recipeHeight, boolean isInvertedPattern);
+	public interface IFactory<T extends AbstractHandworkRecipe> {
+		T create(ResourceLocation resourceLocation, Ingredient ingredient, ItemStack output, NonNullList<Ingredient> ingredients, int recipeWidth, int recipeHeight, boolean isInvertedPattern, NonNullList<Ingredient> jeiPattern);
 	}
 	
 	public HandworkRecipeSerializer.IFactory<T> getFactory() {

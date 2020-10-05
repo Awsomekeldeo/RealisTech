@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "realistech:plant_fiber_cordage"
+    ]
+  },
+  "criteria": {
+    "plant_fiber": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "realistech:plant_fiber"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "realistech:plant_fiber_cordage"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "plant_fiber",
+      "has_the_recipe"
+    ]
+  ]
+}

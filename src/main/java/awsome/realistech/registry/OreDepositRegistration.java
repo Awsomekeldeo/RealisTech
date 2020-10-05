@@ -151,13 +151,15 @@ public class OreDepositRegistration {
 				new ArrayList<Biome>(Arrays.asList(new Biome[] {})), Arrays.asList(new BiomeDictionary.Type[] {}),
 				false, false, PlutonType.DENSE, 1.0f);
 		this.oreDepositRegistry.register(Blocks.CLAY.getDefaultState(),
-				Registration.VANILLA_CLAY_GRASS.get().getDefaultState(), Registration.GOLDENROD.get().getDefaultState(),
+				Registration.VANILLA_CLAY_GRASS.get().getDefaultState(),
+				Registration.GOLDENROD.get().getDefaultState(),
 				4, 15, 35, new String[] { "minecraft:the_end" },
 				new ArrayList<String>(Arrays.asList(new String[] { "minecraft:dirt" })),
 				new ArrayList<String>(Arrays.asList(new String[] { "minecraft:grass_block" })), 1.0f, PlutonType.LAYER);
 		this.oreDepositRegistry.register(Registration.KAOLINITE_CLAY.get().getDefaultState(),
 				Registration.KAOLINITE_CLAY_GRASS.get().getDefaultState(),
-				Registration.KAOLINITE_LILY.get().getDefaultState(), 4, 15, 15, new String[] { "minecraft:the_end" },
+				Registration.KAOLINITE_LILY.get().getDefaultState(),
+				4, 15, 15, new String[] { "minecraft:the_end" },
 				new ArrayList<String>(Arrays.asList(new String[] { "minecraft:dirt" })),
 				new ArrayList<String>(Arrays.asList(new String[] { "minecraft:grass_block" })), 1.0f, PlutonType.LAYER);
 	}

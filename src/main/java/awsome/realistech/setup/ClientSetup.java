@@ -3,8 +3,10 @@ package awsome.realistech.setup;
 import awsome.realistech.Reference;
 import awsome.realistech.client.gui.containter.screen.CrucibleScreen;
 import awsome.realistech.client.gui.containter.screen.FireboxScreen;
-import awsome.realistech.client.gui.containter.screen.HandworkScreen;
 import awsome.realistech.client.gui.containter.screen.KilnScreen;
+import awsome.realistech.client.gui.containter.screen.KnappingScreen;
+import awsome.realistech.client.gui.containter.screen.MoldingScreen;
+import awsome.realistech.listeners.RecipeReloadListener;
 import awsome.realistech.registry.Registration;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -19,6 +21,7 @@ import net.minecraft.world.GrassColors;
 import net.minecraft.world.ILightReader;
 import net.minecraft.world.biome.BiomeColors;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
@@ -26,12 +29,14 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 public class ClientSetup {
 	
 	public static void init(final FMLClientSetupEvent event) {
+		MinecraftForge.EVENT_BUS.register(new RecipeReloadListener());
 		registerBlockColors();
 		registerItemColors(Minecraft.getInstance().getBlockColors());
 		ScreenManager.registerFactory(Registration.FIREBOX_CONTAINER.get(), FireboxScreen::new);
 		ScreenManager.registerFactory(Registration.CRUCIBLE_CONTAINER.get(), CrucibleScreen::new);
 		ScreenManager.registerFactory(Registration.KILN_CONTAINER.get(), KilnScreen::new);
-		ScreenManager.registerFactory(Registration.HANDWORK_CRAFTING_CONTAINER.get(), HandworkScreen::new);
+		ScreenManager.registerFactory(Registration.KNAPPING_CRAFTING_CONTAINER.get(), KnappingScreen::new);
+		ScreenManager.registerFactory(Registration.MOLDING_CRAFTING_CONTAINER.get(), MoldingScreen::new);
 		RenderType cutoutMipped = RenderType.getCutoutMipped();
 		RenderType cutout = RenderType.getCutout();
 		

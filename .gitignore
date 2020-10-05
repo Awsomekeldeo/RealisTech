@@ -79,4 +79,4 @@ local.properties
 *~
 
 run/
-src/generated/
+src/test/

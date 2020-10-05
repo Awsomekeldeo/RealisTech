@@ -1,12 +1,13 @@
 package awsome.realistech.registry;
 
 import awsome.realistech.Reference;
-import awsome.realistech.api.recipe.HandworkRecipe;
 import awsome.realistech.api.recipe.HandworkRecipeSerializer;
 import awsome.realistech.api.recipe.KilnRecipe;
 import awsome.realistech.api.recipe.KilnRecipeSerializer;
+import awsome.realistech.api.recipe.KnappingRecipe;
 import awsome.realistech.api.recipe.MeltingRecipe;
 import awsome.realistech.api.recipe.MeltingRecipeSerializer;
+import awsome.realistech.api.recipe.MoldingRecipe;
 import awsome.realistech.api.recipe.NonConsumingShapelessRecipe;
 import awsome.realistech.api.recipe.NonConsumingShaplessRecipeSerializer;
 import awsome.realistech.blocks.ClayGrassBlock;
@@ -15,14 +16,20 @@ import awsome.realistech.blocks.FireboxBlock;
 import awsome.realistech.blocks.KilnBlock;
 import awsome.realistech.blocks.ModOreBlock;
 import awsome.realistech.blocks.OreSampleBlock;
+import awsome.realistech.blocks.OreSampleBlock.SampleShape;
+import awsome.realistech.data.loot.GrassDrops.GrassDropSerializer;
 import awsome.realistech.inventory.container.CrucibleContainer;
 import awsome.realistech.inventory.container.FireboxContainer;
-import awsome.realistech.inventory.container.HandworkContainer;
 import awsome.realistech.inventory.container.KilnContainer;
+import awsome.realistech.inventory.container.KnappingContainer;
+import awsome.realistech.inventory.container.MoldingContainer;
 import awsome.realistech.items.BrickItem;
 import awsome.realistech.items.CeramicMoldItem;
+import awsome.realistech.items.ChiselItem;
 import awsome.realistech.items.FireclayItem;
+import awsome.realistech.items.HammerItem;
 import awsome.realistech.items.IngotItem;
+import awsome.realistech.items.MortarItem;
 import awsome.realistech.items.OreClusterItem;
 import awsome.realistech.items.ToolHeadItem;
 import awsome.realistech.items.UnfiredCeramicMoldItem;
@@ -36,16 +43,20 @@ import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.item.AxeItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemTier;
+import net.minecraft.item.PickaxeItem;
+import net.minecraft.item.ShovelItem;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.extensions.IForgeContainerType;
+import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -58,6 +69,7 @@ public class Registration {
 	private static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Reference.MODID);
 	private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MODID);
 	private static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Reference.MODID);
+	private static final DeferredRegister<GlobalLootModifierSerializer<?>> GLOBAL_LOOT_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, Reference.MODID);
 	
 	
 	public static void init() {
@@ -66,14 +78,18 @@ public class Registration {
 		CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
 		RECIPE_SERIALIZERS.register(FMLJavaModLoadingContext.get().getModEventBus());
+		GLOBAL_LOOT_MODIFIER_SERIALIZERS.register(FMLJavaModLoadingContext.get().getModEventBus());
 	}
+	
+	//Global Loot Modifiers
+		public static final RegistryObject<GrassDropSerializer> GRASS_DROP_OVERRIDE = GLOBAL_LOOT_MODIFIER_SERIALIZERS.register("grass_override", GrassDropSerializer::new);
 	
 	//Recipe Serializers
 		public static final RegistryObject<MeltingRecipeSerializer<MeltingRecipe>> MELTING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("melting", () -> new MeltingRecipeSerializer<>(MeltingRecipe::new));
 		public static final RegistryObject<KilnRecipeSerializer<KilnRecipe>> KILN_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("kiln", () -> new KilnRecipeSerializer<>(KilnRecipe::new));
 		public static final RegistryObject<NonConsumingShaplessRecipeSerializer<NonConsumingShapelessRecipe>> NON_CONSUMING_SHAPELESS_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("non_consuming_shapeless", () -> new NonConsumingShaplessRecipeSerializer<>(NonConsumingShapelessRecipe::new));
-		public static final RegistryObject<HandworkRecipeSerializer<HandworkRecipe>> HANDWORK_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("handwork", () -> new HandworkRecipeSerializer<>(HandworkRecipe::new));
-	
+		public static final RegistryObject<HandworkRecipeSerializer<KnappingRecipe>> KNAPPING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("knapping", () -> new HandworkRecipeSerializer<>(KnappingRecipe::new));
+		public static final RegistryObject<HandworkRecipeSerializer<MoldingRecipe>> MOLDING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("molding", () -> new HandworkRecipeSerializer<>(MoldingRecipe::new));
 	
 	//Blocks
 		
@@ -108,7 +124,8 @@ public class Registration {
 		public static final RegistryObject<OreSampleBlock> EMERALD_SAMPLE = BLOCKS.register("emerald_sample", () -> new OreSampleBlock(1));
 		public static final RegistryObject<OreSampleBlock> LAPIS_SAMPLE = BLOCKS.register("lapis_sample", () -> new OreSampleBlock(1));
 		public static final RegistryObject<OreSampleBlock> REDSTONE_SAMPLE = BLOCKS.register("redstone_sample", () -> new OreSampleBlock(1));
-		public static final RegistryObject<Block> ROCK = BLOCKS.register("rock", () -> new OreSampleBlock(-1, SoundType.STONE));
+		public static final RegistryObject<Block> ROCK = BLOCKS.register("rock", () -> new OreSampleBlock(-1, SoundType.STONE, SampleShape.ROCKLIKE));
+		public static final RegistryObject<Block> STICK = BLOCKS.register("stick", () -> new OreSampleBlock(-1, SoundType.WOOD, SampleShape.STICK));
 		
 		//Flowers
 		public static final RegistryObject<FlowerBlock> GOLDENROD = BLOCKS.register("goldenrod", () -> new FlowerBlock(Effects.GLOWING, 8, Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.PLANT)));
@@ -157,14 +174,12 @@ public class Registration {
 		
 		//Crafting Inventories
 		
-		public static final RegistryObject<ContainerType<HandworkContainer>> HANDWORK_CRAFTING_CONTAINER = CONTAINERS.register("handwork", () -> IForgeContainerType.create((windowId, inv, data) -> {
-			int textureX = data.readInt();
-			int textureY = data.readInt();
-			int diffXTex = data.readInt();
-			int diffYTex = data.readInt();
-			ResourceLocation itemId = data.readResourceLocation();
-			int totalConsumed = data.readInt();
-			return new HandworkContainer(windowId, inv, textureX, textureY, diffXTex, diffYTex, ForgeRegistries.ITEMS.getValue(itemId), totalConsumed);
+		public static final RegistryObject<ContainerType<KnappingContainer>> KNAPPING_CRAFTING_CONTAINER = CONTAINERS.register("knapping", () -> IForgeContainerType.create((windowId, inv, data) -> {
+			return new KnappingContainer(windowId, inv);
+		}));
+		
+		public static final RegistryObject<ContainerType<MoldingContainer>> MOLDING_CRAFTING_CONTAINER = CONTAINERS.register("molding", () -> IForgeContainerType.create((windowId, inv, data) -> {
+			return new MoldingContainer(windowId, inv);
 		}));
 		
 	
@@ -202,6 +217,7 @@ public class Registration {
 		public static final RegistryObject<Item> REDSTONE_SAMPLE_ITEM = ITEMS.register("ores/samples/redstone_sample", () -> new BlockItem(REDSTONE_SAMPLE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
 		public static final RegistryObject<Item> LAPIS_SAMPLE_ITEM = ITEMS.register("ores/samples/lapis_sample", () -> new BlockItem(LAPIS_SAMPLE.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
 		public static final RegistryObject<Item> ROCK_ITEMBLOCK = ITEMS.register("rock_blockitem", () -> new BlockItem(ROCK.get(), new Item.Properties().group(ModSetup.REALISTECH_ORES)));
+		public static final RegistryObject<Item> STICK_ITEMBLOCK = ITEMS.register("inworld_stick", () -> new BlockItem(STICK.get(), new Item.Properties().group(ModSetup.REALISTECH_MISC)));
 		
 		//Machines
 		public static final RegistryObject<Item> FIREBOX_ITEM = ITEMS.register("machines/firebox", () -> new BlockItem(FIREBOX.get(), new Item.Properties().group(ModSetup.REALISTECH_MACHINES)));
@@ -229,6 +245,16 @@ public class Registration {
 		public static final RegistryObject<IngotItem> SILVER_INGOT = ITEMS.register("ingots/silver_ingot", IngotItem::new);
 		public static final RegistryObject<IngotItem> ZINC_INGOT = ITEMS.register("ingots/zinc_ingot", IngotItem::new);
 		public static final RegistryObject<IngotItem> COBALT_INGOT = ITEMS.register("ingots/cobalt_ingot", IngotItem::new);
+		public static final RegistryObject<IngotItem> CRUDE_COPPER_INGOT = ITEMS.register("ingots/crude_copper_ingot", IngotItem::new);
+		
+		//Plates
+		public static final RegistryObject<Item> COPPER_PLATE = ITEMS.register("plates/copper_plate", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
+		public static final RegistryObject<Item> TIN_PLATE = ITEMS.register("plates/tin_plate", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
+		public static final RegistryObject<Item> NICKEL_PLATE = ITEMS.register("plates/nickel_plate", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
+		public static final RegistryObject<Item> LEAD_PLATE = ITEMS.register("plates/lead_plate", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
+		public static final RegistryObject<Item> SILVER_PLATE = ITEMS.register("plates/silver_plate", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
+		public static final RegistryObject<Item> ZINC_PLATE = ITEMS.register("plates/zinc_plate", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
+		public static final RegistryObject<Item> COBALT_PLATE = ITEMS.register("plates/cobalt_plate", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
 		
 		//Clusters
 		public static final RegistryObject<OreClusterItem> COPPER_CLUSTER = ITEMS.register("ore_clusters/copper_cluster", OreClusterItem::new);
@@ -240,6 +266,9 @@ public class Registration {
 		public static final RegistryObject<OreClusterItem> COBALT_CLUSTER = ITEMS.register("ore_clusters/cobalt_cluster", OreClusterItem::new);
 		public static final RegistryObject<OreClusterItem> IRON_CLUSTER = ITEMS.register("ore_clusters/iron_cluster", OreClusterItem::new);
 		public static final RegistryObject<OreClusterItem> GOLD_CLUSTER = ITEMS.register("ore_clusters/gold_cluster", OreClusterItem::new);
+		
+		//Chunks
+		public static final RegistryObject<Item> COPPER_CHUNK = ITEMS.register("chunks/copper_chunk", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
 		
 		//Ceramic Molds
 		
@@ -275,7 +304,22 @@ public class Registration {
 			public static final RegistryObject<ToolHeadItem> STONE_AXE_HEAD = ITEMS.register("tool_heads/stone_axe", ToolHeadItem::new);
 			public static final RegistryObject<ToolHeadItem> STONE_SHOVEL_HEAD = ITEMS.register("tool_heads/stone_shovel", ToolHeadItem::new);
 			public static final RegistryObject<ToolHeadItem> STONE_CHISEL_HEAD = ITEMS.register("tool_heads/stone_chisel", ToolHeadItem::new);
+			public static final RegistryObject<ToolHeadItem> STONE_PICKAXE_HEAD = ITEMS.register("tool_heads/stone_pickaxe", ToolHeadItem::new);
+			public static final RegistryObject<ToolHeadItem> STONE_HAMMER_HEAD = ITEMS.register("tool_heads/stone_hammer", ToolHeadItem::new);
 		
+		//Tools
+			
+			//Stone
+			public static final RegistryObject<AxeItem> STONE_AXE = ITEMS.register("tools/stone_axe", () -> new AxeItem(ItemTier.STONE, 7.0f, -3.2f, new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
+			public static final RegistryObject<ShovelItem> STONE_SHOVEL = ITEMS.register("tools/stone_shovel", () -> new ShovelItem(ItemTier.STONE, 1.5f, -3.0f, new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
+			public static final RegistryObject<PickaxeItem> STONE_PICKAXE = ITEMS.register("tools/stone_pickaxe", () -> new PickaxeItem(ItemTier.STONE, 1, -2.8f, new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
+			public static final RegistryObject<ChiselItem> STONE_CHISEL = ITEMS.register("tools/stone_chisel", () -> new ChiselItem(new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
+			public static final RegistryObject<HammerItem> STONE_HAMMER = ITEMS.register("tools/stone_hammer", () -> new HammerItem(new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
+			public static final RegistryObject<MortarItem> STONE_MORTAR_AND_PESTLE = ITEMS.register("tools/stone_mortar", () -> new MortarItem(new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
+			
 		//Misc Items
 		public static final RegistryObject<Item> ROCK_ITEM = ITEMS.register("rock", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
+		public static final RegistryObject<Item> PLANT_FIBER = ITEMS.register("plant_fiber", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
+		public static final RegistryObject<Item> PLANT_FIBER_CORDAGE = ITEMS.register("plant_fiber_cordage", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
+		public static final RegistryObject<Item> KILN_CLAY_MIXTURE = ITEMS.register("kiln_clay_mixture", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
 }

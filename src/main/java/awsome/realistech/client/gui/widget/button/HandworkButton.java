@@ -30,6 +30,15 @@ public class HandworkButton extends Widget {
 		this.index = index;
 	}
 	
+	public HandworkButton(int x, int y, int index, boolean activated) {
+		super(x, y, 16, 16, "");
+		this.stateTriggered = false;
+		this.index = index;
+		if (activated) {
+			this.activate();
+		}
+	}
+	
 	public void initTextureValues(int xStart, int yStart, int xDiffTexIn, int yDiffTexIn, ResourceLocation texture) {
 		this.xTexStart = xStart;
 		this.yTexStart = yStart;

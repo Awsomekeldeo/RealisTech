@@ -1,5 +1,8 @@
 package awsome.realistech.api.recipe;
 
+import java.util.Collections;
+import java.util.Map;
+
 import awsome.realistech.Reference;
 import awsome.realistech.registry.Registration;
 import net.minecraft.item.ItemStack;
@@ -7,6 +10,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
@@ -32,6 +36,13 @@ public class KilnRecipe implements IRecipe<RecipeWrapper> {
 	@Override
 	public boolean matches(RecipeWrapper inv, World worldIn) {
 		return this.input.test(inv.getStackInSlot(0));
+	}
+	
+	@Override
+	public NonNullList<Ingredient> getIngredients() {
+		NonNullList<Ingredient> ingredients = NonNullList.create();
+		ingredients.add(this.input);
+		return ingredients;
 	}
 
 	@Override
@@ -70,6 +81,8 @@ public class KilnRecipe implements IRecipe<RecipeWrapper> {
 	public boolean isValid(ItemStack input) {
 		return this.input.test(input);
 	}
+	
+	public static Map<ResourceLocation, KilnRecipe> recipeList = Collections.emptyMap();
 	
 	public int getFiringTemp() {
 		return this.fireTemp;

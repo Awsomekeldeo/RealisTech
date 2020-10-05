@@ -1,0 +1,17 @@
+{
+  "type": "realistech:knapping",
+  "recipe_item": {
+    "item": "realistech:rock"
+  },
+  "inverted_pattern": false,
+  "pattern": [
+    "  #  ",
+    "  #  ",
+    "# # #",
+    "#   #",
+    " ### "
+  ],
+  "result": {
+    "item": "realistech:tools/stone_mortar"
+  }
+}
