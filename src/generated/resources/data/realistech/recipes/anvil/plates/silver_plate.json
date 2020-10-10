@@ -1,0 +1,12 @@
+{
+  "type": "realistech:anvil_hammering",
+  "first_input": {
+    "tag": "forge:ingots/silver"
+  },
+  "second_input": {
+    "tag": "forge:ingots/silver"
+  },
+  "result": {
+    "item": "realistech:plates/silver_plate"
+  }
+}

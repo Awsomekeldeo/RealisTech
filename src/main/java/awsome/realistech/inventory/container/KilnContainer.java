@@ -1,5 +1,6 @@
 package awsome.realistech.inventory.container;
 
+import awsome.realistech.api.recipe.KilnRecipe;
 import awsome.realistech.registry.Registration;
 import awsome.realistech.tileentity.KilnTileEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,8 +18,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 public class KilnContainer extends Container {
 	
@@ -27,12 +31,14 @@ public class KilnContainer extends Container {
 	private IItemHandler playerInventory;
 	private IIntArray kilnData;
 	public float temperature;
+	private World world;
 	
 	public KilnContainer(int windowId, World world, BlockPos pos, PlayerInventory inventory, PlayerEntity player) {
 		super(Registration.KILN_CONTAINER.get(), windowId);
 		tileEntity = world.getTileEntity(pos);
 		this.playerEntity = player;
 		this.playerInventory = new InvWrapper(inventory);
+		this.world = world;
 		
 		if (tileEntity != null) {
 			tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
@@ -66,6 +72,12 @@ public class KilnContainer extends Container {
 		return ((KilnTileEntity)tileEntity).getBurnTime();
 	}
 	
+	private boolean hasRecipe(ItemStack stack) {
+		IItemHandlerModifiable recipeItemHandler = new ItemStackHandler();
+		recipeItemHandler.setStackInSlot(0, stack);
+		RecipeWrapper recipeWrapper = new RecipeWrapper(recipeItemHandler);
+		return this.world.getRecipeManager().getRecipe(KilnRecipe.KILN_RECIPE, recipeWrapper, this.world).isPresent();
+	}
 	
 	@Override
     public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
@@ -74,23 +86,30 @@ public class KilnContainer extends Container {
         if (slot != null && slot.getHasStack()) {
             ItemStack stack = slot.getStack();
             itemstack = stack.copy();
-            if (index == 4) {
-                if (!this.mergeItemStack(stack, 1, 37, true)) {
+            if (index >= 5 && index <= 8) {
+                if (!this.mergeItemStack(stack, 9, 45, true)) {
                     return ItemStack.EMPTY;
                 }
                 slot.onSlotChange(stack, itemstack);
-            } else {
+            } else if (index > 8) {
+            	if (this.hasRecipe(stack)) {
+            		if (!this.mergeItemStack(stack, 0, 4, false)) {
+            			return ItemStack.EMPTY;
+            		}
+            	}
                 if (ForgeHooks.getBurnTime(stack) > 0) {
                     if (!this.mergeItemStack(stack, 4, 5, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (index < 28) {
-                    if (!this.mergeItemStack(stack, 28, 37, false)) {
+                } else if (index >= 9 && index < 36) {
+                    if (!this.mergeItemStack(stack, 36, 45, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (index < 37 && !this.mergeItemStack(stack, 1, 28, false)) {
+                } else if (index >= 36 && index < 45 && !this.mergeItemStack(stack, 4, 30, false)) {
                     return ItemStack.EMPTY;
                 }
+            } else if(!this.mergeItemStack(stack, 9, 45, false)) {
+            	return ItemStack.EMPTY;
             }
 
             if (stack.isEmpty()) {

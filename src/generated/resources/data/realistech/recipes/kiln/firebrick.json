@@ -1,0 +1,10 @@
+{
+  "type": "realistech:kiln",
+  "input": {
+    "item": "realistech:unfired_kaolinite_brick"
+  },
+  "output": {
+    "item": "realistech:firebrick"
+  },
+  "firing_temperature": 1000
+}

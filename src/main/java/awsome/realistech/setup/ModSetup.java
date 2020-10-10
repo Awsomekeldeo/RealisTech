@@ -114,6 +114,7 @@ public class ModSetup {
 		if (group == REALISTECH_MATERIALS) {
 			return Arrays.asList(new Item[] {
 				Registration.COPPER_INGOT.get(),
+				Registration.CRUDE_COPPER_INGOT.get(),
 				Registration.TIN_INGOT.get(),
 				Registration.SILVER_INGOT.get(),
 				Registration.NICKEL_INGOT.get(),
@@ -147,15 +148,16 @@ public class ModSetup {
 				Registration.KILN_CLAY_MIXTURE.get(),
 				Registration.KAOLINITE_CLAY_BALL.get(),
 				Registration.PLANT_FIBER.get(),
-				Registration.PLANT_FIBER_CORDAGE.get(),
-				Registration.CRUDE_COPPER_INGOT.get()
+				Registration.PLANT_FIBER_CORDAGE.get()
 			}); 
 		}
 		if (group == REALISTECH_MACHINES) {
 			return Arrays.asList(new Item[] {
 				Registration.FIREBOX_ITEM.get(),
 				Registration.CRUCIBLE_ITEM.get(),
-				Registration.KILN_ITEM.get()
+				Registration.KILN_ITEM.get(),
+				Registration.WEAK_FURNACE_ITEM.get(),
+				Registration.STONE_ANVIL_ITEM.get()
 			});
 		}
 		if (group == REALISTECH_ORES) {
@@ -224,6 +226,7 @@ public class ModSetup {
 				Registration.VANILLA_CLAY_GRASS_ITEM.get(),
 				Registration.KAOLINITE_CLAY_GRASS_ITEM.get(),
 				Registration.KAOLINITE_CLAY_ITEM.get(),
+				Registration.FIREBRICKS_ITEM.get(),
 				Registration.GOLDENROD_ITEM.get(),
 				Registration.KAOLINITE_LILY_ITEM.get(),
 				Registration.STICK_ITEMBLOCK.get()

@@ -1,0 +1,10 @@
+{
+  "type": "realistech:weak_smelting",
+  "ingredient": {
+    "item": "realistech:ore_clusters/copper_cluster"
+  },
+  "output": {
+    "item": "realistech:chunks/copper_chunk"
+  },
+  "experience": 0.3
+}

@@ -5,7 +5,9 @@ import awsome.realistech.client.gui.containter.screen.CrucibleScreen;
 import awsome.realistech.client.gui.containter.screen.FireboxScreen;
 import awsome.realistech.client.gui.containter.screen.KilnScreen;
 import awsome.realistech.client.gui.containter.screen.KnappingScreen;
+import awsome.realistech.client.gui.containter.screen.MediumHeatFurnaceScreen;
 import awsome.realistech.client.gui.containter.screen.MoldingScreen;
+import awsome.realistech.client.renderer.AnvilRenderer;
 import awsome.realistech.listeners.RecipeReloadListener;
 import awsome.realistech.registry.Registration;
 import net.minecraft.block.BlockState;
@@ -22,6 +24,7 @@ import net.minecraft.world.ILightReader;
 import net.minecraft.world.biome.BiomeColors;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
@@ -37,8 +40,11 @@ public class ClientSetup {
 		ScreenManager.registerFactory(Registration.KILN_CONTAINER.get(), KilnScreen::new);
 		ScreenManager.registerFactory(Registration.KNAPPING_CRAFTING_CONTAINER.get(), KnappingScreen::new);
 		ScreenManager.registerFactory(Registration.MOLDING_CRAFTING_CONTAINER.get(), MoldingScreen::new);
+		ScreenManager.registerFactory(Registration.WEAK_FURNACE_CONTAINER.get(), MediumHeatFurnaceScreen::new);
 		RenderType cutoutMipped = RenderType.getCutoutMipped();
 		RenderType cutout = RenderType.getCutout();
+		
+		ClientRegistry.bindTileEntityRenderer(Registration.ANVIL_TILEENTITY.get(), AnvilRenderer::new);
 		
 		RenderTypeLookup.setRenderLayer(Registration.CRUCIBLE.get(), cutout);
 		RenderTypeLookup.setRenderLayer(Registration.VANILLA_CLAY_GRASS.get(), cutoutMipped);

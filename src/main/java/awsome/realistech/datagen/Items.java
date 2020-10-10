@@ -15,10 +15,12 @@ public class Items extends ItemModelProvider {
 
 	@Override
 	protected void registerModels() {
+		
 		//Machines
 		withExistingParent("item/" + Registration.FIREBOX_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/machines/firebox"));
 		withExistingParent("item/" + Registration.CRUCIBLE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/machines/crucible"));
 		withExistingParent("item/" + Registration.KILN_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/machines/kiln"));
+		withExistingParent("item/" + Registration.WEAK_FURNACE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/machines/weak_furnace"));
 		
 		//Ores
 		withExistingParent("item/" + Registration.COPPER_ORE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/copper_ore"));
@@ -65,12 +67,18 @@ public class Items extends ItemModelProvider {
 		singleTexture("item/" + Registration.IRON_CLUSTER.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/clusters/iron"));
 		singleTexture("item/" + Registration.GOLD_CLUSTER.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/clusters/gold"));
 		
+		//Anvils
+		withExistingParent("item/" + Registration.STONE_ANVIL_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/anvils/stone_anvil"));
+		
 		//Clay Grasses
 		withExistingParent("item/" + Registration.VANILLA_CLAY_GRASS_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/clay_grass"));
 		withExistingParent("item/" + Registration.KAOLINITE_CLAY_GRASS_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/kaolinite_clay_grass"));
 		
 		//Clay Blocks
 		withExistingParent("item/" + Registration.KAOLINITE_CLAY_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/kaolinite_clay"));
+		
+		//Misc Blocks
+		withExistingParent("item/" + Registration.FIREBRICKS.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/firebricks"));
 		
 		//Ceramics
 		singleTexture("item/" + Registration.UNFIRED_CLAY_BRICK.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/unfired_clay_brick"));

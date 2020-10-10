@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "B B",
+    "BBB"
+  ],
+  "key": {
+    "P": {
+      "item": "realistech:plates/copper_plate"
+    },
+    "B": {
+      "item": "realistech:firebricks"
+    }
+  },
+  "result": {
+    "item": "realistech:machines/firebox"
+  }
+}

@@ -48,14 +48,14 @@ public class KilnScreen extends ContainerScreen<KilnContainer> {
 		int i = this.guiLeft;
 		int j = this.guiTop;
 		this.blit(relativeX, relativeY, 0, 0, this.xSize, this.ySize);
-		if (((KilnContainer)this.container).isBurning()) {
-			int k = ((KilnContainer)this.container).getBurnLeftScaled();
+		if (this.container.isBurning()) {
+			int k = this.container.getBurnLeftScaled();
 			this.blit(i + 38, j + 56 + 12 - k, 176, 12 - k, 14, k + 1);
 		}
-		int l = ((KilnContainer)this.container).getTemperatureScaled();
+		int l = this.container.getTemperatureScaled();
 		this.blit(i + 152, j + 19 + 62 - l, 176, 32 + 62 - l, 6, l);
 		
-		int m = ((KilnContainer)this.container).getFireProgressScaled();
+		int m = this.container.getFireProgressScaled();
 		this.blit(i + 70, j + 51, 176, 14, m + 1, 16);
 	}
 

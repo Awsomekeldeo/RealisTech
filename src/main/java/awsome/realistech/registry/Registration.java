@@ -1,6 +1,8 @@
 package awsome.realistech.registry;
 
 import awsome.realistech.Reference;
+import awsome.realistech.api.recipe.AnvilRecipe;
+import awsome.realistech.api.recipe.AnvilRecipeSerializer;
 import awsome.realistech.api.recipe.HandworkRecipeSerializer;
 import awsome.realistech.api.recipe.KilnRecipe;
 import awsome.realistech.api.recipe.KilnRecipeSerializer;
@@ -10,10 +12,14 @@ import awsome.realistech.api.recipe.MeltingRecipeSerializer;
 import awsome.realistech.api.recipe.MoldingRecipe;
 import awsome.realistech.api.recipe.NonConsumingShapelessRecipe;
 import awsome.realistech.api.recipe.NonConsumingShaplessRecipeSerializer;
+import awsome.realistech.api.recipe.WeakSmeltingRecipe;
+import awsome.realistech.api.recipe.WeakSmeltingRecipeSerializer;
+import awsome.realistech.blocks.AnvilBlock;
 import awsome.realistech.blocks.ClayGrassBlock;
 import awsome.realistech.blocks.CrucibleBlock;
 import awsome.realistech.blocks.FireboxBlock;
 import awsome.realistech.blocks.KilnBlock;
+import awsome.realistech.blocks.MediumHeatFurnaceBlock;
 import awsome.realistech.blocks.ModOreBlock;
 import awsome.realistech.blocks.OreSampleBlock;
 import awsome.realistech.blocks.OreSampleBlock.SampleShape;
@@ -22,6 +28,7 @@ import awsome.realistech.inventory.container.CrucibleContainer;
 import awsome.realistech.inventory.container.FireboxContainer;
 import awsome.realistech.inventory.container.KilnContainer;
 import awsome.realistech.inventory.container.KnappingContainer;
+import awsome.realistech.inventory.container.MediumHeatFurnaceContainer;
 import awsome.realistech.inventory.container.MoldingContainer;
 import awsome.realistech.items.BrickItem;
 import awsome.realistech.items.CeramicMoldItem;
@@ -34,14 +41,17 @@ import awsome.realistech.items.OreClusterItem;
 import awsome.realistech.items.ToolHeadItem;
 import awsome.realistech.items.UnfiredCeramicMoldItem;
 import awsome.realistech.setup.ModSetup;
+import awsome.realistech.tileentity.AnvilTileEntity;
 import awsome.realistech.tileentity.CrucibleTileEntity;
 import awsome.realistech.tileentity.FireboxTileEntity;
 import awsome.realistech.tileentity.KilnTileEntity;
+import awsome.realistech.tileentity.MediumHeatFurnaceTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.Properties;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.BlockItem;
@@ -90,6 +100,8 @@ public class Registration {
 		public static final RegistryObject<NonConsumingShaplessRecipeSerializer<NonConsumingShapelessRecipe>> NON_CONSUMING_SHAPELESS_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("non_consuming_shapeless", () -> new NonConsumingShaplessRecipeSerializer<>(NonConsumingShapelessRecipe::new));
 		public static final RegistryObject<HandworkRecipeSerializer<KnappingRecipe>> KNAPPING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("knapping", () -> new HandworkRecipeSerializer<>(KnappingRecipe::new));
 		public static final RegistryObject<HandworkRecipeSerializer<MoldingRecipe>> MOLDING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("molding", () -> new HandworkRecipeSerializer<>(MoldingRecipe::new));
+		public static final RegistryObject<WeakSmeltingRecipeSerializer<WeakSmeltingRecipe>> WEAK_SMELTING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("weak_smelting", () -> new WeakSmeltingRecipeSerializer<>(WeakSmeltingRecipe::new));
+		public static final RegistryObject<AnvilRecipeSerializer<AnvilRecipe>> ANVIL_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("anvil_hammering", () -> new AnvilRecipeSerializer<>(AnvilRecipe::new));
 	
 	//Blocks
 		
@@ -135,6 +147,10 @@ public class Registration {
 		public static final RegistryObject<FireboxBlock> FIREBOX = BLOCKS.register("firebox", FireboxBlock::new);
 		public static final RegistryObject<CrucibleBlock> CRUCIBLE = BLOCKS.register("crucible", CrucibleBlock::new);
 		public static final RegistryObject<KilnBlock> KILN = BLOCKS.register("kiln", KilnBlock::new);
+		public static final RegistryObject<MediumHeatFurnaceBlock> WEAK_FURNACE = BLOCKS.register("weak_furnace", MediumHeatFurnaceBlock::new);
+		
+		//Anvils
+		public static final RegistryObject<AnvilBlock> STONE_ANVIL = BLOCKS.register("stone_anvil", () -> new AnvilBlock(0, 1.5f, 6.0f));
 		
 		//Clay Grasses
 		public static final RegistryObject<ClayGrassBlock> VANILLA_CLAY_GRASS = BLOCKS.register("clay_grass", ClayGrassBlock::new);
@@ -142,6 +158,9 @@ public class Registration {
 		
 		//Clays
 		public static final RegistryObject<Block> KAOLINITE_CLAY = BLOCKS.register("kaolinite_clay", () -> new Block(Properties.create(Material.CLAY).hardnessAndResistance(0.6f).sound(SoundType.GROUND).harvestTool(ToolType.SHOVEL).harvestLevel(-1)));
+		
+		//Misc Blocks
+		public static final RegistryObject<Block> FIREBRICKS = BLOCKS.register("firebricks", () -> new Block(Properties.create(Material.ROCK, MaterialColor.ADOBE).hardnessAndResistance(1.25f, 7.0f).harvestTool(ToolType.PICKAXE).harvestLevel(0)));
 	
 	//Tile Entities
 		
@@ -149,6 +168,8 @@ public class Registration {
 		public static final RegistryObject<TileEntityType<FireboxTileEntity>> FIREBOX_TILEENTITY = TILE_ENTITIES.register("firebox", () -> TileEntityType.Builder.create(FireboxTileEntity::new, FIREBOX.get()).build(null));
 		public static final RegistryObject<TileEntityType<CrucibleTileEntity>> CRUCIBLE_TILEENTITY = TILE_ENTITIES.register("crucible", () -> TileEntityType.Builder.create(CrucibleTileEntity::new, CRUCIBLE.get()).build(null));
 		public static final RegistryObject<TileEntityType<KilnTileEntity>> KILN_TILEENTITY = TILE_ENTITIES.register("kiln", () -> TileEntityType.Builder.create(KilnTileEntity::new, KILN.get()).build(null));
+		public static final RegistryObject<TileEntityType<MediumHeatFurnaceTileEntity>> WEAK_FURNACE_TILEENTITY = TILE_ENTITIES.register("weak_furnace", () -> TileEntityType.Builder.create(MediumHeatFurnaceTileEntity::new, WEAK_FURNACE.get()).build(null));
+		public static final RegistryObject<TileEntityType<AnvilTileEntity>> ANVIL_TILEENTITY = TILE_ENTITIES.register("anvil", () -> TileEntityType.Builder.create(AnvilTileEntity::new, STONE_ANVIL.get()).build(null));
 	
 	//Containers
 		
@@ -169,6 +190,12 @@ public class Registration {
 			BlockPos pos = data.readBlockPos();
 			World world = inv.player.getEntityWorld();
 			return new KilnContainer(windowId, world, pos, inv, inv.player);
+		}));
+		
+		public static final RegistryObject<ContainerType<MediumHeatFurnaceContainer>> WEAK_FURNACE_CONTAINER = CONTAINERS.register("weak_furnace", () -> IForgeContainerType.create((windowId, inv, data) -> {
+			BlockPos pos = data.readBlockPos();
+			World world = inv.player.getEntityWorld();
+			return new MediumHeatFurnaceContainer(windowId, world, pos, inv, inv.player);
 		}));
 		
 		
@@ -223,6 +250,10 @@ public class Registration {
 		public static final RegistryObject<Item> FIREBOX_ITEM = ITEMS.register("machines/firebox", () -> new BlockItem(FIREBOX.get(), new Item.Properties().group(ModSetup.REALISTECH_MACHINES)));
 		public static final RegistryObject<Item> CRUCIBLE_ITEM = ITEMS.register("machines/crucible", () -> new BlockItem(CRUCIBLE.get(), new Item.Properties().group(ModSetup.REALISTECH_MACHINES)));
 		public static final RegistryObject<Item> KILN_ITEM = ITEMS.register("machines/kiln", () -> new BlockItem(KILN.get(), new Item.Properties().group(ModSetup.REALISTECH_MACHINES)));
+		public static final RegistryObject<Item> WEAK_FURNACE_ITEM = ITEMS.register("machines/weak_furnace", () -> new BlockItem(WEAK_FURNACE.get(), new Item.Properties().group(ModSetup.REALISTECH_MACHINES)));
+		
+		//Anvils
+		public static final RegistryObject<Item> STONE_ANVIL_ITEM = ITEMS.register("anvils/stone", () -> new BlockItem(STONE_ANVIL.get(), new Item.Properties().group(ModSetup.REALISTECH_MACHINES)));
 		
 		//Flowers
 		public static final RegistryObject<Item> GOLDENROD_ITEM = ITEMS.register("goldenrod", () -> new BlockItem(GOLDENROD.get(), new Item.Properties().group(ModSetup.REALISTECH_MISC)));
@@ -234,6 +265,9 @@ public class Registration {
 		
 		//Clays
 		public static final RegistryObject<Item> KAOLINITE_CLAY_ITEM = ITEMS.register("kaolinite_clay", () -> new BlockItem(KAOLINITE_CLAY.get(), new Item.Properties().group(ModSetup.REALISTECH_MISC)));
+		
+		//Misc Blocks
+		public static final RegistryObject<Item> FIREBRICKS_ITEM = ITEMS.register("firebricks", () -> new BlockItem(FIREBRICKS.get(), new Item.Properties().group(ModSetup.REALISTECH_MISC)));
 		
 	//Items
 		

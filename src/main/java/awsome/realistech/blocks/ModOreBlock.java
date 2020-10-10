@@ -11,7 +11,7 @@ import net.minecraftforge.common.ToolType;
 
 public class ModOreBlock extends Block {
 	
-	public static final List<ModOreBlock> ORES = new ArrayList<>();
+	private static final List<ModOreBlock> ORES = new ArrayList<>();
 	
 	public ModOreBlock(int harvestLevel) {
 		super(Properties.create(Material.ROCK)

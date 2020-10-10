@@ -1,0 +1,9 @@
+{
+  "parent": "realistech:block/anvils/anvil_base",
+  "textures": {
+    "0": "block/stone",
+    "1": "block/smooth_stone",
+    "2": "block/smooth_stone_slab_side",
+    "particle": "block/stone"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "realistech:kiln",
+  "input": {
+    "item": "realistech:ceramic_molds/unfired/axe"
+  },
+  "output": {
+    "item": "realistech:ceramic_molds/fired/axe"
+  },
+  "firing_temperature": 1000
+}

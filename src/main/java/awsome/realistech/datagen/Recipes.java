@@ -2,8 +2,12 @@ package awsome.realistech.datagen;
 
 import java.util.function.Consumer;
 
+import awsome.realistech.data.generators.AnvilRecipeBuilder;
 import awsome.realistech.data.generators.HandworkRecipeBuilder;
+import awsome.realistech.data.generators.KilnRecipeBuilder;
 import awsome.realistech.data.generators.NonConsumingShapelessRecipeBuilder;
+import awsome.realistech.data.generators.WeakSmeltingRecipeBuilder;
+import awsome.realistech.data.tags.ModTags;
 import awsome.realistech.registry.Registration;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.data.CookingRecipeBuilder;
@@ -40,6 +44,9 @@ public class Recipes extends RecipeProvider {
 		//Shaped Recipes
 		
 		ShapedRecipeBuilder.shapedRecipe(Registration.KILN.get()).patternLine("###").patternLine("# #").patternLine("###").key('#', Registration.KILN_BRICK.get()).addCriterion("kiln_brick_obtained", InventoryChangeTrigger.Instance.forItems(Registration.KILN_BRICK.get())).build(consumer);
+		ShapedRecipeBuilder.shapedRecipe(Registration.WEAK_FURNACE.get()).patternLine("BBB").patternLine("BFB").patternLine("BBB").key('B', Registration.FIREBRICK.get()).key('F', Items.FURNACE).addCriterion("furnace_obtained", InventoryChangeTrigger.Instance.forItems(Items.FURNACE)).build(consumer);
+		ShapedRecipeBuilder.shapedRecipe(Registration.FIREBOX.get()).patternLine("PPP").patternLine("B B").patternLine("BBB").key('P', Registration.COPPER_PLATE.get()).key('B', Registration.FIREBRICKS_ITEM.get()).addCriterion("firebrick_obtained", InventoryChangeTrigger.Instance.forItems(Registration.FIREBRICK.get())).build(consumer);
+		ShapedRecipeBuilder.shapedRecipe(Registration.CRUCIBLE.get()).patternLine("# #").patternLine("# #").patternLine("###").key('#', Registration.FIREBRICK.get()).addCriterion("firebrick_obtained", InventoryChangeTrigger.Instance.forItems(Registration.FIREBRICK.get())).build(consumer);
 		
 		//Shapeless Recipes With a Catalyst
 		
@@ -47,9 +54,23 @@ public class Recipes extends RecipeProvider {
 		NonConsumingShapelessRecipeBuilder.nonConsumingShapelessRecipe(Registration.UNFIRED_CLAY_BRICK.get()).addIngredient(Ingredient.fromItems(Items.CLAY_BALL)).addIngredient(Ingredient.fromItems(Registration.PRIMITIVE_BRICK_MOLD.get())).addNonConsumedIngredient(Ingredient.fromItems(Registration.PRIMITIVE_BRICK_MOLD.get())).build(consumer);
 		NonConsumingShapelessRecipeBuilder.nonConsumingShapelessRecipe(Registration.UNFIRED_KAOLINITE_BRICK.get()).addIngredient(Ingredient.fromItems(Registration.KAOLINITE_CLAY_BALL.get())).addIngredient(Ingredient.fromItems(Registration.PRIMITIVE_BRICK_MOLD.get())).addNonConsumedIngredient(Ingredient.fromItems(Registration.PRIMITIVE_BRICK_MOLD.get())).build(consumer);
 		
-		//Smelting Recipes
+		//Vanilla Furnace Smelting Recipes
 		
 		CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(Registration.UNFIRED_KILN_BRICK.get()), Registration.KILN_BRICK.get(), 0.3f, 200).addCriterion("kiln_clay_ball", InventoryChangeTrigger.Instance.forItems(Registration.KILN_CLAY_BALL.get())).build(consumer);
+		
+		//Mod Furnace Smelting Recipes
+		
+		WeakSmeltingRecipeBuilder.weakSmeltingRecipe(Ingredient.fromItems(Registration.COPPER_CLUSTER.get()), Registration.COPPER_CHUNK.get(), 0.3f).build(consumer, "weak_smelting/", true);
+		
+		//Kiln Recipes
+		
+		KilnRecipeBuilder.kilnRecipe(Ingredient.fromItems(Registration.UNFIRED_CERAMIC_AXE_MOLD.get()), Registration.FIRED_CERAMIC_AXE_MOLD.get(), 1000).build(consumer, "kiln/", true);
+		KilnRecipeBuilder.kilnRecipe(Ingredient.fromItems(Registration.UNFIRED_CERAMIC_INGOT_MOLD.get()), Registration.FIRED_CERAMIC_INGOT_MOLD.get(), 1000).build(consumer, "kiln/", true);
+		KilnRecipeBuilder.kilnRecipe(Ingredient.fromItems(Registration.UNFIRED_CERAMIC_PICKAXE_MOLD.get()), Registration.FIRED_CERAMIC_PICKAXE_MOLD.get(), 1000).build(consumer, "kiln/", true);
+		KilnRecipeBuilder.kilnRecipe(Ingredient.fromItems(Registration.UNFIRED_CERAMIC_SHOVEL_MOLD.get()), Registration.FIRED_CERAMIC_SHOVEL_MOLD.get(), 1000).build(consumer, "kiln/", true);
+		KilnRecipeBuilder.kilnRecipe(Ingredient.fromItems(Registration.UNFIRED_CERAMIC_SWORD_MOLD.get()), Registration.FIRED_CERAMIC_SWORD_MOLD.get(), 1000).build(consumer, "kiln/", true);
+		KilnRecipeBuilder.kilnRecipe(Ingredient.fromItems(Registration.UNFIRED_CERAMIC_PROPICK_MOLD.get()), Registration.FIRED_CERAMIC_PROPICK_MOLD.get(), 1000).build(consumer, "kiln/", true);
+		KilnRecipeBuilder.kilnRecipe(Ingredient.fromItems(Registration.UNFIRED_KAOLINITE_BRICK.get()), Registration.FIREBRICK.get(), 1000).build(consumer, "kiln/", true);
 		
 		//Knapping Recipes
 		
@@ -66,5 +87,17 @@ public class Recipes extends RecipeProvider {
 		HandworkRecipeBuilder.moldingRecipe(Registration.UNFIRED_CERAMIC_PROPICK_MOLD.get(), true).recipeItem(Ingredient.fromItems(Items.CLAY_BALL)).patternLine("     ").patternLine(" ####").patternLine("#   #").patternLine("    #").patternLine("     ").build(consumer, "handworking/", true);
 		HandworkRecipeBuilder.moldingRecipe(Registration.UNFIRED_CERAMIC_INGOT_MOLD.get(), true).recipeItem(Ingredient.fromItems(Items.CLAY_BALL)).patternLine("     ").patternLine(" ##  ").patternLine(" ##  ").patternLine(" ##  ").patternLine("     ").build(consumer, "handworking/", true);
 		HandworkRecipeBuilder.moldingRecipe(Registration.UNFIRED_CERAMIC_SWORD_MOLD.get(), true).recipeItem(Ingredient.fromItems(Items.CLAY_BALL)).patternLine("   ##").patternLine("  ###").patternLine(" ### ").patternLine(" ##  ").patternLine("#    ").build(consumer, "handworking/", true);
+		
+		//Anvil Recipes
+		
+		AnvilRecipeBuilder.anvilRecipe(Ingredient.fromItems(Registration.COPPER_CHUNK.get()), Ingredient.fromItems(Registration.COPPER_CHUNK.get()), Registration.CRUDE_COPPER_INGOT.get()).build(consumer, "anvil/", true);
+		AnvilRecipeBuilder.anvilRecipe(Ingredient.fromItems(Registration.CRUDE_COPPER_INGOT.get()), Ingredient.fromItems(Registration.CRUDE_COPPER_INGOT.get()), Registration.COPPER_PLATE.get()).build(consumer, "realistech:anvil/plates/copper_plate_from_crude_copper", false);
+		AnvilRecipeBuilder.anvilRecipe(Ingredient.fromTag(ModTags.Items.COPPER_INGOT), Ingredient.fromTag(ModTags.Items.COPPER_INGOT), Registration.COPPER_PLATE.get()).build(consumer, "anvil/", true);
+		AnvilRecipeBuilder.anvilRecipe(Ingredient.fromTag(ModTags.Items.TIN_INGOT), Ingredient.fromTag(ModTags.Items.TIN_INGOT), Registration.TIN_PLATE.get()).build(consumer, "anvil/", true);
+		AnvilRecipeBuilder.anvilRecipe(Ingredient.fromTag(ModTags.Items.NICKEL_INGOT), Ingredient.fromTag(ModTags.Items.NICKEL_INGOT), Registration.NICKEL_PLATE.get()).build(consumer, "anvil/", true);
+		AnvilRecipeBuilder.anvilRecipe(Ingredient.fromTag(ModTags.Items.SILVER_INGOT), Ingredient.fromTag(ModTags.Items.SILVER_INGOT), Registration.SILVER_PLATE.get()).build(consumer, "anvil/", true);
+		AnvilRecipeBuilder.anvilRecipe(Ingredient.fromTag(ModTags.Items.LEAD_INGOT), Ingredient.fromTag(ModTags.Items.LEAD_INGOT), Registration.LEAD_PLATE.get()).build(consumer, "anvil/", true);
+		AnvilRecipeBuilder.anvilRecipe(Ingredient.fromTag(ModTags.Items.COBALT_INGOT), Ingredient.fromTag(ModTags.Items.COBALT_INGOT), Registration.COBALT_PLATE.get()).build(consumer, "anvil/", true);
+		AnvilRecipeBuilder.anvilRecipe(Ingredient.fromTag(ModTags.Items.ZINC_INGOT), Ingredient.fromTag(ModTags.Items.ZINC_INGOT), Registration.ZINC_PLATE.get()).build(consumer, "anvil/", true);
 	}
 }

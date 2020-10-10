@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import awsome.realistech.Reference;
+import awsome.realistech.blocks.AnvilBlock;
 import awsome.realistech.blocks.ModOreBlock;
 import awsome.realistech.blocks.OreSampleBlock;
 import awsome.realistech.registry.Registration;
@@ -24,6 +25,7 @@ public class BlockStates extends BlockStateProvider {
 	
 	private static List<ModOreBlock> ORE_LIST = ModOreBlock.getOreList();
 	private static List<OreSampleBlock> SAMPLE_LIST = OreSampleBlock.getSampleList();
+	private static List<AnvilBlock> ANVIL_LIST = AnvilBlock.getAnvilList();
 
 	protected BlockStates(DataGenerator gen, ExistingFileHelper helper) {
 		super(gen, Reference.MODID, helper);
@@ -36,11 +38,14 @@ public class BlockStates extends BlockStateProvider {
 		registerCrucible();
 		registerOreSamples();
 		registerKiln();
+		registerAnvils();
 		registerVanillaClayGrass();
 		registerKaoliniteClayGrass();
 		registerFlower(Registration.GOLDENROD.get());
 		registerFlower(Registration.KAOLINITE_LILY.get());
 		registerSimpleBlock(Registration.KAOLINITE_CLAY.get());
+		registerSimpleBlock(Registration.FIREBRICKS.get());
+		registerMediumHeatFurnace();
 	}
 	
 	private void registerFlower(Block block) {
@@ -51,6 +56,13 @@ public class BlockStates extends BlockStateProvider {
 
 	private void registerSimpleBlock(Block block) {
 		ResourceLocation texture = new ResourceLocation(Reference.MODID, "blocks/" + block.getRegistryName().getPath());
+		BlockModelBuilder modelSimpleBlock = models().cubeAll("block/" + block.getRegistryName().getPath(), texture).texture("particle", texture);
+		simpleBlock(block, modelSimpleBlock);
+	}
+	
+	@SuppressWarnings("unused")
+	private void registerSimpleBlock(Block block, String middleTexturePath) {
+		ResourceLocation texture = new ResourceLocation(Reference.MODID, "blocks/" + middleTexturePath + block.getRegistryName().getPath());
 		BlockModelBuilder modelSimpleBlock = models().cubeAll("block/" + block.getRegistryName().getPath(), texture).texture("particle", texture);
 		simpleBlock(block, modelSimpleBlock);
 	}
@@ -90,11 +102,33 @@ public class BlockStates extends BlockStateProvider {
 	private void registerFirebox() {
 		ResourceLocation tex = new ResourceLocation(Reference.MODID, "blocks/machines/firebox_side");
 		ResourceLocation tex1 = new ResourceLocation(Reference.MODID, "blocks/machines/firebox_top");
-		ResourceLocation tex2 = new ResourceLocation(Reference.MODID, "blocks/machines/firebox_bottom");
+		ResourceLocation tex2 = new ResourceLocation(Reference.MODID, "blocks/firebricks");
 		ResourceLocation tex3 = new ResourceLocation(Reference.MODID, "blocks/machines/firebox_front");
+		ResourceLocation tex4 = new ResourceLocation(Reference.MODID, "blocks/machines/firebox_front_on");
 		BlockModelBuilder modelFirebox = models().cube("block/machines/firebox", tex2, tex1, tex3, tex, tex, tex).texture("particle", tex3);
+		BlockModelBuilder modelFireboxLit = models().cube("block/machines/firebox_lit", tex2, tex1, tex4, tex, tex, tex).texture("particle", tex3);
 		orientedBlock(Registration.FIREBOX.get(), state -> {
-			return modelFirebox;
+			if (state.get(BlockStateProperties.LIT)) {
+				return modelFireboxLit;
+			}else{
+				return modelFirebox;
+			}
+		});
+	}
+	
+	private void registerMediumHeatFurnace() {
+		ResourceLocation tex = new ResourceLocation(Reference.MODID, "blocks/machines/weak_furnace_side");
+		ResourceLocation tex1 = new ResourceLocation(Reference.MODID, "blocks/machines/weak_furnace_top");
+		ResourceLocation tex3 = new ResourceLocation(Reference.MODID, "blocks/machines/weak_furnace_front");
+		ResourceLocation tex4 = new ResourceLocation(Reference.MODID, "blocks/machines/weak_furnace_front_on");
+		BlockModelBuilder modelMedHeatFurnace = models().cube("block/machines/weak_furnace", tex1, tex1, tex3, tex, tex, tex).texture("particle", tex3);
+		BlockModelBuilder modelMedHeatFurnaceLit = models().cube("block/machines/weak_furnace_lit", tex1, tex1, tex4, tex, tex, tex).texture("particle", tex3);
+		orientedBlock(Registration.WEAK_FURNACE.get(), state -> {
+			if (state.get(BlockStateProperties.LIT)) {
+				return modelMedHeatFurnaceLit;
+			}else{
+				return modelMedHeatFurnace;
+			}
 		});
 	}
 	
@@ -123,6 +157,20 @@ public class BlockStates extends BlockStateProvider {
 				ResourceLocation texture = new ResourceLocation(Reference.MODID, "items/clusters/" + sample.getRegistryName().getPath().substring(0, sample.getRegistryName().getPath().length() - 7));
 				BlockModelBuilder modelSample = models().withExistingParent("block/ores/samples/" + sample.getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/samples/cluster_base")).texture("2", texture).texture("particle", texture);
 				simpleBlock(sample, modelSample);
+			}
+		}
+	}
+	
+	private void registerAnvils() {
+		for (AnvilBlock anvil : ANVIL_LIST) {
+			if (anvil.equals(Registration.STONE_ANVIL.get())) {
+				ResourceLocation tex = new ResourceLocation("minecraft:block/stone");
+				ResourceLocation tex1 = new ResourceLocation("minecraft:block/smooth_stone");
+				ResourceLocation tex2 = new ResourceLocation("minecraft:block/smooth_stone_slab_side");
+				BlockModelBuilder modelAnvil = models().withExistingParent("block/anvils/" + anvil.getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/anvils/anvil_base")).texture("0", tex).texture("1", tex1).texture("2", tex2).texture("particle", tex);
+				orientedBlock(anvil, state -> {
+					return modelAnvil;
+				});
 			}
 		}
 	}

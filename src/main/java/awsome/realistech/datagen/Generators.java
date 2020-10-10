@@ -1,5 +1,6 @@
 package awsome.realistech.datagen;
 
+import awsome.realistech.datagen.I18n.EnUsLang;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -14,6 +15,7 @@ public class Generators {
 	        if (event.includeClient()) {
 	            generator.addProvider(new BlockStates(generator, event.getExistingFileHelper()));
 	            generator.addProvider(new Items(generator, event.getExistingFileHelper()));
+	            generator.addProvider(new EnUsLang(generator));
 	        }
 	        if (event.includeServer()) {
 	        	generator.addProvider(new LootTables(generator));

@@ -3,7 +3,6 @@ package awsome.realistech.tileentity;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import awsome.realistech.Realistech;
 import awsome.realistech.api.capability.energy.HeatCapability;
 import awsome.realistech.api.capability.energy.IHeat;
 import awsome.realistech.api.capability.impl.HeatHandler;
@@ -234,7 +233,7 @@ public class KilnTileEntity extends TileEntity implements ITickableTileEntity {
 			RecipeWrapper recipeWrapper = new RecipeWrapper(recipeItemHandler);
 			IRecipe<?> recipe2 = this.world.getRecipeManager().getRecipe(this.recipeType, recipeWrapper, this.world).orElse(null);
 			if (!this.itemHandler.getStackInSlot(i).isEmpty() && recipe2 != null) {
-				if (this.heatHandler.getTemperature() >= 1000.0f) {
+				if (this.heatHandler.getTemperature() >= ((KilnRecipe) recipe2).getFiringTemp()) {
 					ItemStack output = recipe2.getRecipeOutput().copy();
 					if (output.isEmpty()) {
 						return false;
@@ -277,7 +276,7 @@ public class KilnTileEntity extends TileEntity implements ITickableTileEntity {
 			if (recipe2 != null && canFire()) {
 				ItemStack inputStack = this.itemHandler.getStackInSlot(i);
 				ItemStack outputStack = recipe2.getRecipeOutput().copy();
-				Realistech.LOGGER.info("Recipe result for kiln is:" + outputStack.toString());
+				//Realistech.LOGGER.info("Recipe result for kiln is:" + outputStack.toString());
 				ItemStack itemInOutputSlot = ItemStack.EMPTY;
 				int outputSlotIndex = 5;
 				for (int j = 5; j < this.itemHandler.getSlots(); j++) {
@@ -292,7 +291,7 @@ public class KilnTileEntity extends TileEntity implements ITickableTileEntity {
 						continue;
 					}
 				}
-				Realistech.LOGGER.info("Item in kiln's result slot is:" + itemInOutputSlot.toString());
+				//Realistech.LOGGER.info("Item in kiln's result slot is:" + itemInOutputSlot.toString());
 				if (itemInOutputSlot.isEmpty()) {
 					this.itemHandler.setStackInSlot(outputSlotIndex, outputStack.copy());
 				}else if (itemInOutputSlot.getItem() == inputStack.getItem()) {

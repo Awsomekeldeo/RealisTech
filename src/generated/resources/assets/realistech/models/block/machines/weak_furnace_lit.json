@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "realistech:blocks/machines/weak_furnace_top",
+    "up": "realistech:blocks/machines/weak_furnace_top",
+    "north": "realistech:blocks/machines/weak_furnace_front_on",
+    "south": "realistech:blocks/machines/weak_furnace_side",
+    "east": "realistech:blocks/machines/weak_furnace_side",
+    "west": "realistech:blocks/machines/weak_furnace_side",
+    "particle": "realistech:blocks/machines/weak_furnace_front"
+  }
+}

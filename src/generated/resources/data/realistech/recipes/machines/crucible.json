@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "realistech:firebrick"
+    }
+  },
+  "result": {
+    "item": "realistech:machines/crucible"
+  }
+}

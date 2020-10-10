@@ -1,18 +1,33 @@
 {
   "variants": {
-    "facing=north": {
+    "facing=north,lit=false": {
       "model": "realistech:block/machines/firebox"
     },
-    "facing=south": {
+    "facing=south,lit=false": {
       "model": "realistech:block/machines/firebox",
       "y": 180
     },
-    "facing=west": {
+    "facing=west,lit=false": {
       "model": "realistech:block/machines/firebox",
       "y": 270
     },
-    "facing=east": {
+    "facing=east,lit=false": {
       "model": "realistech:block/machines/firebox",
+      "y": 90
+    },
+    "facing=north,lit=true": {
+      "model": "realistech:block/machines/firebox_lit"
+    },
+    "facing=south,lit=true": {
+      "model": "realistech:block/machines/firebox_lit",
+      "y": 180
+    },
+    "facing=west,lit=true": {
+      "model": "realistech:block/machines/firebox_lit",
+      "y": 270
+    },
+    "facing=east,lit=true": {
+      "model": "realistech:block/machines/firebox_lit",
       "y": 90
     }
   }

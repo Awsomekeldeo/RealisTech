@@ -1,0 +1,12 @@
+{
+  "type": "realistech:anvil_hammering",
+  "first_input": {
+    "item": "realistech:ingots/crude_copper_ingot"
+  },
+  "second_input": {
+    "item": "realistech:ingots/crude_copper_ingot"
+  },
+  "result": {
+    "item": "realistech:plates/copper_plate"
+  }
+}

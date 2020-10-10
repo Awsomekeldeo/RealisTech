@@ -145,7 +145,6 @@ public class Realistech {
 	@SubscribeEvent
 	public void onDropsHarvested(BreakEvent event) {
 		BlockState blockTargeted = event.getState();
-		LOGGER.info(blockTargeted.getBlock().toString());
 		if (blockTargeted.getBlock().getTags().contains(new ResourceLocation("minecraft:logs"))) {
 			if (event.getPlayer().getHeldItemMainhand() == ItemStack.EMPTY) {
 				if(!event.getPlayer().world.isRemote) {

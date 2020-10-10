@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "realistech:machines/weak_furnace"
+    ]
+  },
+  "criteria": {
+    "furnace_obtained": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:furnace"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "realistech:machines/weak_furnace"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "furnace_obtained",
+      "has_the_recipe"
+    ]
+  ]
+}

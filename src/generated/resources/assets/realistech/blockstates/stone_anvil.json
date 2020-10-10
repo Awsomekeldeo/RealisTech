@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "realistech:block/anvils/stone_anvil"
+    },
+    "facing=south": {
+      "model": "realistech:block/anvils/stone_anvil",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "realistech:block/anvils/stone_anvil",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "realistech:block/anvils/stone_anvil",
+      "y": 90
+    }
+  }
+}

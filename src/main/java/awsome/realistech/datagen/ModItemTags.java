@@ -23,6 +23,13 @@ public class ModItemTags extends ItemTagsProvider {
 		this.getBuilder(ModTags.Items.LEAD_INGOT).add(Registration.LEAD_INGOT.get());
 		this.getBuilder(ModTags.Items.COBALT_INGOT).add(Registration.COBALT_INGOT.get());
 		this.getBuilder(ModTags.Items.ZINC_INGOT).add(Registration.ZINC_INGOT.get());
+		this.getBuilder(ModTags.Items.COPPER_PLATE).add(Registration.COPPER_PLATE.get());
+		this.getBuilder(ModTags.Items.TIN_PLATE).add(Registration.TIN_PLATE.get());
+		this.getBuilder(ModTags.Items.NICKEL_PLATE).add(Registration.NICKEL_PLATE.get());
+		this.getBuilder(ModTags.Items.SILVER_PLATE).add(Registration.SILVER_PLATE.get());
+		this.getBuilder(ModTags.Items.LEAD_PLATE).add(Registration.LEAD_PLATE.get());
+		this.getBuilder(ModTags.Items.COBALT_PLATE).add(Registration.COBALT_PLATE.get());
+		this.getBuilder(ModTags.Items.ZINC_PLATE).add(Registration.ZINC_PLATE.get());
 	}
 	
 }

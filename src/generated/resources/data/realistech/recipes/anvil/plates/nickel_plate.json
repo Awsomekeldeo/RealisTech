@@ -1,0 +1,12 @@
+{
+  "type": "realistech:anvil_hammering",
+  "first_input": {
+    "tag": "forge:ingots/nickel"
+  },
+  "second_input": {
+    "tag": "forge:ingots/nickel"
+  },
+  "result": {
+    "item": "realistech:plates/nickel_plate"
+  }
+}

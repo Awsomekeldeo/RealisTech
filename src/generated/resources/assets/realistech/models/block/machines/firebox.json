@@ -1,7 +1,7 @@
 {
   "parent": "block/cube",
   "textures": {
-    "down": "realistech:blocks/machines/firebox_bottom",
+    "down": "realistech:blocks/firebricks",
     "up": "realistech:blocks/machines/firebox_top",
     "north": "realistech:blocks/machines/firebox_front",
     "south": "realistech:blocks/machines/firebox_side",

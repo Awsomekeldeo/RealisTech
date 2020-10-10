@@ -1,0 +1,12 @@
+{
+  "type": "realistech:anvil_hammering",
+  "first_input": {
+    "item": "realistech:chunks/copper_chunk"
+  },
+  "second_input": {
+    "item": "realistech:chunks/copper_chunk"
+  },
+  "result": {
+    "item": "realistech:ingots/crude_copper_ingot"
+  }
+}

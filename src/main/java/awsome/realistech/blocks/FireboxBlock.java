@@ -1,5 +1,7 @@
 package awsome.realistech.blocks;
 
+import java.util.Random;
+
 import awsome.realistech.inventory.container.FireboxContainer;
 import awsome.realistech.tileentity.FireboxTileEntity;
 import net.minecraft.block.Block;
@@ -12,11 +14,15 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.ITextComponent;
@@ -36,6 +42,7 @@ public class FireboxBlock extends Block {
 				.harvestTool(ToolType.PICKAXE)
 				.harvestLevel(0)
 		);
+		setDefaultState(this.stateContainer.getBaseState().with(BlockStateProperties.LIT, false));
 	}
 
 	@Override
@@ -51,6 +58,27 @@ public class FireboxBlock extends Block {
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		return getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
+	}
+	
+	@Override
+	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+		if (stateIn.get(BlockStateProperties.LIT)) {
+			double d0 = (double)pos.getX() + 0.5D;
+			double d1 = (double)pos.getY();
+			double d2 = (double)pos.getZ() + 0.5D;
+			if (rand.nextDouble() < 0.1D) {
+				worldIn.playSound(d0, d1, d2, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+			}
+
+			Direction direction = stateIn.get(BlockStateProperties.HORIZONTAL_FACING);
+			Direction.Axis direction$axis = direction.getAxis();
+			double d4 = rand.nextDouble() * 0.6D - 0.3D;
+			double d5 = direction$axis == Direction.Axis.X ? (double)direction.getXOffset() * 0.52D : d4;
+			double d6 = rand.nextDouble() * 6.0D / 16.0D;
+			double d7 = direction$axis == Direction.Axis.Z ? (double)direction.getZOffset() * 0.52D : d4;
+			worldIn.addParticle(ParticleTypes.SMOKE, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
+			worldIn.addParticle(ParticleTypes.FLAME, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
+		}
 	}
 
 	@Override
@@ -81,7 +109,7 @@ public class FireboxBlock extends Block {
 	
 	@Override
 	protected void fillStateContainer(Builder<Block, BlockState> builder) {
-		builder.add(BlockStateProperties.HORIZONTAL_FACING);
+		builder.add(BlockStateProperties.HORIZONTAL_FACING, BlockStateProperties.LIT);
 	}
 	
 	@Override
@@ -92,7 +120,7 @@ public class FireboxBlock extends Block {
 					spawnAsEntity(worldIn, pos, h.getStackInSlot(i));
 				}
 			});
+			worldIn.removeTileEntity(pos);
 		}
-		worldIn.removeTileEntity(pos);
 	}
 }
