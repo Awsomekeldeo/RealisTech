@@ -3,13 +3,18 @@ package awsome.realistech.compat.jei;
 import java.util.ArrayList;
 
 import awsome.realistech.Reference;
+import awsome.realistech.api.recipe.AnvilRecipe;
 import awsome.realistech.api.recipe.KilnRecipe;
 import awsome.realistech.api.recipe.KnappingRecipe;
 import awsome.realistech.api.recipe.MoldingRecipe;
+import awsome.realistech.api.recipe.WeakSmeltingRecipe;
 import awsome.realistech.client.gui.containter.screen.KilnScreen;
 import awsome.realistech.client.gui.containter.screen.KnappingScreen;
+import awsome.realistech.client.gui.containter.screen.MediumHeatFurnaceScreen;
 import awsome.realistech.client.gui.containter.screen.MoldingScreen;
+import awsome.realistech.compat.jei.categories.AnvilRecipeCategory;
 import awsome.realistech.compat.jei.categories.KilnRecipeCategory;
+import awsome.realistech.compat.jei.categories.WeakSmeltingRecipeCategory;
 import awsome.realistech.compat.jei.categories.handwork.KnappingRecipeCategory;
 import awsome.realistech.compat.jei.categories.handwork.MoldingRecipeCategory;
 import awsome.realistech.registry.Registration;
@@ -46,7 +51,9 @@ public class RealistechJEIPlugin implements IModPlugin {
 		registration.addRecipeCategories(
 			new KnappingRecipeCategory(guiHelper),
 			new MoldingRecipeCategory(guiHelper),
-			new KilnRecipeCategory(guiHelper)
+			new KilnRecipeCategory(guiHelper),
+			new AnvilRecipeCategory(guiHelper),
+			new WeakSmeltingRecipeCategory(guiHelper)
 		);
 		slotDrawable = guiHelper.getSlotDrawable();
 	}
@@ -56,6 +63,8 @@ public class RealistechJEIPlugin implements IModPlugin {
 		registration.addRecipes(new ArrayList<>(KnappingRecipe.recipeList.values()), KnappingRecipeCategory.UID);
 		registration.addRecipes(new ArrayList<>(MoldingRecipe.recipeList.values()), MoldingRecipeCategory.UID);
 		registration.addRecipes(new ArrayList<>(KilnRecipe.recipeList.values()), KilnRecipeCategory.UID);
+		registration.addRecipes(new ArrayList<>(AnvilRecipe.recipeList.values()), AnvilRecipeCategory.UID);
+		registration.addRecipes(new ArrayList<>(WeakSmeltingRecipe.recipeList.values()), WeakSmeltingRecipeCategory.UID);
 		registration.addIngredientInfo(new ItemStack(Registration.PLANT_FIBER.get()), VanillaTypes.ITEM, "gui.realistech.grass_fiber_description");
 	}
 	
@@ -63,6 +72,7 @@ public class RealistechJEIPlugin implements IModPlugin {
 	public void registerGuiHandlers(IGuiHandlerRegistration registration) {
 		registration.addRecipeClickArea(KnappingScreen.class, 109, 48, 22, 15, KnappingRecipeCategory.UID);
 		registration.addRecipeClickArea(MoldingScreen.class, 109, 48, 22, 15, MoldingRecipeCategory.UID);
+		registration.addRecipeClickArea(MediumHeatFurnaceScreen.class, 78, 32, 28, 23, WeakSmeltingRecipeCategory.UID, VanillaRecipeCategoryUid.FUEL, VanillaRecipeCategoryUid.FURNACE);
 		registration.addRecipeClickArea(KilnScreen.class, 71, 52, 22, 15, KilnRecipeCategory.UID, VanillaRecipeCategoryUid.FUEL);
 	}
 	
@@ -71,5 +81,7 @@ public class RealistechJEIPlugin implements IModPlugin {
 		registration.addRecipeCatalyst(new ItemStack(Registration.ROCK_ITEM.get()), KnappingRecipeCategory.UID);
 		registration.addRecipeCatalyst(new ItemStack(Items.CLAY_BALL), MoldingRecipeCategory.UID);
 		registration.addRecipeCatalyst(new ItemStack(Registration.KILN_ITEM.get()), KilnRecipeCategory.UID);
+		registration.addRecipeCatalyst(new ItemStack(Registration.STONE_ANVIL.get()), AnvilRecipeCategory.UID);
+		registration.addRecipeCatalyst(new ItemStack(Registration.WEAK_FURNACE.get()), WeakSmeltingRecipeCategory.UID, VanillaRecipeCategoryUid.FURNACE);
 	}
 }

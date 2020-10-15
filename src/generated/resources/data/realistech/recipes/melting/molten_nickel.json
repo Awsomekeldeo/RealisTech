@@ -1,0 +1,11 @@
+{
+  "type": "realistech:melting",
+  "input": {
+    "item": "realistech:ore_clusters/nickel_cluster"
+  },
+  "fluid": {
+    "id": "realistech:molten_nickel",
+    "amount": 144
+  },
+  "temperature": 1455.0
+}

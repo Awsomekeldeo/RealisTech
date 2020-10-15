@@ -3,6 +3,7 @@ package awsome.realistech.datagen.I18n;
 import awsome.realistech.Reference;
 import awsome.realistech.registry.Registration;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.item.Items;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class EnUsLang extends LanguageProvider {
@@ -15,6 +16,17 @@ public class EnUsLang extends LanguageProvider {
 	protected void addTranslations() {
 		
 		//Items Start
+		
+		//Buckets
+		add(Registration.MOLTEN_COPPER.asItem(), "Molten Copper Bucket");
+		add(Registration.MOLTEN_TIN.asItem(), "Molten Tin Bucket");
+		add(Registration.MOLTEN_NICKEL.asItem(), "Molten Nickel Bucket");
+		add(Registration.MOLTEN_SILVER.asItem(), "Molten Silver Bucket");
+		add(Registration.MOLTEN_LEAD.asItem(), "Molten Lead Bucket");
+		add(Registration.MOLTEN_COBALT.asItem(), "Molten Cobalt Bucket");
+		add(Registration.MOLTEN_ZINC.asItem(), "Molten Zinc Bucket");
+		add(Registration.MOLTEN_IRON.asItem(), "Molten Iron Bucket");
+		add(Registration.MOLTEN_GOLD.asItem(), "Molten Gold Bucket");
 		
 		//Ingots
 		add(Registration.COPPER_INGOT.get(), "Copper Ingot");
@@ -106,6 +118,9 @@ public class EnUsLang extends LanguageProvider {
 		
 		//Blocks Start
 		
+		//Vanilla Overrides
+		add(Items.FURNACE, "Weak Furnace");
+		
 		//Machines
 		add(Registration.FIREBOX.get(), "Firebox");
 		add(Registration.CRUCIBLE.get(), "Crucible");
@@ -161,6 +176,20 @@ public class EnUsLang extends LanguageProvider {
 		
 		//Blocks End
 		
+		//Fluids Start
+		
+		add("fluid.realistech.molten_copper", "Molten Copper");
+		add("fluid.realistech.molten_tin", "Molten Tin");
+		add("fluid.realistech.molten_nickel", "Molten Nickel");
+		add("fluid.realistech.molten_lead", "Molten Lead");
+		add("fluid.realistech.molten_silver", "Molten Silver");
+		add("fluid.realistech.molten_cobalt", "Molten Cobalt");
+		add("fluid.realistech.molten_zinc", "Molten Zinc");
+		add("fluid.realistech.molten_iron", "Molten Iron");
+		add("fluid.realistech.molten_gold", "Molten Gold");
+		
+		//Fluids End
+		
 		//Creative Tabs Start
 		
 		add("itemGroup.realistech.machines", "RealisTech Machines");
@@ -173,6 +202,12 @@ public class EnUsLang extends LanguageProvider {
 		
 		//Other Translation Entries Start
 		
+		//Vanilla Overrides
+		add("container.furnace", "Weak Furnace");
+		
+		//Mod Overrides
+		add("gui.jei.category.smelting", "Weak Smelting");
+		
 		add("container.realistech.firebox", "Firebox");
 		add("container.realistech.crucible", "Crucible");
 		add("container.realistech.kiln", "Kiln");
@@ -180,10 +215,12 @@ public class EnUsLang extends LanguageProvider {
 		add("container.realistech.molding", "Molding");
 		add("container.realistech.weak_furnace", "Furnace");
 		add("screen.realistech.jei_compat.kiln", "Kiln Firing");
+		add("screen.realistech.jei_compat.anvil", "Anvil Working");
 		add("realistech.info.temperature", "%s°C");
 		add("message.realistech.noBreak", "Your fists break!");
 		add("tooltip.realistech.brick", "\"I'm a brick!\"");
 		add("tooltip.realistech.fireclay", "Can be used as fireclay.");
+		
 		
 		//Other Translation Entries End
 	}

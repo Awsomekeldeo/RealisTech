@@ -1,19 +1,26 @@
 package awsome.realistech.inventory.container;
 
+import awsome.realistech.api.capability.impl.CrucibleTankHandler;
+import awsome.realistech.network.RealistechPacketHandler;
+import awsome.realistech.network.packet.SCrucibleTankUpdatePacket;
 import awsome.realistech.registry.Registration;
 import awsome.realistech.tileentity.CrucibleTileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.IntReferenceHolder;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -25,22 +32,29 @@ public class CrucibleContainer extends Container {
 	private PlayerEntity playerEntity;
 	private IItemHandler playerInventory;
 	private IntReferenceHolder crucibleData;
+	public NonNullList<FluidStack> crucibleTanks = NonNullList.create();
+	public int tankCapacity;
 	
 	public CrucibleContainer(int windowId, World world, BlockPos pos, PlayerInventory inventory, PlayerEntity player) {
 		super(Registration.CRUCIBLE_CONTAINER.get(), windowId);
+		this.crucibleTanks.add(FluidStack.EMPTY);
 		tileEntity = world.getTileEntity(pos);
 		this.playerEntity = player;
 		this.playerInventory = new InvWrapper(inventory);
 		
 		if (tileEntity != null) {
 			tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-				addSlot(new SlotItemHandler(h, 0, 82, 5));
-				addSlot(new SlotItemHandler(h, 1, 34, 100));
+				addSlot(new SlotItemHandler(h, 0, 79, 5));
+				addSlot(new SlotItemHandler(h, 1, 31, 100));
 			});
 			this.crucibleData = ((CrucibleTileEntity)tileEntity).crucibleData;
+		
+			tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).ifPresent(h -> {
+				this.crucibleTanks = ((CrucibleTankHandler)h).getStacks();
+			});
 		}
 		
-		layoutPlayerInventorySlots(10,132);
+		layoutPlayerInventorySlots(7,132);
 		trackTemperature();
 	}
 
@@ -51,6 +65,15 @@ public class CrucibleContainer extends Container {
 	
 	private void trackTemperature() {
 		trackInt(crucibleData);
+	}
+	
+	@Override
+	public void detectAndSendChanges() {
+		tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).ifPresent(h -> {
+			this.crucibleTanks = ((CrucibleTankHandler)h).getStacks();
+		});
+		RealistechPacketHandler.sendToClient(new SCrucibleTankUpdatePacket(this.crucibleTanks, this.tankCapacity), (ServerPlayerEntity)this.playerEntity);
+		super.detectAndSendChanges();
 	}
 	
 	@Override
@@ -119,8 +142,19 @@ public class CrucibleContainer extends Container {
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
     }
 	
+	
+	
 	public TileEntity getTileEntity() {
 		return this.tileEntity;
+	}
+	
+	public int getTankCapacity() {
+		return this.tankCapacity;
+	}
+	
+	@OnlyIn(Dist.CLIENT)
+	public FluidStack getFluidInTank(int tank) {
+		return this.crucibleTanks.get(tank);
 	}
 	
 	@OnlyIn(Dist.CLIENT)

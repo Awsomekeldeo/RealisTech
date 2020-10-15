@@ -1,0 +1,11 @@
+{
+  "type": "realistech:melting",
+  "input": {
+    "item": "realistech:ore_clusters/zinc_cluster"
+  },
+  "fluid": {
+    "id": "realistech:molten_zinc",
+    "amount": 144
+  },
+  "temperature": 419.0
+}

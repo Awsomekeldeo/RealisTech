@@ -20,30 +20,34 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class MeltingRecipe implements IRecipe<RecipeWrapper> {
 	
-	public static final IRecipeType<MeltingRecipe> melting_recipe = IRecipeType.register(new ResourceLocation(Reference.MODID, "melting").toString());
+	public static final IRecipeType<MeltingRecipe> MELTING_RECIPE = IRecipeType.register(new ResourceLocation(Reference.MODID, "melting").toString());
 	
 	private final IRecipeType<?> type;
 	protected final Ingredient input;
 	protected final FluidStack output;
-	protected final int meltTemp;
+	protected final float meltTemp;
 	protected final ResourceLocation id;
 	
-	public MeltingRecipe(ResourceLocation id, Ingredient input, FluidStack output, int meltTemp) {
+	public MeltingRecipe(ResourceLocation id, Ingredient input, FluidStack output, float meltTemp) {
 		this.id = id;
 		this.input = input;
 		this.output = output;
 		this.meltTemp = meltTemp;
-		type = melting_recipe;
+		type = MELTING_RECIPE;
 	}
 	
 	@Override
 	public boolean matches(RecipeWrapper inv, World worldIn) {
 		return this.input.test(inv.getStackInSlot(0));
 	}
+	
+	public float getMeltTemp() {
+		return this.meltTemp;
+	}
 
 	@Override
 	public ItemStack getCraftingResult(RecipeWrapper inv) {
-		return null;
+		return new ItemStack(this.output.getFluid().getFilledBucket()).copy();
 	}
 	
 	public FluidStack getResult() {
@@ -57,7 +61,7 @@ public class MeltingRecipe implements IRecipe<RecipeWrapper> {
 
 	@Override
 	public ItemStack getRecipeOutput() {
-		return null;
+		return new ItemStack(this.output.getFluid().getFilledBucket());
 	}
 
 	@Override
@@ -76,11 +80,16 @@ public class MeltingRecipe implements IRecipe<RecipeWrapper> {
 	}
 	
 	public static FluidStack deserializeFluid(JsonObject object) {
-		String s = JSONUtils.getString(object, "fluid");
+		String s = JSONUtils.getString(object, "id");
 		Fluid fluid = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(s));
 		if (fluid == null) {
 			throw new JsonSyntaxException("Unknown fluid '" + s + "'");
 		}
+		
+		if (!object.has("amount")) {
+			throw new JsonSyntaxException("Missing fluid amount");
+		}
+		
 		int i = JSONUtils.getInt(object, "amount");
 		return new FluidStack(fluid, i);
 	}

@@ -21,11 +21,13 @@ public class MeltingRecipeSerializer<T extends MeltingRecipe> extends ForgeRegis
 	
 	@Override
 	public MeltingRecipe read(ResourceLocation recipeId, JsonObject json) {
-		final JsonElement inputElement = JSONUtils.isJsonArray(json, "recipe_item") ? JSONUtils.getJsonArray(json, "recipe_item") : JSONUtils.getJsonObject(json, "recipe_item");
+		final JsonElement inputElement = JSONUtils.isJsonArray(json, "input") ? JSONUtils.getJsonArray(json, "input") : JSONUtils.getJsonObject(json, "input");
 		final Ingredient input = Ingredient.deserialize(inputElement);
 		
-		final FluidStack output = MeltingRecipe.deserializeFluid(json);
-		final int temp = JSONUtils.getInt(json, "temperature");
+		final JsonObject outputElement = JSONUtils.getJsonObject(json, "fluid");
+		final FluidStack output = MeltingRecipe.deserializeFluid(outputElement);
+		
+		final float temp = JSONUtils.getFloat(json, "temperature");
 		
 		return this.factory.create(recipeId, input, output, temp);
 	}
@@ -45,11 +47,11 @@ public class MeltingRecipeSerializer<T extends MeltingRecipe> extends ForgeRegis
 		recipe.input.write(buffer);
 		buffer.writeFluidStack(recipe.output);
 		buffer.writeResourceLocation(recipe.id);
-		buffer.writeInt(recipe.meltTemp);
+		buffer.writeFloat(recipe.meltTemp);
 	}
 	
 	public interface IFactory<T extends MeltingRecipe> {
-		T create(ResourceLocation resourceLocation, Ingredient ingredient, FluidStack output, int temp);
+		T create(ResourceLocation resourceLocation, Ingredient ingredient, FluidStack output, float temp);
 	}
 	
 	public MeltingRecipeSerializer.IFactory<T> getFactory() {

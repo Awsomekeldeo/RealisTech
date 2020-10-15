@@ -1,0 +1,11 @@
+{
+  "type": "realistech:melting",
+  "input": {
+    "item": "realistech:ore_clusters/tin_cluster"
+  },
+  "fluid": {
+    "id": "realistech:molten_tin",
+    "amount": 144
+  },
+  "temperature": 231.0
+}

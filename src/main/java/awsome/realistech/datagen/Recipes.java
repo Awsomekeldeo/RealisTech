@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import awsome.realistech.data.generators.AnvilRecipeBuilder;
 import awsome.realistech.data.generators.HandworkRecipeBuilder;
 import awsome.realistech.data.generators.KilnRecipeBuilder;
+import awsome.realistech.data.generators.MeltingRecipeBuilder;
 import awsome.realistech.data.generators.NonConsumingShapelessRecipeBuilder;
 import awsome.realistech.data.generators.WeakSmeltingRecipeBuilder;
 import awsome.realistech.data.tags.ModTags;
@@ -19,6 +20,7 @@ import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
+import net.minecraftforge.fluids.FluidStack;
 
 public class Recipes extends RecipeProvider {
 	
@@ -28,6 +30,18 @@ public class Recipes extends RecipeProvider {
 	
 	@Override
 	protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+		
+		//Melting Recipes
+		
+		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.COPPER_CLUSTER.get()), new FluidStack(Registration.MOLTEN_COPPER.get(), 144), 1085.0f).build(consumer, "melting/", true);
+		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.TIN_CLUSTER.get()), new FluidStack(Registration.MOLTEN_TIN.get(), 144), 231.0f).build(consumer, "melting/", true);
+		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.NICKEL_CLUSTER.get()), new FluidStack(Registration.MOLTEN_NICKEL.get(), 144), 1455.0f).build(consumer, "melting/", true);
+		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.SILVER_CLUSTER.get()), new FluidStack(Registration.MOLTEN_SILVER.get(), 144), 961.0f).build(consumer, "melting/", true);
+		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.LEAD_CLUSTER.get()), new FluidStack(Registration.MOLTEN_LEAD.get(), 144), 621.0f).build(consumer, "melting/", true);
+		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.COBALT_CLUSTER.get()), new FluidStack(Registration.MOLTEN_COBALT.get(), 144), 1495.0f).build(consumer, "melting/", true);
+		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.ZINC_CLUSTER.get()), new FluidStack(Registration.MOLTEN_ZINC.get(), 144), 419.0f).build(consumer, "melting/", true);
+		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.IRON_CLUSTER.get()), new FluidStack(Registration.MOLTEN_IRON.get(), 144), 419.0f).build(consumer, "melting/", true);
+		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.IRON_CLUSTER.get()), new FluidStack(Registration.MOLTEN_GOLD.get(), 144), 419.0f).build(consumer, "melting/", true);
 		
 		//Shapeless Recipes
 		

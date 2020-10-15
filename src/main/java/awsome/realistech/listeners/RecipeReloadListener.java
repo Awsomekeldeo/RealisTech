@@ -6,9 +6,11 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import awsome.realistech.api.recipe.AnvilRecipe;
 import awsome.realistech.api.recipe.KilnRecipe;
 import awsome.realistech.api.recipe.KnappingRecipe;
 import awsome.realistech.api.recipe.MoldingRecipe;
+import awsome.realistech.api.recipe.WeakSmeltingRecipe;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeManager;
@@ -48,6 +50,8 @@ public class RecipeReloadListener implements ISelectiveResourceReloadListener {
 		KnappingRecipe.recipeList = filterRecipes(recipes, KnappingRecipe.class, KnappingRecipe.KNAPPING);
 		MoldingRecipe.recipeList = filterRecipes(recipes, MoldingRecipe.class, MoldingRecipe.MOLDING);
 		KilnRecipe.recipeList = filterRecipes(recipes, KilnRecipe.class, KilnRecipe.KILN_RECIPE);
+		AnvilRecipe.recipeList = filterRecipes(recipes, AnvilRecipe.class, AnvilRecipe.ANVIL_RECIPE);
+		WeakSmeltingRecipe.recipeList = filterRecipes(recipes, WeakSmeltingRecipe.class, WeakSmeltingRecipe.WEAK_SMELTING_RECIPE);
 	}
 	
 	static <R extends IRecipe<?>> Map<ResourceLocation, R> filterRecipes(Collection<IRecipe<?>> recipes, Class<R> recipeClass, IRecipeType<R> recipeType)

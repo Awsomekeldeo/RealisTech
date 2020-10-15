@@ -10,6 +10,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
@@ -59,6 +60,11 @@ public class WeakSmeltingRecipe implements IRecipe<RecipeWrapper> {
 	public ResourceLocation getId() {
 		return this.id;
 	}
+	
+	@Override
+	public NonNullList<Ingredient> getIngredients() {
+		return NonNullList.from(input, input);
+	}
 
 	@Override
 	public IRecipeSerializer<?> getSerializer() {
@@ -70,6 +76,10 @@ public class WeakSmeltingRecipe implements IRecipe<RecipeWrapper> {
 	@Override
 	public IRecipeType<?> getType() {
 		return this.recipeType;
+	}
+
+	public float getExperience() {
+		return this.xp;
 	}
 
 }

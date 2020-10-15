@@ -1,0 +1,11 @@
+{
+  "type": "realistech:melting",
+  "input": {
+    "item": "realistech:ore_clusters/silver_cluster"
+  },
+  "fluid": {
+    "id": "realistech:molten_silver",
+    "amount": 144
+  },
+  "temperature": 961.0
+}

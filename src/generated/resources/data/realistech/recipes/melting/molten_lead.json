@@ -1,0 +1,11 @@
+{
+  "type": "realistech:melting",
+  "input": {
+    "item": "realistech:ore_clusters/lead_cluster"
+  },
+  "fluid": {
+    "id": "realistech:molten_lead",
+    "amount": 144
+  },
+  "temperature": 621.0
+}

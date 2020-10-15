@@ -41,11 +41,25 @@ public class BlockStates extends BlockStateProvider {
 		registerAnvils();
 		registerVanillaClayGrass();
 		registerKaoliniteClayGrass();
+		registerFluid(Registration.MOLTEN_COPPER.getBlock());
+		registerFluid(Registration.MOLTEN_TIN.getBlock());
+		registerFluid(Registration.MOLTEN_SILVER.getBlock());
+		registerFluid(Registration.MOLTEN_NICKEL.getBlock());
+		registerFluid(Registration.MOLTEN_LEAD.getBlock());
+		registerFluid(Registration.MOLTEN_COBALT.getBlock());
+		registerFluid(Registration.MOLTEN_ZINC.getBlock());
+		registerFluid(Registration.MOLTEN_IRON.getBlock());
+		registerFluid(Registration.MOLTEN_GOLD.getBlock());
 		registerFlower(Registration.GOLDENROD.get());
 		registerFlower(Registration.KAOLINITE_LILY.get());
 		registerSimpleBlock(Registration.KAOLINITE_CLAY.get());
 		registerSimpleBlock(Registration.FIREBRICKS.get());
 		registerMediumHeatFurnace();
+	}
+	
+	private void registerFluid(Block block) {
+		ExistingModelFile modelFluid = models().getExistingFile(new ResourceLocation(Reference.MODID, "block/fluids/molten"));
+		simpleBlock(block, modelFluid);
 	}
 	
 	private void registerFlower(Block block) {

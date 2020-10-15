@@ -1,5 +1,8 @@
 package awsome.realistech.api.recipe;
 
+import java.util.Collections;
+import java.util.Map;
+
 import awsome.realistech.Reference;
 import awsome.realistech.registry.Registration;
 import net.minecraft.item.ItemStack;
@@ -7,6 +10,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
@@ -39,6 +43,12 @@ public class AnvilRecipe implements IRecipe<RecipeWrapper> {
 	public ItemStack getCraftingResult(RecipeWrapper inv) {
 		return this.result.copy();
 	}
+	
+	@Override
+	public NonNullList<Ingredient> getIngredients() {
+		NonNullList<Ingredient> ingredients = NonNullList.from(ingredient1, ingredient1, ingredient2);
+		return ingredients;
+	}
 
 	@Override
 	public boolean canFit(int width, int height) {
@@ -59,6 +69,8 @@ public class AnvilRecipe implements IRecipe<RecipeWrapper> {
 	public IRecipeSerializer<?> getSerializer() {
 		return Registration.ANVIL_RECIPE_SERIALIZER.get();
 	}
+	
+	public static Map<ResourceLocation, AnvilRecipe> recipeList = Collections.emptyMap();
 
 	@Override
 	public IRecipeType<?> getType() {

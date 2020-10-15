@@ -4,6 +4,7 @@ import awsome.realistech.Reference;
 import awsome.realistech.network.packet.SSetSlotWithOffsetPacket;
 import awsome.realistech.network.packet.HandworkRecipePacket;
 import awsome.realistech.network.packet.SConsumeHandworkItemPacket;
+import awsome.realistech.network.packet.SCrucibleTankUpdatePacket;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkDirection;
@@ -39,6 +40,11 @@ public class RealistechPacketHandler {
 			.encoder(SConsumeHandworkItemPacket::toBytes)
 			.decoder(SConsumeHandworkItemPacket::new)
 			.consumer(SConsumeHandworkItemPacket::handle)
+			.add();
+		INSTANCE.messageBuilder(SCrucibleTankUpdatePacket.class, nextID())
+			.encoder(SCrucibleTankUpdatePacket::toBytes)
+			.decoder(SCrucibleTankUpdatePacket::new)
+			.consumer(SCrucibleTankUpdatePacket::handle)
 			.add();
 	}
 	

@@ -7,6 +7,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 
 import awsome.realistech.Reference;
 import awsome.realistech.inventory.container.CrucibleContainer;
+import awsome.realistech.util.RenderUtil;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
@@ -21,8 +22,8 @@ public class CrucibleScreen extends ContainerScreen<CrucibleContainer> {
 	public CrucibleScreen(CrucibleContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
 		super(screenContainer, inv, titleIn);
 		this.name = titleIn;
-		this.xSize = 180;
-		this.ySize = 216;
+		this.xSize = 175;
+		this.ySize = 214;
 	}
 	
 	@Override
@@ -32,7 +33,7 @@ public class CrucibleScreen extends ContainerScreen<CrucibleContainer> {
 		this.renderHoveredToolTip(mouseX, mouseY);
 		int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
-        if (mouseX >= i + 147 && mouseX <= i + 154 && mouseY >= j + 29 && mouseY <= j + 102)
+        if (mouseX >= i + 144 && mouseX <= i + 151 && mouseY >= j + 29 && mouseY <= j + 102)
         {
             List<String> lines = Lists.newArrayList();
             lines.add(I18n.format("realistech.info.temperature", ((CrucibleContainer)this.container).getTemperature()));
@@ -50,7 +51,9 @@ public class CrucibleScreen extends ContainerScreen<CrucibleContainer> {
 		int i = this.guiLeft;
 		int j = this.guiTop;
 		int l = ((CrucibleContainer)this.container).getTemperatureScaled();
-		this.blit(i + 148, j + 33 + 62 - l, 180, 1 + 62 - l, 6, l);
+		this.blit(i + 145, j + 33 + 62 - l, 175, 1 + 62 - l, 6, l);
+		
+		RenderUtil.renderFluidTanks(this, this.container.crucibleTanks, 4608, 63, 31, 48, 66, 100);
 	}
 	
 	@Override

@@ -52,6 +52,7 @@ import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.BlockItem;
@@ -62,11 +63,14 @@ import net.minecraft.item.ShovelItem;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -74,13 +78,14 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class Registration {
 	
-	private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Reference.MODID);
+	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Reference.MODID);
 	private static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, Reference.MODID);
 	private static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Reference.MODID);
-	private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MODID);
+	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MODID);
 	private static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Reference.MODID);
 	private static final DeferredRegister<GlobalLootModifierSerializer<?>> GLOBAL_LOOT_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, Reference.MODID);
-	
+	public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, Reference.MODID);
+	private static final FluidRegisterer FLUID_REGISTERER = new FluidRegisterer();
 	
 	public static void init() {
 		BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -89,7 +94,26 @@ public class Registration {
 		TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
 		RECIPE_SERIALIZERS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		GLOBAL_LOOT_MODIFIER_SERIALIZERS.register(FMLJavaModLoadingContext.get().getModEventBus());
+		FLUIDS.register(FMLJavaModLoadingContext.get().getModEventBus());
 	}
+	
+	private static FluidAttributes.Builder moltenBuilder() {
+		return FluidAttributes.builder(MOLTEN_STILL_TEXTURE, MOLTEN_FLOWING_TEXTURE).density(2000).viscosity(10000).temperature(1000);
+	}
+	
+	public static final ResourceLocation MOLTEN_STILL_TEXTURE = new ResourceLocation(Reference.MODID, "blocks/fluids/molten_metal_still");
+	public static final ResourceLocation MOLTEN_FLOWING_TEXTURE = new ResourceLocation(Reference.MODID, "blocks/fluids/molten_metal");
+	
+	//Fluids
+		public static final FluidObject<ForgeFlowingFluid> MOLTEN_COPPER = FLUID_REGISTERER.register("molten_copper", moltenBuilder().color(0xffc67b5b).temperature(1085), Material.LAVA, 9);
+		public static final FluidObject<ForgeFlowingFluid> MOLTEN_TIN = FLUID_REGISTERER.register("molten_tin", moltenBuilder().color(0xffacacac).temperature(231), Material.LAVA, 9);
+		public static final FluidObject<ForgeFlowingFluid> MOLTEN_NICKEL = FLUID_REGISTERER.register("molten_nickel", moltenBuilder().color(0xffb3b3a0).temperature(1455), Material.LAVA, 9);
+		public static final FluidObject<ForgeFlowingFluid> MOLTEN_SILVER = FLUID_REGISTERER.register("molten_silver", moltenBuilder().color(0xffb1b9b9).temperature(961), Material.LAVA, 9);
+		public static final FluidObject<ForgeFlowingFluid> MOLTEN_LEAD = FLUID_REGISTERER.register("molten_lead", moltenBuilder().color(0xff54545a).temperature(621), Material.LAVA, 9);
+		public static final FluidObject<ForgeFlowingFluid> MOLTEN_COBALT = FLUID_REGISTERER.register("molten_cobalt", moltenBuilder().color(0xffa0a09a).temperature(1495), Material.LAVA, 9);
+		public static final FluidObject<ForgeFlowingFluid> MOLTEN_ZINC = FLUID_REGISTERER.register("molten_zinc", moltenBuilder().color(0xffe0e0e0).temperature(419), Material.LAVA, 9);
+		public static final FluidObject<ForgeFlowingFluid> MOLTEN_IRON = FLUID_REGISTERER.register("molten_iron", moltenBuilder().color(0xffc15b5b).temperature(1538), Material.LAVA, 9);
+		public static final FluidObject<ForgeFlowingFluid> MOLTEN_GOLD = FLUID_REGISTERER.register("molten_gold", moltenBuilder().color(0xffbcc048).temperature(1064), Material.LAVA, 9);
 	
 	//Global Loot Modifiers
 		public static final RegistryObject<GrassDropSerializer> GRASS_DROP_OVERRIDE = GLOBAL_LOOT_MODIFIER_SERIALIZERS.register("grass_override", GrassDropSerializer::new);
