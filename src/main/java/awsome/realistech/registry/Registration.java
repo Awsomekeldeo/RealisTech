@@ -1,6 +1,8 @@
 package awsome.realistech.registry;
 
 import awsome.realistech.Reference;
+import awsome.realistech.api.recipe.AlloyRecipe;
+import awsome.realistech.api.recipe.AlloyRecipeSerializer;
 import awsome.realistech.api.recipe.AnvilRecipe;
 import awsome.realistech.api.recipe.AnvilRecipeSerializer;
 import awsome.realistech.api.recipe.HandworkRecipeSerializer;
@@ -12,6 +14,8 @@ import awsome.realistech.api.recipe.MeltingRecipeSerializer;
 import awsome.realistech.api.recipe.MoldingRecipe;
 import awsome.realistech.api.recipe.NonConsumingShapelessRecipe;
 import awsome.realistech.api.recipe.NonConsumingShaplessRecipeSerializer;
+import awsome.realistech.api.recipe.SolidificationRecipe;
+import awsome.realistech.api.recipe.SolidificationRecipeSerializer;
 import awsome.realistech.api.recipe.WeakSmeltingRecipe;
 import awsome.realistech.api.recipe.WeakSmeltingRecipeSerializer;
 import awsome.realistech.blocks.AnvilBlock;
@@ -38,6 +42,7 @@ import awsome.realistech.items.HammerItem;
 import awsome.realistech.items.IngotItem;
 import awsome.realistech.items.MortarItem;
 import awsome.realistech.items.OreClusterItem;
+import awsome.realistech.items.SolidCeramicMoldItem;
 import awsome.realistech.items.ToolHeadItem;
 import awsome.realistech.items.UnfiredCeramicMoldItem;
 import awsome.realistech.setup.ModSetup;
@@ -64,6 +69,7 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
@@ -98,7 +104,7 @@ public class Registration {
 	}
 	
 	private static FluidAttributes.Builder moltenBuilder() {
-		return FluidAttributes.builder(MOLTEN_STILL_TEXTURE, MOLTEN_FLOWING_TEXTURE).density(2000).viscosity(10000).temperature(1000);
+		return FluidAttributes.builder(MOLTEN_STILL_TEXTURE, MOLTEN_FLOWING_TEXTURE).density(2000).viscosity(10000).temperature(1000).sound(SoundEvents.ITEM_BUCKET_FILL_LAVA, SoundEvents.ITEM_BUCKET_EMPTY_LAVA);
 	}
 	
 	public static final ResourceLocation MOLTEN_STILL_TEXTURE = new ResourceLocation(Reference.MODID, "blocks/fluids/molten_metal_still");
@@ -114,6 +120,7 @@ public class Registration {
 		public static final FluidObject<ForgeFlowingFluid> MOLTEN_ZINC = FLUID_REGISTERER.register("molten_zinc", moltenBuilder().color(0xffe0e0e0).temperature(419), Material.LAVA, 9);
 		public static final FluidObject<ForgeFlowingFluid> MOLTEN_IRON = FLUID_REGISTERER.register("molten_iron", moltenBuilder().color(0xffc15b5b).temperature(1538), Material.LAVA, 9);
 		public static final FluidObject<ForgeFlowingFluid> MOLTEN_GOLD = FLUID_REGISTERER.register("molten_gold", moltenBuilder().color(0xffbcc048).temperature(1064), Material.LAVA, 9);
+		public static final FluidObject<ForgeFlowingFluid> MOLTEN_BRONZE = FLUID_REGISTERER.register("molten_bronze", moltenBuilder().color(0xffc69d5b).temperature(950), Material.LAVA, 9);
 	
 	//Global Loot Modifiers
 		public static final RegistryObject<GrassDropSerializer> GRASS_DROP_OVERRIDE = GLOBAL_LOOT_MODIFIER_SERIALIZERS.register("grass_override", GrassDropSerializer::new);
@@ -126,6 +133,8 @@ public class Registration {
 		public static final RegistryObject<HandworkRecipeSerializer<MoldingRecipe>> MOLDING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("molding", () -> new HandworkRecipeSerializer<>(MoldingRecipe::new));
 		public static final RegistryObject<WeakSmeltingRecipeSerializer<WeakSmeltingRecipe>> WEAK_SMELTING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("weak_smelting", () -> new WeakSmeltingRecipeSerializer<>(WeakSmeltingRecipe::new));
 		public static final RegistryObject<AnvilRecipeSerializer<AnvilRecipe>> ANVIL_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("anvil_hammering", () -> new AnvilRecipeSerializer<>(AnvilRecipe::new));
+		public static final RegistryObject<AlloyRecipeSerializer<AlloyRecipe>> ALLOY_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("alloying", () -> new AlloyRecipeSerializer<>(AlloyRecipe::new));
+		public static final RegistryObject<SolidificationRecipeSerializer<SolidificationRecipe>> SOLIDIFICATION_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("solidification", () -> new SolidificationRecipeSerializer<>(SolidificationRecipe::new));
 	
 	//Blocks
 		
@@ -329,6 +338,14 @@ public class Registration {
 		public static final RegistryObject<Item> COPPER_CHUNK = ITEMS.register("chunks/copper_chunk", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
 		
 		//Ceramic Molds
+		
+			//Fired, Solidified
+			public static final RegistryObject<SolidCeramicMoldItem> FIRED_FILLED_CERAMIC_INGOT_MOLD = ITEMS.register("ceramic_molds/fired/ingot_solidified", () -> new SolidCeramicMoldItem());
+			public static final RegistryObject<SolidCeramicMoldItem> FIRED_FILLED_CERAMIC_PICKAXE_MOLD = ITEMS.register("ceramic_molds/fired/pickaxe_solidified", () -> new SolidCeramicMoldItem());
+			public static final RegistryObject<SolidCeramicMoldItem> FIRED_FILLED_CERAMIC_AXE_MOLD = ITEMS.register("ceramic_molds/fired/axe_solidified", () -> new SolidCeramicMoldItem());
+			public static final RegistryObject<SolidCeramicMoldItem> FIRED_FILLED_CERAMIC_SHOVEL_MOLD = ITEMS.register("ceramic_molds/fired/shovel_solidified", () -> new SolidCeramicMoldItem());
+			public static final RegistryObject<SolidCeramicMoldItem> FIRED_FILLED_CERAMIC_SWORD_MOLD = ITEMS.register("ceramic_molds/fired/sword_solidified", () -> new SolidCeramicMoldItem());
+			public static final RegistryObject<SolidCeramicMoldItem> FIRED_FILLED_CERAMIC_PROPICK_MOLD = ITEMS.register("ceramic_molds/fired/prospectors_pickaxe_solidified", () -> new SolidCeramicMoldItem());
 		
 			//Fired
 			public static final RegistryObject<CeramicMoldItem> FIRED_CERAMIC_INGOT_MOLD = ITEMS.register("ceramic_molds/fired/ingot", () -> new CeramicMoldItem(144));

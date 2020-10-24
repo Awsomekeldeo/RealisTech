@@ -1,5 +1,7 @@
 package awsome.realistech.tileentity;
 
+import java.util.Map;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -7,23 +9,27 @@ import awsome.realistech.api.capability.energy.HeatCapability;
 import awsome.realistech.api.capability.energy.IHeat;
 import awsome.realistech.api.capability.impl.CrucibleTankHandler;
 import awsome.realistech.api.capability.impl.HeatHandler;
+import awsome.realistech.api.recipe.AlloyRecipe;
 import awsome.realistech.api.recipe.MeltingRecipe;
 import awsome.realistech.registry.Registration;
 import awsome.realistech.util.MathUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IntReferenceHolder;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -148,6 +154,21 @@ public class CrucibleTileEntity extends TileEntity implements ITickableTileEntit
 			stackInInputSlot.shrink(1);
 		}
 	}
+	
+	private void attemptAlloyRecipe() {
+		for (IRecipe<?> recipe : this.getRecipes(AlloyRecipe.ALLOY_RECIPE, this.world.getRecipeManager()).values()) {
+			if (recipe instanceof AlloyRecipe) {
+				AlloyRecipe alloyRecipe = (AlloyRecipe)recipe;
+				if (alloyRecipe.isValid(this.crucibleTank)) {
+					for (int i = 0; i < alloyRecipe.getInputs().size(); i++) {
+						this.crucibleTank.drain(alloyRecipe.getInputs().get(i), FluidAction.EXECUTE);
+					}
+					this.crucibleTank.fill(alloyRecipe.getResult(), FluidAction.EXECUTE);
+					markDirty();
+				}
+			}
+		}
+	}
 
 	@Override
 	public void tick() {
@@ -169,7 +190,12 @@ public class CrucibleTileEntity extends TileEntity implements ITickableTileEntit
 					this.meltRecipe(meltingRecipe);
 					markDirty();
 				}
+				
 			}
+			
+			attemptAlloyRecipe();
+			this.crucibleTank.balanceTanks();
+			fillMolds();
 			
 			if (this.heatHandler.getTemperature() < this.heatHandler.getMaxTemperature() && this.heatHandler.getTemperature() >= MathUtil.roundFloat(this.heatHandler.getBaseTempBasedOnBiome(this.getPos()), 2)) {
 				if(this.heatHandler.drawHeatFromSide(getPos(), Direction.DOWN)) {
@@ -184,4 +210,24 @@ public class CrucibleTileEntity extends TileEntity implements ITickableTileEntit
 			markDirty();
 		}
 	}
+	
+	private void fillMolds() {
+		ItemStack stackInMoldSlot = this.itemHandler.getStackInSlot(1);
+		stackInMoldSlot.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).ifPresent(h -> {
+			if (h.fill(this.crucibleTank.drain(1, FluidAction.SIMULATE), FluidAction.SIMULATE) > 0) {
+				stackInMoldSlot.getOrCreateTag().putInt("realistech:meltTemp", this.crucibleTank.drain(1, FluidAction.SIMULATE).getFluid().getAttributes().getTemperature());
+				h.fill(this.crucibleTank.drain(1, FluidAction.EXECUTE), FluidAction.EXECUTE);
+			}
+		});
+		
+		if (stackInMoldSlot.getCapability(HeatCapability.HEAT_CAPABILITY).isPresent()) {
+			IHeat h = stackInMoldSlot.getCapability(HeatCapability.HEAT_CAPABILITY).orElse(null);
+			h.setTemp(this.heatHandler.getTemperature());
+		}
+	}
+
+	private Map<ResourceLocation, IRecipe<?>> getRecipes (IRecipeType<?> recipeType, RecipeManager manager) {
+        final Map<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>> recipesMap = ObfuscationReflectionHelper.getPrivateValue(RecipeManager.class, manager, "field_199522_d");
+        return recipesMap.get(recipeType);
+    }
 }

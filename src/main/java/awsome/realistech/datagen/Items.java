@@ -130,13 +130,13 @@ public class Items extends ItemModelProvider {
 		singleTexture("item/" + Registration.UNFIRED_CERAMIC_PROPICK_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/unfired/propick_mold"));
 		singleTexture("item/" + Registration.UNFIRED_CERAMIC_INGOT_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/unfired/ingot_mold"));
 		
-		//Fired Molds
-		singleTexture("item/" + Registration.FIRED_CERAMIC_AXE_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/axe_mold"));
-		singleTexture("item/" + Registration.FIRED_CERAMIC_PICKAXE_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/pickaxe_mold"));
-		singleTexture("item/" + Registration.FIRED_CERAMIC_SHOVEL_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/shovel_mold"));
-		singleTexture("item/" + Registration.FIRED_CERAMIC_SWORD_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/sword_mold"));
-		singleTexture("item/" + Registration.FIRED_CERAMIC_PROPICK_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/propick_mold"));
-		singleTexture("item/" + Registration.FIRED_CERAMIC_INGOT_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/ingot_mold"));
+		//Fired Molds, Solidified
+		singleTexture("item/" + Registration.FIRED_FILLED_CERAMIC_AXE_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/axe/axe_mold_inner")).texture("layer1", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/axe/axe_mold_solidified"));
+		singleTexture("item/" + Registration.FIRED_FILLED_CERAMIC_PICKAXE_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/pickaxe/pickaxe_mold_inner")).texture("layer1", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/pickaxe/pickaxe_mold_solidified"));
+		singleTexture("item/" + Registration.FIRED_FILLED_CERAMIC_SHOVEL_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/shovel/shovel_mold_inner")).texture("layer1", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/shovel/shovel_mold_solidified"));
+		singleTexture("item/" + Registration.FIRED_FILLED_CERAMIC_SWORD_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/sword/sword_mold_inner")).texture("layer1", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/sword/sword_mold_solidified"));
+		singleTexture("item/" + Registration.FIRED_FILLED_CERAMIC_PROPICK_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/propick/propick_mold_inner")).texture("layer1", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/propick/propick_mold_solidified"));
+		singleTexture("item/" + Registration.FIRED_FILLED_CERAMIC_INGOT_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/ingot/ingot_mold_inner")).texture("layer1", new ResourceLocation(Reference.MODID, "items/ceramic_molds/fired/ingot/ingot_mold_solidified"));
 		
 		//Tool Heads
 			

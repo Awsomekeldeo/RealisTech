@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "realistech:molten_bronze",
+    "realistech:molten_cobalt",
+    "realistech:molten_copper",
+    "realistech:molten_gold",
+    "realistech:molten_iron",
+    "realistech:molten_lead",
+    "realistech:molten_nickel",
+    "realistech:molten_silver",
+    "realistech:molten_tin",
+    "realistech:molten_zinc"
+  ]
+}

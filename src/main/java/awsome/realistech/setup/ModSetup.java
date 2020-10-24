@@ -240,6 +240,22 @@ public class ModSetup {
 		((OreSampleBlock) Registration.STICK.get()).setClickResult(new ItemStack(Items.STICK));
 	}
 	
+	private static void setMoldItems() {
+		Registration.FIRED_FILLED_CERAMIC_AXE_MOLD.get().setEmptyMold(Registration.FIRED_CERAMIC_AXE_MOLD.get());
+		Registration.FIRED_FILLED_CERAMIC_PICKAXE_MOLD.get().setEmptyMold(Registration.FIRED_CERAMIC_PICKAXE_MOLD.get());
+		Registration.FIRED_FILLED_CERAMIC_SWORD_MOLD.get().setEmptyMold(Registration.FIRED_CERAMIC_SWORD_MOLD.get());
+		Registration.FIRED_FILLED_CERAMIC_SHOVEL_MOLD.get().setEmptyMold(Registration.FIRED_CERAMIC_SHOVEL_MOLD.get());
+		Registration.FIRED_FILLED_CERAMIC_PROPICK_MOLD.get().setEmptyMold(Registration.FIRED_CERAMIC_PROPICK_MOLD.get());
+		Registration.FIRED_FILLED_CERAMIC_INGOT_MOLD.get().setEmptyMold(Registration.FIRED_CERAMIC_INGOT_MOLD.get());
+		
+		Registration.FIRED_CERAMIC_AXE_MOLD.get().setSolidMold(Registration.FIRED_FILLED_CERAMIC_AXE_MOLD.get());
+		Registration.FIRED_CERAMIC_PICKAXE_MOLD.get().setSolidMold(Registration.FIRED_FILLED_CERAMIC_PICKAXE_MOLD.get());
+		Registration.FIRED_CERAMIC_SWORD_MOLD.get().setSolidMold(Registration.FIRED_FILLED_CERAMIC_SWORD_MOLD.get());
+		Registration.FIRED_CERAMIC_SHOVEL_MOLD.get().setSolidMold(Registration.FIRED_FILLED_CERAMIC_SHOVEL_MOLD.get());
+		Registration.FIRED_CERAMIC_PROPICK_MOLD.get().setSolidMold(Registration.FIRED_FILLED_CERAMIC_PROPICK_MOLD.get());
+		Registration.FIRED_CERAMIC_INGOT_MOLD.get().setSolidMold(Registration.FIRED_FILLED_CERAMIC_INGOT_MOLD.get());
+	}
+	
 	public static void init(final FMLCommonSetupEvent event) {
 		HeatCapability.init();
 		oreSorter = Ordering.explicit(getItemList(REALISTECH_ORES)).onResultOf(ItemStack::getItem);
@@ -248,6 +264,7 @@ public class ModSetup {
 		toolSorter = Ordering.explicit(getItemList(REALISTECH_TOOLS)).onResultOf(ItemStack::getItem);
 		miscSorter = Ordering.explicit(getItemList(REALISTECH_MISC)).onResultOf(ItemStack::getItem);
 		setSampleClickItems();
+		setMoldItems();
 		CapabilityManager.INSTANCE.register(IWorldgenCapability.class, new WorldgenCapStorage(), WorldgenCapability::new);
 		DeferredWorkQueue.runLater(FeatureStripper::strip);
 		OreDepositRegistration.getInstance().init();

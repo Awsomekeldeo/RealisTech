@@ -1,0 +1,10 @@
+{
+  "type": "realistech:solidification",
+  "input": {
+    "id": "realistech:molten_silver",
+    "amount": 144
+  },
+  "output": {
+    "item": "realistech:ingots/silver_ingot"
+  }
+}

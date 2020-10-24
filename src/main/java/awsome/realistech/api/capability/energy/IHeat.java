@@ -8,8 +8,6 @@ import net.minecraft.util.math.BlockPos;
  * Capability used for thermal energy (includes cooling)
  * <br>
  * <br>
- * <b>This is the API Interface</b>
- * <br>
  * A reference implementation can be found at {@link HeatHandler}
  * @author Awsomekeldeo
  */
@@ -117,6 +115,13 @@ public interface IHeat {
 	float getTemperature();
 	
 	/**
+	 * Sets the maximum temperature
+	 * <br>
+	 * <b>ONLY CALL WHEN LOADING NBT DATA!</b>
+	 */
+	void setMaxTemperature(float temp);
+	
+	/**
 	 * Returns the maximum temperature a machine can have.
 	 * Increasing the temperature above this level will cause
 	 * the machine to melt.
@@ -155,9 +160,12 @@ public interface IHeat {
 	
 	/**
 	 * Sets the temperature of the machine
-	 * @deprecated Use {@link #heat()} and {@link #cool()} instead of setting the temperature directly, unless synchronizing NBT data
+	 * <br>
+	 * <br>
+	 * <b>NOTE:</b> <i>Use {@link #heat()} and {@link #cool()} instead of setting the temperature directly.
+	 * Only call this method if this {@link IHeat} is attached to an {@link ItemStack} to set the initial temperature for the stack,
+	 * or when synchronizing NBT data.</i>
 	 */
-	@Deprecated
 	void setTemp(float temp);
 	
 	/**
@@ -208,4 +216,6 @@ public interface IHeat {
 	 * (E.g cooling down if the machine is hot or heating up if it's cold)
 	 */
 	EnumThermalState getThermalState();
+
+	void setThermalState(EnumThermalState valueFromNBT);
 }

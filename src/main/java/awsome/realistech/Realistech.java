@@ -3,8 +3,12 @@ package awsome.realistech;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+
 import awsome.realistech.inventory.container.KnappingContainer;
 import awsome.realistech.inventory.container.MoldingContainer;
+import awsome.realistech.items.CeramicMoldItem;
+import awsome.realistech.items.SolidCeramicMoldItem;
 import awsome.realistech.listeners.RecipeReloadListener;
 import awsome.realistech.registry.Registration;
 import awsome.realistech.setup.ClientSetup;
@@ -12,11 +16,16 @@ import awsome.realistech.setup.ModSetup;
 import awsome.realistech.worldgen.capability.WorldgenCapProvider;
 import awsome.realistech.worldgen.utils.Utils;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.DamageSource;
@@ -27,6 +36,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -48,6 +58,7 @@ public class Realistech {
 		Registration.init();
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(ModSetup::init);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::init);
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::registerResourceReloadListeners);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 	
@@ -89,6 +100,17 @@ public class Realistech {
 
 				};
 				NetworkHooks.openGui((ServerPlayerEntity) player, containerProvider, (buf) -> {
+					
+					/* Write to buffer
+					 * Button Texture X
+					 * Button Texture Y
+					 * Button Texture Width
+					 * Button Texture Height
+					 * ID of crafting grid item
+					 * Number of items consumed
+					 * Should consume on button click
+					 */
+					
 					buf.writeInt(32);
 					buf.writeInt(0);
 					buf.writeInt(16);
@@ -112,6 +134,17 @@ public class Realistech {
 
 				};
 				NetworkHooks.openGui((ServerPlayerEntity) player, containerProvider, (buf) -> {
+					
+					/* Write to buffer
+					 * Button Texture X
+					 * Button Texture Y
+					 * Button Texture Width
+					 * Button Texture Height
+					 * ID of crafting grid item
+					 * Number of items consumed
+					 * Should consume on button click
+					 */
+					
 					buf.writeInt(0);
 					buf.writeInt(0);
 					buf.writeInt(16);
@@ -124,6 +157,67 @@ public class Realistech {
 		}
 	}
 	
+	@SubscribeEvent
+	@OnlyIn(Dist.CLIENT)
+	public void renderScreen(GuiScreenEvent.DrawScreenEvent.Pre event) {
+		if (event.getGui() instanceof ContainerScreen<?>) {
+			RenderSystem.disableDepthTest();
+            RenderSystem.disableTexture();
+            RenderSystem.disableAlphaTest();
+            RenderSystem.disableBlend();
+            Tessellator tessellator = Tessellator.getInstance();
+            BufferBuilder bufferbuilder = tessellator.getBuffer();
+            ContainerScreen<?> container = (ContainerScreen<?>) event.getGui();
+            int i = container.getGuiLeft();
+            int j = container.getGuiTop();
+            for (Slot slot : container.getContainer().inventorySlots) {
+            	ItemStack stack = slot.getStack();
+            	if (!stack.isEmpty()) {
+            		if (stack.getItem() instanceof CeramicMoldItem) {
+            			CeramicMoldItem mold = (CeramicMoldItem) stack.getItem();
+            			if (mold.shouldShowTemperatureBar(stack)) {
+	            			float xPosition = slot.xPos;
+	                		float yPosition = slot.yPos;
+	    		            double health = mold.getTemperatureForDisplay(stack);
+	    		            int k = Math.round(13.0F - (float)health * 13.0F);
+	    		            int l = mold.getRGBForTemperatureDisplay(stack);
+	    		            this.draw(bufferbuilder, xPosition + 2, yPosition + 17, 17, 2, 0, 0, 0, 255);
+	    		            this.draw(bufferbuilder, xPosition + 2, yPosition + 17, k, 1, l >> 16 & 255, l >> 8 & 255, l & 255, 255);
+            			}
+            		}
+            		
+            		if (stack.getItem() instanceof SolidCeramicMoldItem) {
+            			SolidCeramicMoldItem mold = (SolidCeramicMoldItem) stack.getItem();
+            			if (mold.shouldShowTemperatureBar(stack)) {
+	            			float xPosition = slot.xPos;
+	                		float yPosition = slot.yPos;
+	    		            double health = mold.getTemperatureForDisplay(stack);
+	    		            int k = Math.round(13.0F - (float)health * 13.0F);
+	    		            int l = mold.getRGBForTemperatureDisplay(stack);
+	    		            this.draw(bufferbuilder, i + xPosition + 2, j + yPosition + 17, 13, 2, 0, 0, 0, 255);
+	    		            this.draw(bufferbuilder, i + xPosition + 2, j + yPosition + 17, k, 1, l >> 16 & 255, l >> 8 & 255, l & 255, 255);
+    		            }
+            		}
+            	}
+            }
+            RenderSystem.enableBlend();
+            RenderSystem.enableAlphaTest();
+            RenderSystem.enableTexture();
+            RenderSystem.enableDepthTest();
+		}
+	}
+	
+	@OnlyIn(Dist.CLIENT)
+	private void draw(BufferBuilder renderer, float x, float y, int width, int height, int red, int green, int blue, int alpha) {
+		renderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+		renderer.pos((double)(x + 0), (double)(y + 0), 0.0D).color(red, green, blue, alpha).endVertex();
+		renderer.pos((double)(x + 0), (double)(y + height), 0.0D).color(red, green, blue, alpha).endVertex();
+		renderer.pos((double)(x + width), (double)(y + height), 0.0D).color(red, green, blue, alpha).endVertex();
+		renderer.pos((double)(x + width), (double)(y + 0), 0.0D).color(red, green, blue, alpha).endVertex();
+		Tessellator.getInstance().draw();
+	}
+	
+	@SubscribeEvent
 	public void serverAboutToStart(FMLServerAboutToStartEvent event) {
 		event.getServer().getResourceManager().addReloadListener(new RecipeReloadListener());
 	}

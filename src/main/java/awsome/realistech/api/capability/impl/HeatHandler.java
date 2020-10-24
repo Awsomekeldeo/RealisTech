@@ -246,4 +246,14 @@ public class HeatHandler implements IHeat, INBTSerializable<CompoundNBT> {
 	public EnumThermalState getThermalState() {
 		return this.thermalState;
 	}
+
+	@Override
+	public void setMaxTemperature(float temp) {
+		this.maxTemperature = temp;
+	}
+
+	@Override
+	public void setThermalState(EnumThermalState valueFromNBT) {
+		this.thermalState = valueFromNBT;
+	}
 }

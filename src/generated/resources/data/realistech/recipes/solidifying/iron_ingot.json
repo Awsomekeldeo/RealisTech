@@ -1,0 +1,10 @@
+{
+  "type": "realistech:solidification",
+  "input": {
+    "id": "realistech:molten_iron",
+    "amount": 144
+  },
+  "output": {
+    "item": "minecraft:iron_ingot"
+  }
+}

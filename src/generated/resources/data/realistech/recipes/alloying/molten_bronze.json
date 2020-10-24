@@ -1,0 +1,17 @@
+{
+  "type": "realistech:alloying",
+  "inputs": [
+    {
+      "id": "realistech:molten_copper",
+      "amount": 3
+    },
+    {
+      "id": "realistech:molten_tin",
+      "amount": 1
+    }
+  ],
+  "output": {
+    "id": "realistech:molten_bronze",
+    "amount": 4
+  }
+}

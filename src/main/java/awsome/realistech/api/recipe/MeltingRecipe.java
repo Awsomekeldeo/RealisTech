@@ -1,22 +1,16 @@
 package awsome.realistech.api.recipe;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
-
 import awsome.realistech.Reference;
 import awsome.realistech.registry.Registration;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class MeltingRecipe implements IRecipe<RecipeWrapper> {
 	
@@ -77,20 +71,5 @@ public class MeltingRecipe implements IRecipe<RecipeWrapper> {
 	@Override
 	public IRecipeType<?> getType() {
 		return type;
-	}
-	
-	public static FluidStack deserializeFluid(JsonObject object) {
-		String s = JSONUtils.getString(object, "id");
-		Fluid fluid = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(s));
-		if (fluid == null) {
-			throw new JsonSyntaxException("Unknown fluid '" + s + "'");
-		}
-		
-		if (!object.has("amount")) {
-			throw new JsonSyntaxException("Missing fluid amount");
-		}
-		
-		int i = JSONUtils.getInt(object, "amount");
-		return new FluidStack(fluid, i);
 	}
 }

@@ -39,6 +39,22 @@ public class CrucibleScreen extends ContainerScreen<CrucibleContainer> {
             lines.add(I18n.format("realistech.info.temperature", ((CrucibleContainer)this.container).getTemperature()));
             this.renderTooltip(lines, mouseX, mouseY);
         }
+        
+        if (mouseX >= i + 8 && mouseX <= i + 49 && mouseY >= j + 40 && mouseY <= j + 61)
+        {
+            List<String> lines = Lists.newArrayList();
+            lines.add(I18n.format("realistech.info.crucibleContents"));
+            for (int k = 0; k < this.container.crucibleTanks.size(); k++) {
+            	if (!(this.container.crucibleTanks.get(k).isEmpty())) { 
+            		lines.add(I18n.format(this.container.crucibleTanks.get(k).getTranslationKey()) + ": " + I18n.format("realistech.info.bucketUnit", this.container.crucibleTanks.get(k).getAmount()));
+            	}
+            	
+            	if (!(this.container.crucibleTanks.size() > 1)) {
+            		lines.add(I18n.format("realistech.info.empty"));
+            	}
+            }
+            this.renderTooltip(lines, mouseX, mouseY);
+        }
 	}
 	
 	@Override

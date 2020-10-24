@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import awsome.realistech.Realistech;
 import awsome.realistech.api.recipe.AnvilRecipe;
 import awsome.realistech.api.recipe.KilnRecipe;
 import awsome.realistech.api.recipe.KnappingRecipe;
@@ -26,15 +27,18 @@ import net.minecraftforge.resource.IResourceType;
 import net.minecraftforge.resource.ISelectiveResourceReloadListener;
 
 public class RecipeReloadListener implements ISelectiveResourceReloadListener {
-
+	
 	@Override
 	public void onResourceManagerReload(IResourceManager resourceManager, Predicate<IResourceType> resourcePredicate) {
+		Realistech.LOGGER.info("Reloading!");
 		if (EffectiveSide.get().isServer()) {
 			MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
 			RecipeManager recipeManager = server.getRecipeManager();
 			buildRecipeLists(recipeManager);
 		}
 	}
+	
+	
 	
 	@SubscribeEvent(priority = EventPriority.HIGH)
 	public void onRecipesUpdated(RecipesUpdatedEvent event) {

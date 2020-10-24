@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "realistech:items/ceramic_molds/fired/ingot/ingot_mold_inner",
+    "layer1": "realistech:items/ceramic_molds/fired/ingot/ingot_mold_solidified"
+  }
+}

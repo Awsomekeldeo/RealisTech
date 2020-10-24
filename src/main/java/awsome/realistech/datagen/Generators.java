@@ -22,6 +22,7 @@ public class Generators {
 	        	generator.addProvider(new Recipes(generator));
 	        	generator.addProvider(new ModBlockTags(generator));
 	        	generator.addProvider(new ModItemTags(generator));
+	        	generator.addProvider(new ModFluidTags(generator));
 	        }
 		}
 	}

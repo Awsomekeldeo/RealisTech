@@ -2,11 +2,13 @@ package awsome.realistech.datagen;
 
 import java.util.function.Consumer;
 
+import awsome.realistech.data.generators.AlloyRecipeBuilder;
 import awsome.realistech.data.generators.AnvilRecipeBuilder;
 import awsome.realistech.data.generators.HandworkRecipeBuilder;
 import awsome.realistech.data.generators.KilnRecipeBuilder;
 import awsome.realistech.data.generators.MeltingRecipeBuilder;
 import awsome.realistech.data.generators.NonConsumingShapelessRecipeBuilder;
+import awsome.realistech.data.generators.SolidificationRecipeBuilder;
 import awsome.realistech.data.generators.WeakSmeltingRecipeBuilder;
 import awsome.realistech.data.tags.ModTags;
 import awsome.realistech.registry.Registration;
@@ -31,6 +33,9 @@ public class Recipes extends RecipeProvider {
 	@Override
 	protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
 		
+		//Alloying Recipes
+		AlloyRecipeBuilder.alloyRecipe(new FluidStack(Registration.MOLTEN_BRONZE.get(), 4)).addInput(new FluidStack(Registration.MOLTEN_COPPER.get(), 3)).addInput(new FluidStack(Registration.MOLTEN_TIN.get(), 1)).build(consumer, "alloying/", true);
+		
 		//Melting Recipes
 		
 		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.COPPER_CLUSTER.get()), new FluidStack(Registration.MOLTEN_COPPER.get(), 144), 1085.0f).build(consumer, "melting/", true);
@@ -42,6 +47,17 @@ public class Recipes extends RecipeProvider {
 		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.ZINC_CLUSTER.get()), new FluidStack(Registration.MOLTEN_ZINC.get(), 144), 419.0f).build(consumer, "melting/", true);
 		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.IRON_CLUSTER.get()), new FluidStack(Registration.MOLTEN_IRON.get(), 144), 419.0f).build(consumer, "melting/", true);
 		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.IRON_CLUSTER.get()), new FluidStack(Registration.MOLTEN_GOLD.get(), 144), 419.0f).build(consumer, "melting/", true);
+		
+		//Solidifying Recipes
+		SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_COPPER.get(), 144), Registration.COPPER_INGOT.get()).build(consumer, "solidifying/", true);
+		SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_TIN.get(), 144), Registration.TIN_INGOT.get()).build(consumer, "solidifying/", true);
+		SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_NICKEL.get(), 144), Registration.NICKEL_INGOT.get()).build(consumer, "solidifying/", true);
+		SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_SILVER.get(), 144), Registration.SILVER_INGOT.get()).build(consumer, "solidifying/", true);
+		SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_LEAD.get(), 144), Registration.LEAD_INGOT.get()).build(consumer, "solidifying/", true);
+		SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_COBALT.get(), 144), Registration.COBALT_INGOT.get()).build(consumer, "solidifying/", true);
+		SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_ZINC.get(), 144), Registration.ZINC_INGOT.get()).build(consumer, "solidifying/", true);
+		SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_GOLD.get(), 144), Items.GOLD_INGOT).build(consumer, "solidifying/", true);
+		SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_IRON.get(), 144), Items.IRON_INGOT).build(consumer, "solidifying/", true);
 		
 		//Shapeless Recipes
 		

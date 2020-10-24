@@ -3,6 +3,7 @@ package awsome.realistech.api.recipe;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import awsome.realistech.util.RecipeHelper;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
@@ -25,7 +26,7 @@ public class MeltingRecipeSerializer<T extends MeltingRecipe> extends ForgeRegis
 		final Ingredient input = Ingredient.deserialize(inputElement);
 		
 		final JsonObject outputElement = JSONUtils.getJsonObject(json, "fluid");
-		final FluidStack output = MeltingRecipe.deserializeFluid(outputElement);
+		final FluidStack output = RecipeHelper.deserializeFluid(outputElement);
 		
 		final float temp = JSONUtils.getFloat(json, "temperature");
 		

@@ -46,6 +46,32 @@ public class CrucibleTankHandler implements IFluidHandler {
 	public boolean isFluidValid(int tank, FluidStack stack) {
 		return true;
 	}
+	
+	public void balanceTanks() {
+		
+		int currentTank = -1;
+		int prevTank = -1;
+		
+		for (int i = 0; i < this.fluids.size(); i++) {
+			if (this.fluids.get(i).getAmount() == 0 && !this.fluids.get(i).equals(FluidStack.EMPTY)) {
+				this.fluids.remove(i);
+			}else if (this.fluids.get(i).equals(FluidStack.EMPTY) && i < this.fluids.size() - 1) {
+				this.fluids.remove(i);
+			}
+			if (!this.fluids.get(i).isEmpty()) {
+				prevTank = i;
+				for (int j = 0; j < this.fluids.size(); j++) {
+					if (!this.fluids.get(j).isEmpty()) {
+						currentTank = j;
+						if (this.fluids.get(prevTank).isFluidEqual(this.fluids.get(currentTank)) && i != j) {
+							this.fluids.get(prevTank).grow(this.fluids.get(currentTank).getAmount());
+							this.fluids.get(currentTank).shrink(this.fluids.get(prevTank).getAmount());
+						}
+					}
+				}
+			}
+		}
+	}
 
 	@Override
 	public int fill(FluidStack resource, FluidAction action) {
@@ -110,11 +136,40 @@ public class CrucibleTankHandler implements IFluidHandler {
 	@Override
 	public FluidStack drain(FluidStack resource, FluidAction action) {
 		
-		if (resource.isEmpty() || !resource.isFluidEqual(this.fluids.get(0))) {
+		int drained = resource.getAmount();
+		
+		if (resource.isEmpty()) {
 			return FluidStack.EMPTY;
 		}
 		
-		return drain(resource.getAmount(), action);
+		int matchingFluidSlot = 0;
+		
+		for (int i = 0; i < this.fluids.size(); i++) {
+			
+			if (!resource.isFluidEqual(this.fluids.get(i))) {
+				matchingFluidSlot = i;
+			}else{
+				matchingFluidSlot = i;
+				break;
+			}
+			
+		}
+		
+		if (this.fluids.get(matchingFluidSlot).isEmpty()) {
+			return FluidStack.EMPTY;
+		}
+		
+		if (this.fluids.get(matchingFluidSlot).getAmount() < drained) {
+			drained = this.fluids.get(matchingFluidSlot).getAmount();
+		}
+		
+		FluidStack stack = new FluidStack(this.fluids.get(matchingFluidSlot), drained);
+		
+		if (action.execute() && drained > 0) {
+			this.fluids.get(matchingFluidSlot).shrink(drained);
+		}
+		
+		return stack;
 	}
 
 	@Override
@@ -136,7 +191,7 @@ public class CrucibleTankHandler implements IFluidHandler {
 	}
 	
 	public void deserializeNBT(CompoundNBT nbt) {
-		ListNBT tags = nbt.getList("Fluids", Constants.NBT.TAG_COMPOUND);
+		ListNBT tags = nbt.getList("Tanks", Constants.NBT.TAG_COMPOUND);
 		for (int i = 0; i < tags.size(); i++) {
 			CompoundNBT fluidTags = tags.getCompound(i);
 			int tank = fluidTags.getInt("Tank");

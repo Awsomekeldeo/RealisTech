@@ -8,7 +8,7 @@ import net.minecraft.util.IItemProvider;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 
 /* TCon FluidObject Class
- * This class and all subclasses are licensed seperately under the MIT liscense instead of the GNU-GPLv3 license.
+ * This class and all nested classes are licensed seperately under the MIT liscense instead of the GNU-GPLv3 license.
  * MIT License
  *
  * Copyright (c) 2020 SlimeKnights

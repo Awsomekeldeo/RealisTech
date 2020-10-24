@@ -1,0 +1,10 @@
+{
+	"parent": "forge:item/default",
+    "loader": "realistech:ceramic_mold",
+    "textures": {
+		"particle": "realistech:items/ceramic_molds/fired/propick/propick_mold_inner",
+		"base": "realistech:items/ceramic_molds/fired/propick/propick_mold_cover",
+		"inner": "realistech:items/ceramic_molds/fired/propick/propick_mold_inner",
+		"fluid": "realistech:items/ceramic_molds/fired/propick/propick_mold_fluid"
+	}
+}

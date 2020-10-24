@@ -37,13 +37,13 @@ public class MeltingRecipeBuilder {
 		ResourceLocation resourceLocation = ForgeRegistries.FLUIDS.getKey(this.output.getFluid());
 		if (!isRootFolder) {
 			if ((new ResourceLocation(save)).equals(resourceLocation)) {
-				throw new IllegalStateException("Kiln Recipe " + save + " should remove its 'save' argument");
+				throw new IllegalStateException("Melting Recipe " + save + " should remove its 'save' argument");
 			}else{
 				this.build(consumerIn, new ResourceLocation(save));
 			}
 		}else{
 			if ((new ResourceLocation(save)).equals(resourceLocation)) {
-				throw new IllegalStateException("Kiln Recipe " + save + " should remove its 'save' argument");
+				throw new IllegalStateException("Melting Recipe " + save + " should remove its 'save' argument");
 			}else{
 				this.build(consumerIn, new ResourceLocation(Reference.MODID, save + ForgeRegistries.FLUIDS.getKey(this.output.getFluid()).getPath()));
 			}

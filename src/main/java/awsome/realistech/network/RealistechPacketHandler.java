@@ -3,6 +3,7 @@ package awsome.realistech.network;
 import awsome.realistech.Reference;
 import awsome.realistech.network.packet.SSetSlotWithOffsetPacket;
 import awsome.realistech.network.packet.HandworkRecipePacket;
+import awsome.realistech.network.packet.MoldCapsUpdatePacket;
 import awsome.realistech.network.packet.SConsumeHandworkItemPacket;
 import awsome.realistech.network.packet.SCrucibleTankUpdatePacket;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -45,6 +46,11 @@ public class RealistechPacketHandler {
 			.encoder(SCrucibleTankUpdatePacket::toBytes)
 			.decoder(SCrucibleTankUpdatePacket::new)
 			.consumer(SCrucibleTankUpdatePacket::handle)
+			.add();
+		INSTANCE.messageBuilder(MoldCapsUpdatePacket.class, nextID())
+			.encoder(MoldCapsUpdatePacket::toBytes)
+			.decoder(MoldCapsUpdatePacket::new)
+			.consumer(MoldCapsUpdatePacket::handle)
 			.add();
 	}
 	

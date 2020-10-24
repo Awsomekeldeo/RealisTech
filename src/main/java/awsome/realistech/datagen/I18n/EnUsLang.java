@@ -27,6 +27,7 @@ public class EnUsLang extends LanguageProvider {
 		add(Registration.MOLTEN_ZINC.asItem(), "Molten Zinc Bucket");
 		add(Registration.MOLTEN_IRON.asItem(), "Molten Iron Bucket");
 		add(Registration.MOLTEN_GOLD.asItem(), "Molten Gold Bucket");
+		add(Registration.MOLTEN_BRONZE.asItem(), "Molten Bronze Bucket");
 		
 		//Ingots
 		add(Registration.COPPER_INGOT.get(), "Copper Ingot");
@@ -76,6 +77,12 @@ public class EnUsLang extends LanguageProvider {
 			add(Registration.FIRED_CERAMIC_PROPICK_MOLD.get(), "Prospector's Pickaxe Mold");
 			add(Registration.FIRED_CERAMIC_SWORD_MOLD.get(), "Sword Mold");
 			add(Registration.FIRED_CERAMIC_INGOT_MOLD.get(), "Ingot Mold");
+			add(Registration.FIRED_FILLED_CERAMIC_AXE_MOLD.get(), "Axe Mold");
+			add(Registration.FIRED_FILLED_CERAMIC_PICKAXE_MOLD.get(), "Pickaxe Mold");
+			add(Registration.FIRED_FILLED_CERAMIC_SHOVEL_MOLD.get(), "Shovel Mold");
+			add(Registration.FIRED_FILLED_CERAMIC_PROPICK_MOLD.get(), "Prospector's Pickaxe Mold");
+			add(Registration.FIRED_FILLED_CERAMIC_SWORD_MOLD.get(), "Sword Mold");
+			add(Registration.FIRED_FILLED_CERAMIC_INGOT_MOLD.get(), "Ingot Mold");
 			
 			//Bricks
 			add(Registration.UNFIRED_CLAY_BRICK.get(), "Unfired Clay Brick");
@@ -187,6 +194,7 @@ public class EnUsLang extends LanguageProvider {
 		add("fluid.realistech.molten_zinc", "Molten Zinc");
 		add("fluid.realistech.molten_iron", "Molten Iron");
 		add("fluid.realistech.molten_gold", "Molten Gold");
+		add("fluid.realistech.molten_bronze", "Molten Bronze");
 		
 		//Fluids End
 		
@@ -217,10 +225,13 @@ public class EnUsLang extends LanguageProvider {
 		add("screen.realistech.jei_compat.kiln", "Kiln Firing");
 		add("screen.realistech.jei_compat.anvil", "Anvil Working");
 		add("realistech.info.temperature", "%s°C");
+		add("realistech.info.crucibleContents", "Contents: ");
+		add("realistech.info.bucketUnit", "%smL");
+		add("realistech.info.empty", "%s°C");
 		add("message.realistech.noBreak", "Your fists break!");
 		add("tooltip.realistech.brick", "\"I'm a brick!\"");
 		add("tooltip.realistech.fireclay", "Can be used as fireclay.");
-		
+		add("tooltip.realistech.ceramic_molds.solidified", "Solidified");
 		
 		//Other Translation Entries End
 	}

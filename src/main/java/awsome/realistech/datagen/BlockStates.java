@@ -50,6 +50,7 @@ public class BlockStates extends BlockStateProvider {
 		registerFluid(Registration.MOLTEN_ZINC.getBlock());
 		registerFluid(Registration.MOLTEN_IRON.getBlock());
 		registerFluid(Registration.MOLTEN_GOLD.getBlock());
+		registerFluid(Registration.MOLTEN_BRONZE.getBlock());
 		registerFlower(Registration.GOLDENROD.get());
 		registerFlower(Registration.KAOLINITE_LILY.get());
 		registerSimpleBlock(Registration.KAOLINITE_CLAY.get());

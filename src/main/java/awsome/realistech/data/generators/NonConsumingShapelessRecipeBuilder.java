@@ -34,7 +34,7 @@ public class NonConsumingShapelessRecipeBuilder {
 	}
 	
 	public static NonConsumingShapelessRecipeBuilder nonConsumingShapelessRecipe(IItemProvider resultIn, int countIn) {
-		return new NonConsumingShapelessRecipeBuilder(resultIn, 1);
+		return new NonConsumingShapelessRecipeBuilder(resultIn, countIn);
 	}
 	
 	public NonConsumingShapelessRecipeBuilder addIngredient(Tag<Item> tagIn) {
