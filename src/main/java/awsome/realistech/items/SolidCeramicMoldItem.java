@@ -8,6 +8,7 @@ import awsome.realistech.api.capability.energy.IHeat;
 import awsome.realistech.api.recipe.SolidificationRecipe;
 import awsome.realistech.capability.FilledMoldCapabilityWrapper;
 import awsome.realistech.util.GeneralUtils;
+import awsome.realistech.util.MoldType;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -37,16 +38,21 @@ import net.minecraftforge.items.ItemHandlerHelper;
 public class SolidCeramicMoldItem extends Item {
 	
 	private Item emptyMold;
+	private final MoldType type;
 	
-	public SolidCeramicMoldItem() {
+	public SolidCeramicMoldItem(MoldType moldType) {
 		super(new Item.Properties().maxStackSize(1));
+		this.type = moldType;
 	}
 	
 	@Override
 	public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT nbt) {
-		Item prevItem = stack.getItem();
-		if (prevItem instanceof CeramicMoldItem) {
-			return new FilledMoldCapabilityWrapper(((CeramicMoldItem) prevItem).getCapacity(), stack);
+		if (nbt != null) {
+			if (nbt.contains("Capacity")) {
+				return new FilledMoldCapabilityWrapper(nbt.getInt("Capacity"), stack, nbt);
+			}else{
+				return new FilledMoldCapabilityWrapper(144, stack, nbt);
+			}
 		}else{
 			return new FilledMoldCapabilityWrapper(144, stack);
 		}
@@ -74,8 +80,9 @@ public class SolidCeramicMoldItem extends Item {
 					
 					float temperature = h.getTemperature();
 					
-					if (temperature > 80) {
-						playerIn.attackEntityFrom(DamageSource.GENERIC, 5.0f);
+					if (temperature > 60) {
+						float amountToDamageBy = (float) (20.0/(1+(7168.76*Math.pow(Math.E, (-.1 * temperature)))));
+						playerIn.attackEntityFrom(DamageSource.ON_FIRE, amountToDamageBy);
 					}
 					
 				}
@@ -84,7 +91,9 @@ public class SolidCeramicMoldItem extends Item {
 				if (stack.getItem() instanceof SolidCeramicMoldItem) {
 					ItemHandlerHelper.giveItemToPlayer(playerIn, h.getStackInSlot(0));
 					SolidCeramicMoldItem moldItem = (SolidCeramicMoldItem) stack.getItem();
-					playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, moldItem.getEmptyMold());
+					if (stack.getOrCreateTag().getBoolean("realistech:hasValidRecipe")) {
+						playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, moldItem.getEmptyMold());
+					}
 				}
 				return ActionResult.resultSuccess(stack);
 			}
@@ -101,19 +110,66 @@ public class SolidCeramicMoldItem extends Item {
 					IItemHandler h = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
 					IFluidHandlerItem h2 = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).orElse(null);
 					
+					if (stack.getCapability(HeatCapability.HEAT_CAPABILITY).isPresent()) {
+						IHeat h3 = stack.getCapability(HeatCapability.HEAT_CAPABILITY).orElse(null);
+						
+						float temperature = h3.getTemperature();
+						if (temperature > h3.getBaseTempBasedOnBiome(null)) {
+							h3.cool();
+						}
+					}
+					
 					for (IRecipe<?> recipe : this.getRecipes(SolidificationRecipe.SOLIDIFICATION_RECIPE, worldIn.getRecipeManager()).values()) {
 						if (recipe instanceof SolidificationRecipe) {
 							SolidificationRecipe solidificationRecipe = (SolidificationRecipe) recipe;
-							if (solidificationRecipe.isValid(h2)) {
+							if (solidificationRecipe.isValid(h2, this.type)) {
 								ItemStack recipeOutput = solidificationRecipe.getRecipeOutput().copy();
 								h.insertItem(0, recipeOutput, false);
 								h2.drain(solidificationRecipe.getInput(), FluidAction.EXECUTE);
+								stack.getOrCreateTag().putBoolean("realistech:hasValidRecipe", true);
 							}
 						}
 					}
 				}
 			}
 		}
+	}
+	
+	@Override
+	public int getRGBDurabilityForDisplay(ItemStack stack) {
+		
+		if (stack.getCapability(HeatCapability.HEAT_CAPABILITY).isPresent()) {
+			IHeat h = stack.getCapability(HeatCapability.HEAT_CAPABILITY).orElse(null);
+			return GeneralUtils.getTempFromColorMap(h.getTemperature());
+		}
+		
+		return super.getRGBDurabilityForDisplay(stack);
+	}
+	
+	@Override
+	public boolean showDurabilityBar(ItemStack stack) {
+		if (stack.getCapability(HeatCapability.HEAT_CAPABILITY).isPresent()) {
+			IHeat h = stack.getCapability(HeatCapability.HEAT_CAPABILITY).orElse(null);
+			if (h.getTemperature() > 60) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	@Override
+	public double getDurabilityForDisplay(ItemStack stack) {
+		
+		if (stack.getCapability(HeatCapability.HEAT_CAPABILITY).isPresent()) {
+			IHeat h = stack.getCapability(HeatCapability.HEAT_CAPABILITY).orElse(null);
+			if (stack.getTag().contains("realistech:meltTemp")) {
+				return h.getTemperature() < stack.getTag().getFloat("realistech:meltTemp") ? 1 - h.getTemperature() / stack.getTag().getFloat("realistech:meltTemp") : 0;
+			}
+			return 1 - h.getTemperature() / h.getMaxTemperature();
+		}
+		
+		return 1.00d;
 	}
 	
 	@Override
@@ -181,6 +237,6 @@ public class SolidCeramicMoldItem extends Item {
 			
 		}
 		
-		return false;
+		return true;
 	}
 }

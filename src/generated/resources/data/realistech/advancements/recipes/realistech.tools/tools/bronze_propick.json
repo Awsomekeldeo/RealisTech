@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "realistech:tools/bronze_propick"
+    ]
+  },
+  "criteria": {
+    "bronze_obtained": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "realistech:ingots/bronze_ingot"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "realistech:tools/bronze_propick"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "bronze_obtained",
+      "has_the_recipe"
+    ]
+  ]
+}

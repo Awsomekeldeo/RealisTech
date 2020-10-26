@@ -1,0 +1,11 @@
+{
+  "type": "realistech:melting",
+  "input": {
+    "item": "realistech:tool_heads/bronze_pickaxe"
+  },
+  "fluid": {
+    "id": "realistech:molten_bronze",
+    "amount": 432
+  },
+  "temperature": 950.0
+}

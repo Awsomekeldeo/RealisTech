@@ -48,7 +48,7 @@ public class CeramicMoldItem extends Item {
 
 					float temperature = h2.getTemperature();
 
-					if (temperature > h2.getBaseTempBasedOnBiome(null)) {
+					if (temperature > h2.getBaseTempBasedOnBiome(null) && h.getFluidInTank(0).getAmount() == h.getTankCapacity(0)) {
 						h2.cool();
 					}
 					
@@ -57,7 +57,7 @@ public class CeramicMoldItem extends Item {
 							if (entityIn instanceof PlayerEntity) {
 								PlayerEntity player =  (PlayerEntity) entityIn;
 								CeramicMoldItem moldItem = (CeramicMoldItem) stack.getItem();
-								ItemStack newStack = new ItemStack(moldItem.getSolidMold(), stack.getCount());
+								ItemStack newStack = new ItemStack(moldItem.getSolidMold(), stack.getCount(), stack.serializeNBT().getCompound("ForgeCaps"));
 								CompoundNBT nbt2 = stack.getTag();
 
 								if (!h.getFluidInTank(0).getFluid().equals(Registration.MOLTEN_IRON.get())) {
@@ -110,7 +110,20 @@ public class CeramicMoldItem extends Item {
 	
 	@Override
 	public int getRGBDurabilityForDisplay(ItemStack stack) {
-		return 0xFFFFFFFF;
+		if (stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).isPresent()) {
+			IFluidHandlerItem h = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).orElse(null);
+			
+			if (h.getFluidInTank(0).getAmount() < h.getTankCapacity(0)) {
+				return h.getFluidInTank(0).getFluid().getAttributes().getColor();
+			}
+		}
+		
+		if (stack.getCapability(HeatCapability.HEAT_CAPABILITY).isPresent()) {
+			IHeat h = stack.getCapability(HeatCapability.HEAT_CAPABILITY).orElse(null);
+			return GeneralUtils.getTempFromColorMap(h.getTemperature());
+		}
+		
+		return super.getRGBDurabilityForDisplay(stack);
 	}
 	
 	@Override
@@ -121,10 +134,6 @@ public class CeramicMoldItem extends Item {
 			IFluidHandlerItem h = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).orElse(null);
 			
 			if (h.getFluidInTank(0).isEmpty()) {
-				return false;
-			}
-			
-			if ((double) h.getFluidInTank(0).getAmount() / (double) h.getTankCapacity(0) == 1.00) {
 				return false;
 			}
 			
@@ -153,13 +162,25 @@ public class CeramicMoldItem extends Item {
 		}
 	}
 	
+	
+	
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
 		
 		if (stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).isPresent()) {
 			IFluidHandlerItem h = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).orElse(null);
 			
-			return (double) 1 - (h.getFluidInTank(0).getAmount() / (double) h.getTankCapacity(0));
+			if (h.getFluidInTank(0).getAmount() < h.getTankCapacity(0)) {
+				return (double) 1 - (h.getFluidInTank(0).getAmount() / (double) h.getTankCapacity(0));
+			}
+		}
+		
+		if (stack.getCapability(HeatCapability.HEAT_CAPABILITY).isPresent()) {
+			IHeat h = stack.getCapability(HeatCapability.HEAT_CAPABILITY).orElse(null);
+			if (stack.getTag().contains("realistech:meltTemp")) {
+				return h.getTemperature() < stack.getTag().getFloat("realistech:meltTemp") ? 1 - h.getTemperature() / stack.getTag().getFloat("realistech:meltTemp") : 0;
+			}
+			return 1 - h.getTemperature() / h.getMaxTemperature();
 		}
 		
 		return 1.00d;

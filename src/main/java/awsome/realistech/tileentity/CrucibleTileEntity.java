@@ -11,6 +11,7 @@ import awsome.realistech.api.capability.impl.CrucibleTankHandler;
 import awsome.realistech.api.capability.impl.HeatHandler;
 import awsome.realistech.api.recipe.AlloyRecipe;
 import awsome.realistech.api.recipe.MeltingRecipe;
+import awsome.realistech.items.SolidCeramicMoldItem;
 import awsome.realistech.registry.Registration;
 import awsome.realistech.util.MathUtil;
 import net.minecraft.item.ItemStack;
@@ -29,6 +30,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -194,6 +196,7 @@ public class CrucibleTileEntity extends TileEntity implements ITickableTileEntit
 			}
 			
 			attemptAlloyRecipe();
+			drainMolds();
 			this.crucibleTank.balanceTanks();
 			fillMolds();
 			
@@ -211,16 +214,67 @@ public class CrucibleTileEntity extends TileEntity implements ITickableTileEntit
 		}
 	}
 	
+	private void drainMolds() {
+		ItemStack stackInInputSlot = this.itemHandler.getStackInSlot(0);
+		if(stackInInputSlot.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).isPresent() && !(stackInInputSlot.getItem() instanceof SolidCeramicMoldItem)) {
+			IFluidHandlerItem h = stackInInputSlot.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).orElse(null);
+			if (this.crucibleTank.fill(h.drain(1, FluidAction.SIMULATE), FluidAction.SIMULATE) > 0) {
+				stackInInputSlot.getOrCreateTag().putInt("realistech:meltTemp", this.crucibleTank.drain(1, FluidAction.SIMULATE).getFluid().getAttributes().getTemperature());
+				this.crucibleTank.fill(h.drain(1, FluidAction.EXECUTE), FluidAction.EXECUTE);
+			}
+		}
+		
+		if (stackInInputSlot.getCapability(HeatCapability.HEAT_CAPABILITY).isPresent() && (stackInInputSlot.getItem() instanceof SolidCeramicMoldItem)) {
+			if (stackInInputSlot.getOrCreateTag().contains("realistech:meltTemp")) {
+				float meltTemp = stackInInputSlot.getTag().getFloat("realistech:meltTemp");
+				IHeat h = stackInInputSlot.getCapability(HeatCapability.HEAT_CAPABILITY).orElse(null);
+				
+				if (h.getTemperature() >= meltTemp) {
+					if(stackInInputSlot.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).isPresent()) {
+						SolidCeramicMoldItem moldItem = (SolidCeramicMoldItem) stackInInputSlot.getItem();
+						ItemStack newStack = new ItemStack(moldItem.getEmptyMold().getItem(), stackInInputSlot.getCount(), stackInInputSlot.serializeNBT().getCompound("ForgeCaps"));
+						CompoundNBT nbt2 = stackInInputSlot.getTag();
+
+						newStack.setTag(nbt2);
+						if (newStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).isPresent()) {
+							if (stackInInputSlot.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent()) {
+								IItemHandler h4 = stackInInputSlot.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
+								IFluidHandlerItem h3 = newStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).orElse(null);
+								
+								ItemStack stack = h4.getStackInSlot(0);
+								IItemHandlerModifiable recipeItemHandler = new ItemStackHandler();
+								recipeItemHandler.setStackInSlot(0, stack);
+								RecipeWrapper recipeWrapper = new RecipeWrapper(recipeItemHandler);
+								IRecipe<?> meltingRecipe2 = this.world.getRecipeManager().getRecipe(this.recipeType, recipeWrapper, this.world).orElse(null);
+								if (meltingRecipe2 != null) {
+									MeltingRecipe recipe = (MeltingRecipe)meltingRecipe2;
+									FluidStack output = recipe.getResult();
+									if (h.getTemperature() >= recipe.getMeltTemp() && !output.isEmpty()) {
+										h3.fill(output, FluidAction.EXECUTE);
+									}
+								}
+							}
+						}
+						this.itemHandler.setStackInSlot(0, newStack);
+					}
+				}else{
+					h.heat();
+				}
+			}
+		}
+	}
+
 	private void fillMolds() {
 		ItemStack stackInMoldSlot = this.itemHandler.getStackInSlot(1);
-		stackInMoldSlot.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).ifPresent(h -> {
+		if(stackInMoldSlot.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).isPresent()) {
+			IFluidHandlerItem h = stackInMoldSlot.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).orElse(null);
 			if (h.fill(this.crucibleTank.drain(1, FluidAction.SIMULATE), FluidAction.SIMULATE) > 0) {
 				stackInMoldSlot.getOrCreateTag().putInt("realistech:meltTemp", this.crucibleTank.drain(1, FluidAction.SIMULATE).getFluid().getAttributes().getTemperature());
 				h.fill(this.crucibleTank.drain(1, FluidAction.EXECUTE), FluidAction.EXECUTE);
 			}
-		});
+		}
 		
-		if (stackInMoldSlot.getCapability(HeatCapability.HEAT_CAPABILITY).isPresent()) {
+		if (stackInMoldSlot.getCapability(HeatCapability.HEAT_CAPABILITY).isPresent() && !(stackInMoldSlot.getItem() instanceof SolidCeramicMoldItem)) {
 			IHeat h = stackInMoldSlot.getCapability(HeatCapability.HEAT_CAPABILITY).orElse(null);
 			h.setTemp(this.heatHandler.getTemperature());
 		}

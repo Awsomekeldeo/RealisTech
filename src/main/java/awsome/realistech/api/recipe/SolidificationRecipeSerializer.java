@@ -2,6 +2,7 @@ package awsome.realistech.api.recipe;
 
 import com.google.gson.JsonObject;
 
+import awsome.realistech.util.MoldType;
 import awsome.realistech.util.RecipeHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -28,7 +29,9 @@ public class SolidificationRecipeSerializer<T extends SolidificationRecipe> exte
 		final JsonObject outputElement = JSONUtils.getJsonObject(json, "output");
 		final ItemStack output = CraftingHelper.getItemStack(outputElement, false);
 		
-		return this.factory.create(recipeId, input, output);
+		final MoldType moldType = RecipeHelper.getMoldType(json);
+		
+		return this.factory.create(recipeId, input, output, moldType);
 	}
 
 	@Override
@@ -36,8 +39,13 @@ public class SolidificationRecipeSerializer<T extends SolidificationRecipe> exte
 		final FluidStack input = buffer.readFluidStack();
 		final ItemStack output = buffer.readItemStack();
 		final ResourceLocation id = buffer.readResourceLocation();
+		final MoldType moldType = MoldType.getFromString(buffer.readString());
 		
-		return this.factory.create(id, input, output);
+		if (moldType == null) {
+			throw new IllegalStateException("Packet buffer for solidification recipe: " + id + " contained an invalid mold type!");
+		}else{
+			return this.factory.create(id, input, output, moldType);
+		}
 	}
 
 	@Override
@@ -45,10 +53,11 @@ public class SolidificationRecipeSerializer<T extends SolidificationRecipe> exte
 		buffer.writeFluidStack(recipe.getInput());
 		buffer.writeItemStack(recipe.getOutput());
 		buffer.writeResourceLocation(recipe.getId());
+		buffer.writeString(recipe.getMoldType().getTypeForString());
 	}
 	
 	public interface IFactory<T extends SolidificationRecipe> {
-		T create(ResourceLocation id, FluidStack input, ItemStack output);
+		T create(ResourceLocation id, FluidStack input, ItemStack output, MoldType moldType);
 	}
 	
 	public SolidificationRecipeSerializer.IFactory<T> getFactory() {

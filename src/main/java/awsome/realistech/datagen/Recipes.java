@@ -12,6 +12,7 @@ import awsome.realistech.data.generators.SolidificationRecipeBuilder;
 import awsome.realistech.data.generators.WeakSmeltingRecipeBuilder;
 import awsome.realistech.data.tags.ModTags;
 import awsome.realistech.registry.Registration;
+import awsome.realistech.util.MoldType;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.DataGenerator;
@@ -37,46 +38,115 @@ public class Recipes extends RecipeProvider {
 		AlloyRecipeBuilder.alloyRecipe(new FluidStack(Registration.MOLTEN_BRONZE.get(), 4)).addInput(new FluidStack(Registration.MOLTEN_COPPER.get(), 3)).addInput(new FluidStack(Registration.MOLTEN_TIN.get(), 1)).build(consumer, "alloying/", true);
 		
 		//Melting Recipes
-		
-		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.COPPER_CLUSTER.get()), new FluidStack(Registration.MOLTEN_COPPER.get(), 144), 1085.0f).build(consumer, "melting/", true);
-		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.TIN_CLUSTER.get()), new FluidStack(Registration.MOLTEN_TIN.get(), 144), 231.0f).build(consumer, "melting/", true);
-		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.NICKEL_CLUSTER.get()), new FluidStack(Registration.MOLTEN_NICKEL.get(), 144), 1455.0f).build(consumer, "melting/", true);
-		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.SILVER_CLUSTER.get()), new FluidStack(Registration.MOLTEN_SILVER.get(), 144), 961.0f).build(consumer, "melting/", true);
-		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.LEAD_CLUSTER.get()), new FluidStack(Registration.MOLTEN_LEAD.get(), 144), 621.0f).build(consumer, "melting/", true);
-		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.COBALT_CLUSTER.get()), new FluidStack(Registration.MOLTEN_COBALT.get(), 144), 1495.0f).build(consumer, "melting/", true);
-		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.ZINC_CLUSTER.get()), new FluidStack(Registration.MOLTEN_ZINC.get(), 144), 419.0f).build(consumer, "melting/", true);
-		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.IRON_CLUSTER.get()), new FluidStack(Registration.MOLTEN_IRON.get(), 144), 419.0f).build(consumer, "melting/", true);
-		MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.IRON_CLUSTER.get()), new FluidStack(Registration.MOLTEN_GOLD.get(), 144), 419.0f).build(consumer, "melting/", true);
+			
+			//Clusters
+			MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.COPPER_CLUSTER.get()), new FluidStack(Registration.MOLTEN_COPPER.get(), 144), 1085.0f).build(consumer, "melting/clusters/", true);
+			MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.TIN_CLUSTER.get()), new FluidStack(Registration.MOLTEN_TIN.get(), 144), 231.0f).build(consumer, "melting/clusters/", true);
+			MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.NICKEL_CLUSTER.get()), new FluidStack(Registration.MOLTEN_NICKEL.get(), 144), 1455.0f).build(consumer, "melting/clusters/", true);
+			MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.SILVER_CLUSTER.get()), new FluidStack(Registration.MOLTEN_SILVER.get(), 144), 961.0f).build(consumer, "melting/clusters/", true);
+			MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.LEAD_CLUSTER.get()), new FluidStack(Registration.MOLTEN_LEAD.get(), 144), 621.0f).build(consumer, "melting/clusters/", true);
+			MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.COBALT_CLUSTER.get()), new FluidStack(Registration.MOLTEN_COBALT.get(), 144), 1495.0f).build(consumer, "melting/clusters/", true);
+			MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.ZINC_CLUSTER.get()), new FluidStack(Registration.MOLTEN_ZINC.get(), 144), 419.0f).build(consumer, "melting/clusters/", true);
+			MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.GOLD_CLUSTER.get()), new FluidStack(Registration.MOLTEN_GOLD.get(), 144), 419.0f).build(consumer, "melting/clusters/", true);
+			
+			//Ingots
+			MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.COPPER_INGOT.get()), new FluidStack(Registration.MOLTEN_COPPER.get(), 144), 1085.0f).build(consumer, "melting/ingots/", true);
+			MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.TIN_INGOT.get()), new FluidStack(Registration.MOLTEN_TIN.get(), 144), 231.0f).build(consumer, "melting/ingots/", true);
+			MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.NICKEL_INGOT.get()), new FluidStack(Registration.MOLTEN_NICKEL.get(), 144), 1455.0f).build(consumer, "melting/ingots/", true);
+			MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.SILVER_INGOT.get()), new FluidStack(Registration.MOLTEN_SILVER.get(), 144), 961.0f).build(consumer, "melting/ingots/", true);
+			MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.LEAD_INGOT.get()), new FluidStack(Registration.MOLTEN_LEAD.get(), 144), 621.0f).build(consumer, "melting/ingots/", true);
+			MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.COBALT_INGOT.get()), new FluidStack(Registration.MOLTEN_COBALT.get(), 144), 1495.0f).build(consumer, "melting/ingots/", true);
+			MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.ZINC_INGOT.get()), new FluidStack(Registration.MOLTEN_ZINC.get(), 144), 419.0f).build(consumer, "melting/ingots/", true);
+			MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Items.IRON_INGOT), new FluidStack(Registration.MOLTEN_IRON.get(), 144), 1538.0f).build(consumer, "melting/ingots/", true);
+			MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Items.GOLD_INGOT), new FluidStack(Registration.MOLTEN_GOLD.get(), 144), 1064.0f).build(consumer, "melting/ingots/", true);
+			
+			//Tool Heads
+			
+				//Copper
+				MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.COPPER_AXE_HEAD.get()), new FluidStack(Registration.MOLTEN_COPPER.get(), 432), 1085.0f).build(consumer, "melting/tool_heads/copper_axe/", true);
+				MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.COPPER_SHOVEL_HEAD.get()), new FluidStack(Registration.MOLTEN_COPPER.get(), 144), 1085.0f).build(consumer, "melting/tool_heads/copper_shovel/", true);
+				MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.COPPER_PICKAXE_HEAD.get()), new FluidStack(Registration.MOLTEN_COPPER.get(), 432), 1085.0f).build(consumer, "melting/tool_heads/copper_pickaxe/", true);
+				MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.COPPER_SWORD_HEAD.get()), new FluidStack(Registration.MOLTEN_COPPER.get(), 288), 1085.0f).build(consumer, "melting/tool_heads/copper_sword/", true);
+				MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.COPPER_PROPICK_HEAD.get()), new FluidStack(Registration.MOLTEN_COPPER.get(), 288), 1085.0f).build(consumer, "melting/tool_heads/copper_propick/", true);
+				
+				//Bronze
+				MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.BRONZE_AXE_HEAD.get()), new FluidStack(Registration.MOLTEN_BRONZE.get(), 432), 950.0f).build(consumer, "melting/tool_heads/copper_axe/", true);
+				MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.BRONZE_SHOVEL_HEAD.get()), new FluidStack(Registration.MOLTEN_BRONZE.get(), 144), 950.0f).build(consumer, "melting/tool_heads/copper_shovel/", true);
+				MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.BRONZE_PICKAXE_HEAD.get()), new FluidStack(Registration.MOLTEN_BRONZE.get(), 432), 950.0f).build(consumer, "melting/tool_heads/copper_pickaxe/", true);
+				MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.BRONZE_SWORD_HEAD.get()), new FluidStack(Registration.MOLTEN_BRONZE.get(), 288), 950.0f).build(consumer, "melting/tool_heads/copper_sword/", true);
+				MeltingRecipeBuilder.meltingRecipe(Ingredient.fromItems(Registration.BRONZE_PROPICK_HEAD.get()), new FluidStack(Registration.MOLTEN_BRONZE.get(), 288), 950.0f).build(consumer, "melting/tool_heads/copper_propick/", true);
 		
 		//Solidifying Recipes
-		SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_COPPER.get(), 144), Registration.COPPER_INGOT.get()).build(consumer, "solidifying/", true);
-		SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_TIN.get(), 144), Registration.TIN_INGOT.get()).build(consumer, "solidifying/", true);
-		SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_NICKEL.get(), 144), Registration.NICKEL_INGOT.get()).build(consumer, "solidifying/", true);
-		SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_SILVER.get(), 144), Registration.SILVER_INGOT.get()).build(consumer, "solidifying/", true);
-		SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_LEAD.get(), 144), Registration.LEAD_INGOT.get()).build(consumer, "solidifying/", true);
-		SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_COBALT.get(), 144), Registration.COBALT_INGOT.get()).build(consumer, "solidifying/", true);
-		SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_ZINC.get(), 144), Registration.ZINC_INGOT.get()).build(consumer, "solidifying/", true);
-		SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_GOLD.get(), 144), Items.GOLD_INGOT).build(consumer, "solidifying/", true);
-		SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_IRON.get(), 144), Items.IRON_INGOT).build(consumer, "solidifying/", true);
 		
+			//Ingots
+			SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_COPPER.get(), 144), Registration.COPPER_INGOT.get(), MoldType.INGOT).build(consumer, "solidifying/", true);
+			SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_TIN.get(), 144), Registration.TIN_INGOT.get(), MoldType.INGOT).build(consumer, "solidifying/", true);
+			SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_NICKEL.get(), 144), Registration.NICKEL_INGOT.get(), MoldType.INGOT).build(consumer, "solidifying/", true);
+			SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_SILVER.get(), 144), Registration.SILVER_INGOT.get(), MoldType.INGOT).build(consumer, "solidifying/", true);
+			SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_LEAD.get(), 144), Registration.LEAD_INGOT.get(), MoldType.INGOT).build(consumer, "solidifying/", true);
+			SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_COBALT.get(), 144), Registration.COBALT_INGOT.get(), MoldType.INGOT).build(consumer, "solidifying/", true);
+			SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_ZINC.get(), 144), Registration.ZINC_INGOT.get(), MoldType.INGOT).build(consumer, "solidifying/", true);
+			SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_GOLD.get(), 144), Items.GOLD_INGOT, MoldType.INGOT).build(consumer, "solidifying/", true);
+			SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_IRON.get(), 144), Items.IRON_INGOT, MoldType.INGOT).build(consumer, "solidifying/", true);
+			SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_BRONZE.get(), 144), Registration.BRONZE_INGOT.get(), MoldType.INGOT).build(consumer, "solidifying/", true);
+			
+			//Tool Heads
+			
+				//Copper
+				SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_COPPER.get(), 432), Registration.COPPER_AXE_HEAD.get(), MoldType.AXE).build(consumer, "solidifying/", true);
+				SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_COPPER.get(), 144), Registration.COPPER_SHOVEL_HEAD.get(), MoldType.SHOVEL).build(consumer, "solidifying/", true);
+				SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_COPPER.get(), 432), Registration.COPPER_PICKAXE_HEAD.get(), MoldType.PICKAXE).build(consumer, "solidifying/", true);
+				SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_COPPER.get(), 288), Registration.COPPER_SWORD_HEAD.get(), MoldType.SWORD).build(consumer, "solidifying/", true);
+				SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_COPPER.get(), 288), Registration.COPPER_PROPICK_HEAD.get(), MoldType.PROPICK).build(consumer, "solidifying/", true);
+				
+				//Bronze
+				SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_BRONZE.get(), 432), Registration.BRONZE_AXE_HEAD.get(), MoldType.AXE).build(consumer, "solidifying/", true);
+				SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_BRONZE.get(), 144), Registration.BRONZE_SHOVEL_HEAD.get(), MoldType.SHOVEL).build(consumer, "solidifying/", true);
+				SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_BRONZE.get(), 432), Registration.BRONZE_PICKAXE_HEAD.get(), MoldType.PICKAXE).build(consumer, "solidifying/", true);
+				SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_BRONZE.get(), 288), Registration.BRONZE_SWORD_HEAD.get(), MoldType.SWORD).build(consumer, "solidifying/", true);
+				SolidificationRecipeBuilder.solidificationRecipe(new FluidStack(Registration.MOLTEN_BRONZE.get(), 288), Registration.BRONZE_PROPICK_HEAD.get(), MoldType.PROPICK).build(consumer, "solidifying/", true);
+			
 		//Shapeless Recipes
 		
-		ShapelessRecipeBuilder.shapelessRecipe(Registration.PLANT_FIBER_CORDAGE.get()).addIngredient(Registration.PLANT_FIBER.get(), 4).addCriterion("plant_fiber", InventoryChangeTrigger.Instance.forItems(Registration.PLANT_FIBER.get())).build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(Registration.STONE_AXE.get()).addIngredient(Registration.PLANT_FIBER_CORDAGE.get()).addIngredient(Registration.STONE_AXE_HEAD.get()).addIngredient(Items.STICK).addCriterion("stick", InventoryChangeTrigger.Instance.forItems(Items.STICK)).build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(Registration.STONE_SHOVEL.get()).addIngredient(Registration.PLANT_FIBER_CORDAGE.get()).addIngredient(Registration.STONE_SHOVEL_HEAD.get()).addIngredient(Items.STICK).addCriterion("stick", InventoryChangeTrigger.Instance.forItems(Items.STICK)).build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(Registration.STONE_PICKAXE.get()).addIngredient(Registration.PLANT_FIBER_CORDAGE.get()).addIngredient(Registration.STONE_PICKAXE_HEAD.get()).addIngredient(Items.STICK).addCriterion("stick", InventoryChangeTrigger.Instance.forItems(Items.STICK)).build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(Registration.STONE_CHISEL.get()).addIngredient(Registration.PLANT_FIBER_CORDAGE.get()).addIngredient(Registration.STONE_CHISEL_HEAD.get()).addIngredient(Items.STICK).addCriterion("stick", InventoryChangeTrigger.Instance.forItems(Items.STICK)).build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(Registration.STONE_HAMMER.get()).addIngredient(Registration.PLANT_FIBER_CORDAGE.get()).addIngredient(Registration.STONE_HAMMER_HEAD.get()).addIngredient(Items.STICK).addCriterion("stick", InventoryChangeTrigger.Instance.forItems(Items.STICK)).build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(Registration.PRIMITIVE_BRICK_MOLD.get()).addIngredient(Registration.STONE_HAMMER.get()).addIngredient(Registration.STONE_CHISEL.get()).addIngredient(ItemTags.PLANKS).addCriterion("planks", InventoryChangeTrigger.Instance.forItems(Registration.STONE_CHISEL.get())).build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(Registration.KILN_CLAY_MIXTURE.get()).addIngredient(Registration.STONE_MORTAR_AND_PESTLE.get()).addIngredient(Items.SAND).addIngredient(Items.FLINT).addCriterion("flint", InventoryChangeTrigger.Instance.forItems(Items.FLINT)).build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(Registration.KILN_CLAY_BALL.get(), 8).addIngredient(Registration.KILN_CLAY_MIXTURE.get()).addIngredient(Items.CLAY_BALL, 8).addCriterion("kiln_clay_mixture_obtained", InventoryChangeTrigger.Instance.forItems(Registration.KILN_CLAY_MIXTURE.get())).build(consumer);
-		
+			
+			
+			//Tools
+			
+				//Stone
+				ShapelessRecipeBuilder.shapelessRecipe(Registration.STONE_AXE.get()).addIngredient(Registration.PLANT_FIBER_CORDAGE.get()).addIngredient(Registration.STONE_AXE_HEAD.get()).addIngredient(Items.STICK).addCriterion("stick", InventoryChangeTrigger.Instance.forItems(Items.STICK)).build(consumer);
+				ShapelessRecipeBuilder.shapelessRecipe(Registration.STONE_SHOVEL.get()).addIngredient(Registration.PLANT_FIBER_CORDAGE.get()).addIngredient(Registration.STONE_SHOVEL_HEAD.get()).addIngredient(Items.STICK).addCriterion("stick", InventoryChangeTrigger.Instance.forItems(Items.STICK)).build(consumer);
+				ShapelessRecipeBuilder.shapelessRecipe(Registration.STONE_PICKAXE.get()).addIngredient(Registration.PLANT_FIBER_CORDAGE.get()).addIngredient(Registration.STONE_PICKAXE_HEAD.get()).addIngredient(Items.STICK).addCriterion("stick", InventoryChangeTrigger.Instance.forItems(Items.STICK)).build(consumer);
+				ShapelessRecipeBuilder.shapelessRecipe(Registration.STONE_CHISEL.get()).addIngredient(Registration.PLANT_FIBER_CORDAGE.get()).addIngredient(Registration.STONE_CHISEL_HEAD.get()).addIngredient(Items.STICK).addCriterion("stick", InventoryChangeTrigger.Instance.forItems(Items.STICK)).build(consumer);
+				ShapelessRecipeBuilder.shapelessRecipe(Registration.STONE_HAMMER.get()).addIngredient(Registration.PLANT_FIBER_CORDAGE.get()).addIngredient(Registration.STONE_HAMMER_HEAD.get()).addIngredient(Items.STICK).addCriterion("stick", InventoryChangeTrigger.Instance.forItems(Items.STICK)).build(consumer);
+				
+				//Copper
+				ShapelessRecipeBuilder.shapelessRecipe(Registration.COPPER_AXE.get()).addIngredient(Registration.COPPER_AXE_HEAD.get()).addIngredient(Items.STICK).addCriterion("copper_obtained", InventoryChangeTrigger.Instance.forItems(Registration.COPPER_INGOT.get())).build(consumer);
+				ShapelessRecipeBuilder.shapelessRecipe(Registration.COPPER_PICKAXE.get()).addIngredient(Registration.COPPER_PICKAXE_HEAD.get()).addIngredient(Items.STICK).addCriterion("copper_obtained", InventoryChangeTrigger.Instance.forItems(Registration.COPPER_INGOT.get())).build(consumer);
+				ShapelessRecipeBuilder.shapelessRecipe(Registration.COPPER_SHOVEL.get()).addIngredient(Registration.COPPER_SHOVEL_HEAD.get()).addIngredient(Items.STICK).addCriterion("copper_obtained", InventoryChangeTrigger.Instance.forItems(Registration.COPPER_INGOT.get())).build(consumer);
+				ShapelessRecipeBuilder.shapelessRecipe(Registration.COPPER_SWORD.get()).addIngredient(Registration.COPPER_SWORD_HEAD.get()).addIngredient(Items.STICK).addCriterion("copper_obtained", InventoryChangeTrigger.Instance.forItems(Registration.COPPER_INGOT.get())).build(consumer);
+				ShapelessRecipeBuilder.shapelessRecipe(Registration.COPPER_PROPICK.get()).addIngredient(Registration.COPPER_PROPICK_HEAD.get()).addIngredient(Items.STICK).addCriterion("copper_obtained", InventoryChangeTrigger.Instance.forItems(Registration.COPPER_INGOT.get())).build(consumer);
+				
+				//Bronze
+				ShapelessRecipeBuilder.shapelessRecipe(Registration.BRONZE_AXE.get()).addIngredient(Registration.BRONZE_AXE_HEAD.get()).addIngredient(Items.STICK).addCriterion("bronze_obtained", InventoryChangeTrigger.Instance.forItems(Registration.BRONZE_INGOT.get())).build(consumer);
+				ShapelessRecipeBuilder.shapelessRecipe(Registration.BRONZE_PICKAXE.get()).addIngredient(Registration.BRONZE_PICKAXE_HEAD.get()).addIngredient(Items.STICK).addCriterion("bronze_obtained", InventoryChangeTrigger.Instance.forItems(Registration.BRONZE_INGOT.get())).build(consumer);
+				ShapelessRecipeBuilder.shapelessRecipe(Registration.BRONZE_SHOVEL.get()).addIngredient(Registration.BRONZE_SHOVEL_HEAD.get()).addIngredient(Items.STICK).addCriterion("bronze_obtained", InventoryChangeTrigger.Instance.forItems(Registration.BRONZE_INGOT.get())).build(consumer);
+				ShapelessRecipeBuilder.shapelessRecipe(Registration.BRONZE_SWORD.get()).addIngredient(Registration.BRONZE_SWORD_HEAD.get()).addIngredient(Items.STICK).addCriterion("bronze_obtained", InventoryChangeTrigger.Instance.forItems(Registration.BRONZE_INGOT.get())).build(consumer);
+				ShapelessRecipeBuilder.shapelessRecipe(Registration.BRONZE_PROPICK.get()).addIngredient(Registration.BRONZE_PROPICK_HEAD.get()).addIngredient(Items.STICK).addCriterion("bronze_obtained", InventoryChangeTrigger.Instance.forItems(Registration.BRONZE_INGOT.get())).build(consumer);
+			
+			//Misc
+			ShapelessRecipeBuilder.shapelessRecipe(Registration.PRIMITIVE_BRICK_MOLD.get()).addIngredient(Registration.STONE_HAMMER.get()).addIngredient(Registration.STONE_CHISEL.get()).addIngredient(ItemTags.PLANKS).addCriterion("planks", InventoryChangeTrigger.Instance.forItems(Registration.STONE_CHISEL.get())).build(consumer);
+			ShapelessRecipeBuilder.shapelessRecipe(Registration.KILN_CLAY_MIXTURE.get()).addIngredient(Registration.STONE_MORTAR_AND_PESTLE.get()).addIngredient(Items.SAND).addIngredient(Items.FLINT).addCriterion("flint", InventoryChangeTrigger.Instance.forItems(Items.FLINT)).build(consumer);
+			ShapelessRecipeBuilder.shapelessRecipe(Registration.KILN_CLAY_BALL.get(), 8).addIngredient(Registration.KILN_CLAY_MIXTURE.get()).addIngredient(Items.CLAY_BALL, 8).addCriterion("kiln_clay_mixture_obtained", InventoryChangeTrigger.Instance.forItems(Registration.KILN_CLAY_MIXTURE.get())).build(consumer);
+			ShapelessRecipeBuilder.shapelessRecipe(Registration.FIREBRICKS_ITEM.get()).addIngredient(Registration.FIREBRICK.get(), 4).addCriterion("fireclay_obtained", InventoryChangeTrigger.Instance.forItems(Registration.KAOLINITE_CLAY_BALL.get())).build(consumer);
+			ShapelessRecipeBuilder.shapelessRecipe(Registration.PLANT_FIBER_CORDAGE.get()).addIngredient(Registration.PLANT_FIBER.get(), 4).addCriterion("plant_fiber", InventoryChangeTrigger.Instance.forItems(Registration.PLANT_FIBER.get())).build(consumer);
+			
 		//Shaped Recipes
 		
 		ShapedRecipeBuilder.shapedRecipe(Registration.KILN.get()).patternLine("###").patternLine("# #").patternLine("###").key('#', Registration.KILN_BRICK.get()).addCriterion("kiln_brick_obtained", InventoryChangeTrigger.Instance.forItems(Registration.KILN_BRICK.get())).build(consumer);
 		ShapedRecipeBuilder.shapedRecipe(Registration.WEAK_FURNACE.get()).patternLine("BBB").patternLine("BFB").patternLine("BBB").key('B', Registration.FIREBRICK.get()).key('F', Items.FURNACE).addCriterion("furnace_obtained", InventoryChangeTrigger.Instance.forItems(Items.FURNACE)).build(consumer);
 		ShapedRecipeBuilder.shapedRecipe(Registration.FIREBOX.get()).patternLine("PPP").patternLine("B B").patternLine("BBB").key('P', Registration.COPPER_PLATE.get()).key('B', Registration.FIREBRICKS_ITEM.get()).addCriterion("firebrick_obtained", InventoryChangeTrigger.Instance.forItems(Registration.FIREBRICK.get())).build(consumer);
 		ShapedRecipeBuilder.shapedRecipe(Registration.CRUCIBLE.get()).patternLine("# #").patternLine("# #").patternLine("###").key('#', Registration.FIREBRICK.get()).addCriterion("firebrick_obtained", InventoryChangeTrigger.Instance.forItems(Registration.FIREBRICK.get())).build(consumer);
+		ShapedRecipeBuilder.shapedRecipe(Registration.STONE_ANVIL.get()).patternLine("###").patternLine(" # ").patternLine("SSS").key('#', Items.STONE).key('S', Items.SMOOTH_STONE).addCriterion("firebrick_obtained", InventoryChangeTrigger.Instance.forItems(Registration.FIREBRICK.get())).build(consumer);
 		
 		//Shapeless Recipes With a Catalyst
 		

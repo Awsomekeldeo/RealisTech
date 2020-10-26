@@ -9,7 +9,9 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -26,6 +28,13 @@ public class FilledMoldCapabilityWrapper implements ICapabilitySerializable<Comp
 	
 	private HeatHandlerItemStack heatHandler;
 	private LazyOptional<IHeat> handler3 = LazyOptional.of(() -> heatHandler);
+	
+	public FilledMoldCapabilityWrapper(int capacity, ItemStack stack, CompoundNBT nbt) {
+		this.itemHandler = new ItemStackHandler();
+		this.fluidHandler = new FluidHandlerItemStack(stack, capacity);
+		this.heatHandler = new HeatHandlerItemStack(stack, 1773.0f, 2.0f, 2.0f);
+		this.deserializeNBT(nbt);
+	}
 	
 	public FilledMoldCapabilityWrapper(int capacity, ItemStack stack) {
 		this.itemHandler = new ItemStackHandler();
@@ -58,6 +67,15 @@ public class FilledMoldCapabilityWrapper implements ICapabilitySerializable<Comp
 		if (stack != null) {
 			stack.write(compound);
 		}
+		
+		compound.put("realistech:heatData", HeatCapability.HEAT_CAPABILITY.writeNBT(heatHandler, null));
+		
+		FluidStack fluidStack = this.fluidHandler.getFluidInTank(0);
+		
+		if (fluidStack != null) {
+			fluidStack.writeToNBT(compound);
+		}
+		
 		return compound;
 	}
 
@@ -66,6 +84,15 @@ public class FilledMoldCapabilityWrapper implements ICapabilitySerializable<Comp
 		ItemStack stack = ItemStack.read(nbt);
 		if (stack != null) {
 			this.itemHandler.setStackInSlot(0, stack);
+		}
+		if (nbt.contains("realistech:heatData")) {
+			HeatCapability.HEAT_CAPABILITY.readNBT(heatHandler, null, nbt.getCompound("realistech:heatData"));
+		}
+		if (nbt.contains("Fluid")) {
+			FluidStack fluidstack = FluidStack.loadFluidStackFromNBT(nbt.getCompound("Fluid"));
+			if (fluidstack != null) {
+				this.fluidHandler.fill(fluidstack, FluidAction.EXECUTE);
+			}
 		}
 	}
 	

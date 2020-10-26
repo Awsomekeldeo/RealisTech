@@ -1,0 +1,11 @@
+{
+  "type": "realistech:melting",
+  "input": {
+    "item": "minecraft:gold_ingot"
+  },
+  "fluid": {
+    "id": "realistech:molten_gold",
+    "amount": 144
+  },
+  "temperature": 1064.0
+}

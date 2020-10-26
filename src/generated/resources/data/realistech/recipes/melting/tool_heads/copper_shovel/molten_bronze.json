@@ -1,0 +1,11 @@
+{
+  "type": "realistech:melting",
+  "input": {
+    "item": "realistech:tool_heads/bronze_shovel"
+  },
+  "fluid": {
+    "id": "realistech:molten_bronze",
+    "amount": 144
+  },
+  "temperature": 950.0
+}

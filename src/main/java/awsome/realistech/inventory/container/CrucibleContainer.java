@@ -73,7 +73,9 @@ public class CrucibleContainer extends Container {
 			tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).ifPresent(h -> {
 				this.crucibleTanks = ((CrucibleTankHandler)h).getStacks();
 			});
+			
 			RealistechPacketHandler.sendToClient(new SCrucibleTankUpdatePacket(this.crucibleTanks, this.tankCapacity), (ServerPlayerEntity)this.playerEntity);
+			
 		}
 		super.detectAndSendChanges();
 	}

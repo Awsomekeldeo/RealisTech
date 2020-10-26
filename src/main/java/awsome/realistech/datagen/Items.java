@@ -109,6 +109,7 @@ public class Items extends ItemModelProvider {
 		singleTexture("item/" + Registration.COBALT_INGOT.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ingots/cobalt"));
 		singleTexture("item/" + Registration.ZINC_INGOT.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ingots/zinc"));
 		singleTexture("item/" + Registration.CRUDE_COPPER_INGOT.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ingots/crude_copper"));
+		singleTexture("item/" + Registration.BRONZE_INGOT.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ingots/bronze"));
 		
 		//Chunks
 		singleTexture("item/" + Registration.COPPER_CHUNK.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/chunks/copper"));
@@ -121,6 +122,7 @@ public class Items extends ItemModelProvider {
 		singleTexture("item/" + Registration.SILVER_PLATE.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/plates/silver"));
 		singleTexture("item/" + Registration.COBALT_PLATE.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/plates/cobalt"));
 		singleTexture("item/" + Registration.ZINC_PLATE.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/plates/zinc"));
+		singleTexture("item/" + Registration.BRONZE_PLATE.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/plates/bronze"));
 		
 		//Unfired Molds
 		singleTexture("item/" + Registration.UNFIRED_CERAMIC_AXE_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/unfired/axe_mold"));
@@ -146,7 +148,21 @@ public class Items extends ItemModelProvider {
 			singleTexture("item/" + Registration.STONE_CHISEL_HEAD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/tool_heads/stone_chisel"));
 			singleTexture("item/" + Registration.STONE_PICKAXE_HEAD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/tool_heads/stone_pickaxe"));
 			singleTexture("item/" + Registration.STONE_HAMMER_HEAD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/tool_heads/stone_hammer"));
-		
+			
+			//Copper
+			singleTexture("item/" + Registration.COPPER_AXE_HEAD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/tool_heads/copper_axe"));
+			singleTexture("item/" + Registration.COPPER_SHOVEL_HEAD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/tool_heads/copper_shovel"));
+			singleTexture("item/" + Registration.COPPER_PROPICK_HEAD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/tool_heads/copper_propick"));
+			singleTexture("item/" + Registration.COPPER_PICKAXE_HEAD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/tool_heads/copper_pickaxe"));
+			singleTexture("item/" + Registration.COPPER_SWORD_HEAD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/tool_heads/copper_sword"));
+			
+			//Bronze
+			singleTexture("item/" + Registration.BRONZE_AXE_HEAD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/tool_heads/bronze_axe"));
+			singleTexture("item/" + Registration.BRONZE_SHOVEL_HEAD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/tool_heads/bronze_shovel"));
+			singleTexture("item/" + Registration.BRONZE_PROPICK_HEAD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/tool_heads/bronze_propick"));
+			singleTexture("item/" + Registration.BRONZE_PICKAXE_HEAD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/tool_heads/bronze_pickaxe"));
+			singleTexture("item/" + Registration.BRONZE_SWORD_HEAD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/tool_heads/bronze_sword"));
+			
 		//Tools
 			
 			//Stone
@@ -156,5 +172,19 @@ public class Items extends ItemModelProvider {
 			singleTexture("item/" + Registration.STONE_PICKAXE.get().getRegistryName().getPath(), new ResourceLocation("item/handheld"), "layer0", new ResourceLocation(Reference.MODID, "items/tools/stone_pickaxe"));
 			singleTexture("item/" + Registration.STONE_HAMMER.get().getRegistryName().getPath(), new ResourceLocation("item/handheld"), "layer0", new ResourceLocation(Reference.MODID, "items/tools/stone_hammer"));
 			singleTexture("item/" + Registration.STONE_MORTAR_AND_PESTLE.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/tools/stone_mortar"));
+			
+			//Copper
+			singleTexture("item/" + Registration.COPPER_AXE.get().getRegistryName().getPath(), new ResourceLocation("item/handheld"), "layer0", new ResourceLocation(Reference.MODID, "items/tools/copper_axe"));
+			singleTexture("item/" + Registration.COPPER_SHOVEL.get().getRegistryName().getPath(), new ResourceLocation("item/handheld"), "layer0", new ResourceLocation(Reference.MODID, "items/tools/copper_shovel"));
+			singleTexture("item/" + Registration.COPPER_PROPICK.get().getRegistryName().getPath(), new ResourceLocation("item/handheld"), "layer0", new ResourceLocation(Reference.MODID, "items/tools/copper_propick"));
+			singleTexture("item/" + Registration.COPPER_PICKAXE.get().getRegistryName().getPath(), new ResourceLocation("item/handheld"), "layer0", new ResourceLocation(Reference.MODID, "items/tools/copper_pickaxe"));
+			singleTexture("item/" + Registration.COPPER_SWORD.get().getRegistryName().getPath(), new ResourceLocation("item/handheld"), "layer0", new ResourceLocation(Reference.MODID, "items/tools/copper_sword"));
+			
+			//Bronze
+			singleTexture("item/" + Registration.BRONZE_AXE.get().getRegistryName().getPath(), new ResourceLocation("item/handheld"), "layer0", new ResourceLocation(Reference.MODID, "items/tools/bronze_axe"));
+			singleTexture("item/" + Registration.BRONZE_SHOVEL.get().getRegistryName().getPath(), new ResourceLocation("item/handheld"), "layer0", new ResourceLocation(Reference.MODID, "items/tools/bronze_shovel"));
+			singleTexture("item/" + Registration.BRONZE_PROPICK.get().getRegistryName().getPath(), new ResourceLocation("item/handheld"), "layer0", new ResourceLocation(Reference.MODID, "items/tools/bronze_propick"));
+			singleTexture("item/" + Registration.BRONZE_PICKAXE.get().getRegistryName().getPath(), new ResourceLocation("item/handheld"), "layer0", new ResourceLocation(Reference.MODID, "items/tools/bronze_pickaxe"));
+			singleTexture("item/" + Registration.BRONZE_SWORD.get().getRegistryName().getPath(), new ResourceLocation("item/handheld"), "layer0", new ResourceLocation(Reference.MODID, "items/tools/bronze_sword"));
 	}
 }

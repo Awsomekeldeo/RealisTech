@@ -1,0 +1,11 @@
+{
+  "type": "realistech:melting",
+  "input": {
+    "item": "realistech:tool_heads/copper_pickaxe"
+  },
+  "fluid": {
+    "id": "realistech:molten_copper",
+    "amount": 432
+  },
+  "temperature": 1085.0
+}

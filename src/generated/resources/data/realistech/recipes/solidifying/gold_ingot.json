@@ -6,5 +6,6 @@
   },
   "output": {
     "item": "minecraft:gold_ingot"
-  }
+  },
+  "mold_type": "ingot"
 }

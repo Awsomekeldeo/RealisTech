@@ -2,6 +2,7 @@ package awsome.realistech.api.recipe;
 
 import awsome.realistech.Reference;
 import awsome.realistech.registry.Registration;
+import awsome.realistech.util.MoldType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -20,11 +21,13 @@ public class SolidificationRecipe implements IRecipe<RecipeWrapper> {
 	private final FluidStack input;
 	private final ItemStack output;
 	private final ResourceLocation id;
+	private final MoldType moldType;
 	
-	public SolidificationRecipe(ResourceLocation id, FluidStack input, ItemStack output) {
+	public SolidificationRecipe(ResourceLocation id, FluidStack input, ItemStack output, MoldType moldType) {
 		this.input = input;
 		this.output = output;
 		this.id = id;
+		this.moldType = moldType;
 		this.type = SOLIDIFICATION_RECIPE;
 	}
 	
@@ -41,9 +44,9 @@ public class SolidificationRecipe implements IRecipe<RecipeWrapper> {
 		return true;
 	}
 	
-	public boolean isValid(IFluidHandlerItem tanksIn) {
+	public boolean isValid(IFluidHandlerItem tanksIn, MoldType moldType) {
 		
-		if (tanksIn.getFluidInTank(0).containsFluid(this.input)) {
+		if (tanksIn.getFluidInTank(0).containsFluid(this.input) && moldType == this.moldType) {
 			return true;
 		}
 		
@@ -78,6 +81,10 @@ public class SolidificationRecipe implements IRecipe<RecipeWrapper> {
 	@Override
 	public IRecipeType<?> getType() {
 		return this.type;
+	}
+
+	public MoldType getMoldType() {
+		return this.moldType;
 	}
 
 }

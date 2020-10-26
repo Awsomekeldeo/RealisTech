@@ -1,0 +1,11 @@
+{
+  "type": "realistech:melting",
+  "input": {
+    "item": "realistech:ingots/tin_ingot"
+  },
+  "fluid": {
+    "id": "realistech:molten_tin",
+    "amount": 144
+  },
+  "temperature": 231.0
+}

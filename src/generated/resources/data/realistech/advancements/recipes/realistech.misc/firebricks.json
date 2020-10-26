@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "realistech:firebricks"
+    ]
+  },
+  "criteria": {
+    "fireclay_obtained": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "realistech:kaolinite_clay_ball"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "realistech:firebricks"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "fireclay_obtained",
+      "has_the_recipe"
+    ]
+  ]
+}

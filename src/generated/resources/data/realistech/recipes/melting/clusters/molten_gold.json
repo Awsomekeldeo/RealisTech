@@ -1,0 +1,11 @@
+{
+  "type": "realistech:melting",
+  "input": {
+    "item": "realistech:ore_clusters/gold_cluster"
+  },
+  "fluid": {
+    "id": "realistech:molten_gold",
+    "amount": 144
+  },
+  "temperature": 419.0
+}

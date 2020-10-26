@@ -9,8 +9,10 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 
 public class MoldCapabilityWrapper implements ICapabilitySerializable<CompoundNBT> {
@@ -23,7 +25,7 @@ public class MoldCapabilityWrapper implements ICapabilitySerializable<CompoundNB
 	
 	public MoldCapabilityWrapper(int capacity, ItemStack stack) {
 		this.fluidHandler = new FluidHandlerItemStack(stack, capacity);
-		this.heatHandler = new HeatHandlerItemStack(stack, 1773.0f, 0.5f, 0.5f);
+		this.heatHandler = new HeatHandlerItemStack(stack, 1773.0f, 2.0f, 2.0f);
 	}
 	
 	@Override
@@ -42,12 +44,30 @@ public class MoldCapabilityWrapper implements ICapabilitySerializable<CompoundNB
 	@Override
 	public CompoundNBT serializeNBT() {
 		CompoundNBT compound = new CompoundNBT();
+		compound.put("realistech:heatData", HeatCapability.HEAT_CAPABILITY.writeNBT(heatHandler, null));
+		
+		FluidStack fluidStack = this.fluidHandler.getFluidInTank(0);
+		
+		compound.putInt("Capacity", this.fluidHandler.getTankCapacity(0));
+		
+		if (fluidStack != null) {
+			fluidStack.writeToNBT(compound);
+		}
+		
 		return compound;
 	}
 
 	@Override
 	public void deserializeNBT(CompoundNBT nbt) {
-		
+		if (nbt.contains("realistech:heatData")) {
+			HeatCapability.HEAT_CAPABILITY.readNBT(heatHandler, null, nbt.getCompound("realistech:heatData"));
+		}
+		if (nbt.contains("Fluid")) {
+			FluidStack fluidstack = FluidStack.loadFluidStackFromNBT(nbt.getCompound("Fluid"));
+			if (fluidstack != null) {
+				this.fluidHandler.fill(fluidstack, FluidAction.EXECUTE);
+			}
+		}
 	}
 
 }

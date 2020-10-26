@@ -103,6 +103,20 @@ public class EnUsLang extends LanguageProvider {
 			add(Registration.STONE_PICKAXE_HEAD.get(), "Stone Pickaxe Head");
 			add(Registration.STONE_HAMMER_HEAD.get(), "Stone Hammer Head");
 			add(Registration.STONE_CHISEL_HEAD.get(), "Stone Chisel Head");
+			
+			//Copper
+			add(Registration.COPPER_AXE_HEAD.get(), "Copper Axe Head");
+			add(Registration.COPPER_SHOVEL_HEAD.get(), "Copper Shovel Head");
+			add(Registration.COPPER_PICKAXE_HEAD.get(), "Copper Pickaxe Head");
+			add(Registration.COPPER_PROPICK_HEAD.get(), "Copper Prospector's Pickaxe Head");
+			add(Registration.COPPER_SWORD_HEAD.get(), "Copper Sword Blade");
+			
+			//Bronze
+			add(Registration.BRONZE_AXE_HEAD.get(), "Bronze Axe Head");
+			add(Registration.BRONZE_SHOVEL_HEAD.get(), "Bronze Shovel Head");
+			add(Registration.BRONZE_PICKAXE_HEAD.get(), "Bronze Pickaxe Head");
+			add(Registration.BRONZE_PROPICK_HEAD.get(), "Bronze Prospector's Pickaxe Head");
+			add(Registration.BRONZE_SWORD_HEAD.get(), "Bronze Sword Blade");
 		
 		//Tools
 			
@@ -113,6 +127,20 @@ public class EnUsLang extends LanguageProvider {
 			add(Registration.STONE_HAMMER.get(), "Stone Hammer");
 			add(Registration.STONE_CHISEL.get(), "Stone Chisel");
 			add(Registration.STONE_MORTAR_AND_PESTLE.get(), "Stone Mortar and Pestle");
+			
+			//Copper
+			add(Registration.COPPER_AXE.get(), "Copper Axe");
+			add(Registration.COPPER_SHOVEL.get(), "Copper Shovel");
+			add(Registration.COPPER_PICKAXE.get(), "Copper Pickaxe");
+			add(Registration.COPPER_PROPICK.get(), "Copper Prospector's Pickaxe");
+			add(Registration.COPPER_SWORD.get(), "Copper Sword");
+			
+			//Bronze
+			add(Registration.BRONZE_AXE.get(), "Bronze Axe");
+			add(Registration.BRONZE_SHOVEL.get(), "Bronze Shovel");
+			add(Registration.BRONZE_PICKAXE.get(), "Bronze Pickaxe");
+			add(Registration.BRONZE_PROPICK.get(), "Bronze Prospector's Pickaxe");
+			add(Registration.BRONZE_SWORD.get(), "Bronze Sword");
 		
 		//Misc Items
 		add(Registration.PLANT_FIBER.get(), "Plant Fiber");
@@ -224,10 +252,12 @@ public class EnUsLang extends LanguageProvider {
 		add("container.realistech.weak_furnace", "Furnace");
 		add("screen.realistech.jei_compat.kiln", "Kiln Firing");
 		add("screen.realistech.jei_compat.anvil", "Anvil Working");
+		add("screen.realistech.jei_compat.weak_furnace", "Smelting");
+		add("gui.realistech.grass_fiber_description", "Grass fiber is obtained from breaking grass.");
 		add("realistech.info.temperature", "%s°C");
 		add("realistech.info.crucibleContents", "Contents: ");
 		add("realistech.info.bucketUnit", "%smL");
-		add("realistech.info.empty", "%s°C");
+		add("realistech.info.empty", "Empty");
 		add("message.realistech.noBreak", "Your fists break!");
 		add("tooltip.realistech.brick", "\"I'm a brick!\"");
 		add("tooltip.realistech.fireclay", "Can be used as fireclay.");

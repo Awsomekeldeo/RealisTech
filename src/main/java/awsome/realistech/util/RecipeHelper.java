@@ -26,4 +26,14 @@ public class RecipeHelper {
 		return new FluidStack(fluid, i);
 	}
 	
+	public static MoldType getMoldType(JsonObject json) {
+		String s = JSONUtils.getString(json, "mold_type");
+		
+		if (MoldType.getFromString(s) == null) {
+			throw new JsonSyntaxException("Invalid mold type" + s + ", available mold types are: " + MoldType.values());
+		}
+		
+		return MoldType.getFromString(s);
+	}
+	
 }

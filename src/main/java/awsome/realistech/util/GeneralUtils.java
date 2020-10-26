@@ -26,15 +26,28 @@ public class GeneralUtils {
 		
 		if (temperature < 473.0f) {
 			return tempBuffer[0];
-		}else if (temperature > 1500.0f) {
-			return tempBuffer[255];
 		}
 		
-		double i3 = (8.189f * Math.pow(10, -5)) * Math.pow(temperature, 3);
-		double i2 = 0.0254d * Math.pow(temperature, 2);
-		double i1 = 4.9449d * temperature;
-		double iC = 472.4631;
-		int i = (int) (i3 - i2 + i1 + iC);
+		if (temperature > 1400.0f) {
+			return tempBuffer[253];
+		}
+		
+		double tempSquared = Math.pow(temperature, 2);
+		
+		double j1 = Math.pow(10, 17);
+		double j2 = Math.pow(10, 20);
+		double j3 = Math.pow(10, 23);
+		
+		double j4 = Math.pow(10, 13);
+		double j5 = Math.pow(10, 16);
+		
+		double j6 = Math.pow(10, 7);
+		
+		double k1 = Math.sqrt((1.81061 * j1 * tempSquared) - (2.90679 * j2 * temperature) + (1.20749 * j3));
+		
+		double l1 = Math.cbrt((42551.3 * k1) - (1.81061 * j4 * temperature) + (1.45339 * j5));
+		
+		int i = (int) (103.391 - 0.000696046 * l1 + (1.35603 * j6) / l1);
 		return tempBuffer[i];
 		
 	}

@@ -1,0 +1,11 @@
+{
+  "type": "realistech:solidification",
+  "input": {
+    "id": "realistech:molten_copper",
+    "amount": 288
+  },
+  "output": {
+    "item": "realistech:tool_heads/copper_chisel"
+  },
+  "mold_type": "propick"
+}

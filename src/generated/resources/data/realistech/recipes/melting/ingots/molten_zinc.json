@@ -1,10 +1,10 @@
 {
   "type": "realistech:melting",
   "input": {
-    "item": "realistech:ore_clusters/iron_cluster"
+    "item": "realistech:ingots/zinc_ingot"
   },
   "fluid": {
-    "id": "realistech:molten_gold",
+    "id": "realistech:molten_zinc",
     "amount": 144
   },
   "temperature": 419.0

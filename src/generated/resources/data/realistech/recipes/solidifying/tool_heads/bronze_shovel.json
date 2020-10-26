@@ -1,0 +1,11 @@
+{
+  "type": "realistech:solidification",
+  "input": {
+    "id": "realistech:molten_bronze",
+    "amount": 144
+  },
+  "output": {
+    "item": "realistech:tool_heads/bronze_shovel"
+  },
+  "mold_type": "shovel"
+}

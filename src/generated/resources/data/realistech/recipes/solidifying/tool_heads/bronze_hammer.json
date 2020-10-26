@@ -1,0 +1,11 @@
+{
+  "type": "realistech:solidification",
+  "input": {
+    "id": "realistech:molten_bronze",
+    "amount": 288
+  },
+  "output": {
+    "item": "realistech:tool_heads/bronze_hammer"
+  },
+  "mold_type": "sword"
+}

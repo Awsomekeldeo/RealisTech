@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 
 import awsome.realistech.Reference;
 import awsome.realistech.registry.Registration;
+import awsome.realistech.util.MoldType;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -19,19 +20,21 @@ public class SolidificationRecipeBuilder {
 	private final FluidStack input;
 	private final Item output;
 	private final int count;
+	private final MoldType moldType;
 	
-	public SolidificationRecipeBuilder(FluidStack inputIn, IItemProvider outputIn, int countIn) {
+	public SolidificationRecipeBuilder(FluidStack inputIn, IItemProvider outputIn, int countIn, MoldType type) {
 		this.input = inputIn;
 		this.output = outputIn.asItem();
 		this.count = countIn;
+		this.moldType = type;
 	}
 	
-	public static SolidificationRecipeBuilder solidificationRecipe(FluidStack inputIn, IItemProvider outputIn) {
-		return new SolidificationRecipeBuilder(inputIn, outputIn, 1);
+	public static SolidificationRecipeBuilder solidificationRecipe(FluidStack inputIn, IItemProvider outputIn, MoldType type) {
+		return new SolidificationRecipeBuilder(inputIn, outputIn, 1, type);
 	}
 	
-	public static SolidificationRecipeBuilder solidificationRecipe(FluidStack inputIn, IItemProvider outputIn, int countIn) {
-		return new SolidificationRecipeBuilder(inputIn, outputIn, countIn);
+	public static SolidificationRecipeBuilder solidificationRecipe(FluidStack inputIn, IItemProvider outputIn, int countIn, MoldType type) {
+		return new SolidificationRecipeBuilder(inputIn, outputIn, countIn, type);
 	}
 	
 	public void build(Consumer<IFinishedRecipe> consumerIn) {
@@ -56,7 +59,7 @@ public class SolidificationRecipeBuilder {
 	}
 	
 	public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
-		consumerIn.accept(new SolidificationRecipeBuilder.Result(id, this.input, this.output, this.count));
+		consumerIn.accept(new SolidificationRecipeBuilder.Result(id, this.input, this.output, this.count, this.moldType));
 	}
 	
 	public static class Result implements IFinishedRecipe {
@@ -65,12 +68,14 @@ public class SolidificationRecipeBuilder {
 		private final FluidStack input;
 		private final Item output;
 		private final int count;
+		private final MoldType moldType;
 		
-		public Result(ResourceLocation id, FluidStack input, Item output, int count) {
+		public Result(ResourceLocation id, FluidStack input, Item output, int count, MoldType type) {
 			this.id = id;
 			this.input = input;
 			this.output = output;
 			this.count = count;
+			this.moldType = type;
 		}
 
 		@Override
@@ -89,6 +94,8 @@ public class SolidificationRecipeBuilder {
 			}
 			
 			json.add("output", jsonObject);
+			
+			json.addProperty("mold_type", this.moldType.getTypeForString());
 		}
 
 		@Override

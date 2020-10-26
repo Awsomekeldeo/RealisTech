@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "realistech:firebrick"
+    },
+    {
+      "item": "realistech:firebrick"
+    },
+    {
+      "item": "realistech:firebrick"
+    },
+    {
+      "item": "realistech:firebrick"
+    }
+  ],
+  "result": {
+    "item": "realistech:firebricks"
+  }
+}

@@ -42,6 +42,7 @@ import awsome.realistech.items.HammerItem;
 import awsome.realistech.items.IngotItem;
 import awsome.realistech.items.MortarItem;
 import awsome.realistech.items.OreClusterItem;
+import awsome.realistech.items.ProspectorsPickaxeItem;
 import awsome.realistech.items.SolidCeramicMoldItem;
 import awsome.realistech.items.ToolHeadItem;
 import awsome.realistech.items.UnfiredCeramicMoldItem;
@@ -51,6 +52,8 @@ import awsome.realistech.tileentity.CrucibleTileEntity;
 import awsome.realistech.tileentity.FireboxTileEntity;
 import awsome.realistech.tileentity.KilnTileEntity;
 import awsome.realistech.tileentity.MediumHeatFurnaceTileEntity;
+import awsome.realistech.util.ModItemTier;
+import awsome.realistech.util.MoldType;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.Properties;
 import net.minecraft.block.FlowerBlock;
@@ -62,9 +65,9 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemTier;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ShovelItem;
+import net.minecraft.item.SwordItem;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntityType;
@@ -139,7 +142,7 @@ public class Registration {
 	//Blocks
 		
 		//Ores
-		public static final RegistryObject<ModOreBlock> COPPER_ORE = BLOCKS.register("copper_ore", () -> new ModOreBlock(1));
+		public static final RegistryObject<ModOreBlock> COPPER_ORE = BLOCKS.register("copper_ore", () -> new ModOreBlock(0));
 		public static final RegistryObject<ModOreBlock> TIN_ORE = BLOCKS.register("tin_ore", () -> new ModOreBlock(1));
 		public static final RegistryObject<ModOreBlock> LEAD_ORE = BLOCKS.register("lead_ore", () -> new ModOreBlock(2));
 		public static final RegistryObject<ModOreBlock> NICKEL_ORE = BLOCKS.register("nickel_ore", () -> new ModOreBlock(2));
@@ -155,7 +158,7 @@ public class Registration {
 		public static final RegistryObject<ModOreBlock> MOD_LAPIS_ORE = BLOCKS.register("mod_lapis_ore", () -> new ModOreBlock(1));
 		
 		//Ore Samples
-		public static final RegistryObject<OreSampleBlock> COPPER_SAMPLE = BLOCKS.register("copper_sample", () -> new OreSampleBlock(1));
+		public static final RegistryObject<OreSampleBlock> COPPER_SAMPLE = BLOCKS.register("copper_sample", () -> new OreSampleBlock(0));
 		public static final RegistryObject<OreSampleBlock> TIN_SAMPLE = BLOCKS.register("tin_sample", () -> new OreSampleBlock(1));
 		public static final RegistryObject<OreSampleBlock> NICKEL_SAMPLE = BLOCKS.register("nickel_sample", () -> new OreSampleBlock(1));
 		public static final RegistryObject<OreSampleBlock> LEAD_SAMPLE = BLOCKS.register("lead_sample", () -> new OreSampleBlock(1));
@@ -313,6 +316,7 @@ public class Registration {
 		public static final RegistryObject<IngotItem> ZINC_INGOT = ITEMS.register("ingots/zinc_ingot", IngotItem::new);
 		public static final RegistryObject<IngotItem> COBALT_INGOT = ITEMS.register("ingots/cobalt_ingot", IngotItem::new);
 		public static final RegistryObject<IngotItem> CRUDE_COPPER_INGOT = ITEMS.register("ingots/crude_copper_ingot", IngotItem::new);
+		public static final RegistryObject<IngotItem> BRONZE_INGOT = ITEMS.register("ingots/bronze_ingot", IngotItem::new);
 		
 		//Plates
 		public static final RegistryObject<Item> COPPER_PLATE = ITEMS.register("plates/copper_plate", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
@@ -322,6 +326,7 @@ public class Registration {
 		public static final RegistryObject<Item> SILVER_PLATE = ITEMS.register("plates/silver_plate", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
 		public static final RegistryObject<Item> ZINC_PLATE = ITEMS.register("plates/zinc_plate", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
 		public static final RegistryObject<Item> COBALT_PLATE = ITEMS.register("plates/cobalt_plate", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
+		public static final RegistryObject<Item> BRONZE_PLATE = ITEMS.register("plates/bronze_plate", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
 		
 		//Clusters
 		public static final RegistryObject<OreClusterItem> COPPER_CLUSTER = ITEMS.register("ore_clusters/copper_cluster", OreClusterItem::new);
@@ -340,20 +345,20 @@ public class Registration {
 		//Ceramic Molds
 		
 			//Fired, Solidified
-			public static final RegistryObject<SolidCeramicMoldItem> FIRED_FILLED_CERAMIC_INGOT_MOLD = ITEMS.register("ceramic_molds/fired/ingot_solidified", () -> new SolidCeramicMoldItem());
-			public static final RegistryObject<SolidCeramicMoldItem> FIRED_FILLED_CERAMIC_PICKAXE_MOLD = ITEMS.register("ceramic_molds/fired/pickaxe_solidified", () -> new SolidCeramicMoldItem());
-			public static final RegistryObject<SolidCeramicMoldItem> FIRED_FILLED_CERAMIC_AXE_MOLD = ITEMS.register("ceramic_molds/fired/axe_solidified", () -> new SolidCeramicMoldItem());
-			public static final RegistryObject<SolidCeramicMoldItem> FIRED_FILLED_CERAMIC_SHOVEL_MOLD = ITEMS.register("ceramic_molds/fired/shovel_solidified", () -> new SolidCeramicMoldItem());
-			public static final RegistryObject<SolidCeramicMoldItem> FIRED_FILLED_CERAMIC_SWORD_MOLD = ITEMS.register("ceramic_molds/fired/sword_solidified", () -> new SolidCeramicMoldItem());
-			public static final RegistryObject<SolidCeramicMoldItem> FIRED_FILLED_CERAMIC_PROPICK_MOLD = ITEMS.register("ceramic_molds/fired/prospectors_pickaxe_solidified", () -> new SolidCeramicMoldItem());
+			public static final RegistryObject<SolidCeramicMoldItem> FIRED_FILLED_CERAMIC_INGOT_MOLD = ITEMS.register("ceramic_molds/fired/ingot_solidified", () -> new SolidCeramicMoldItem(MoldType.INGOT));
+			public static final RegistryObject<SolidCeramicMoldItem> FIRED_FILLED_CERAMIC_PICKAXE_MOLD = ITEMS.register("ceramic_molds/fired/pickaxe_solidified", () -> new SolidCeramicMoldItem(MoldType.PICKAXE));
+			public static final RegistryObject<SolidCeramicMoldItem> FIRED_FILLED_CERAMIC_AXE_MOLD = ITEMS.register("ceramic_molds/fired/axe_solidified", () -> new SolidCeramicMoldItem(MoldType.AXE));
+			public static final RegistryObject<SolidCeramicMoldItem> FIRED_FILLED_CERAMIC_SHOVEL_MOLD = ITEMS.register("ceramic_molds/fired/shovel_solidified", () -> new SolidCeramicMoldItem(MoldType.SHOVEL));
+			public static final RegistryObject<SolidCeramicMoldItem> FIRED_FILLED_CERAMIC_SWORD_MOLD = ITEMS.register("ceramic_molds/fired/sword_solidified", () -> new SolidCeramicMoldItem(MoldType.SWORD));
+			public static final RegistryObject<SolidCeramicMoldItem> FIRED_FILLED_CERAMIC_PROPICK_MOLD = ITEMS.register("ceramic_molds/fired/prospectors_pickaxe_solidified", () -> new SolidCeramicMoldItem(MoldType.PROPICK));
 		
 			//Fired
 			public static final RegistryObject<CeramicMoldItem> FIRED_CERAMIC_INGOT_MOLD = ITEMS.register("ceramic_molds/fired/ingot", () -> new CeramicMoldItem(144));
 			public static final RegistryObject<CeramicMoldItem> FIRED_CERAMIC_PICKAXE_MOLD = ITEMS.register("ceramic_molds/fired/pickaxe", () -> new CeramicMoldItem(432));
-			public static final RegistryObject<CeramicMoldItem> FIRED_CERAMIC_AXE_MOLD = ITEMS.register("ceramic_molds/fired/axe", () -> new CeramicMoldItem(144));
+			public static final RegistryObject<CeramicMoldItem> FIRED_CERAMIC_AXE_MOLD = ITEMS.register("ceramic_molds/fired/axe", () -> new CeramicMoldItem(432));
 			public static final RegistryObject<CeramicMoldItem> FIRED_CERAMIC_SHOVEL_MOLD = ITEMS.register("ceramic_molds/fired/shovel", () -> new CeramicMoldItem(144));
-			public static final RegistryObject<CeramicMoldItem> FIRED_CERAMIC_SWORD_MOLD = ITEMS.register("ceramic_molds/fired/sword", () -> new CeramicMoldItem(144));
-			public static final RegistryObject<CeramicMoldItem> FIRED_CERAMIC_PROPICK_MOLD = ITEMS.register("ceramic_molds/fired/prospectors_pickaxe", () -> new CeramicMoldItem(144));
+			public static final RegistryObject<CeramicMoldItem> FIRED_CERAMIC_SWORD_MOLD = ITEMS.register("ceramic_molds/fired/sword", () -> new CeramicMoldItem(288));
+			public static final RegistryObject<CeramicMoldItem> FIRED_CERAMIC_PROPICK_MOLD = ITEMS.register("ceramic_molds/fired/prospectors_pickaxe", () -> new CeramicMoldItem(288));
 			
 			//Unfired
 			public static final RegistryObject<UnfiredCeramicMoldItem> UNFIRED_CERAMIC_INGOT_MOLD = ITEMS.register("ceramic_molds/unfired/ingot", UnfiredCeramicMoldItem::new);
@@ -381,16 +386,44 @@ public class Registration {
 			public static final RegistryObject<ToolHeadItem> STONE_CHISEL_HEAD = ITEMS.register("tool_heads/stone_chisel", ToolHeadItem::new);
 			public static final RegistryObject<ToolHeadItem> STONE_PICKAXE_HEAD = ITEMS.register("tool_heads/stone_pickaxe", ToolHeadItem::new);
 			public static final RegistryObject<ToolHeadItem> STONE_HAMMER_HEAD = ITEMS.register("tool_heads/stone_hammer", ToolHeadItem::new);
-		
+			
+			//Copper
+			public static final RegistryObject<ToolHeadItem> COPPER_AXE_HEAD = ITEMS.register("tool_heads/copper_axe", ToolHeadItem::new);
+			public static final RegistryObject<ToolHeadItem> COPPER_SHOVEL_HEAD = ITEMS.register("tool_heads/copper_shovel", ToolHeadItem::new);
+			public static final RegistryObject<ToolHeadItem> COPPER_PROPICK_HEAD = ITEMS.register("tool_heads/copper_chisel", ToolHeadItem::new);
+			public static final RegistryObject<ToolHeadItem> COPPER_PICKAXE_HEAD = ITEMS.register("tool_heads/copper_pickaxe", ToolHeadItem::new);
+			public static final RegistryObject<ToolHeadItem> COPPER_SWORD_HEAD = ITEMS.register("tool_heads/copper_hammer", ToolHeadItem::new);
+			
+			//Bronze
+			public static final RegistryObject<ToolHeadItem> BRONZE_AXE_HEAD = ITEMS.register("tool_heads/bronze_axe", ToolHeadItem::new);
+			public static final RegistryObject<ToolHeadItem> BRONZE_SHOVEL_HEAD = ITEMS.register("tool_heads/bronze_shovel", ToolHeadItem::new);
+			public static final RegistryObject<ToolHeadItem> BRONZE_PROPICK_HEAD = ITEMS.register("tool_heads/bronze_chisel", ToolHeadItem::new);
+			public static final RegistryObject<ToolHeadItem> BRONZE_PICKAXE_HEAD = ITEMS.register("tool_heads/bronze_pickaxe", ToolHeadItem::new);
+			public static final RegistryObject<ToolHeadItem> BRONZE_SWORD_HEAD = ITEMS.register("tool_heads/bronze_hammer", ToolHeadItem::new);
+			
 		//Tools
 			
 			//Stone
-			public static final RegistryObject<AxeItem> STONE_AXE = ITEMS.register("tools/stone_axe", () -> new AxeItem(ItemTier.STONE, 7.0f, -3.2f, new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
-			public static final RegistryObject<ShovelItem> STONE_SHOVEL = ITEMS.register("tools/stone_shovel", () -> new ShovelItem(ItemTier.STONE, 1.5f, -3.0f, new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
-			public static final RegistryObject<PickaxeItem> STONE_PICKAXE = ITEMS.register("tools/stone_pickaxe", () -> new PickaxeItem(ItemTier.STONE, 1, -2.8f, new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
+			public static final RegistryObject<AxeItem> STONE_AXE = ITEMS.register("tools/stone_axe", () -> new AxeItem(ModItemTier.STONE, 7.0f, -3.2f, new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
+			public static final RegistryObject<ShovelItem> STONE_SHOVEL = ITEMS.register("tools/stone_shovel", () -> new ShovelItem(ModItemTier.STONE, 1.5f, -3.0f, new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
+			public static final RegistryObject<PickaxeItem> STONE_PICKAXE = ITEMS.register("tools/stone_pickaxe", () -> new PickaxeItem(ModItemTier.STONE, 1, -2.8f, new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
 			public static final RegistryObject<ChiselItem> STONE_CHISEL = ITEMS.register("tools/stone_chisel", () -> new ChiselItem(new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
 			public static final RegistryObject<HammerItem> STONE_HAMMER = ITEMS.register("tools/stone_hammer", () -> new HammerItem(new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
 			public static final RegistryObject<MortarItem> STONE_MORTAR_AND_PESTLE = ITEMS.register("tools/stone_mortar", () -> new MortarItem(new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
+			
+			//Copper
+			public static final RegistryObject<AxeItem> COPPER_AXE = ITEMS.register("tools/copper_axe", () -> new AxeItem(ModItemTier.COPPER, 7.0f, -3.2f, new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
+			public static final RegistryObject<ShovelItem> COPPER_SHOVEL = ITEMS.register("tools/copper_shovel", () -> new ShovelItem(ModItemTier.COPPER, 1.5f, -3.0f, new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
+			public static final RegistryObject<PickaxeItem> COPPER_PICKAXE = ITEMS.register("tools/copper_pickaxe", () -> new PickaxeItem(ModItemTier.COPPER, 1, -2.8f, new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
+			public static final RegistryObject<ProspectorsPickaxeItem> COPPER_PROPICK = ITEMS.register("tools/copper_propick", () -> new ProspectorsPickaxeItem(new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
+			public static final RegistryObject<SwordItem> COPPER_SWORD = ITEMS.register("tools/copper_sword", () -> new SwordItem(ModItemTier.COPPER, 3, -2.4f, new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
+			
+			//Bronze
+			public static final RegistryObject<AxeItem> BRONZE_AXE = ITEMS.register("tools/bronze_axe", () -> new AxeItem(ModItemTier.BRONZE, 7.0f, -3.2f, new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
+			public static final RegistryObject<ShovelItem> BRONZE_SHOVEL = ITEMS.register("tools/bronze_shovel", () -> new ShovelItem(ModItemTier.BRONZE, 1.5f, -3.0f, new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
+			public static final RegistryObject<PickaxeItem> BRONZE_PICKAXE = ITEMS.register("tools/bronze_pickaxe", () -> new PickaxeItem(ModItemTier.BRONZE, 1, -2.8f, new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
+			public static final RegistryObject<ProspectorsPickaxeItem> BRONZE_PROPICK = ITEMS.register("tools/bronze_propick", () -> new ProspectorsPickaxeItem(new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
+			public static final RegistryObject<SwordItem> BRONZE_SWORD = ITEMS.register("tools/bronze_sword", () -> new SwordItem(ModItemTier.BRONZE, 3, -2.4f, new Item.Properties().group(ModSetup.REALISTECH_TOOLS)));
 			
 		//Misc Items
 		public static final RegistryObject<Item> ROCK_ITEM = ITEMS.register("rock", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));

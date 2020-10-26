@@ -1,0 +1,11 @@
+{
+  "type": "realistech:solidification",
+  "input": {
+    "id": "realistech:molten_copper",
+    "amount": 432
+  },
+  "output": {
+    "item": "realistech:tool_heads/copper_axe"
+  },
+  "mold_type": "axe"
+}
