@@ -23,6 +23,7 @@ public class ModTags {
 		public static final Tag<Item> LEAD_PLATE = makeForgeWrapperTag("plates/lead");
 		public static final Tag<Item> COBALT_PLATE = makeForgeWrapperTag("plates/cobalt");
 		public static final Tag<Item> ZINC_PLATE = makeForgeWrapperTag("plates/zinc");
+		public static final Tag<Item> CHARCOAL = makeForgeWrapperTag("charcoal");
 		
 		private static Tag<Item> makeForgeWrapperTag(String path) {
 			return new ItemTags.Wrapper(new ResourceLocation("forge", path));

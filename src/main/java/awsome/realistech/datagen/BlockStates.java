@@ -10,6 +10,7 @@ import awsome.realistech.blocks.OreSampleBlock;
 import awsome.realistech.registry.Registration;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
@@ -56,8 +57,36 @@ public class BlockStates extends BlockStateProvider {
 		registerSimpleBlock(Registration.KAOLINITE_CLAY.get());
 		registerSimpleBlock(Registration.FIREBRICKS.get());
 		registerMediumHeatFurnace();
+		registerBloomery();
+		registerBellows();
+		registerStair(Registration.FIREBRICK_STAIRS.get(), Registration.FIREBRICKS.get());
 	}
 	
+	private void registerStair(StairsBlock stair, Block parent) {
+		ResourceLocation tex = new ResourceLocation(Reference.MODID, "blocks/" + parent.getRegistryName().getPath());
+		stairsBlock(stair, tex);
+	}
+
+	private void registerBellows() {
+		ExistingModelFile modelBellows = models().getExistingFile(new ResourceLocation(Reference.MODID, "block/machines/bellows"));
+		orientedBlock(Registration.BELLOWS.get(), state -> {
+			return modelBellows;
+		});
+		
+	}
+
+	private void registerBloomery() {
+		ExistingModelFile modelBloomery = models().getExistingFile(new ResourceLocation(Reference.MODID, "block/machines/bloomery_controller"));
+		ExistingModelFile modelBloomeryLit = models().getExistingFile(new ResourceLocation(Reference.MODID, "block/machines/bloomery_controller_lit"));
+		orientedBlock(Registration.BLOOMERY_CONTROLLER.get(), state -> {
+			if (state.get(BlockStateProperties.LIT)) {
+				return modelBloomeryLit;
+			}else{
+				return modelBloomery;
+			}
+		});
+	}
+
 	private void registerFluid(Block block) {
 		ExistingModelFile modelFluid = models().getExistingFile(new ResourceLocation(Reference.MODID, "block/fluids/molten"));
 		simpleBlock(block, modelFluid);

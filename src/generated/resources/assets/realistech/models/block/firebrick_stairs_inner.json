@@ -1,0 +1,8 @@
+{
+  "parent": "block/inner_stairs",
+  "textures": {
+    "side": "realistech:blocks/firebricks",
+    "bottom": "realistech:blocks/firebricks",
+    "top": "realistech:blocks/firebricks"
+  }
+}

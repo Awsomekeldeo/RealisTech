@@ -9,6 +9,7 @@ import com.google.common.collect.Ordering;
 import awsome.realistech.Reference;
 import awsome.realistech.api.capability.energy.HeatCapability;
 import awsome.realistech.blocks.OreSampleBlock;
+import awsome.realistech.multiblock.Multiblock;
 import awsome.realistech.network.RealistechPacketHandler;
 import awsome.realistech.registry.OreDepositRegistration;
 import awsome.realistech.registry.Registration;
@@ -22,10 +23,13 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.registries.RegistryBuilder;
 
 @Mod.EventBusSubscriber(modid = Reference.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 @SuppressWarnings("deprecation")
@@ -141,6 +145,7 @@ public class ModSetup {
 				Registration.IRON_CLUSTER.get(),
 				Registration.GOLD_CLUSTER.get(),
 				Registration.ROCK_ITEM.get(),
+				Registration.IRON_BLOOM.get(),
 				Registration.KILN_BRICK.get(),
 				Registration.FIREBRICK.get(),
 				Registration.UNFIRED_CLAY_BRICK.get(),
@@ -159,7 +164,9 @@ public class ModSetup {
 				Registration.CRUCIBLE_ITEM.get(),
 				Registration.KILN_ITEM.get(),
 				Registration.WEAK_FURNACE_ITEM.get(),
-				Registration.STONE_ANVIL_ITEM.get()
+				Registration.STONE_ANVIL_ITEM.get(),
+				Registration.BLOOMERY_CONTROLLER_ITEM.get(),
+				Registration.BELLOWS_ITEM.get()
 			});
 		}
 		if (group == REALISTECH_ORES) {
@@ -249,6 +256,7 @@ public class ModSetup {
 				Registration.KAOLINITE_CLAY_GRASS_ITEM.get(),
 				Registration.KAOLINITE_CLAY_ITEM.get(),
 				Registration.FIREBRICKS_ITEM.get(),
+				Registration.FIREBRICK_STAIRS_ITEM.get(),
 				Registration.GOLDENROD_ITEM.get(),
 				Registration.KAOLINITE_LILY_ITEM.get(),
 				Registration.STICK_ITEMBLOCK.get()
@@ -276,6 +284,15 @@ public class ModSetup {
 		Registration.FIRED_CERAMIC_SHOVEL_MOLD.get().setSolidMold(Registration.FIRED_FILLED_CERAMIC_SHOVEL_MOLD.get());
 		Registration.FIRED_CERAMIC_PROPICK_MOLD.get().setSolidMold(Registration.FIRED_FILLED_CERAMIC_PROPICK_MOLD.get());
 		Registration.FIRED_CERAMIC_INGOT_MOLD.get().setSolidMold(Registration.FIRED_FILLED_CERAMIC_INGOT_MOLD.get());
+	}
+	
+	public static void setupMultiblockRegistry(RegistryEvent.NewRegistry e) {
+		RegistryBuilder<Multiblock> builder = new RegistryBuilder<Multiblock>();
+		builder.setName(new ResourceLocation(Reference.MODID, "multiblocks"));
+		builder.setType(Multiblock.class);
+		builder.setDefaultKey(new ResourceLocation("empty"));
+		builder.setMaxID(Integer.MAX_VALUE - 1);
+		builder.create();
 	}
 	
 	public static void init(final FMLCommonSetupEvent event) {

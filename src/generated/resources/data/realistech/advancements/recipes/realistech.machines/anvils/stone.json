@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "realistech:anvils/stone"
+    ]
+  },
+  "criteria": {
+    "firebrick_obtained": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "realistech:firebrick"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "realistech:anvils/stone"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "firebrick_obtained",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    " # ",
+    "SSS"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stone"
+    },
+    "S": {
+      "item": "minecraft:smooth_stone"
+    }
+  },
+  "result": {
+    "item": "realistech:anvils/stone"
+  }
+}

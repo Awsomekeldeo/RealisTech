@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=north,static=false": {
+      "model": "realistech:block/machines/bellows"
+    },
+    "facing=south,static=false": {
+      "model": "realistech:block/machines/bellows",
+      "y": 180
+    },
+    "facing=west,static=false": {
+      "model": "realistech:block/machines/bellows",
+      "y": 270
+    },
+    "facing=east,static=false": {
+      "model": "realistech:block/machines/bellows",
+      "y": 90
+    },
+    "facing=north,static=true": {
+      "model": "realistech:block/machines/bellows"
+    },
+    "facing=south,static=true": {
+      "model": "realistech:block/machines/bellows",
+      "y": 180
+    },
+    "facing=west,static=true": {
+      "model": "realistech:block/machines/bellows",
+      "y": 270
+    },
+    "facing=east,static=true": {
+      "model": "realistech:block/machines/bellows",
+      "y": 90
+    }
+  }
+}

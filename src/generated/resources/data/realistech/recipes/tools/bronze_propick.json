@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "realistech:tool_heads/bronze_axe"
+      "item": "realistech:tool_heads/bronze_chisel"
     },
     {
       "item": "minecraft:stick"

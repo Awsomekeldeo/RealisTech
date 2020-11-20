@@ -1,6 +1,7 @@
 package awsome.realistech.setup;
 
 import awsome.realistech.Reference;
+import awsome.realistech.client.gui.containter.screen.BloomeryScreen;
 import awsome.realistech.client.gui.containter.screen.CrucibleScreen;
 import awsome.realistech.client.gui.containter.screen.FireboxScreen;
 import awsome.realistech.client.gui.containter.screen.KilnScreen;
@@ -9,6 +10,7 @@ import awsome.realistech.client.gui.containter.screen.MediumHeatFurnaceScreen;
 import awsome.realistech.client.gui.containter.screen.MoldingScreen;
 import awsome.realistech.client.model.CeramicMoldModel;
 import awsome.realistech.client.renderer.AnvilRenderer;
+import awsome.realistech.client.renderer.BellowsRenderer;
 import awsome.realistech.listeners.RecipeReloadListener;
 import awsome.realistech.listeners.ResourceReloadListener;
 import awsome.realistech.registry.Registration;
@@ -49,14 +51,17 @@ public class ClientSetup {
 		ScreenManager.registerFactory(Registration.KNAPPING_CRAFTING_CONTAINER.get(), KnappingScreen::new);
 		ScreenManager.registerFactory(Registration.MOLDING_CRAFTING_CONTAINER.get(), MoldingScreen::new);
 		ScreenManager.registerFactory(Registration.WEAK_FURNACE_CONTAINER.get(), MediumHeatFurnaceScreen::new);
+		ScreenManager.registerFactory(Registration.BLOOMERY_CONTAINER.get(), BloomeryScreen::new);
 		RenderType cutoutMipped = RenderType.getCutoutMipped();
 		RenderType cutout = RenderType.getCutout();
 		
 		ModelLoaderRegistry.registerLoader(new ResourceLocation(Reference.MODID, "ceramic_mold"), CeramicMoldModel.Loader.INSTANCE);
 		
-		ClientRegistry.bindTileEntityRenderer(Registration.ANVIL_TILEENTITY.get(), AnvilRenderer::new);
+		registerTESRS();
 		
 		RenderTypeLookup.setRenderLayer(Registration.CRUCIBLE.get(), cutout);
+		RenderTypeLookup.setRenderLayer(Registration.BLOOMERY_CONTROLLER.get(), cutout);
+		RenderTypeLookup.setRenderLayer(Registration.BELLOWS.get(), cutout);
 		RenderTypeLookup.setRenderLayer(Registration.VANILLA_CLAY_GRASS.get(), cutoutMipped);
 		RenderTypeLookup.setRenderLayer(Registration.KAOLINITE_CLAY_GRASS.get(), cutoutMipped);
 		RenderTypeLookup.setRenderLayer(Registration.GOLDENROD.get(), cutout);
@@ -64,11 +69,16 @@ public class ClientSetup {
 	}
 	
 	/* Have to register the resource reload listener here becuause the one in FMLServerAboutToStartEvent is server-side only
-	 * and doesn't have resources in the assets/ folder.
+	 * and doesn't have access to resources in the assets/ folder.
 	 */
 	public static void registerResourceReloadListeners(ParticleFactoryRegisterEvent event) {
 		IReloadableResourceManager resourceManager = (IReloadableResourceManager) Minecraft.getInstance().getResourceManager();
 		resourceManager.addReloadListener(new ResourceReloadListener());
+	}
+	
+	private static void registerTESRS() {
+		ClientRegistry.bindTileEntityRenderer(Registration.ANVIL_TILEENTITY.get(), AnvilRenderer::new);
+		ClientRegistry.bindTileEntityRenderer(Registration.BELLOWS_TILEENTITY.get(), BellowsRenderer::new);
 	}
 	
 	private static void registerBlockColors() {

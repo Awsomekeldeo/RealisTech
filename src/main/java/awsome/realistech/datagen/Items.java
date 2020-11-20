@@ -21,6 +21,8 @@ public class Items extends ItemModelProvider {
 		withExistingParent("item/" + Registration.CRUCIBLE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/machines/crucible"));
 		withExistingParent("item/" + Registration.KILN_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/machines/kiln"));
 		withExistingParent("item/" + Registration.WEAK_FURNACE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/machines/weak_furnace"));
+		withExistingParent("item/" + Registration.BLOOMERY_CONTROLLER_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/machines/bloomery_controller"));
+		withExistingParent("item/" + Registration.BELLOWS_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/machines/bellows"));
 		
 		//Ores
 		withExistingParent("item/" + Registration.COPPER_ORE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/copper_ore"));
@@ -79,6 +81,7 @@ public class Items extends ItemModelProvider {
 		
 		//Misc Blocks
 		withExistingParent("item/" + Registration.FIREBRICKS.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/firebricks"));
+		withExistingParent("item/" + Registration.FIREBRICK_STAIRS_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/firebrick_stairs"));
 		
 		//Ceramics
 		singleTexture("item/" + Registration.UNFIRED_CLAY_BRICK.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/unfired_clay_brick"));
@@ -99,6 +102,7 @@ public class Items extends ItemModelProvider {
 		singleTexture("item/" + Registration.PLANT_FIBER.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/plant_fiber"));
 		singleTexture("item/" + Registration.PLANT_FIBER_CORDAGE.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/plant_fiber_cordage"));
 		singleTexture("item/" + Registration.KILN_CLAY_MIXTURE.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/kiln_clay_mixture"));
+		singleTexture("item/" + Registration.IRON_BLOOM.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/iron_bloom"));
 		
 		//Ingots
 		singleTexture("item/" + Registration.COPPER_INGOT.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ingots/copper"));

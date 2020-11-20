@@ -199,5 +199,6 @@ public class Recipes extends RecipeProvider {
 		AnvilRecipeBuilder.anvilRecipe(Ingredient.fromTag(ModTags.Items.LEAD_INGOT), Ingredient.fromTag(ModTags.Items.LEAD_INGOT), Registration.LEAD_PLATE.get()).build(consumer, "anvil/", true);
 		AnvilRecipeBuilder.anvilRecipe(Ingredient.fromTag(ModTags.Items.COBALT_INGOT), Ingredient.fromTag(ModTags.Items.COBALT_INGOT), Registration.COBALT_PLATE.get()).build(consumer, "anvil/", true);
 		AnvilRecipeBuilder.anvilRecipe(Ingredient.fromTag(ModTags.Items.ZINC_INGOT), Ingredient.fromTag(ModTags.Items.ZINC_INGOT), Registration.ZINC_PLATE.get()).build(consumer, "anvil/", true);
+		AnvilRecipeBuilder.anvilRecipe(Ingredient.fromItems(Registration.IRON_BLOOM.get()), Ingredient.EMPTY, Items.IRON_INGOT).build(consumer, "anvil/", true);
 	}
 }

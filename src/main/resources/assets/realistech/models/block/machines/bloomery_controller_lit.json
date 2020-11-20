@@ -1,0 +1,7 @@
+{
+	"parent": "realistech:block/machines/bloomery_controller",
+	"textures": {
+		"0": "realistech:blocks/machines/bloomery_controller_lit",
+		"particle": "realistech:blocks/machines/bloomery_controller"
+	}
+}

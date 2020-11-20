@@ -1,0 +1,11 @@
+{
+	"block.bellows.activate": {
+		"subtitle": "subtitle.realistech.bellows",
+		"sounds": [
+			{
+				"name": "minecraft:block.lava.extinguish",
+				"type": "event"
+			}
+		]
+	}
+}

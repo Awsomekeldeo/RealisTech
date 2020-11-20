@@ -38,6 +38,7 @@ public class EnUsLang extends LanguageProvider {
 		add(Registration.NICKEL_INGOT.get(), "Nickel Ingot");
 		add(Registration.COBALT_INGOT.get(), "Cobalt Ingot");
 		add(Registration.CRUDE_COPPER_INGOT.get(), "Crude Copper Ingot");
+		add(Registration.BRONZE_INGOT.get(), "Bronze Ingot");
 		
 		//Clusters
 		add(Registration.COPPER_CLUSTER.get(), "Malachite Cluster");
@@ -58,6 +59,7 @@ public class EnUsLang extends LanguageProvider {
 		add(Registration.COBALT_PLATE.get(), "Cobalt Plate");
 		add(Registration.ZINC_PLATE.get(), "Zinc Plate");
 		add(Registration.SILVER_PLATE.get(), "Silver Plate");
+		add(Registration.BRONZE_PLATE.get(), "Bronze Plate");
 		
 		//Chunks
 		add(Registration.COPPER_CHUNK.get(), "Copper Chunk");
@@ -148,6 +150,7 @@ public class EnUsLang extends LanguageProvider {
 		add(Registration.ROCK_ITEM.get(), "Rock");
 		add(Registration.PRIMITIVE_BRICK_MOLD.get(), "Primitive Brick Mold");
 		add(Registration.KILN_CLAY_MIXTURE.get(), "Kiln-Ready Compound");
+		add(Registration.IRON_BLOOM.get(), "Iron Bloom");
 		
 		//Items End
 		
@@ -161,6 +164,8 @@ public class EnUsLang extends LanguageProvider {
 		add(Registration.CRUCIBLE.get(), "Crucible");
 		add(Registration.KILN.get(), "Kiln");
 		add(Registration.WEAK_FURNACE.get(), "Furnace");
+		add(Registration.BLOOMERY_CONTROLLER.get(), "Bloomery Controller");
+		add(Registration.BELLOWS.get(), "Bellows");
 		
 		//Anvils
 		add(Registration.STONE_ANVIL.get(), "Stone Anvil");
@@ -208,6 +213,7 @@ public class EnUsLang extends LanguageProvider {
 		add(Registration.ROCK.get(), "Rock");
 		add(Registration.FIREBRICKS.get(), "Firebricks");
 		add(Registration.STICK.get(), "Stick");
+		add(Registration.FIREBRICK_STAIRS.get(), "Firebrick Stairs");
 		
 		//Blocks End
 		
@@ -250,6 +256,7 @@ public class EnUsLang extends LanguageProvider {
 		add("container.realistech.knapping", "Knapping");
 		add("container.realistech.molding", "Molding");
 		add("container.realistech.weak_furnace", "Furnace");
+		add("container.realistech.bloomery", "Bloomery");
 		add("screen.realistech.jei_compat.kiln", "Kiln Firing");
 		add("screen.realistech.jei_compat.anvil", "Anvil Working");
 		add("screen.realistech.jei_compat.weak_furnace", "Smelting");
@@ -258,10 +265,13 @@ public class EnUsLang extends LanguageProvider {
 		add("realistech.info.crucibleContents", "Contents: ");
 		add("realistech.info.bucketUnit", "%smL");
 		add("realistech.info.empty", "Empty");
+		add("realistech.invalidMultiblock", "Invalid Multiblock!");
+		add("realistech.invalidMultiblockDesc", "Check that the structure is formed properly.");
 		add("message.realistech.noBreak", "Your fists break!");
 		add("tooltip.realistech.brick", "\"I'm a brick!\"");
 		add("tooltip.realistech.fireclay", "Can be used as fireclay.");
 		add("tooltip.realistech.ceramic_molds.solidified", "Solidified");
+		add("subtitle.realistech.bellows", "Bellows Pumped");
 		
 		//Other Translation Entries End
 	}

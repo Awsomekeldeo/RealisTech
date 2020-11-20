@@ -1,0 +1,11 @@
+{
+  "type": "realistech:solidification",
+  "input": {
+    "id": "realistech:molten_bronze",
+    "amount": 144
+  },
+  "output": {
+    "item": "realistech:ingots/bronze_ingot"
+  },
+  "mold_type": "ingot"
+}

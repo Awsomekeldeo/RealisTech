@@ -19,6 +19,8 @@ import awsome.realistech.api.recipe.SolidificationRecipeSerializer;
 import awsome.realistech.api.recipe.WeakSmeltingRecipe;
 import awsome.realistech.api.recipe.WeakSmeltingRecipeSerializer;
 import awsome.realistech.blocks.AnvilBlock;
+import awsome.realistech.blocks.BellowsBlock;
+import awsome.realistech.blocks.BloomeryBlock;
 import awsome.realistech.blocks.ClayGrassBlock;
 import awsome.realistech.blocks.CrucibleBlock;
 import awsome.realistech.blocks.FireboxBlock;
@@ -28,6 +30,7 @@ import awsome.realistech.blocks.ModOreBlock;
 import awsome.realistech.blocks.OreSampleBlock;
 import awsome.realistech.blocks.OreSampleBlock.SampleShape;
 import awsome.realistech.data.loot.GrassDrops.GrassDropSerializer;
+import awsome.realistech.inventory.container.BloomeryContainer;
 import awsome.realistech.inventory.container.CrucibleContainer;
 import awsome.realistech.inventory.container.FireboxContainer;
 import awsome.realistech.inventory.container.KilnContainer;
@@ -46,8 +49,11 @@ import awsome.realistech.items.ProspectorsPickaxeItem;
 import awsome.realistech.items.SolidCeramicMoldItem;
 import awsome.realistech.items.ToolHeadItem;
 import awsome.realistech.items.UnfiredCeramicMoldItem;
+import awsome.realistech.multiblock.Multiblock;
 import awsome.realistech.setup.ModSetup;
 import awsome.realistech.tileentity.AnvilTileEntity;
+import awsome.realistech.tileentity.BellowsTileEntity;
+import awsome.realistech.tileentity.BloomeryTileEntity;
 import awsome.realistech.tileentity.CrucibleTileEntity;
 import awsome.realistech.tileentity.FireboxTileEntity;
 import awsome.realistech.tileentity.KilnTileEntity;
@@ -58,6 +64,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Block.Properties;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.fluid.Fluid;
@@ -72,6 +79,7 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -84,6 +92,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryBuilder;
 
 public class Registration {
 	
@@ -95,8 +104,11 @@ public class Registration {
 	private static final DeferredRegister<GlobalLootModifierSerializer<?>> GLOBAL_LOOT_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, Reference.MODID);
 	public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, Reference.MODID);
 	private static final FluidRegisterer FLUID_REGISTERER = new FluidRegisterer();
+	private static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Reference.MODID);
+	private static final DeferredRegister<Multiblock> MULTIBLOCKS = DeferredRegister.create(Multiblock.class, Reference.MODID);
 	
 	public static void init() {
+		MULTIBLOCKS.makeRegistry("multiblocks", () -> new RegistryBuilder<Multiblock>());
 		BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -104,11 +116,19 @@ public class Registration {
 		RECIPE_SERIALIZERS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		GLOBAL_LOOT_MODIFIER_SERIALIZERS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		FLUIDS.register(FMLJavaModLoadingContext.get().getModEventBus());
+		SOUND_EVENTS.register(FMLJavaModLoadingContext.get().getModEventBus());
+		MULTIBLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
 	}
 	
 	private static FluidAttributes.Builder moltenBuilder() {
 		return FluidAttributes.builder(MOLTEN_STILL_TEXTURE, MOLTEN_FLOWING_TEXTURE).density(2000).viscosity(10000).temperature(1000).sound(SoundEvents.ITEM_BUCKET_FILL_LAVA, SoundEvents.ITEM_BUCKET_EMPTY_LAVA);
 	}
+	
+	//Multiblocks
+	public static final RegistryObject<Multiblock> BLOOMERY_MULTIBLOCK = MULTIBLOCKS.register("bloomery", () -> new Multiblock(new ResourceLocation(Reference.MODID, "structures/multiblocks/bloomery"), true, new BlockPos(1, 1, 0)));
+	
+	//Sound Events
+	public static final RegistryObject<SoundEvent> BLOCK_BELLOWS_CYCLE_SOUND = SOUND_EVENTS.register("block.bellows.activate", () -> new SoundEvent(new ResourceLocation(Reference.MODID, "block.bellows.activate")));
 	
 	public static final ResourceLocation MOLTEN_STILL_TEXTURE = new ResourceLocation(Reference.MODID, "blocks/fluids/molten_metal_still");
 	public static final ResourceLocation MOLTEN_FLOWING_TEXTURE = new ResourceLocation(Reference.MODID, "blocks/fluids/molten_metal");
@@ -184,6 +204,8 @@ public class Registration {
 		public static final RegistryObject<CrucibleBlock> CRUCIBLE = BLOCKS.register("crucible", CrucibleBlock::new);
 		public static final RegistryObject<KilnBlock> KILN = BLOCKS.register("kiln", KilnBlock::new);
 		public static final RegistryObject<MediumHeatFurnaceBlock> WEAK_FURNACE = BLOCKS.register("weak_furnace", MediumHeatFurnaceBlock::new);
+		public static final RegistryObject<BloomeryBlock> BLOOMERY_CONTROLLER = BLOCKS.register("bloomery_controller", BloomeryBlock::new);
+		public static final RegistryObject<BellowsBlock> BELLOWS = BLOCKS.register("bellows", BellowsBlock::new);
 		
 		//Anvils
 		public static final RegistryObject<AnvilBlock> STONE_ANVIL = BLOCKS.register("stone_anvil", () -> new AnvilBlock(0, 1.5f, 6.0f));
@@ -197,6 +219,9 @@ public class Registration {
 		
 		//Misc Blocks
 		public static final RegistryObject<Block> FIREBRICKS = BLOCKS.register("firebricks", () -> new Block(Properties.create(Material.ROCK, MaterialColor.ADOBE).hardnessAndResistance(1.25f, 7.0f).harvestTool(ToolType.PICKAXE).harvestLevel(0)));
+		public static final RegistryObject<StairsBlock> FIREBRICK_STAIRS = BLOCKS.register("firebrick_stairs", () -> new StairsBlock(() -> {
+			return FIREBRICKS.get().getDefaultState();
+		}, Properties.from(Registration.FIREBRICKS.get())));
 	
 	//Tile Entities
 		
@@ -206,7 +231,9 @@ public class Registration {
 		public static final RegistryObject<TileEntityType<KilnTileEntity>> KILN_TILEENTITY = TILE_ENTITIES.register("kiln", () -> TileEntityType.Builder.create(KilnTileEntity::new, KILN.get()).build(null));
 		public static final RegistryObject<TileEntityType<MediumHeatFurnaceTileEntity>> WEAK_FURNACE_TILEENTITY = TILE_ENTITIES.register("weak_furnace", () -> TileEntityType.Builder.create(MediumHeatFurnaceTileEntity::new, WEAK_FURNACE.get()).build(null));
 		public static final RegistryObject<TileEntityType<AnvilTileEntity>> ANVIL_TILEENTITY = TILE_ENTITIES.register("anvil", () -> TileEntityType.Builder.create(AnvilTileEntity::new, STONE_ANVIL.get()).build(null));
-	
+		public static final RegistryObject<TileEntityType<BellowsTileEntity>> BELLOWS_TILEENTITY = TILE_ENTITIES.register("bellows", () -> TileEntityType.Builder.create(BellowsTileEntity::new, BELLOWS.get()).build(null));
+		public static final RegistryObject<TileEntityType<BloomeryTileEntity>> BLOOMERY_TILEENTITY = TILE_ENTITIES.register("bloomery", () -> TileEntityType.Builder.create(BloomeryTileEntity::new, BLOOMERY_CONTROLLER.get()).build(null));
+		
 	//Containers
 		
 		//Machines
@@ -232,6 +259,13 @@ public class Registration {
 			BlockPos pos = data.readBlockPos();
 			World world = inv.player.getEntityWorld();
 			return new MediumHeatFurnaceContainer(windowId, world, pos, inv, inv.player);
+		}));
+		
+		public static final RegistryObject<ContainerType<BloomeryContainer>> BLOOMERY_CONTAINER = CONTAINERS.register("bloomery", () -> IForgeContainerType.create((windowId, inv, data) -> {
+			BlockPos pos = data.readBlockPos();
+			World world = inv.player.getEntityWorld();
+			boolean multiblockFormed = data.readBoolean();
+			return new BloomeryContainer(windowId, world, pos, inv, inv.player, multiblockFormed);
 		}));
 		
 		
@@ -287,6 +321,8 @@ public class Registration {
 		public static final RegistryObject<Item> CRUCIBLE_ITEM = ITEMS.register("machines/crucible", () -> new BlockItem(CRUCIBLE.get(), new Item.Properties().group(ModSetup.REALISTECH_MACHINES)));
 		public static final RegistryObject<Item> KILN_ITEM = ITEMS.register("machines/kiln", () -> new BlockItem(KILN.get(), new Item.Properties().group(ModSetup.REALISTECH_MACHINES)));
 		public static final RegistryObject<Item> WEAK_FURNACE_ITEM = ITEMS.register("machines/weak_furnace", () -> new BlockItem(WEAK_FURNACE.get(), new Item.Properties().group(ModSetup.REALISTECH_MACHINES)));
+		public static final RegistryObject<Item> BLOOMERY_CONTROLLER_ITEM = ITEMS.register("machines/bloomery_controller", () -> new BlockItem(BLOOMERY_CONTROLLER.get(), new Item.Properties().group(ModSetup.REALISTECH_MACHINES)));
+		public static final RegistryObject<Item> BELLOWS_ITEM = ITEMS.register("machines/bellows", () -> new BlockItem(BELLOWS.get(), new Item.Properties().group(ModSetup.REALISTECH_MACHINES)));
 		
 		//Anvils
 		public static final RegistryObject<Item> STONE_ANVIL_ITEM = ITEMS.register("anvils/stone", () -> new BlockItem(STONE_ANVIL.get(), new Item.Properties().group(ModSetup.REALISTECH_MACHINES)));
@@ -304,6 +340,7 @@ public class Registration {
 		
 		//Misc Blocks
 		public static final RegistryObject<Item> FIREBRICKS_ITEM = ITEMS.register("firebricks", () -> new BlockItem(FIREBRICKS.get(), new Item.Properties().group(ModSetup.REALISTECH_MISC)));
+		public static final RegistryObject<Item> FIREBRICK_STAIRS_ITEM = ITEMS.register("firebrick_stairs", () -> new BlockItem(FIREBRICK_STAIRS.get(), new Item.Properties().group(ModSetup.REALISTECH_MISC)));
 		
 	//Items
 		
@@ -430,4 +467,5 @@ public class Registration {
 		public static final RegistryObject<Item> PLANT_FIBER = ITEMS.register("plant_fiber", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
 		public static final RegistryObject<Item> PLANT_FIBER_CORDAGE = ITEMS.register("plant_fiber_cordage", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
 		public static final RegistryObject<Item> KILN_CLAY_MIXTURE = ITEMS.register("kiln_clay_mixture", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
+		public static final RegistryObject<Item> IRON_BLOOM = ITEMS.register("iron_bloom", () -> new Item(new Item.Properties().group(ModSetup.REALISTECH_MATERIALS)));
 }

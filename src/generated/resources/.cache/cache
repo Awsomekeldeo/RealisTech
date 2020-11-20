@@ -1,3 +1,5 @@
+b00a13c54f1d177ddc66e4a8bc391b4f9ec2a5b9 assets/realistech/blockstates/bellows.json
+929c095b18eeb7b3af90da53e672feafd412fce4 assets/realistech/blockstates/bloomery_controller.json
 badf4330e13b02059efd670f01bd253da2d84f7a assets/realistech/blockstates/clay_grass.json
 f3ef107a9bc5d960525e3ee2592c27a3b0b83163 assets/realistech/blockstates/coal_sample.json
 b3e8bd74787b3bec433758eeb83422eee7cd5693 assets/realistech/blockstates/cobalt_ore.json
@@ -8,6 +10,7 @@ f51dca99dcfc6532841f17d788f47d5185860d4c assets/realistech/blockstates/crucible.
 f44331083f08494d14857592704bbf1639310631 assets/realistech/blockstates/diamond_sample.json
 59659f73ef0f2344631c27dc7995445a1c486a25 assets/realistech/blockstates/emerald_sample.json
 14522f750dbe82739bd34d77b40d1c9a96b72229 assets/realistech/blockstates/firebox.json
+98ea76917c989aca01c8157dce7accbb1abf410b assets/realistech/blockstates/firebrick_stairs.json
 2f98059e927863b194edfd420fb219138aa65f91 assets/realistech/blockstates/firebricks.json
 8af83cbe92cfb6e28c59dea25c053690c9d26542 assets/realistech/blockstates/gold_sample.json
 8e7ea693defec240026d8acb8f623b2c5593d57c assets/realistech/blockstates/goldenrod.json
@@ -49,8 +52,11 @@ c4a2043231602440eac1b691e59bb7322b8889c7 assets/realistech/blockstates/tin_sampl
 72a50927a0ee2fc0f6662315014617954b0e290e assets/realistech/blockstates/weak_furnace.json
 a7f5f3b2bc89323a40503af5a2a3144d404afe31 assets/realistech/blockstates/zinc_ore.json
 fe4fc3a7013dda233a177d42793acd7169d8a645 assets/realistech/blockstates/zinc_sample.json
-121e02592203c1fb54ad96b177a07d29172411ef assets/realistech/lang/en_us.json
+6d2f5ebfee1330582580d334b27e06daf9d1635b assets/realistech/lang/en_us.json
 0d457271fd1d264b1790ea0815e02a671bc9d934 assets/realistech/models/block/anvils/stone_anvil.json
+d1b7a7f10adcab0d71b57d72d00725f0de333708 assets/realistech/models/block/firebrick_stairs.json
+07828251d55816285150cbeeeff0d42cc583b9a2 assets/realistech/models/block/firebrick_stairs_inner.json
+a3f2baf4239c1537613879e8b9e9981f9769a20b assets/realistech/models/block/firebrick_stairs_outer.json
 71bfe7c680322e578b9f611e636bf007e0ed700c assets/realistech/models/block/firebricks.json
 30d0e0cc61a4353b0373559da91b78e825831ebb assets/realistech/models/block/flowers/goldenrod.json
 02c428f62843c2a5f0c0022d0df3c1cb1825c59e assets/realistech/models/block/flowers/kaolinite_lily.json
@@ -104,6 +110,7 @@ ebab1c08b9d9301b4fdd648f3dd29780cc3f28ec assets/realistech/models/item/ceramic_m
 51b5caff09ced0eab9a512f67b2b1f4e9a394797 assets/realistech/models/item/chunks/copper_chunk.json
 0e9af9f621013268cee82b8d2220159fabca2d6c assets/realistech/models/item/clay_grass.json
 220b0664f3340571de6574ed4c7d86d034bdc322 assets/realistech/models/item/firebrick.json
+c4ed0fcd33259875403ee8bb16bfdd4f28a26313 assets/realistech/models/item/firebrick_stairs.json
 63d706d77d6fcd1bd4e63a9b93f2d614a56c4c03 assets/realistech/models/item/firebricks.json
 a41538ace3e05e932cbd6444ee90ba657820ddfa assets/realistech/models/item/goldenrod.json
 205fe5e4411fa7e06ac74cdce9e39a29fb58b849 assets/realistech/models/item/ingots/bronze_ingot.json
@@ -116,6 +123,7 @@ b40836bd534e71792e2bcefd5fa416bd0cfc6584 assets/realistech/models/item/ingots/ni
 b99b2c48447500258ce225fee6d615a95973aa3f assets/realistech/models/item/ingots/tin_ingot.json
 a030b4d895cc3ec87c70869bd76671fb9e7091d4 assets/realistech/models/item/ingots/zinc_ingot.json
 d729c8415ab0b1f2cf0d352f820deb65d4f996e4 assets/realistech/models/item/inworld_stick.json
+e4cc63c135a2ae441ba7bafdd20dddb5f7f446cb assets/realistech/models/item/iron_bloom.json
 72f1be9ebab00ab948e3a30a19333306dd1ac70b assets/realistech/models/item/kaolinite_clay.json
 1379de55eb63aafb48f51f1ed7f1750f2071765c assets/realistech/models/item/kaolinite_clay_ball.json
 6895c40f4d6588e7b6bb5117a62661c942504db3 assets/realistech/models/item/kaolinite_clay_grass.json
@@ -123,6 +131,8 @@ d729c8415ab0b1f2cf0d352f820deb65d4f996e4 assets/realistech/models/item/inworld_s
 c880f0218b2cd3119067f45276193dd09fae7cd6 assets/realistech/models/item/kiln_brick.json
 c117bf4d0cfad7abae4947679a6b2593db3c8a47 assets/realistech/models/item/kiln_clay_ball.json
 d27caa56503cd67986e0a2df85e2455f285bea3c assets/realistech/models/item/kiln_clay_mixture.json
+e490c56deaa1487f5cf01f4f5ba35a27121bed4f assets/realistech/models/item/machines/bellows.json
+511fffd8bd10f35cb5796dcb91c44a331facc314 assets/realistech/models/item/machines/bloomery_controller.json
 1a9ffaa4dfbf20d4dad30628e8a7e38590fe89b9 assets/realistech/models/item/machines/crucible.json
 d3b29453f80ecf1c13ea98f46d54701bdcb86da9 assets/realistech/models/item/machines/firebox.json
 22da1b68e6f42ad210526b0ce480da850a7263dd assets/realistech/models/item/machines/kiln.json
@@ -212,6 +222,7 @@ dca525af44a3f0091678451a2e259b1e3d8d630d assets/realistech/models/item/tools/sto
 7c6d59fd21bfbe035106cc86e5b793d24c7612aa assets/realistech/models/item/unfired_kaolinite_brick.json
 a097c22cf82764f5e0fc271dc72914e1ed0b0ff6 assets/realistech/models/item/unfired_kiln_brick.json
 d895fcf2479423b2f233da4725e177d0de091135 data/forge/tags/blocks/dirt.json
+a06a4c3f068ada14c3498de062b59d5e203e3ad0 data/forge/tags/items/charcoal.json
 8cca10afab908baf3e171cc18d2f8c7c1e68a3c8 data/forge/tags/items/ingots/cobalt.json
 725c21f979c2be005fcdfd58a517cb0edc86f9b5 data/forge/tags/items/ingots/copper.json
 f88f37e9a2d2572ce809edf313779da8ebfa1caf data/forge/tags/items/ingots/lead.json
@@ -219,6 +230,7 @@ c68e5c7f984205f6991289372f052405d478b15b data/forge/tags/items/ingots/nickel.jso
 a4ea418d76e69f78660cd17bdae7deba7e0faad0 data/forge/tags/items/ingots/silver.json
 177fca165c8d8b9b2d6a3dc7b9f80e0bc87b23c5 data/forge/tags/items/ingots/tin.json
 f2d8c0f07b31d2e006efe9ad4b4e88a46fbf8e4e data/forge/tags/items/ingots/zinc.json
+9564e0dfbf8b0dd7d50a6fb796bd720e5b59a938 data/forge/tags/items/ores/iron.json
 82d945847c85b34aaf1e19f6a111519ad0517025 data/forge/tags/items/plates/cobalt.json
 1ce2bdee84e19ec904601554af532361a65ee6a9 data/forge/tags/items/plates/copper.json
 fdf9ded44969d8dc39060edd4deef87fcd0615fd data/forge/tags/items/plates/lead.json
@@ -233,6 +245,7 @@ d895fcf2479423b2f233da4725e177d0de091135 data/minecraft/tags/blocks/valid_spawn.
 b5e93188afec56762e810722ca2c93da5984d612 data/minecraft/tags/fluids/lava.json
 31b3b609cbbdd55dec87315ee42fcdfa1345d7c8 data/minecraft/tags/items/flowers.json
 31b3b609cbbdd55dec87315ee42fcdfa1345d7c8 data/minecraft/tags/items/small_flowers.json
+79bddeb16cef9652123a7c6ab6df59a301162227 data/realistech/advancements/recipes/realistech.machines/anvils/stone.json
 7ae0977f354a0fff73716687393d28e4037d829c data/realistech/advancements/recipes/realistech.machines/machines/crucible.json
 bc1d06098e5340c906d24475c2ecc6e2289ecb3f data/realistech/advancements/recipes/realistech.machines/machines/firebox.json
 b57963eb3525c1e011339061efc7a2797ee16239 data/realistech/advancements/recipes/realistech.machines/machines/kiln.json
@@ -297,6 +310,7 @@ d8520e240108ff1c457c5c2924752e306580ab40 data/realistech/loot_tables/blocks/zinc
 49e8d247986e45e5b0d04faff4107f182b15bd7c data/realistech/loot_tables/blocks/zinc_sample.json
 aaa46d8b9d7fb66057b32d69ce7a18c726089995 data/realistech/recipes/alloying/molten_bronze.json
 5896048a7d40184500e829c0a7d52eb61592a80a data/realistech/recipes/anvil/ingots/crude_copper_ingot.json
+07a79ab33d67e7d39fa471bbcfc9d7aec60912ca data/realistech/recipes/anvil/iron_ingot.json
 8e194a2717df295e73ee9f776062ee85957d6b21 data/realistech/recipes/anvil/plates/cobalt_plate.json
 f0a38f4932d957dc9a40d498534012b4834ef932 data/realistech/recipes/anvil/plates/copper_plate.json
 84a6907e65394efbb6c54c8f948fca1b400b9eb0 data/realistech/recipes/anvil/plates/copper_plate_from_crude_copper.json
@@ -305,6 +319,7 @@ f65052c403307fe2d01a3c20dfcf925f592ffa0d data/realistech/recipes/anvil/plates/ni
 c59cf06b541c28a4e503b76482e91f9d955e87e5 data/realistech/recipes/anvil/plates/silver_plate.json
 7cde320358d30fb2f7fdc407142a3c787461f354 data/realistech/recipes/anvil/plates/tin_plate.json
 9ddf498970d94506b117a051e7148d7ad30ec2f3 data/realistech/recipes/anvil/plates/zinc_plate.json
+50cd8e1b9a558ef06daddd17b14ad8ac01f4550c data/realistech/recipes/anvils/stone.json
 7db56bace582ee1d885a3d4e785561d77e03f98a data/realistech/recipes/firebricks.json
 9193a222c22c122fd5e498dbedd786b23f6c3f70 data/realistech/recipes/handworking/ceramic_molds/unfired/axe.json
 3826276054a4cc4921b56e517fad983752f06619 data/realistech/recipes/handworking/ceramic_molds/unfired/ingot.json
@@ -362,6 +377,7 @@ db0885dd7e5b00584fa85f7863f787e727a27e44 data/realistech/recipes/melting/tool_he
 512ca275f5300b8854f1044aab2713e1ceb15651 data/realistech/recipes/plant_fiber_cordage.json
 5ac800b0720c85cad0f65566b3faada53110be30 data/realistech/recipes/primitive_brick_mold.json
 b91118a103fab6d165840d2c98eddc516ed4a313 data/realistech/recipes/solidifying/gold_ingot.json
+ee77e4bac840678bdbf66b5cf8ffc588a4a3bb2c data/realistech/recipes/solidifying/ingots/bronze_ingot.json
 20972dd055118f74b41ea0b9204030f5f727536a data/realistech/recipes/solidifying/ingots/cobalt_ingot.json
 71de6b453d9a226c76df89e91305cd2959cb0dda data/realistech/recipes/solidifying/ingots/copper_ingot.json
 b932fdc6eac09b326ce4c2c706e85588dc7faf8e data/realistech/recipes/solidifying/ingots/lead_ingot.json
@@ -382,12 +398,12 @@ fff9099af003475a80388403f271ba3ded00e43a data/realistech/recipes/solidifying/too
 14f1653cd2bb012b783a0877fb03633719f54488 data/realistech/recipes/solidifying/tool_heads/copper_shovel.json
 98540365bead190164bb6b3539d23dd274b34900 data/realistech/recipes/tools/bronze_axe.json
 8c9ac54890e9e015a51b1155529cc4c10846d0d9 data/realistech/recipes/tools/bronze_pickaxe.json
-f820304fef816157e6fc7b728f1e68d2e1eb414e data/realistech/recipes/tools/bronze_propick.json
+5147816fb66c9d9bcf4d40212c9633322ad47eee data/realistech/recipes/tools/bronze_propick.json
 d6633b43c75d0f747fa0ea77d625030cb32cfb12 data/realistech/recipes/tools/bronze_shovel.json
 c277cf824b96d24d4b0448fa3a12391ce2a25c41 data/realistech/recipes/tools/bronze_sword.json
 e4784eb35345744417b7309857554d6e8008c848 data/realistech/recipes/tools/copper_axe.json
 63a0ffdfce6059b74c724902b216ff340cbf99dc data/realistech/recipes/tools/copper_pickaxe.json
-7b360c5669106c71125bd971f32aa0251e651d12 data/realistech/recipes/tools/copper_propick.json
+009853276a8c3e11160ace891387e6f25f85fadd data/realistech/recipes/tools/copper_propick.json
 0c481bdd719333712ef917b0600c2d6496e8a74d data/realistech/recipes/tools/copper_shovel.json
 502ef8ccea83620a10379ede4b5cd6e415086901 data/realistech/recipes/tools/copper_sword.json
 f9c4330ab9c6aea6390bae51638c6aae2c142e5e data/realistech/recipes/tools/stone_axe.json

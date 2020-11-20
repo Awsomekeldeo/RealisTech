@@ -1,0 +1,10 @@
+{
+  "type": "realistech:anvil_hammering",
+  "first_input": {
+    "item": "realistech:iron_bloom"
+  },
+  "second_input": [],
+  "result": {
+    "item": "minecraft:iron_ingot"
+  }
+}
