@@ -1,0 +1,7 @@
+{
+  "parent": "realistech:block/pipes/base/pipe_core",
+  "textures": {
+    "core": "realistech:blocks/pipes/copper_pipe_core",
+    "particle": "realistech:blocks/pipes/copper_pipe_core"
+  }
+}

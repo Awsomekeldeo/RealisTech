@@ -1,0 +1,23 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"1": "realistech:blocks/pipes/copper_pipe_outlet",
+		"2": "realistech:blocks/pipes/copper_pipe_core",
+		"particle": "realistech:blocks/pipes/copper_pipe_core"
+	},
+	"elements": [
+		{
+			"from": [4, 0, 4],
+			"to": [12, 4, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [12, 8, 12]},
+			"faces": {
+				"north": {"uv": [4, 8, 12, 12], "texture": "#2"},
+				"east": {"uv": [4, 8, 12, 12], "texture": "#2"},
+				"south": {"uv": [4, 8, 12, 12], "texture": "#2"},
+				"west": {"uv": [4, 8, 12, 12], "texture": "#2"},
+				"up": {"uv": [4, 4, 12, 12], "texture": "#2"},
+				"down": {"uv": [4, 4, 12, 12], "texture": "#1"}
+			}
+		}
+	]
+}

@@ -1,0 +1,11 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "realistech:blocks/machines/boiler_side",
+    "up": "realistech:blocks/machines/boiler_side",
+    "north": "realistech:blocks/machines/boiler_front",
+    "south": "realistech:blocks/machines/boiler_side",
+    "east": "realistech:blocks/machines/boiler_side",
+    "west": "realistech:blocks/machines/boiler_side"
+  }
+}
