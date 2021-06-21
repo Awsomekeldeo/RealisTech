@@ -32,6 +32,8 @@ public class ModItemTags extends ItemTagsProvider {
 		this.getBuilder(ModTags.Items.LEAD_PLATE).add(Registration.LEAD_PLATE.get());
 		this.getBuilder(ModTags.Items.COBALT_PLATE).add(Registration.COBALT_PLATE.get());
 		this.getBuilder(ModTags.Items.ZINC_PLATE).add(Registration.ZINC_PLATE.get());
+		this.getBuilder(ModTags.Items.BRONZE_PLATE).add(Registration.BRONZE_PLATE.get());
+		this.getBuilder(ModTags.Items.IRON_PLATE).add(Registration.WROUGHT_IRON_PLATE.get());
 		this.getBuilder(Tags.Items.ORES_IRON).add(Registration.IRON_CLUSTER.get());
 		this.getBuilder(ModTags.Items.CHARCOAL).add(Items.CHARCOAL);
 	}

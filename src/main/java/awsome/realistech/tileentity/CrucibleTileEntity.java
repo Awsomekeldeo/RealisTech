@@ -97,7 +97,7 @@ public class CrucibleTileEntity extends TileEntity implements ITickableTileEntit
 	public void read(CompoundNBT compound) {
 		itemHandler.deserializeNBT(compound.getCompound("inventory"));
 		heatHandler.deserializeNBT(compound.getCompound("realistech:heatData"));
-		crucibleTank.deserializeNBT(compound.getCompound("tanks"));
+		crucibleTank.deserializeNBT(compound.getCompound("boilerTanks"));
 		super.read(compound);
 	}
 
@@ -105,7 +105,7 @@ public class CrucibleTileEntity extends TileEntity implements ITickableTileEntit
 	public CompoundNBT write(CompoundNBT compound) {
 		compound.put("inventory", itemHandler.serializeNBT());
 		compound.put("realistech:heatData", heatHandler.serializeNBT());
-		compound.put("tanks", crucibleTank.serializeNBT());
+		compound.put("boilerTanks", crucibleTank.serializeNBT());
 		return super.write(compound);
 	}
 

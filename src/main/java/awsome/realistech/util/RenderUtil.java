@@ -72,6 +72,28 @@ public class RenderUtil {
 			}
 		}
 	}
+	
+	/**
+	 * Renders a fluid tank with a partial fluid level
+	 * @param screen    Parent screen
+	 * @param stack     Fluid stack
+	 * @param capacity  Tank capacity, determines height
+	 * @param x         Tank X position
+	 * @param y         Tank Y position
+	 * @param width     Tank width
+	 * @param height    Tank height
+	 * @param depth     Tank depth
+	 */
+	public static void renderFluidTank(ContainerScreen<?> screen, FluidStack stack, int capacity, int x, int y, int width, int height, int depth) {
+		if(!stack.isEmpty()) {
+			int maxY = y + height;
+			int fluidHeight = Math.min(height * stack.getAmount() / capacity, height);
+			if (stack.getFluid().getAttributes().isGaseous(stack)) {
+				fluidHeight = height;
+			}
+			renderTiledFluid(screen, stack, x, (maxY - fluidHeight), width, fluidHeight, depth);
+		}
+	}
 
 	public static int alpha(int c) {
 		return (c >> 24) & 0xFF;
@@ -111,6 +133,11 @@ public class RenderUtil {
 	public static void renderTiledFluid(ContainerScreen<?> screen, FluidStack stack, int x, int y, int width, int height, int depth) {
 		if (!stack.isEmpty()) {
 			TextureAtlasSprite fluidSprite = screen.getMinecraft().getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(stack.getFluid().getAttributes().getStillTexture(stack));
+			int r = red(stack.getFluid().getAttributes().getColor(stack));
+			int g = green(stack.getFluid().getAttributes().getColor(stack));
+			int b = blue(stack.getFluid().getAttributes().getColor(stack));
+			int a = alpha(stack.getFluid().getAttributes().getColor(stack));
+			
 			RenderUtil.setColorRGBA(stack.getFluid().getAttributes().getColor(stack));
 			renderTiledTextureAtlas(screen, fluidSprite, x, y, width, height, depth, stack.getFluid().getAttributes().isGaseous(stack));
 		}
@@ -156,7 +183,7 @@ public class RenderUtil {
 				float u2 = sprite.getInterpolatedU((16f * renderWidth) / spriteWidth);
 				if(upsideDown) {
 					// FIXME: I think this causes tiling errors, look into it
-					buildSquare(builder, x2, x2 + renderWidth, startY, startY + renderHeight, depth, u1, u2, v2, v1);
+					buildSquare(builder, x2, x2 + renderWidth, startY, startY + renderHeight, depth, u1, u2, v1, v2);
 				} else {
 					buildSquare(builder, x2, x2 + renderWidth, startY, startY + renderHeight, depth, u1, u2, v1, v2);
 				}

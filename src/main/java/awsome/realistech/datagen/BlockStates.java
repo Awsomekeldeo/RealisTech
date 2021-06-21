@@ -7,6 +7,7 @@ import awsome.realistech.Reference;
 import awsome.realistech.blocks.AnvilBlock;
 import awsome.realistech.blocks.ModOreBlock;
 import awsome.realistech.blocks.OreSampleBlock;
+import awsome.realistech.blocks.PipeBlock;
 import awsome.realistech.registry.Registration;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -21,6 +22,7 @@ import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelFile.ExistingModelFile;
+import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 
 public class BlockStates extends BlockStateProvider {
 	
@@ -52,16 +54,85 @@ public class BlockStates extends BlockStateProvider {
 		registerFluid(Registration.MOLTEN_IRON.getBlock());
 		registerFluid(Registration.MOLTEN_GOLD.getBlock());
 		registerFluid(Registration.MOLTEN_BRONZE.getBlock());
+		registerFluid(Registration.STEAM.getBlock());
 		registerFlower(Registration.GOLDENROD.get());
 		registerFlower(Registration.KAOLINITE_LILY.get());
 		registerSimpleBlock(Registration.KAOLINITE_CLAY.get());
 		registerSimpleBlock(Registration.FIREBRICKS.get());
+		registerPipe(Registration.COPPER_PIPE.get());
 		registerMediumHeatFurnace();
 		registerBloomery();
 		registerBellows();
+		registerBoiler();
 		registerStair(Registration.FIREBRICK_STAIRS.get(), Registration.FIREBRICKS.get());
 	}
 	
+	private void registerPipe(PipeBlock pipe) {
+		BlockModelBuilder core = models()
+				.withExistingParent("block/pipes/" + pipe.getRegistryName().getPath() + "_core", 
+						new ResourceLocation(Reference.MODID, "block/pipes/base/pipe_core"))
+				.texture("core", new ResourceLocation(Reference.MODID, "blocks/pipes/" + pipe.getRegistryName().getPath() + "_core"))
+				.texture("particle", new ResourceLocation(Reference.MODID, "blocks/pipes/" + pipe.getRegistryName().getPath() + "_core"));
+
+		BlockModelBuilder segment = models()
+				.withExistingParent("block/pipes/" + pipe.getRegistryName().getPath() + "_segment",
+						new ResourceLocation(Reference.MODID, "block/pipes/base/pipe_core"))
+				.texture("texture", new ResourceLocation(Reference.MODID, "blocks/pipes/" + pipe.getRegistryName().getPath() + "_core"))
+				.texture("outlet", new ResourceLocation(Reference.MODID, "blocks/pipes/" + pipe.getRegistryName().getPath() + "_outlet"))
+				.texture("particle", new ResourceLocation(Reference.MODID, "blocks/pipes/" + pipe.getRegistryName().getPath() + "_core"));
+
+		MultiPartBlockStateBuilder multipart = getMultipartBuilder(pipe);
+
+		multipart.part()
+		.modelFile(core)
+		.addModel();
+
+		multipart.part()
+		.modelFile(segment)
+		.rotationX(180)
+		.addModel()
+		.condition(PipeBlock.UP, true);
+
+		multipart.part()
+		.modelFile(segment)
+		.addModel()
+		.condition(PipeBlock.DOWN, true);
+
+		multipart.part()
+		.modelFile(segment)
+		.rotationX(90)
+		.addModel()
+		.condition(PipeBlock.NORTH, true);
+
+		multipart.part()
+		.modelFile(segment)
+		.rotationX(-90)
+		.addModel()
+		.condition(PipeBlock.SOUTH, true);
+
+		multipart.part()
+		.modelFile(segment)
+		.rotationY(90)
+		.addModel()
+		.condition(PipeBlock.EAST, true);
+
+		multipart.part()
+		.modelFile(segment)
+		.rotationY(-90)
+		.addModel()
+		.condition(PipeBlock.WEST, true)
+		.end();
+	}
+
+	private void registerBoiler() {
+		ResourceLocation tex = new ResourceLocation(Reference.MODID, "blocks/machines/boiler_front");
+		ResourceLocation tex1 = new ResourceLocation(Reference.MODID, "blocks/machines/boiler_side");
+		BlockModelBuilder modelBoiler = models().cube("block/machines/boiler", tex1, tex1, tex, tex1, tex1, tex1);
+		orientedBlock(Registration.BOILER.get(), state -> {
+			return modelBoiler;
+		});
+	}
+
 	private void registerStair(StairsBlock stair, Block parent) {
 		ResourceLocation tex = new ResourceLocation(Reference.MODID, "blocks/" + parent.getRegistryName().getPath());
 		stairsBlock(stair, tex);

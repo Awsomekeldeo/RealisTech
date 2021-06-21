@@ -28,6 +28,7 @@ public class EnUsLang extends LanguageProvider {
 		add(Registration.MOLTEN_IRON.asItem(), "Molten Iron Bucket");
 		add(Registration.MOLTEN_GOLD.asItem(), "Molten Gold Bucket");
 		add(Registration.MOLTEN_BRONZE.asItem(), "Molten Bronze Bucket");
+		add(Registration.STEAM.asItem(), "Steam Bucket");
 		
 		//Ingots
 		add(Registration.COPPER_INGOT.get(), "Copper Ingot");
@@ -60,6 +61,7 @@ public class EnUsLang extends LanguageProvider {
 		add(Registration.ZINC_PLATE.get(), "Zinc Plate");
 		add(Registration.SILVER_PLATE.get(), "Silver Plate");
 		add(Registration.BRONZE_PLATE.get(), "Bronze Plate");
+		add(Registration.WROUGHT_IRON_PLATE.get(), "Wrought Iron Plate");
 		
 		//Chunks
 		add(Registration.COPPER_CHUNK.get(), "Copper Chunk");
@@ -166,6 +168,7 @@ public class EnUsLang extends LanguageProvider {
 		add(Registration.WEAK_FURNACE.get(), "Furnace");
 		add(Registration.BLOOMERY_CONTROLLER.get(), "Bloomery Controller");
 		add(Registration.BELLOWS.get(), "Bellows");
+		add(Registration.BOILER.get(), "Boiler");
 		
 		//Anvils
 		add(Registration.STONE_ANVIL.get(), "Stone Anvil");
@@ -215,6 +218,9 @@ public class EnUsLang extends LanguageProvider {
 		add(Registration.STICK.get(), "Stick");
 		add(Registration.FIREBRICK_STAIRS.get(), "Firebrick Stairs");
 		
+		//Pipes
+		add(Registration.COPPER_PIPE.get(), "Copper Pipe");
+		
 		//Blocks End
 		
 		//Fluids Start
@@ -229,6 +235,7 @@ public class EnUsLang extends LanguageProvider {
 		add("fluid.realistech.molten_iron", "Molten Iron");
 		add("fluid.realistech.molten_gold", "Molten Gold");
 		add("fluid.realistech.molten_bronze", "Molten Bronze");
+		add("fluid.realistech.steam", "Steam");
 		
 		//Fluids End
 		
@@ -257,6 +264,7 @@ public class EnUsLang extends LanguageProvider {
 		add("container.realistech.molding", "Molding");
 		add("container.realistech.weak_furnace", "Furnace");
 		add("container.realistech.bloomery", "Bloomery");
+		add("container.realistech.boiler", "Boiler");
 		add("screen.realistech.jei_compat.kiln", "Kiln Firing");
 		add("screen.realistech.jei_compat.anvil", "Anvil Working");
 		add("screen.realistech.jei_compat.weak_furnace", "Smelting");

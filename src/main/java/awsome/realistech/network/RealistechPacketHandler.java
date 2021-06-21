@@ -2,6 +2,7 @@ package awsome.realistech.network;
 
 import awsome.realistech.Reference;
 import awsome.realistech.network.packet.SSetSlotWithOffsetPacket;
+import awsome.realistech.network.packet.STankUpdatePacket;
 import awsome.realistech.network.packet.HandworkRecipePacket;
 import awsome.realistech.network.packet.MoldCapsUpdatePacket;
 import awsome.realistech.network.packet.SConsumeHandworkItemPacket;
@@ -32,26 +33,36 @@ public class RealistechPacketHandler {
 				.decoder(HandworkRecipePacket::new)
 				.consumer(HandworkRecipePacket::handle)
 				.add();
+		
 		INSTANCE.messageBuilder(SSetSlotWithOffsetPacket.class, nextID())
 				.encoder(SSetSlotWithOffsetPacket::toBytes)
 				.decoder(SSetSlotWithOffsetPacket::new)
 				.consumer(SSetSlotWithOffsetPacket::handle)
 				.add();
+		
 		INSTANCE.messageBuilder(SConsumeHandworkItemPacket.class, nextID())
-			.encoder(SConsumeHandworkItemPacket::toBytes)
-			.decoder(SConsumeHandworkItemPacket::new)
-			.consumer(SConsumeHandworkItemPacket::handle)
-			.add();
+				.encoder(SConsumeHandworkItemPacket::toBytes)
+				.decoder(SConsumeHandworkItemPacket::new)
+				.consumer(SConsumeHandworkItemPacket::handle)
+				.add();
+		
 		INSTANCE.messageBuilder(SCrucibleTankUpdatePacket.class, nextID())
-			.encoder(SCrucibleTankUpdatePacket::toBytes)
-			.decoder(SCrucibleTankUpdatePacket::new)
-			.consumer(SCrucibleTankUpdatePacket::handle)
-			.add();
+				.encoder(SCrucibleTankUpdatePacket::toBytes)
+				.decoder(SCrucibleTankUpdatePacket::new)
+				.consumer(SCrucibleTankUpdatePacket::handle)
+				.add();
+		
 		INSTANCE.messageBuilder(MoldCapsUpdatePacket.class, nextID())
-			.encoder(MoldCapsUpdatePacket::toBytes)
-			.decoder(MoldCapsUpdatePacket::new)
-			.consumer(MoldCapsUpdatePacket::handle)
-			.add();
+				.encoder(MoldCapsUpdatePacket::toBytes)
+				.decoder(MoldCapsUpdatePacket::new)
+				.consumer(MoldCapsUpdatePacket::handle)
+				.add();
+		
+		INSTANCE.messageBuilder(STankUpdatePacket.class, nextID())
+				.encoder(STankUpdatePacket::toBytes)
+				.decoder(STankUpdatePacket::new)
+				.consumer(STankUpdatePacket::handle)
+				.add();
 	}
 	
 	public static void sendToClient(Object packet, ServerPlayerEntity player) {

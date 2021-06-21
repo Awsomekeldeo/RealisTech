@@ -55,10 +55,10 @@ import net.minecraftforge.resource.VanillaResourceType;
 
 public final class CeramicMoldModel implements IModelGeometry<CeramicMoldModel> {
 	
-	private static final float NORTH_Z_INNER = 8.48f / 16f;
-	private static final float SOUTH_Z_INNER = 7.52f / 16f;
-	private static final float NORTH_Z_FLUID = 7.51f / 16f;
-	private static final float SOUTH_Z_FLUID = 8.49f / 16f;
+	private static final float NORTH_Z_INNER = 8.504f / 16f;
+	private static final float SOUTH_Z_INNER = 7.496f / 16f;
+	private static final float NORTH_Z_FLUID = 7.498f / 16f;
+	private static final float SOUTH_Z_FLUID = 8.502f / 16f;
 
 	@Nonnull
 	private final Fluid fluid;

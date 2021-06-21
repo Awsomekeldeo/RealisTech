@@ -23,6 +23,7 @@ import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidStack;
 
 public class Recipes extends RecipeProvider {
@@ -144,9 +145,11 @@ public class Recipes extends RecipeProvider {
 		
 		ShapedRecipeBuilder.shapedRecipe(Registration.KILN.get()).patternLine("###").patternLine("# #").patternLine("###").key('#', Registration.KILN_BRICK.get()).addCriterion("kiln_brick_obtained", InventoryChangeTrigger.Instance.forItems(Registration.KILN_BRICK.get())).build(consumer);
 		ShapedRecipeBuilder.shapedRecipe(Registration.WEAK_FURNACE.get()).patternLine("BBB").patternLine("BFB").patternLine("BBB").key('B', Registration.FIREBRICK.get()).key('F', Items.FURNACE).addCriterion("furnace_obtained", InventoryChangeTrigger.Instance.forItems(Items.FURNACE)).build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(Registration.FIREBOX.get()).patternLine("PPP").patternLine("B B").patternLine("BBB").key('P', Registration.COPPER_PLATE.get()).key('B', Registration.FIREBRICKS_ITEM.get()).addCriterion("firebrick_obtained", InventoryChangeTrigger.Instance.forItems(Registration.FIREBRICK.get())).build(consumer);
+		ShapedRecipeBuilder.shapedRecipe(Registration.FIREBOX.get()).patternLine("PPP").patternLine("B B").patternLine("BBB").key('P', ModTags.Items.COPPER_PLATE).key('B', Registration.FIREBRICKS_ITEM.get()).addCriterion("firebrick_obtained", InventoryChangeTrigger.Instance.forItems(Registration.FIREBRICK.get())).build(consumer);
 		ShapedRecipeBuilder.shapedRecipe(Registration.CRUCIBLE.get()).patternLine("# #").patternLine("# #").patternLine("###").key('#', Registration.FIREBRICK.get()).addCriterion("firebrick_obtained", InventoryChangeTrigger.Instance.forItems(Registration.FIREBRICK.get())).build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(Registration.STONE_ANVIL.get()).patternLine("###").patternLine(" # ").patternLine("SSS").key('#', Items.STONE).key('S', Items.SMOOTH_STONE).addCriterion("firebrick_obtained", InventoryChangeTrigger.Instance.forItems(Registration.FIREBRICK.get())).build(consumer);
+		ShapedRecipeBuilder.shapedRecipe(Registration.STONE_ANVIL.get()).patternLine("###").patternLine(" # ").patternLine("SSS").key('#', Items.STONE).key('S', Items.SMOOTH_STONE).addCriterion("stone_obtained", InventoryChangeTrigger.Instance.forItems(Items.STONE)).build(consumer);
+		ShapedRecipeBuilder.shapedRecipe(Registration.BLOOMERY_CONTROLLER.get()).patternLine("###").patternLine("# #").patternLine("###").key('#', ModTags.Items.BRONZE_PLATE).addCriterion("bronze_obtained", InventoryChangeTrigger.Instance.forItems(Registration.BRONZE_INGOT.get())).build(consumer);
+		ShapedRecipeBuilder.shapedRecipe(Registration.BOILER.get()).patternLine("###").patternLine("# #").patternLine("###").key('#', ModTags.Items.IRON_PLATE).addCriterion("iron_obtained", InventoryChangeTrigger.Instance.forItems(Items.IRON_INGOT)).build(consumer);
 		
 		//Shapeless Recipes With a Catalyst
 		
@@ -200,5 +203,6 @@ public class Recipes extends RecipeProvider {
 		AnvilRecipeBuilder.anvilRecipe(Ingredient.fromTag(ModTags.Items.COBALT_INGOT), Ingredient.fromTag(ModTags.Items.COBALT_INGOT), Registration.COBALT_PLATE.get()).build(consumer, "anvil/", true);
 		AnvilRecipeBuilder.anvilRecipe(Ingredient.fromTag(ModTags.Items.ZINC_INGOT), Ingredient.fromTag(ModTags.Items.ZINC_INGOT), Registration.ZINC_PLATE.get()).build(consumer, "anvil/", true);
 		AnvilRecipeBuilder.anvilRecipe(Ingredient.fromItems(Registration.IRON_BLOOM.get()), Ingredient.EMPTY, Items.IRON_INGOT).build(consumer, "anvil/", true);
+		AnvilRecipeBuilder.anvilRecipe(Ingredient.fromTag(Tags.Items.INGOTS_IRON), Ingredient.fromTag(Tags.Items.INGOTS_IRON), Registration.WROUGHT_IRON_PLATE.get()).build(consumer, "anvil/", true);
 	}
 }

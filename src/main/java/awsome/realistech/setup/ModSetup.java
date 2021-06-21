@@ -134,6 +134,7 @@ public class ModSetup {
 				Registration.COBALT_PLATE.get(),
 				Registration.ZINC_PLATE.get(),
 				Registration.BRONZE_PLATE.get(),
+				Registration.WROUGHT_IRON_PLATE.get(),
 				Registration.COPPER_CHUNK.get(),
 				Registration.COPPER_CLUSTER.get(),
 				Registration.TIN_CLUSTER.get(),
@@ -166,7 +167,8 @@ public class ModSetup {
 				Registration.WEAK_FURNACE_ITEM.get(),
 				Registration.STONE_ANVIL_ITEM.get(),
 				Registration.BLOOMERY_CONTROLLER_ITEM.get(),
-				Registration.BELLOWS_ITEM.get()
+				Registration.BELLOWS_ITEM.get(),
+				Registration.BOILER_ITEM.get()
 			});
 		}
 		if (group == REALISTECH_ORES) {
@@ -259,7 +261,8 @@ public class ModSetup {
 				Registration.FIREBRICK_STAIRS_ITEM.get(),
 				Registration.GOLDENROD_ITEM.get(),
 				Registration.KAOLINITE_LILY_ITEM.get(),
-				Registration.STICK_ITEMBLOCK.get()
+				Registration.STICK_ITEMBLOCK.get(),
+				Registration.COPPER_PIPE_ITEM.get()
 			});
 		}
 		return null;

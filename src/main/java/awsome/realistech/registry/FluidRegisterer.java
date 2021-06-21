@@ -3,6 +3,7 @@ package awsome.realistech.registry;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import awsome.realistech.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.block.material.Material;
@@ -12,11 +13,13 @@ import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Items;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fluids.ForgeFlowingFluid.Properties;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 /* Modified Version of TCon FluidDefferedRegisterer Class
  * This class and all nested classes are licensed seperately under the MIT liscense instead of the GNU-GPLv3 license.
@@ -34,10 +37,16 @@ import net.minecraftforge.registries.DeferredRegister;
 public class FluidRegisterer {
 
 	private static final Item.Properties BUCKET_PROPERTIES = new Item.Properties().group(ItemGroup.MISC).maxStackSize(1).containerItem(Items.BUCKET);
-	private final DeferredRegister<Block> blockRegistry = Registration.BLOCKS;
-	private final DeferredRegister<Item> itemRegistry = Registration.ITEMS;
-	private final DeferredRegister<Fluid> fluidRegistry = Registration.FLUIDS;
-
+	private final DeferredRegister<Block> blockRegistry = DeferredRegister.create(ForgeRegistries.BLOCKS, Reference.MODID);
+	private final DeferredRegister<Item> itemRegistry = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MODID);
+	private final DeferredRegister<Fluid> fluidRegistry = DeferredRegister.create(ForgeRegistries.FLUIDS, Reference.MODID);
+	
+	public void register(IEventBus bus) {
+		fluidRegistry.register(bus);
+		blockRegistry.register(bus);
+		itemRegistry.register(bus);
+	}
+	
 	public <I extends Fluid> RegistryObject<I> registerFluid(final String name, final Supplier<? extends I> sup) {
 		return fluidRegistry.register(name, sup);
 	}

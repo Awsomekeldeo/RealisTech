@@ -3,7 +3,9 @@
   "first_input": {
     "item": "realistech:iron_bloom"
   },
-  "second_input": [],
+  "second_input": {
+	"item": "minecraft:air"
+  },
   "result": {
     "item": "minecraft:iron_ingot"
   }

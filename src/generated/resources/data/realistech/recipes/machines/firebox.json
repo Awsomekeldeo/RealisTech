@@ -7,7 +7,7 @@
   ],
   "key": {
     "P": {
-      "item": "realistech:plates/copper_plate"
+      "tag": "forge:plates/copper"
     },
     "B": {
       "item": "realistech:firebricks"

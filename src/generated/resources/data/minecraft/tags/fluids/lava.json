@@ -10,6 +10,16 @@
     "realistech:molten_nickel",
     "realistech:molten_silver",
     "realistech:molten_tin",
-    "realistech:molten_zinc"
+    "realistech:molten_zinc",
+    "realistech:flowing_molten_bronze",
+    "realistech:flowing_molten_cobalt",
+    "realistech:flowing_molten_copper",
+    "realistech:flowing_molten_gold",
+    "realistech:flowing_molten_iron",
+    "realistech:flowing_molten_lead",
+    "realistech:flowing_molten_nickel",
+    "realistech:flowing_molten_silver",
+    "realistech:flowing_molten_tin",
+    "realistech:flowing_molten_zinc"
   ]
 }

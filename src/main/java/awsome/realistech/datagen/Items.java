@@ -23,6 +23,7 @@ public class Items extends ItemModelProvider {
 		withExistingParent("item/" + Registration.WEAK_FURNACE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/machines/weak_furnace"));
 		withExistingParent("item/" + Registration.BLOOMERY_CONTROLLER_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/machines/bloomery_controller"));
 		withExistingParent("item/" + Registration.BELLOWS_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/machines/bellows"));
+		withExistingParent("item/" + Registration.BOILER_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/machines/boiler"));
 		
 		//Ores
 		withExistingParent("item/" + Registration.COPPER_ORE_ITEM.get().getRegistryName().getPath(), new ResourceLocation(Reference.MODID, "block/ores/copper_ore"));
@@ -127,6 +128,7 @@ public class Items extends ItemModelProvider {
 		singleTexture("item/" + Registration.COBALT_PLATE.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/plates/cobalt"));
 		singleTexture("item/" + Registration.ZINC_PLATE.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/plates/zinc"));
 		singleTexture("item/" + Registration.BRONZE_PLATE.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/plates/bronze"));
+		singleTexture("item/" + Registration.WROUGHT_IRON_PLATE.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/plates/wrought_iron"));
 		
 		//Unfired Molds
 		singleTexture("item/" + Registration.UNFIRED_CERAMIC_AXE_MOLD.get().getRegistryName().getPath(), new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Reference.MODID, "items/ceramic_molds/unfired/axe_mold"));
